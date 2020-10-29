@@ -1,0 +1,46 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "SteamBridge",
+	"Description": "A UE4 implementation of the Steamworks API.",
+	"Category": "Other",
+	"CreatedBy": "Russ 'trdwll' Treadwell",
+	"CreatedByURL": "https://trdwll.com",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "SteamBridge",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Linux"
+			]
+		},
+		{
+			"Name": "SteamBridgeCore",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Linux"
+			]
+		},
+		{
+			"Name": "SteamBridgeWeb",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Linux"
+			]
+		}
+	]
+}
