@@ -184,7 +184,7 @@ void USteamUser::OnClientGameServerDeny(ClientGameServerDeny_t* pParam)
 
 void USteamUser::OnDurationControl(DurationControl_t* pParam)
 {
-	m_OnDurationControl.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_appid, pParam->m_bApplicable, pParam->m_csecsLast5h, (ESteamDurationControlProgress)pParam->m_progress,
+	m_OnDurationControl.Broadcast((ESteamResult)pParam->m_eResult, (int32)pParam->m_appid, pParam->m_bApplicable, pParam->m_csecsLast5h, (ESteamDurationControlProgress)pParam->m_progress,
 		(ESteamDurationControlNotification)pParam->m_notification);
 }
 

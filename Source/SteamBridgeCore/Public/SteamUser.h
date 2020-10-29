@@ -11,7 +11,7 @@
 #include "SteamUser.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnClientGameServerDenyDelegate, int32, AppID, FString, GameServerIP, int32, GameServerPort, bool, bSecure, ESteamDenyReason, Reason);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnDurationControlDelegate, ESteamResult, Result, FSteamAppID, AppId, bool, bApplicable, int32, csecsLast5h, ESteamDurationControlProgress, Progress, ESteamDurationControlNotification, Notification);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnDurationControlDelegate, ESteamResult, Result, int32, AppId, bool, bApplicable, int32, csecsLast5h, ESteamDurationControlProgress, Progress, ESteamDurationControlNotification, Notification);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEncryptedAppTicketResponseDelegate, ESteamResult, Result);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameWebCallbackDelegate, FString, URL);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGetAuthSessionTicketResponseDelegate, FHAuthTicket, AuthTicket, ESteamResult, Result);
@@ -151,7 +151,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
 	void EndAuthSession(const FSteamID& SteamID);
 
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
 	/**
 	 * Retrieve a authentication ticket to be sent to the entity who wishes to authenticate you.
 	 * After calling this you can send the ticket to the entity where they can then call BeginAuthSession/ISteamGameServer::BeginAuthSession to verify this entities integrity.
@@ -164,6 +163,7 @@ public:
 	 *
 	 * Triggers a GetAuthSessionTicketResponse_t callback.
      */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
 	FHAuthTicket GetAuthSessionTicket(TArray<uint8>& Ticket);
 
 	/**
@@ -317,43 +317,44 @@ public:
 	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID steamID, int32 appID);
 
 	/** Delegates */
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnClientGameServerDeny"))
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnClientGameServerDeny"))
 	FOnClientGameServerDenyDelegate m_OnClientGameServerDeny;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnDurationControl"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnDurationControl"))
 	FOnDurationControlDelegate m_OnDurationControl;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnEncryptedAppTicketResponse"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnEncryptedAppTicketResponse"))
 	FOnEncryptedAppTicketResponseDelegate m_OnEncryptedAppTicketResponse;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnGameWebCallback"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnGameWebCallback"))
 	FOnGameWebCallbackDelegate m_OnGameWeb;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnGetAuthSessionTicketResponse"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnGetAuthSessionTicketResponse"))
 	FOnGetAuthSessionTicketResponseDelegate m_OnGetAuthSessionTicketResponse;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnIPCFailure"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnIPCFailure"))
 	FOnIPCFailureDelegate m_IPCFailure;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnLicensesUpdated"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnLicensesUpdated"))
 	FOnLicensesUpdatedDelegate m_OnLicensesUpdated;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnMicroTxnAuthorizationResponse"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnMicroTxnAuthorizationResponse"))
 	FOnMicroTxnAuthorizationResponseDelegate m_OnMicroTxnAuthorizationResponse;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnSteamServerConnectFailure"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnSteamServerConnectFailure"))
 	FOnSteamServerConnectFailureDelegate m_OnSteamServerConnectFailure;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnSteamServersConnected"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnSteamServersConnected"))
 	FOnSteamServersConnectedDelegate m_OnSteamServersConnected;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnSteamServersDisconnected"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnSteamServersDisconnected"))
 	FOnSteamServersDisconnectedDelegate m_OnSteamServersDisconnected;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnStoreAuthURLResponse"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnStoreAuthURLResponse"))
 	FOnStoreAuthURLResponseDelegate m_OnStoreAuthURLResponse;
 
-	UPROPERTY(BlueprintAssignable, Category = "Steam|USteamUser", meta = (DisplayName = "OnValidateAuthTicketResponse"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnValidateAuthTicketResponse"))
 	FOnValidateAuthTicketResponseDelegate m_OnValidateAuthTicketResponse;
 
 protected:
