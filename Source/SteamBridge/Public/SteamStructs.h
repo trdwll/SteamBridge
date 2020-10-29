@@ -21,21 +21,6 @@ struct STEAMBRIDGE_API FSteamID
 	FSteamID(const FString& InSteamID) : Value(FCString::Strtoui64(*InSteamID, NULL, 10)) {}
 };
 
-
-USTRUCT(BlueprintType)
-struct STEAMBRIDGE_API FSteamAppID
-{
-	GENERATED_BODY()
-
-	uint32 Value;
-
-	operator uint32() const { return Value; }
-
-	FSteamAppID() : Value(0) {}
-	FSteamAppID(uint32 InSteamID) : Value(InSteamID) {}
-};
-
-
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FHAuthTicket
 {
