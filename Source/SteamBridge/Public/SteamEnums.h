@@ -334,3 +334,40 @@ enum class ESteamFriendRelationship : uint8
 	IgnoredFriend = 6			UMETA(DisplayName = "IgnoredFriend"),
 	Max = 8						UMETA(DisplayName = "Max")
 };
+
+UENUM(BlueprintType)
+enum class ESteamAvatarSize : uint8
+{
+	Small		UMETA(DisplayName = "Small (32*32)"),
+	Medium		UMETA(DisplayName = "Medium (64*64)"),
+	Large		UMETA(DisplayName = "Large (128*128)")
+};
+
+UENUM(BlueprintType)
+enum class ESteamUserRestrictions : uint8
+{
+	Unknown = 0										UMETA(DisplayName = "Unknown"),
+	AnyChat = 1										UMETA(DisplayName = "AnyChat"),
+	VoiceChat = 2									UMETA(DisplayName = "VoiceChat"),
+	GroupChat = 3									UMETA(DisplayName = "GroupChat"),
+	Rating = 4										UMETA(DisplayName = "Rating"),
+	GameInvites = 5									UMETA(DisplayName = "GameInvites"),
+	Trading = 6										UMETA(DisplayName = "Trading")
+};
+
+UENUM(BlueprintType)
+enum class ESteamChatRoomEnterResponse : uint8
+{
+	Unknown = 0										UMETA(DisplayName = "Unknown"),
+	Success = 1										UMETA(DisplayName = "Success"),
+	DoesntExist = 2									UMETA(DisplayName = "DoesntExist"),
+	NotAllowed = 3									UMETA(DisplayName = "NotAllowed"),
+	Full = 4										UMETA(DisplayName = "Full"),
+	Error = 5										UMETA(DisplayName = "Error"),
+	Banned = 6										UMETA(DisplayName = "Banned"),
+	Limited = 7										UMETA(DisplayName = "Limited"),
+	ClanDisabled = 8								UMETA(DisplayName = "ClanDisabled"),
+	CommunityBan = 9								UMETA(DisplayName = "CommunityBan"),
+	MemberBlockedYou = 10							UMETA(DisplayName = "MemberBlockedYou"),
+	YouBlockedMember = 11							UMETA(DisplayName = "YouBlockedMember")
+};
