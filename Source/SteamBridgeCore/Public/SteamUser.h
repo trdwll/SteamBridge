@@ -45,13 +45,13 @@ public:
      *
      * When you are using Steam authentication system this call is never required, the auth system automatically sets the appropriate rich presence.
      *
-     * @param const FSteamID & SteamID
+     * @param FSteamID SteamID
      * @param const FString & IP
      * @param int32 Port
      * @return void
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void AdvertiseGame(const FSteamID& SteamID, const FString& IP, int32 Port);
+	void AdvertiseGame(FSteamID SteamID, const FString& IP, int32 Port);
 
 	/**
 	 * Authenticate the ticket from the entity Steam ID to be sure it is valid and isn't reused.
@@ -60,13 +60,13 @@ public:
      * When the multiplayer session terminates you must call EndAuthSession.
      *
      * @param TArray<uint8> Ticket
-     * @param const FSteamID & SteamID
+     * @param FSteamID SteamID
      * @return ESteamBeginAuthSessionResult
      *
      * Triggers a ValidateAuthTicketResponse_t callback.
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> Ticket, const FSteamID& SteamID);
+	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> Ticket, FSteamID SteamID);
 
 	/**
 	 * Checks if the current users looks like they are behind a NAT device.
@@ -145,11 +145,11 @@ public:
 	/**
      * Ends an auth session that was started with BeginAuthSession. This should be called when no longer playing with the specified entity.
      *
-     * @param const FSteamID & SteamID
+     * @param FSteamID SteamID
      * @return void
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void EndAuthSession(const FSteamID& SteamID);
+	void EndAuthSession(FSteamID SteamID);
 
 	/**
 	 * Retrieve a authentication ticket to be sent to the entity who wishes to authenticate you.

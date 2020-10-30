@@ -19,7 +19,7 @@ USteamApps::~USteamApps()
 	OnNewUrlLaunchParametersCallback.Unregister();
 }
 
-bool USteamApps::BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, FString& Name, int32 NameMaxLength)
+bool USteamApps::BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, FString& Name)
 {
 	if (DLC > GetDLCCount())
 	{
@@ -28,7 +28,7 @@ bool USteamApps::BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, F
 
 	uint32 Temp = 0;
 	TArray<char> TempStr;
-	bool bResult = SteamApps()->BGetDLCDataByIndex(DLC, &Temp, &bAvailable, TempStr.GetData(), NameMaxLength);
+	bool bResult = SteamApps()->BGetDLCDataByIndex(DLC, &Temp, &bAvailable, TempStr.GetData(), MAX_int32);
 	AppID = Temp;
 	Name = UTF8_TO_TCHAR(TempStr.GetData());
 	return bResult;

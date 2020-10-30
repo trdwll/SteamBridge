@@ -38,14 +38,14 @@ USteamUser::~USteamUser()
 	OnValidateAuthTicketResponseCallback.Unregister();
 }
 
-void USteamUser::AdvertiseGame(const FSteamID& SteamID, const FString& IP, int32 Port)
+void USteamUser::AdvertiseGame(FSteamID SteamID, const FString& IP, int32 Port)
 {
 	uint32 TmpIP;
 	USteamBridgeUtils::ConvertIPStringToUint32(IP, TmpIP);
 	SteamUser()->AdvertiseGame(SteamID.Value, TmpIP, FMath::Clamp<uint16>(Port, 0, 65535));
 }
 
-ESteamBeginAuthSessionResult USteamUser::BeginAuthSession(TArray<uint8> Ticket, const FSteamID& SteamID)
+ESteamBeginAuthSessionResult USteamUser::BeginAuthSession(TArray<uint8> Ticket, FSteamID SteamID)
 {
 	return (ESteamBeginAuthSessionResult)SteamUser()->BeginAuthSession(Ticket.GetData(), Ticket.Num(), SteamID.Value);
 }
@@ -76,7 +76,7 @@ ESteamVoiceResult USteamUser::DecompressVoice(TArray<uint8> CompressedBuffer, TA
 	return result;
 }
 
-void USteamUser::EndAuthSession(const FSteamID& SteamID)
+void USteamUser::EndAuthSession(FSteamID SteamID)
 {
 	SteamUser()->EndAuthSession(SteamID.Value);
 }

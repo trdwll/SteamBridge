@@ -59,3 +59,16 @@ struct STEAMBRIDGE_API FHSteamUser
 	FHSteamUser() : Value(0) {}
 	FHSteamUser(uint32 InValue) : Value(InValue) {}
 };
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamFriendsGroupID
+{
+	GENERATED_BODY()
+
+	int16 Value;
+
+	operator int16() const { return Value; }
+
+	FSteamFriendsGroupID() : Value(0) {}
+	FSteamFriendsGroupID(int16 InValue) : Value(InValue) {}
+};

@@ -6,6 +6,32 @@
 #include "SteamEnums.generated.h"
 
 UENUM(BlueprintType)
+enum class ESteamGameOverlayTypes : uint8
+{
+	Friends,
+	Community,
+	Players,
+	Settings,
+	OfficialGameGroup,
+	Stats,
+	Achievements
+};
+
+UENUM(BlueprintType)
+enum class ESteamGameUserOverlayTypes : uint8
+{
+	SteamID,
+	Chat,
+	JoinTrade,
+	Stats,
+	Achievements,
+	FriendAdd,
+	FriendRemove,
+	FriendRequestAccept,
+	FriendRequestIgnore
+};
+
+UENUM(BlueprintType)
 enum class ESteamBeginAuthSessionResult : uint8
 {
 	OK = 0											UMETA(DisplayName = "OK"),
@@ -236,4 +262,75 @@ enum class ESteamDurationControlProgress : uint8
 	ExitSoon_3h = 3,		// allowed 3h time since 5h gap/break has elapsed, game should exit - steam will terminate the game soon
 	ExitSoon_5h = 4,		// allowed 5h time in calendar day has elapsed, game should exit - steam will terminate the game soon
 	ExitSoon_Night = 5	// game running after day period, game should exit - steam will terminate the game soon
+};
+
+UENUM(BlueprintType)
+enum class ESteamOverlayToStoreFlag : uint8
+{
+	None = 0,
+	AddToCart = 1,
+	AddToCartAndShow = 2
+};
+
+UENUM(BlueprintType)
+enum class ESteamChatEntryType : uint8
+{
+	Invalid = 0										UMETA(DisplayName = "Invalid"),
+	ChatMessage = 1									UMETA(DisplayName = "ChatMessage"),
+	Typing = 2										UMETA(DisplayName = "Typing"),
+	InviteGame = 3									UMETA(DisplayName = "InviteGame"),
+	Emote = 4										UMETA(DisplayName = "Emote"),
+	LeftConversation = 6							UMETA(DisplayName = "LeftConversation"),
+	Entered = 7										UMETA(DisplayName = "Entered"),
+	WasKicked = 8									UMETA(DisplayName = "WasKicked"),
+	WasBanned = 9									UMETA(DisplayName = "WasBanned"),
+	Disconnected = 10								UMETA(DisplayName = "Disconnected"),
+	HistoricalChat = 11								UMETA(DisplayName = "HistoricalChat"),
+	LinkBlocked = 14								UMETA(DisplayName = "LinkBlocked")
+};
+
+UENUM(BlueprintType)
+enum class ESteamFriendFlags : uint8
+{
+	Blocked = 0					UMETA(DisplayName = "Blocked"),
+	FriendshipRequested = 1		UMETA(DisplayName = "FriendshipRequested"),
+	Immediate = 2				UMETA(DisplayName = "Immediate"),
+	ClanMember = 3				UMETA(DisplayName = "ClanMember"),
+	OnGameServer = 4			UMETA(DisplayName = "OnGameServer"),
+	HasPlayedWith = 5			UMETA(DisplayName = "HasPlayedWith"),
+	FriendOfFriend = 6			UMETA(DisplayName = "FriendOfFriend"),
+	RequestingFriendship = 7	UMETA(DisplayName = "RequestingFriendship"),
+	RequestingInfo = 8			UMETA(DisplayName = "RequestingInfo"),
+	Ignored = 9					UMETA(DisplayName = "Ignored"),
+	IgnoredFriend = 10			UMETA(DisplayName = "IgnoredFriend"),
+	Suggested = 11				UMETA(DisplayName = "Suggested"),
+	ChatMember = 12				UMETA(DisplayName = "ChatMember"),
+	All = 13					UMETA(DisplayName = "All")
+};
+
+UENUM(BlueprintType)
+enum class ESteamPersonaState : uint8
+{
+	Offline = 0					UMETA(DisplayName = "Offline"),
+	Online = 1					UMETA(DisplayName = "Online"),
+	Busy = 2					UMETA(DisplayName = "Busy"),
+	Away = 3					UMETA(DisplayName = "Away"),
+	Snooze = 4					UMETA(DisplayName = "Snooze"),
+	LookingToTrade = 5			UMETA(DisplayName = "LookingToTrade"),
+	LookingToPlay = 6			UMETA(DisplayName = "LookingToPlay"),
+	Max							UMETA(DisplayName = "Max")
+};
+
+
+UENUM(BlueprintType)
+enum class ESteamFriendRelationship : uint8
+{
+	None = 0					UMETA(DisplayName = "None"),
+	Blocked = 1					UMETA(DisplayName = "Blocked"),
+	RequestRecipient = 2		UMETA(DisplayName = "RequestRecipient"),
+	Friend = 3					UMETA(DisplayName = "Friend"),
+	RequestInitiator = 4		UMETA(DisplayName = "RequestInitiator"),
+	Ignored = 5					UMETA(DisplayName = "Ignored"),
+	IgnoredFriend = 6			UMETA(DisplayName = "IgnoredFriend"),
+	Max = 8						UMETA(DisplayName = "Max")
 };

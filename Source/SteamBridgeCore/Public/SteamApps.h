@@ -36,11 +36,10 @@ public:
 	 * @param int32 & AppID
 	 * @param bool & bAvailable
 	 * @param FString & Name
-	 * @param int32 NameMaxLength
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	bool BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, FString& Name, int32 NameMaxLength);
+	bool BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, FString& Name);
 
 	/**
 	 * Checks if a specific app is installed.
@@ -217,7 +216,7 @@ public:
 	 * @return int32
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	int32 GetInstalledDepots(int32 AppID, TArray<int32>& Depots, int32 MaxDepots) { return SteamApps()->GetInstalledDepots(AppID, (DepotId_t*)Depots.GetData(), MaxDepots); }
+	int32 GetInstalledDepots(int32 AppID, TArray<int32>& Depots, int32 MaxDepots = 1) { return SteamApps()->GetInstalledDepots(AppID, (DepotId_t*)Depots.GetData(), MaxDepots); }
 
 	/**
 	 * Gets the command line if the game was launched via Steam URL, e.g. steam://run/<appid>//<command line>/. This method is preferable to launching with a command line via the operating system, -
