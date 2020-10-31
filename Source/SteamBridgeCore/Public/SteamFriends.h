@@ -113,8 +113,21 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
 	bool CloseClanChatWindowInSteam(FSteamID SteamIDClanChat) const { return SteamFriends()->CloseClanChatWindowInSteam(SteamIDClanChat.Value); }
 
-	// TODO: FSteamAPICall DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, int32 ClansToRequest = 1);
-	// TODO: FSteamAPICall EnumerateFollowingList();
+	/**
+	 * Refresh the Steam Group activity data or get the data from groups other than one that the current user is a member.
+	 * After receiving the callback you can then use GetClanActivityCounts to get the up to date user counts.
+	 *
+	 * @param TArray<FSteamID> & SteamClanIDs
+	 * @param int32 ClansToRequest
+	 * @return FSteamAPICall
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
+	FSteamAPICall DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, int32 ClansToRequest = 1) const;
+
+	#if 0
+UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
+	FSteamAPICall EnumerateFollowingList() const { return SteamFriends()->EnumerateFollowingList(0); }
+#endif // 0
 
 	/**
 	 * Gets the Steam ID at the given index in a Steam group chat.
@@ -620,7 +633,7 @@ public:
 	 * @return FSteamAPICall
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamAPICall JoinClanChatRoom(FSteamID SteamIDClan);
+	FSteamAPICall JoinClanChatRoom(FSteamID SteamIDClan) const { return SteamFriends()->JoinClanChatRoom(SteamIDClan.Value); }
 
 	/**
 	 * Leaves a Steam group chat that the user has previously entered with JoinClanChatRoom.

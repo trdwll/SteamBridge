@@ -60,6 +60,20 @@ void USteamFriends::ActivateGameOverlayToUser(const ESteamGameUserOverlayTypes O
 	SteamFriends()->ActivateGameOverlayToUser(TCHAR_TO_ANSI(*Str), SteamID.Value);
 }
 
+FSteamAPICall USteamFriends::DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, int32 ClansToRequest) const
+{
+	TArray<CSteamID> TmpArray;
+	uint64 res = SteamFriends()->DownloadClanActivityCounts(TmpArray.GetData(), ClansToRequest);
+
+	for (int32 i = 0; i < ClansToRequest; i++)
+	{
+		SteamClanIDs.Add(TmpArray[i].ConvertToUint64());
+	}
+
+	return res;
+}
+
+
 int32 USteamFriends::GetClanChatMessage(FSteamID SteamIDClanChat, int32 MessageID, FString& Message, ESteamChatEntryType& ChatEntryType, FSteamID& SteamIDChatter)
 {
 	EChatEntryType TmpEntryType;
@@ -225,11 +239,6 @@ bool USteamFriends::HasFriend(FSteamID SteamIDFriend, const TArray<ESteamFriendF
 	return SteamFriends()->HasFriend(SteamIDFriend.Value, flags);
 }
 
-FSteamAPICall USteamFriends::JoinClanChatRoom(FSteamID SteamIDClan)
-{
-	return 0;
-}
-
 void USteamFriends::OnAvatarImageLoaded(AvatarImageLoaded_t* pParam)
 {
 	m_OnAvatarImageLoaded.Broadcast(pParam->m_steamID.ConvertToUint64(), pParam->m_iImage, pParam->m_iWide, pParam->m_iTall);
@@ -252,6 +261,7 @@ void USteamFriends::OnFriendRichPresenceUpdate(FriendRichPresenceUpdate_t* pPara
 
 void USteamFriends::OnFriendsEnumerateFollowingList(FriendsEnumerateFollowingList_t* pParam)
 {
+#if 0
 	TArray<FSteamID> TmpArray;
 
 	for (int32 i = 0; i < pParam->m_nResultsReturned; i++)
@@ -260,6 +270,7 @@ void USteamFriends::OnFriendsEnumerateFollowingList(FriendsEnumerateFollowingLis
 	}
 
 	m_OnFriendsEnumerateFollowingList.Broadcast((ESteamResult)pParam->m_eResult, TmpArray, pParam->m_nResultsReturned, pParam->m_nTotalResultCount);
+#endif // 0
 }
 
 void USteamFriends::OnFriendsGetFollowerCount(FriendsGetFollowerCount_t* pParam)
