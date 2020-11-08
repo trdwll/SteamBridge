@@ -2,3 +2,5 @@
 #pragma once
 
 #include "ThirdParty/Steamworks/Steamv147/sdk/public/steam/steam_api.h"
+#include "ThirdParty/Steamworks/Steamv147/sdk/public/steam/steam_gameserver.h"
+

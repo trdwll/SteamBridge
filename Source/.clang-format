@@ -11,7 +11,9 @@ AlignEscapedNewlines:                           Right
 AlignTrailingComments:                          true
 AllowShortCaseLabelsOnASingleLine:              true
 AllowShortIfStatementsOnASingleLine:            Always
-AllowShortFunctionsOnASingleLine:               InlineOnly
+AllowShortFunctionsOnASingleLine:               Inline
+AllowShortLoopsOnASingleLine :                  true
+BitFieldColonSpacing:                           Both
 BreakConstructorInitializers:                   AfterColon
 BreakBeforeBraces:                              Allman
 ColumnLimit:                                    0
