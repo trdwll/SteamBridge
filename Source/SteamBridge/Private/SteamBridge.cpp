@@ -19,6 +19,9 @@ void FSteamBridgeModule::ShutdownModule()
 {
 	if (UObjectInitialized())
 	{
+		SteamAPI_Shutdown();
+		SteamGameServer_Shutdown();
+
 		UnregisterSettings();
 	}
 }
@@ -26,6 +29,7 @@ void FSteamBridgeModule::ShutdownModule()
 bool FSteamBridgeModule::Tick(float DeltaTime)
 {
 	SteamAPI_RunCallbacks();
+	SteamGameServer_RunCallbacks();
 
 	return true;
 }

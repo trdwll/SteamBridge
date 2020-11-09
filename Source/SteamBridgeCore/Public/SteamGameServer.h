@@ -10,6 +10,15 @@
 
 #include "SteamGameServer.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAssociateWithClanResultDelegate, ESteamResult, Result);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnComputeNewPlayerCompatibilityResultDelegate, ESteamResult, Result, int32, PlayersThatDontLikeCandidate, int32, PlayersThatDoesntLikeCandidate,
+	int32, ClanPlayersThatDontLikeCandidate, FSteamID, SteamIDCandidate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGSClientApproveDelegate, FSteamID, SteamID, FSteamID, OwnerSteamID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnGSClientDenyDelegate, FSteamID, SteamID, ESteamDenyReason, DenyReason, FString, OptionalText);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnGSClientGroupStatusDelegate, FSteamID, SteamIDUser, FSteamID, SteamIDGroup, bool, bMember, bool, bOfficer);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGSClientKickDelegate, FSteamID, SteamID, ESteamDenyReason, DenyReason);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGSPolicyResponseDelegate, bool, bSecure);
+
 /**
  * Provides the core of the Steam Game Servers API.
  * https://partner.steamgames.com/doc/api/ISteamGameServer
@@ -350,6 +359,35 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServer")
 	bool WasRestartRequested() const { return SteamGameServer()->WasRestartRequested(); }
 
+	/** Delegates */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnAssociateWithClanResult"))
+	FOnAssociateWithClanResultDelegate m_OnAssociateWithClanResult;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnComputeNewPlayerCompatibilityResult"))
+	FOnComputeNewPlayerCompatibilityResultDelegate m_OnComputeNewPlayerCompatibilityResult;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientApprove"))
+	FOnGSClientApproveDelegate m_OnGSClientApprove;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientDeny"))
+	FOnGSClientDenyDelegate m_OnGSClientDeny;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientGroupStatus"))
+	FOnGSClientGroupStatusDelegate m_OnGSClientGroupStatus;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientKick"))
+	FOnGSClientKickDelegate m_OnGSClientKick;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSPolicyResponse"))
+	FOnGSPolicyResponseDelegate m_OnGSPolicyResponse;
+
 protected:
 private:
+	STEAM_GAMESERVER_CALLBACK_MANUAL(USteamGameServer, OnAssociateWithClanResult, AssociateWithClanResult_t, OnAssociateWithClanResultCallback);
+	STEAM_GAMESERVER_CALLBACK_MANUAL(USteamGameServer, OnComputeNewPlayerCompatibilityResult, ComputeNewPlayerCompatibilityResult_t, OnComputeNewPlayerCompatibilityResultCallback);
+	STEAM_GAMESERVER_CALLBACK_MANUAL(USteamGameServer, OnGSClientApprove, GSClientApprove_t, OnGSClientApproveCallback);
+	STEAM_GAMESERVER_CALLBACK_MANUAL(USteamGameServer, OnGSClientDeny, GSClientDeny_t, OnGSClientDenyCallback);
+	STEAM_GAMESERVER_CALLBACK_MANUAL(USteamGameServer, OnGSClientGroupStatus, GSClientGroupStatus_t, OnGSClientGroupStatusCallback);
+	STEAM_GAMESERVER_CALLBACK_MANUAL(USteamGameServer, OnGSClientKick, GSClientKick_t, OnGSClientKickCallback);
+	STEAM_GAMESERVER_CALLBACK_MANUAL(USteamGameServer, OnGSPolicyResponse, GSPolicyResponse_t, OnGSPolicyResponseCallback);
 };
