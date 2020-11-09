@@ -27,7 +27,7 @@ public:
 	USteamGameServerStats();
 	~USteamGameServerStats();
 
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "Steam Game Server", CompactNodeTitle = "SteamGameServerStats"))
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "Steam Game Server Stats", CompactNodeTitle = "SteamGameServerStats"))
 	static USteamGameServerStats* GetGameServerStats() { return USteamGameServerStats::StaticClass()->GetDefaultObject<USteamGameServerStats>(); }
 
 	/**
