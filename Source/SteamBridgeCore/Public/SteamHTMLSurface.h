@@ -10,6 +10,29 @@
 
 #include "SteamHTMLSurface.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLBrowserReadyDelegate, int32, BrowserHandle);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLCanGoBackAndForwardDelegate, int32, BrowserHandle, bool, bCanGoBack, bool, bCanGoForward);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLChangedTitleDelegate, int32, BrowserHandle, FString, Title);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLCloseBrowserDelegate, int32, BrowserHandle);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLFileOpenDialogDelegate, int32, BrowserHandle, FString, Title, FString, InitialFileName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLFinishedRequestDelegate, int32, BrowserHandle, FString, URL, FString, PageTitle);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLHideToolTipDelegate, int32, BrowserHandle);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLHorizontalScrollDelegate, int32, BrowserHandle, int32, ScrollMax, int32, ScrollCurrent, float, PageScale, bool, bVisible, int32, PageSize);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLJSAlertDelegate, int32, BrowserHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLJSConfirmDelegate, int32, BrowserHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHTMLLinkAtPositionDelegate, int32, BrowserHandle, FString, URL, bool, bInput, bool, bLiveLink);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_EightParams(FOnHTMLNeedsPaintDelegate, int32, BrowserHandle, FString, BGRA, FIntPoint, Size, FIntPoint, Update, FIntPoint, UpdateSize, FIntPoint, ScrollPosition, float, PageScale, int32, PageSerial);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHTMLNewWindowDelegate, int32, BrowserHandle, FString, URL, FIntPoint, Position, FIntPoint, Size);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLOpenLinkInNewTabDelegate, int32, BrowserHandle, FString, URL);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLSearchResultsDelegate, int32, BrowserHandle, int32, Results, int32, CurrentMatch);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLSetCursorDelegate, int32, BrowserHandle, ESteamMouseCursor, MouseCursor);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLShowToolTipDelegate, int32, BrowserHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHTMLStartRequestDelegate, int32, BrowserHandle, FString, URL, FString, Target, FString, PostData, bool, bIsRedirect);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLStatusTextDelegate, int32, BrowerHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLUpdateToolTipDelegate, int32, BrowserHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLURLChangedDelegate, int32, BrowserHandle, FString, URL, FString, PostData, bool, bIsRedirect, FString, PageTitle, bool, bNewNavigation);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLVerticalScrollDelegate, int32, BrowserHandle, int32, ScrollMax, int32, ScrollCurrent, float, PageScale, bool, bVisible, int32, PageSize);
+
 /**
  * Interface for rendering and interacting with HTML pages.
  * You can use this interface to render and display HTML pages directly inside your game or application. You must call Init prior to using this interface, and Shutdown when you're done using it.
@@ -375,6 +398,95 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
 	void ViewSource(int32 BrowserHandle) { SteamHTMLSurface()->ViewSource(BrowserHandle); }
 
+	/** Delegates */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLBrowserReady"))
+	FOnHTMLBrowserReadyDelegate m_OnHTMLBrowserReady;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLCanGoBackAndForward"))
+	FOnHTMLCanGoBackAndForwardDelegate m_OnHTMLCanGoBackAndForward;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLChangedTitle"))
+	FOnHTMLChangedTitleDelegate m_OnHTMLChangedTitle;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLCloseBrowser"))
+	FOnHTMLCloseBrowserDelegate m_OnHTMLCloseBrowser;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLFileOpenDialog"))
+	FOnHTMLFileOpenDialogDelegate m_OnHTMLFileOpenDialog;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLFinishedRequest"))
+	FOnHTMLFinishedRequestDelegate m_OnHTMLFinishedRequest;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLHideToolTip"))
+	FOnHTMLHideToolTipDelegate m_OnHTMLHideToolTip;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLHorizontalScroll"))
+	FOnHTMLHorizontalScrollDelegate m_OnHTMLHorizontalScroll;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLJSAlert"))
+	FOnHTMLJSAlertDelegate m_OnHTMLJSAlert;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLJSConfirm"))
+	FOnHTMLJSConfirmDelegate m_OnHTMLJSConfirm;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLLinkAtPosition"))
+	FOnHTMLLinkAtPositionDelegate m_OnHTMLLinkAtPosition;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLNeedsPaint"))
+	FOnHTMLNeedsPaintDelegate m_OnHTMLNeedsPaint;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLNewWindow"))
+	FOnHTMLNewWindowDelegate m_OnHTMLNewWindow;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLOpenLinkInNewTab"))
+	FOnHTMLOpenLinkInNewTabDelegate m_OnHTMLOpenLinkInNewTab;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLSearchResults"))
+	FOnHTMLSearchResultsDelegate m_OnHTMLSearchResults;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLSetCursor"))
+	FOnHTMLSetCursorDelegate m_OnHTMLSetCursor;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLShowToolTip"))
+	FOnHTMLShowToolTipDelegate m_OnHTMLShowToolTip;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLStartRequest"))
+	FOnHTMLStartRequestDelegate m_OnHTMLStartRequest;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLStatusText"))
+	FOnHTMLStatusTextDelegate m_OnHTMLStatusText;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLUpdateToolTip"))
+	FOnHTMLUpdateToolTipDelegate m_OnHTMLUpdateToolTip;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLURLChanged"))
+	FOnHTMLURLChangedDelegate m_OnHTMLURLChanged;
+
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLVerticalScroll"))
+	FOnHTMLVerticalScrollDelegate m_OnHTMLVerticalScroll;
+
 protected:
 private:
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLBrowserReady, HTML_BrowserReady_t, OnHTMLBrowserReadyCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLCanGoBackAndForward, HTML_CanGoBackAndForward_t, OnHTMLCanGoBackAndForwardCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLChangedTitle, HTML_ChangedTitle_t, OnHTMLChangedTitleCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLCloseBrowser, HTML_CloseBrowser_t, OnHTMLCloseBrowserCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLFileOpenDialog, HTML_FileOpenDialog_t, OnHTMLFileOpenDialogCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLFinishedRequest, HTML_FinishedRequest_t, OnHTMLFinishedRequestCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLHideToolTip, HTML_HideToolTip_t, OnHTMLHideToolTipCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLHorizontalScroll, HTML_HorizontalScroll_t, OnHTMLHorizontalScrollCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLJSAlert, HTML_JSAlert_t, OnHTMLJSAlertCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLJSConfirm, HTML_JSConfirm_t, OnHTMLJSConfirmCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLLinkAtPosition, HTML_LinkAtPosition_t, OnHTMLLinkAtPositionCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLNeedsPaint, HTML_NeedsPaint_t, OnHTMLNeedsPaintCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLNewWindow, HTML_NewWindow_t, OnHTMLNewWindowCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLOpenLinkInNewTab, HTML_OpenLinkInNewTab_t, OnHTMLOpenLinkInNewTabCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLSearchResults, HTML_SearchResults_t, OnHTMLSearchResultsCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLSetCursor, HTML_SetCursor_t, OnHTMLSetCursorCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLShowToolTip, HTML_ShowToolTip_t, OnHTMLShowToolTipCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLStartRequest, HTML_StartRequest_t, OnHTMLStartRequestCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLStatusText, HTML_StatusText_t, OnHTMLStatusTextCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLUpdateToolTip, HTML_UpdateToolTip_t, OnHTMLUpdateToolTipCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLURLChanged, HTML_URLChanged_t, OnHTMLURLChangedCallback);
+	STEAM_CALLBACK_MANUAL(USteamHTMLSurface, OnHTMLVerticalScroll, HTML_VerticalScroll_t, OnHTMLVerticalScrollCallback);
 };
