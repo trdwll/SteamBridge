@@ -73,7 +73,6 @@ FSteamAPICall USteamFriends::DownloadClanActivityCounts(TArray<FSteamID>& SteamC
 	return res;
 }
 
-
 int32 USteamFriends::GetClanChatMessage(FSteamID SteamIDClanChat, int32 MessageID, FString& Message, ESteamChatEntryType& ChatEntryType, FSteamID& SteamIDChatter)
 {
 	EChatEntryType TmpEntryType;
@@ -270,7 +269,7 @@ void USteamFriends::OnFriendsEnumerateFollowingList(FriendsEnumerateFollowingLis
 	}
 
 	m_OnFriendsEnumerateFollowingList.Broadcast((ESteamResult)pParam->m_eResult, TmpArray, pParam->m_nResultsReturned, pParam->m_nTotalResultCount);
-#endif // 0
+#endif  // 0
 }
 
 void USteamFriends::OnFriendsGetFollowerCount(FriendsGetFollowerCount_t* pParam)
