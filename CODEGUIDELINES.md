@@ -6,7 +6,7 @@ These guidelines are a WIP so feel free to contribute to it if you want. I'm awa
 - Tabs with 4 spaces
 - {} on new lines
 - If lines length are > 220 then break to another line
-- Classes are to be prefixed with like the other classes in the project
+- Classes/Enums/Structs are to be prefixed with like the others in the project
 - No spacing between () or [] etc for example `if ( cond )` or `[ 0 ]`
 - Where there are private/protected variables make a Getter/Setter where it makes sense
 - Class specifiers are to be in the order of `public`, `protected`, `private`
@@ -17,6 +17,8 @@ These guidelines are a WIP so feel free to contribute to it if you want. I'm awa
 - Inline where it makes sense `FORCEINLINE`
 - When checking if a pointer is null actually write nullptr `if (ptr != nullptr)`
 - In foreach use `auto` if the type is long such as `TPair`
+- Pointers/References are to be left (`Ptr* ptr`)
+- When using `const` it's to be used like `const bool` or `const Ptr* const` or `Ptr* const`
 
 
 ### Code example
