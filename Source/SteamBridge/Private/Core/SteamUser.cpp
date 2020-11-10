@@ -1,6 +1,6 @@
 // Copyright 2020 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 
-#include "SteamUser.h"
+#include "Core/SteamUser.h"
 
 #include "SteamBridgeUtils.h"
 
@@ -162,19 +162,15 @@ void USteamUser::StopVoiceRecording()
 	SteamUser()->StopVoiceRecording();
 }
 
-void USteamUser::TerminateGameConnection(int32 unIPServer, int32 usPortServer)
+void USteamUser::TerminateGameConnection(int32 IPServer, int32 PortServer)
 {
-	SteamUser()->TerminateGameConnection(unIPServer, usPortServer);
+	SteamUser()->TerminateGameConnection(IPServer, PortServer);
 }
 
 ESteamUserHasLicenseForAppResult USteamUser::UserHasLicenseForApp(FSteamID steamID, int32 appID)
 {
 	return (ESteamUserHasLicenseForAppResult)SteamUser()->UserHasLicenseForApp(steamID.Value, appID);
 }
-
-//
-// Utility methods (methods that don't exist in the Steamworks API, but are useful for UE4)
-//
 
 void USteamUser::OnClientGameServerDeny(ClientGameServerDeny_t* pParam)
 {

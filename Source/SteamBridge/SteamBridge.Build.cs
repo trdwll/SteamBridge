@@ -7,8 +7,8 @@ public class SteamBridge : ModuleRules
 	public SteamBridge(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-		
-		PrivateDependencyModuleNames.AddRange(new string[] 
+
+		PrivateDependencyModuleNames.AddRange(new string[]
         {
             "Core",
             "CoreUObject",
@@ -19,5 +19,6 @@ public class SteamBridge : ModuleRules
         });
 
         AddEngineThirdPartyPrivateStaticDependencies(Target, "Steamworks");
+
     }
 }

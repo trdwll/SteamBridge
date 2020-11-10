@@ -36,7 +36,7 @@ class UTexture2D;
  * https://partner.steamgames.com/doc/api/ISteamFriends
  */
 UCLASS()
-class STEAMBRIDGECORE_API USteamFriends final : public UObject
+class STEAMBRIDGE_API USteamFriends final : public UObject
 {
 	GENERATED_BODY()
 

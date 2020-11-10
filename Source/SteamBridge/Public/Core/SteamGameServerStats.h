@@ -19,7 +19,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGSStatsUnloadedDelegate, FSteamID
  * https://partner.steamgames.com/doc/api/ISteamGameServerStatsStats
  */
 UCLASS()
-class STEAMBRIDGECORE_API USteamGameServerStats final : public UObject
+class STEAMBRIDGE_API USteamGameServerStats final : public UObject
 {
 	GENERATED_BODY()
 

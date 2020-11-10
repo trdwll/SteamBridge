@@ -40,7 +40,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLVerticalScrollDelegate, int3
  * https://partner.steamgames.com/doc/api/ISteamHTMLSurface
  */
 UCLASS()
-class STEAMBRIDGECORE_API USteamHTMLSurface final : public UObject
+class STEAMBRIDGE_API USteamHTMLSurface final : public UObject
 {
 	GENERATED_BODY()
 

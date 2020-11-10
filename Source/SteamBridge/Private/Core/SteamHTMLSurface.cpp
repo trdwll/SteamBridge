@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "SteamHTMLSurface.h"
+#include "Core/SteamHTMLSurface.h"
 
 #include "SteamBridgeUtils.h"
 

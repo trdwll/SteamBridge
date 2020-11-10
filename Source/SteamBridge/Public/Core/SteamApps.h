@@ -18,7 +18,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNewUrlLaunchParametersDelegate);
  * https://partner.steamgames.com/doc/api/ISteamApps
  */
 UCLASS()
-class STEAMBRIDGECORE_API USteamApps final : public UObject
+class STEAMBRIDGE_API USteamApps final : public UObject
 {
 	GENERATED_BODY()
 

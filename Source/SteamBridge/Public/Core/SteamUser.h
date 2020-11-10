@@ -29,7 +29,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnValidateAuthTicketResponseDele
  * https://partner.steamgames.com/doc/api/ISteamUser
  */
 UCLASS()
-class STEAMBRIDGECORE_API USteamUser final : public UObject
+class STEAMBRIDGE_API USteamUser final : public UObject
 {
 	GENERATED_BODY()
 
@@ -298,12 +298,12 @@ public:
 	 * Notify the game server that we are disconnecting.
 	 * This needs to occur when the game client leaves the specified game server, needs to match with the InitiateGameConnection call.
 	 *
-	 * @param int32 unIPServer
-	 * @param int32 usPortServer
+	 * @param int32 IPServer
+	 * @param int32 PortServer
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void TerminateGameConnection(int32 unIPServer, int32 usPortServer);
+	void TerminateGameConnection(int32 IPServer, int32 PortServer);
 
 	/**
 	 * Checks if the user owns a specific piece of Downloadable Content (DLC).

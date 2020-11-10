@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "SteamGameServerStats.h"
+#include "Core/SteamGameServerStats.h"
 
 #include "SteamBridgeUtils.h"
 

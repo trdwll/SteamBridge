@@ -20,4 +20,6 @@ private:
 	bool HandleSettingsSaved();
 	void RegisterSettings();
 	void UnregisterSettings();
+
+	void* m_SteamLibSDKHandle;
 };

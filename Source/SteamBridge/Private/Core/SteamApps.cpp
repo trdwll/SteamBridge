@@ -2,15 +2,15 @@
 
 #pragma once
 
-#include "SteamApps.h"
+#include "Core/SteamApps.h"
 
 #include "SteamBridgeUtils.h"
 
 USteamApps::USteamApps()
 {
-	OnDlcInstalledCallback.Register(this, &USteamApps::OnDlcInstalled);
-	OnFileDetailsResultCallback.Register(this, &USteamApps::OnFileDetailsResult);
-	OnNewUrlLaunchParametersCallback.Register(this, &USteamApps::OnNewUrlLaunchParameters);
+	//OnDlcInstalledCallback.Register(this, &USteamApps::OnDlcInstalled);
+	//OnFileDetailsResultCallback.Register(this, &USteamApps::OnFileDetailsResult);
+	//OnNewUrlLaunchParametersCallback.Register(this, &USteamApps::OnNewUrlLaunchParameters);
 }
 
 USteamApps::~USteamApps()

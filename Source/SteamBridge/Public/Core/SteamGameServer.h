@@ -24,7 +24,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGSPolicyResponseDelegate, bool, b
  * https://partner.steamgames.com/doc/api/ISteamGameServer
  */
 UCLASS()
-class STEAMBRIDGECORE_API USteamGameServer final : public UObject
+class STEAMBRIDGE_API USteamGameServer final : public UObject
 {
 	GENERATED_BODY()
 

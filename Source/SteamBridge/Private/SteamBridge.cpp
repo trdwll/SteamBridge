@@ -7,12 +7,34 @@
 #include "Developer/Settings/Public/ISettingsSection.h"
 #include "Steam.h"
 #include "SteamBridgeSettings.h"
+#include "HAL/FileManager.h"
+#include "HAL/PlatformProcess.h"
+#include "Modules/ModuleManager.h"
+#include "Interfaces/IPluginManager.h"
 
 #define LOCTEXT_NAMESPACE "FSteamBridgeModule"
-
+#define SDK_VER TEXT("Steamv147")
 void FSteamBridgeModule::StartupModule()
 {
 	RegisterSettings();
+
+	FString SteamDir = FPaths::EngineDir() / TEXT("Binaries/ThirdParty/Steamworks") / SDK_VER;
+	FString SDKPath = "";
+
+	bool bIs64Bit = false;
+#if PLATFORM_64BITS
+	bIs64Bit = true;
+#endif
+
+#if PLATFORM_WINDOWS
+	SteamDir = FString::Printf(TEXT("%s/%s"), *SteamDir, bIs64Bit ? *FString("Win64/") : *FString("Win32/"));
+	SDKPath = FPaths::Combine(*SteamDir, FString::Printf(TEXT("steam_api%s.dll"), bIs64Bit ? *FString("64") : *FString("")));
+	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKPath));
+#elif PLATFORM_LINUX
+	SteamDir = FString::Printf(TEXT("%s/%s"), *SteamDir, bIs64Bit ? *FString("x86_64-unknown-linux-gnu/") : *FString("i686-unknown-linux-gnu/"));
+	SDKPath = FPaths::Combine(*SteamDir, "libsteam_api.so");
+	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKPath));
+#endif
 }
 
 void FSteamBridgeModule::ShutdownModule()
@@ -23,6 +45,11 @@ void FSteamBridgeModule::ShutdownModule()
 		SteamGameServer_Shutdown();
 
 		UnregisterSettings();
+
+		if (m_SteamLibSDKHandle != nullptr)
+		{
+			FPlatformProcess::FreeDllHandle(m_SteamLibSDKHandle);
+		}
 	}
 }
 
