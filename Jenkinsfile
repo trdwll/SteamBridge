@@ -2,7 +2,7 @@ pipeline {
   agent {
     node {
       label 'Windows'
-      customWorkspace 'SteamBridge/Plugins/testrepo'
+      customWorkspace 'SteamBridge/Plugins/SteamBridge'
     }
 
   }
