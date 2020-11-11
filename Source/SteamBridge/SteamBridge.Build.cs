@@ -7,18 +7,21 @@ public class SteamBridge : ModuleRules
 	public SteamBridge(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-        PrecompileForTargets = PrecompileTargetsType.Any;
 
-        PrivateDependencyModuleNames.AddRange(new string[]
+		PrivateDependencyModuleNames.AddRange(new string[]
         {
             "Core",
             "CoreUObject",
             "Engine",
             "Projects",
-            "Settings",
             "Steamworks"
         });
 
         AddEngineThirdPartyPrivateStaticDependencies(Target, "Steamworks");
+
+        if (Target.Type == TargetRules.TargetType.Editor)
+        {
+            PrivateDependencyModuleNames.AddRange(new string[] { "Settings" });
+        }
     }
 }
