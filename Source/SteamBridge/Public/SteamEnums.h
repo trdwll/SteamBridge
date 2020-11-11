@@ -435,3 +435,17 @@ enum class ESteamMouseCursor : uint8
 	dc_custom = 40,
 	dc_last = 41
 };
+
+
+UENUM(BlueprintType)
+enum class ESteamHTTPMethod : uint8
+{
+	Invalid = 0,
+	GET = 1,
+	HEAD = 2,
+	POST = 3,
+	PUT = 4,
+	DELETE = 5,
+	OPTIONS = 6,
+	PATCH = 7
+};
