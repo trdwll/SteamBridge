@@ -7,7 +7,7 @@ public class SteamBridge : ModuleRules
 	public SteamBridge(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-        PrecompileForTargets = PrecompileTargetsType.Any
+        PrecompileForTargets = PrecompileTargetsType.Any;
 
         PrivateDependencyModuleNames.AddRange(new string[]
         {
