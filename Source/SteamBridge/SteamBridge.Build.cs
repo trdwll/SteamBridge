@@ -14,11 +14,14 @@ public class SteamBridge : ModuleRules
             "CoreUObject",
             "Engine",
             "Projects",
-            "Settings",
             "Steamworks"
         });
 
         AddEngineThirdPartyPrivateStaticDependencies(Target, "Steamworks");
 
+        if (Target.Type == TargetRules.TargetType.Editor)
+        {
+            PrivateDependencyModuleNames.AddRange(new string[] { "Settings" });
+        }
     }
 }

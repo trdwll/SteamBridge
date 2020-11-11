@@ -5,12 +5,13 @@
 #include "Developer/Settings/Public/ISettingsContainer.h"
 #include "Developer/Settings/Public/ISettingsModule.h"
 #include "Developer/Settings/Public/ISettingsSection.h"
-#include "Steam.h"
-#include "SteamBridgeSettings.h"
 #include "HAL/FileManager.h"
 #include "HAL/PlatformProcess.h"
-#include "Modules/ModuleManager.h"
 #include "Interfaces/IPluginManager.h"
+#include "Misc/Paths.h"
+#include "Modules/ModuleManager.h"
+#include "Steam.h"
+#include "SteamBridgeSettings.h"
 
 #define LOCTEXT_NAMESPACE "FSteamBridgeModule"
 #define SDK_VER TEXT("Steamv147")

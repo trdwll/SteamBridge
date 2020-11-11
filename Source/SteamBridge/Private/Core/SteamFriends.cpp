@@ -2,6 +2,7 @@
 
 #include "Core/SteamFriends.h"
 
+#include "Engine/Texture2D.h"
 #include "Steam.h"
 
 USteamFriends::USteamFriends()
@@ -168,7 +169,7 @@ void USteamFriends::GetFriendsGroupMembersList(FSteamFriendsGroupID FriendsGroup
 
 UTexture2D* USteamFriends::GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarSize AvatarSize) const
 {
-	int32 Avatar;
+	int32 Avatar = 0;
 	switch (AvatarSize)
 	{
 	case ESteamAvatarSize::Small:
@@ -182,7 +183,7 @@ UTexture2D* USteamFriends::GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarS
 		break;
 	}
 
-	uint32 Width, Height;
+	uint32 Width = 0, Height = 0;
 	SteamUtils()->GetImageSize(Avatar, &Width, &Height);
 	if (Width > 0 && Height > 0)
 	{
