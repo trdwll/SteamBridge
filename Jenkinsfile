@@ -5,7 +5,7 @@ pipeline {
   agent {
     node {
       label 'Windows'
-      customWorkspace 'SteamBridge'
+      customWorkspace 'SteamBridge/SteamBridge'
     }
 
   }
