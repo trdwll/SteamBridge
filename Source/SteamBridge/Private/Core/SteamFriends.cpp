@@ -2,6 +2,7 @@
 
 #include "Core/SteamFriends.h"
 
+#include "Engine/Texture2D.h"
 #include "Steam.h"
 
 USteamFriends::USteamFriends()
