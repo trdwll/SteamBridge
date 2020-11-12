@@ -33,7 +33,7 @@ public:
 	~USteamGameServer();
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "Steam Game Server", CompactNodeTitle = "SteamGameServer"))
-	static USteamGameServer* GetGameServer() { return USteamGameServer::StaticClass()->GetDefaultObject<USteamGameServer>(); }
+	static USteamGameServer* GetSteamGameServer() { return USteamGameServer::StaticClass()->GetDefaultObject<USteamGameServer>(); }
 
 	/**
 	 * Associate this game server with this clan for the purposes of computing player compatibility.

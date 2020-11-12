@@ -28,7 +28,7 @@ public:
 	~USteamGameServerStats();
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "Steam Game Server Stats", CompactNodeTitle = "SteamGameServerStats"))
-	static USteamGameServerStats* GetGameServerStats() { return USteamGameServerStats::StaticClass()->GetDefaultObject<USteamGameServerStats>(); }
+	static USteamGameServerStats* GetSteamGameServerStats() { return USteamGameServerStats::StaticClass()->GetDefaultObject<USteamGameServerStats>(); }
 
 	/**
 	 * Resets the unlock status of an achievement for the specified user.

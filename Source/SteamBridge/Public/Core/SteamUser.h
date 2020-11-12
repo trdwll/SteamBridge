@@ -38,7 +38,7 @@ public:
 	~USteamUser();
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User", meta = (DisplayName = "Steam User", CompactNodeTitle = "SteamUser"))
-	static USteamUser* GetUser() { return USteamUser::StaticClass()->GetDefaultObject<USteamUser>(); }
+	static USteamUser* GetSteamUser() { return USteamUser::StaticClass()->GetDefaultObject<USteamUser>(); }
 
 	/**
 	 * Set the rich presence data for an unsecured game server that the user is playing on. This allows friends to be able to view the game info and join your game.

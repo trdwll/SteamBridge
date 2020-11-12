@@ -45,7 +45,7 @@ public:
 	~USteamFriends();
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "Steam Friends", CompactNodeTitle = "SteamFriends"))
-	static USteamFriends* GetFriends() { return USteamFriends::StaticClass()->GetDefaultObject<USteamFriends>(); }
+	static USteamFriends* GetSteamFriends() { return USteamFriends::StaticClass()->GetDefaultObject<USteamFriends>(); }
 
 	/**
 	 * Activates the Steam Overlay to a specific dialog.

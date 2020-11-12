@@ -49,7 +49,7 @@ public:
 	~USteamHTMLSurface();
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|HTMLSurface", meta = (DisplayName = "Steam HTML Surface", CompactNodeTitle = "SteamHTMLSurface"))
-	static USteamHTMLSurface* GetHTMLSurface() { return USteamHTMLSurface::StaticClass()->GetDefaultObject<USteamHTMLSurface>(); }
+	static USteamHTMLSurface* GetSteamHTMLSurface() { return USteamHTMLSurface::StaticClass()->GetDefaultObject<USteamHTMLSurface>(); }
 
 	/**
 	 * Add a header to any HTTP requests from this browser.

@@ -27,7 +27,7 @@ public:
 	~USteamApps();
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps", meta = (DisplayName = "Steam Apps", CompactNodeTitle = "SteamApps"))
-	static USteamApps* GetApps() { return USteamApps::StaticClass()->GetDefaultObject<USteamApps>(); }
+	static USteamApps* GetSteamApps() { return USteamApps::StaticClass()->GetDefaultObject<USteamApps>(); }
 
 	/**
 	 * Returns metadata for a DLC by index.
