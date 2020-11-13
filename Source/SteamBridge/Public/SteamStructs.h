@@ -6,6 +6,7 @@
 #include "SteamStructs.generated.h"
 
 enum class ESteamPersonaChange : uint8;
+enum class ESteamControllerSourceMode : uint8;
 
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FSteamID
@@ -71,4 +72,43 @@ struct STEAMBRIDGE_API FSteamFriendsGroupID
 
 	FSteamFriendsGroupID() : Value(0) {}
 	FSteamFriendsGroupID(int16 InValue) : Value(InValue) {}
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamInputAnalogActionData
+{
+	GENERATED_BODY()
+
+	ESteamControllerSourceMode Mode;
+	float X;
+	float Y;
+	bool bActive;
+
+	FSteamInputAnalogActionData() {}
+	FSteamInputAnalogActionData(ESteamControllerSourceMode mode, float x, float y, bool bactive) : Mode(mode), X(x), Y(y), bActive(bactive) {}
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamInputDigitalActionData
+{
+	GENERATED_BODY()
+
+	bool bState;
+	bool bActive;
+
+	FSteamInputDigitalActionData() {}
+	FSteamInputDigitalActionData(bool bstate, bool bactive) : bState(bstate), bActive(bactive) {}
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamInputMotionData
+{
+	GENERATED_BODY()
+
+	FQuat RotQuat;
+	FVector PosAccel;
+	FVector RotVel;
+
+	FSteamInputMotionData() {}
+	FSteamInputMotionData(const FQuat& quat, const FVector& pos, const FVector& rotvel) : RotQuat(quat), PosAccel(pos), RotVel(rotvel) {}
 };
