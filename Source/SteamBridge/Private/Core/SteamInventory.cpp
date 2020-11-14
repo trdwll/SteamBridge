@@ -24,3 +24,11 @@ bool USteamInventory::AddPromoItems(int32& ResultHandle, const TArray<int32>& It
 
 	return SteamInventory()->AddPromoItems(&ResultHandle, Tmp.GetData(), Tmp.Num());
 }
+
+bool USteamInventory::GetItemPrice(int32 ItemDef, int64& CurrentPrice, int64& BasePrice) const
+{
+	uint64 TmpCurrent = 0, TmpBase = 0;
+	CurrentPrice = TmpCurrent;
+	BasePrice = TmpBase;
+	return SteamInventory()->GetItemPrice(ItemDef, &TmpCurrent, &TmpBase);
+}
