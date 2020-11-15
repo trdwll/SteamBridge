@@ -66,7 +66,7 @@ public:
      * Triggers a ValidateAuthTicketResponse_t callback.
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> Ticket, FSteamID SteamID);
+	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> Ticket, FSteamID SteamID) { return (ESteamBeginAuthSessionResult)SteamUser()->BeginAuthSession(Ticket.GetData(), Ticket.Num(), SteamID.Value); }
 
 	/**
 	 * Checks if the current users looks like they are behind a NAT device.
@@ -128,7 +128,7 @@ public:
      * @return void
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void CancelAuthTicket(FHAuthTicket AuthTicket);
+	void CancelAuthTicket(FHAuthTicket AuthTicket) { SteamUser()->CancelAuthTicket(AuthTicket); }
 
 	/**
      * Decodes the compressed voice data returned by GetVoice.
@@ -149,7 +149,7 @@ public:
      * @return void
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void EndAuthSession(FSteamID SteamID);
+	void EndAuthSession(FSteamID SteamID) { SteamUser()->EndAuthSession(SteamID.Value); }
 
 	/**
 	 * Retrieve a authentication ticket to be sent to the entity who wishes to authenticate you.
@@ -174,7 +174,7 @@ public:
      * @return ESteamVoiceResult
      */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	ESteamVoiceResult GetAvailableVoice(int32& CompressedSize);
+	ESteamVoiceResult GetAvailableVoice(int32& CompressedSize) { return (ESteamVoiceResult)SteamUser()->GetAvailableVoice((uint32*)&CompressedSize); }
 
 	/**
 	 * Retrieves anti indulgence / duration control for current user / game combination.
@@ -182,7 +182,7 @@ public:
 	 * @return FSteamAPICall
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	FSteamAPICall GetDurationControl();
+	FSteamAPICall GetDurationControl() { return (FSteamAPICall)SteamUser()->GetDurationControl(); }
 
 	/**
 	 * Retrieve an encrypted ticket.
@@ -205,7 +205,7 @@ public:
 	 * @return int32
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	int32 GetGameBadgeLevel(int32 nSeries, bool bFoil);
+	int32 GetGameBadgeLevel(int32 nSeries, bool bFoil) { return SteamUser()->GetGameBadgeLevel(nSeries, bFoil); }
 
 	/**
 	 * Gets Steam user handle that this interface represents.
@@ -214,7 +214,7 @@ public:
 	 * @return FHSteamUser
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	FHSteamUser GetHSteamUser();
+	FHSteamUser GetHSteamUser() { return (FHSteamUser)SteamUser()->GetHSteamUser(); }
 
 	/**
 	 * Gets the Steam level of the user, as shown on their Steam community profile.
@@ -222,7 +222,7 @@ public:
 	 * @return int32
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	int32 GetPlayerSteamLevel();
+	int32 GetPlayerSteamLevel() { return SteamUser()->GetPlayerSteamLevel(); }
 
 	/**
 	 * Gets the Steam ID of the account currently logged into the Steam client. This is commonly called the 'current user', or 'local user'.
@@ -231,7 +231,7 @@ public:
 	 * @return FSteamID
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	FSteamID GetSteamID();
+	FSteamID GetSteamID() { return SteamUser()->GetSteamID().ConvertToUint64(); }
 
 	/**
 	 * Read captured audio data from the microphone buffer.
@@ -257,7 +257,7 @@ public:
 	 * @return int32
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	int32 GetVoiceOptimalSampleRate();
+	int32 GetVoiceOptimalSampleRate() { return (uint32)SteamUser()->GetVoiceOptimalSampleRate(); }
 
 	/**
 	 * This starts the state machine for authenticating the game client with the game server.
@@ -282,7 +282,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void StartVoiceRecording();
+	void StartVoiceRecording() { SteamUser()->StartVoiceRecording(); }
 
 	/**
 	 * Stops voice recording.
@@ -292,7 +292,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void StopVoiceRecording();
+	void StopVoiceRecording() { SteamUser()->StopVoiceRecording(); }
 
 	/**
 	 * Notify the game server that we are disconnecting.
@@ -303,7 +303,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void TerminateGameConnection(int32 IPServer, int32 PortServer);
+	void TerminateGameConnection(int32 IPServer, int32 PortServer) { SteamUser()->TerminateGameConnection(IPServer, PortServer); }
 
 	/**
 	 * Checks if the user owns a specific piece of Downloadable Content (DLC).
@@ -314,7 +314,7 @@ public:
 	 * @return ESteamUserHasLicenseForAppResult
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID steamID, int32 appID);
+	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID steamID, int32 appID) { return (ESteamUserHasLicenseForAppResult)SteamUser()->UserHasLicenseForApp(steamID.Value, appID); }
 
 	/** Delegates */
 

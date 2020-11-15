@@ -45,16 +45,6 @@ void USteamUser::AdvertiseGame(FSteamID SteamID, const FString& IP, int32 Port)
 	SteamUser()->AdvertiseGame(SteamID.Value, TmpIP, FMath::Clamp<uint16>(Port, 0, 65535));
 }
 
-ESteamBeginAuthSessionResult USteamUser::BeginAuthSession(TArray<uint8> Ticket, FSteamID SteamID)
-{
-	return (ESteamBeginAuthSessionResult)SteamUser()->BeginAuthSession(Ticket.GetData(), Ticket.Num(), SteamID.Value);
-}
-
-void USteamUser::CancelAuthTicket(FHAuthTicket AuthTicket)
-{
-	SteamUser()->CancelAuthTicket(AuthTicket);
-}
-
 ESteamVoiceResult USteamUser::DecompressVoice(TArray<uint8> CompressedBuffer, TArray<uint8>& UncompressedBuffer)
 {
 	ESteamVoiceResult result = ESteamVoiceResult::NotInitialized;
@@ -76,11 +66,6 @@ ESteamVoiceResult USteamUser::DecompressVoice(TArray<uint8> CompressedBuffer, TA
 	return result;
 }
 
-void USteamUser::EndAuthSession(FSteamID SteamID)
-{
-	SteamUser()->EndAuthSession(SteamID.Value);
-}
-
 FHAuthTicket USteamUser::GetAuthSessionTicket(TArray<uint8>& Ticket)
 {
 	Ticket.SetNum(m_buffer);
@@ -90,16 +75,6 @@ FHAuthTicket USteamUser::GetAuthSessionTicket(TArray<uint8>& Ticket)
 	return bResult;
 }
 
-ESteamVoiceResult USteamUser::GetAvailableVoice(int32& CompressedSize)
-{
-	return (ESteamVoiceResult)SteamUser()->GetAvailableVoice((uint32*)&CompressedSize);
-}
-
-FSteamAPICall USteamUser::GetDurationControl()
-{
-	return (FSteamAPICall)SteamUser()->GetDurationControl();
-}
-
 bool USteamUser::GetEncryptedAppTicket(TArray<uint8>& Ticket)
 {
 	uint32 TempCounter = 0;
@@ -107,26 +82,6 @@ bool USteamUser::GetEncryptedAppTicket(TArray<uint8>& Ticket)
 	bool bResult = SteamUser()->GetEncryptedAppTicket(Ticket.GetData(), m_buffer, &TempCounter);
 	Ticket.SetNum(TempCounter);
 	return bResult;
-}
-
-int32 USteamUser::GetGameBadgeLevel(int32 nSeries, bool bFoil)
-{
-	return SteamUser()->GetGameBadgeLevel(nSeries, bFoil);
-}
-
-FHSteamUser USteamUser::GetHSteamUser()
-{
-	return (FHSteamUser)SteamUser()->GetHSteamUser();
-}
-
-int32 USteamUser::GetPlayerSteamLevel()
-{
-	return SteamUser()->GetPlayerSteamLevel();
-}
-
-FSteamID USteamUser::GetSteamID()
-{
-	return SteamUser()->GetSteamID().ConvertToUint64();
 }
 
 ESteamVoiceResult USteamUser::GetVoice(TArray<uint8>& VoiceData)
@@ -142,34 +97,9 @@ ESteamVoiceResult USteamUser::GetVoice(TArray<uint8>& VoiceData)
 	return result;
 }
 
-int32 USteamUser::GetVoiceOptimalSampleRate()
-{
-	return (uint32)SteamUser()->GetVoiceOptimalSampleRate();
-}
-
 int32 USteamUser::InitiateGameConnection(TArray<uint8>& pAuthBlob, FSteamID steamIDGameServer, int32 unIPServer, int32 usPortServer, bool bSecure)
 {
 	return SteamUser()->InitiateGameConnection(pAuthBlob.GetData(), m_buffer, steamIDGameServer.Value, unIPServer, usPortServer, bSecure);
-}
-
-void USteamUser::StartVoiceRecording()
-{
-	SteamUser()->StartVoiceRecording();
-}
-
-void USteamUser::StopVoiceRecording()
-{
-	SteamUser()->StopVoiceRecording();
-}
-
-void USteamUser::TerminateGameConnection(int32 IPServer, int32 PortServer)
-{
-	SteamUser()->TerminateGameConnection(IPServer, PortServer);
-}
-
-ESteamUserHasLicenseForAppResult USteamUser::UserHasLicenseForApp(FSteamID steamID, int32 appID)
-{
-	return (ESteamUserHasLicenseForAppResult)SteamUser()->UserHasLicenseForApp(steamID.Value, appID);
 }
 
 void USteamUser::OnClientGameServerDeny(ClientGameServerDeny_t* pParam)
