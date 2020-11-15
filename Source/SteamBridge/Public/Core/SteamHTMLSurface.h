@@ -10,28 +10,28 @@
 
 #include "SteamHTMLSurface.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLBrowserReadyDelegate, int32, BrowserHandle);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLCanGoBackAndForwardDelegate, int32, BrowserHandle, bool, bCanGoBack, bool, bCanGoForward);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLChangedTitleDelegate, int32, BrowserHandle, FString, Title);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLCloseBrowserDelegate, int32, BrowserHandle);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLFileOpenDialogDelegate, int32, BrowserHandle, FString, Title, FString, InitialFileName);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLFinishedRequestDelegate, int32, BrowserHandle, FString, URL, FString, PageTitle);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLHideToolTipDelegate, int32, BrowserHandle);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLHorizontalScrollDelegate, int32, BrowserHandle, int32, ScrollMax, int32, ScrollCurrent, float, PageScale, bool, bVisible, int32, PageSize);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLJSAlertDelegate, int32, BrowserHandle, FString, Message);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLJSConfirmDelegate, int32, BrowserHandle, FString, Message);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHTMLLinkAtPositionDelegate, int32, BrowserHandle, FString, URL, bool, bInput, bool, bLiveLink);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_EightParams(FOnHTMLNeedsPaintDelegate, int32, BrowserHandle, FString, BGRA, FIntPoint, Size, FIntPoint, Update, FIntPoint, UpdateSize, FIntPoint, ScrollPosition, float, PageScale, int32, PageSerial);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHTMLNewWindowDelegate, int32, BrowserHandle, FString, URL, FIntPoint, Position, FIntPoint, Size);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLOpenLinkInNewTabDelegate, int32, BrowserHandle, FString, URL);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLSearchResultsDelegate, int32, BrowserHandle, int32, Results, int32, CurrentMatch);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLSetCursorDelegate, int32, BrowserHandle, ESteamMouseCursor, MouseCursor);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLShowToolTipDelegate, int32, BrowserHandle, FString, Message);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHTMLStartRequestDelegate, int32, BrowserHandle, FString, URL, FString, Target, FString, PostData, bool, bIsRedirect);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLStatusTextDelegate, int32, BrowerHandle, FString, Message);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLUpdateToolTipDelegate, int32, BrowserHandle, FString, Message);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLURLChangedDelegate, int32, BrowserHandle, FString, URL, FString, PostData, bool, bIsRedirect, FString, PageTitle, bool, bNewNavigation);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLVerticalScrollDelegate, int32, BrowserHandle, int32, ScrollMax, int32, ScrollCurrent, float, PageScale, bool, bVisible, int32, PageSize);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLBrowserReadyDelegate, FHHTMLBrowser, BrowserHandle);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLCanGoBackAndForwardDelegate, FHHTMLBrowser, BrowserHandle, bool, bCanGoBack, bool, bCanGoForward);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLChangedTitleDelegate, FHHTMLBrowser, BrowserHandle, FString, Title);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLCloseBrowserDelegate, FHHTMLBrowser, BrowserHandle);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLFileOpenDialogDelegate, FHHTMLBrowser, BrowserHandle, FString, Title, FString, InitialFileName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLFinishedRequestDelegate, FHHTMLBrowser, BrowserHandle, FString, URL, FString, PageTitle);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHTMLHideToolTipDelegate, FHHTMLBrowser, BrowserHandle);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLHorizontalScrollDelegate, FHHTMLBrowser, BrowserHandle, int32, ScrollMax, int32, ScrollCurrent, float, PageScale, bool, bVisible, int32, PageSize);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLJSAlertDelegate, FHHTMLBrowser, BrowserHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLJSConfirmDelegate, FHHTMLBrowser, BrowserHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHTMLLinkAtPositionDelegate, FHHTMLBrowser, BrowserHandle, FString, URL, bool, bInput, bool, bLiveLink);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_EightParams(FOnHTMLNeedsPaintDelegate, FHHTMLBrowser, BrowserHandle, FString, BGRA, FIntPoint, Size, FIntPoint, Update, FIntPoint, UpdateSize, FIntPoint, ScrollPosition, float, PageScale, int32, PageSerial);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHTMLNewWindowDelegate, FHHTMLBrowser, BrowserHandle, FString, URL, FIntPoint, Position, FIntPoint, Size);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLOpenLinkInNewTabDelegate, FHHTMLBrowser, BrowserHandle, FString, URL);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHTMLSearchResultsDelegate, FHHTMLBrowser, BrowserHandle, int32, Results, int32, CurrentMatch);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLSetCursorDelegate, FHHTMLBrowser, BrowserHandle, ESteamMouseCursor, MouseCursor);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLShowToolTipDelegate, FHHTMLBrowser, BrowserHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHTMLStartRequestDelegate, FHHTMLBrowser, BrowserHandle, FString, URL, FString, Target, FString, PostData, bool, bIsRedirect);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLStatusTextDelegate, FHHTMLBrowser, BrowerHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHTMLUpdateToolTipDelegate, FHHTMLBrowser, BrowserHandle, FString, Message);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLURLChangedDelegate, FHHTMLBrowser, BrowserHandle, FString, URL, FString, PostData, bool, bIsRedirect, FString, PageTitle, bool, bNewNavigation);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHTMLVerticalScrollDelegate, FHHTMLBrowser, BrowserHandle, int32, ScrollMax, int32, ScrollCurrent, float, PageScale, bool, bVisible, int32, PageSize);
 
 /**
  * Interface for rendering and interacting with HTML pages.
@@ -54,34 +54,34 @@ public:
 	/**
 	 * Add a header to any HTTP requests from this browser.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param const FString & Key
 	 * @param const FString & Value
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void AddHeader(int32 BrowserHandle, const FString& Key, const FString& Value) { SteamHTMLSurface()->AddHeader(BrowserHandle, TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
+	void AddHeader(FHHTMLBrowser BrowserHandle, const FString& Key, const FString& Value) { SteamHTMLSurface()->AddHeader(BrowserHandle, TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
 
 	/**
 	 * Sets whether a pending load is allowed or if it should be canceled.
 	 * NOTE:You MUST call this in response to a HTML_StartRequest_t callback.
 	 * You can use this feature to limit the valid pages allowed in your HTML surface.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param bool bAllowed
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void AllowStartRequest(int32 BrowserHandle, bool bAllowed) { SteamHTMLSurface()->AllowStartRequest(BrowserHandle, bAllowed); }
+	void AllowStartRequest(FHHTMLBrowser BrowserHandle, bool bAllowed) { SteamHTMLSurface()->AllowStartRequest(BrowserHandle, bAllowed); }
 
 	/**
 	 * Copy the currently selected text from the current page in an HTML surface into the local clipboard.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void CopyToClipboard(int32 BrowserHandle) { SteamHTMLSurface()->CopyToClipboard(BrowserHandle); }
+	void CopyToClipboard(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->CopyToClipboard(BrowserHandle); }
 
 	/**
 	 * Create a browser object for displaying of an HTML page.
@@ -104,43 +104,43 @@ public:
 	 * This is the equivalent of "ctrl+f" in your browser of choice. It will highlight all of the matching strings.
 	 * You should call StopFind when the input string has changed or you want to stop searching.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param const FString & SearchStr
 	 * @param bool bCurrentlyInFind
 	 * @param bool bReverse
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void Find(int32 BrowserHandle, const FString& SearchStr, bool bCurrentlyInFind, bool bReverse) { SteamHTMLSurface()->Find(BrowserHandle, TCHAR_TO_UTF8(*SearchStr), bCurrentlyInFind, bReverse); }
+	void Find(FHHTMLBrowser BrowserHandle, const FString& SearchStr, bool bCurrentlyInFind, bool bReverse) { SteamHTMLSurface()->Find(BrowserHandle, TCHAR_TO_UTF8(*SearchStr), bCurrentlyInFind, bReverse); }
 
 	/**
 	 * Retrieves details about a link at a specific position on the current page in an HTML surface.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param int32 x
 	 * @param int32 y
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void GetLinkAtPosition(int32 BrowserHandle, int32 x, int32 y) { SteamHTMLSurface()->GetLinkAtPosition(BrowserHandle, x, y); }
+	void GetLinkAtPosition(FHHTMLBrowser BrowserHandle, int32 x, int32 y) { SteamHTMLSurface()->GetLinkAtPosition(BrowserHandle, x, y); }
 
 	/**
 	 * Navigate back in the page history.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void GoBack(int32 BrowserHandle) { SteamHTMLSurface()->GoBack(BrowserHandle); }
+	void GoBack(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->GoBack(BrowserHandle); }
 
 	/**
 	 * Navigate forward in the page history
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void GoForward(int32 BrowserHandle) { SteamHTMLSurface()->GoForward(BrowserHandle); }
+	void GoForward(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->GoForward(BrowserHandle); }
 
 	/**
 	 * Initializes the HTML Surface API.
@@ -156,142 +156,142 @@ public:
 	 * Allows you to react to a page wanting to open a javascript modal dialog notification.
 	 * NOTE:You MUST call this in response to HTML_JSAlert_t and HTML_JSConfirm_t callbacks.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param bool bResult
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void JSDialogResponse(int32 BrowserHandle, bool bResult) { SteamHTMLSurface()->JSDialogResponse(BrowserHandle, bResult); }
+	void JSDialogResponse(FHHTMLBrowser BrowserHandle, bool bResult) { SteamHTMLSurface()->JSDialogResponse(BrowserHandle, bResult); }
 
 	/**
 	 * UnicodeChar is the unicode character point for this keypress (and potentially multiple chars per press)
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param int32 UnicodeChar
 	 * @param ESteamHTMLKeyModifiers HTMLKeyModifiers
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void KeyChar(int32 BrowserHandle, int32 UnicodeChar, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyChar(BrowserHandle, UnicodeChar, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
+	void KeyChar(FHHTMLBrowser BrowserHandle, int32 UnicodeChar, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyChar(BrowserHandle, UnicodeChar, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
 
 	/**
 	 * keyboard interactions, native keycode is the virtual key code value from your OS
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param int32 NativeKeyCode
 	 * @param ESteamHTMLKeyModifiers HTMLKeyModifiers
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void KeyDown(int32 BrowserHandle, int32 NativeKeyCode, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyDown(BrowserHandle, NativeKeyCode, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
+	void KeyDown(FHHTMLBrowser BrowserHandle, int32 NativeKeyCode, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyDown(BrowserHandle, NativeKeyCode, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
 
 	/**
 	 * Navigate to a specified URL.
 	 * If you send POST data with pchPostData then the data should be formatted as: name1=value1&name2=value2.
 	 * You can load any URI scheme supported by Chromium Embedded Framework including but not limited to: http://, https://, ftp://, and file:///. If no scheme is specified then http:// is used.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param const FString & URL
 	 * @param const FString & PostData
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void LoadURL(int32 BrowserHandle, const FString& URL, const FString& PostData) { SteamHTMLSurface()->LoadURL(BrowserHandle, TCHAR_TO_UTF8(*URL), TCHAR_TO_UTF8(*PostData)); }
+	void LoadURL(FHHTMLBrowser BrowserHandle, const FString& URL, const FString& PostData) { SteamHTMLSurface()->LoadURL(BrowserHandle, TCHAR_TO_UTF8(*URL), TCHAR_TO_UTF8(*PostData)); }
 
 	/**
 	 * Tells an HTML surface that a mouse button has been double clicked.
 	 * The click will occur where the surface thinks the mouse is based on the last call to MouseMove.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param ESteamHTMLMouseButton MouseButton
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseDoubleClick(int32 BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseDoubleClick(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
+	void MouseDoubleClick(FHHTMLBrowser BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseDoubleClick(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
 
 	/**
 	 * Tells an HTML surface that a mouse button has been pressed.
 	 * The click will occur where the surface thinks the mouse is based on the last call to MouseMove.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param ESteamHTMLMouseButton MouseButton
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseDown(int32 BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseDown(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
+	void MouseDown(FHHTMLBrowser BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseDown(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
 
 	/**
 	 * Tells an HTML surface where the mouse is.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param int32 x
 	 * @param int32 y
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseMove(int32 BrowserHandle, int32 x, int32 y) { SteamHTMLSurface()->MouseMove(BrowserHandle, x, y); }
+	void MouseMove(FHHTMLBrowser BrowserHandle, int32 x, int32 y) { SteamHTMLSurface()->MouseMove(BrowserHandle, x, y); }
 
 	/**
 	 * Tells an HTML surface that a mouse button has been released.
 	 * The click will occur where the surface thinks the mouse is based on the last call to MouseMove.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param ESteamHTMLMouseButton MouseButton
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseUp(int32 BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseUp(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
+	void MouseUp(FHHTMLBrowser BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseUp(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
 
 	/**
 	 * Tells an HTML surface that the mouse wheel has moved.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param int32 Delta
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseWheel(int32 BrowserHandle, int32 Delta) { SteamHTMLSurface()->MouseWheel(BrowserHandle, Delta); }
+	void MouseWheel(FHHTMLBrowser BrowserHandle, int32 Delta) { SteamHTMLSurface()->MouseWheel(BrowserHandle, Delta); }
 
 	/**
 	 * Paste from the local clipboard to the current page in an HTML surface.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void PasteFromClipboard(int32 BrowserHandle) { SteamHTMLSurface()->PasteFromClipboard(BrowserHandle); }
+	void PasteFromClipboard(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->PasteFromClipboard(BrowserHandle); }
 
 	/**
 	 * Refreshes the current page.
 	 * The reload will most likely hit the local cache instead of going over the network. This is equivalent to F5 or Ctrl+R in your browser of choice.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void Reload(int32 BrowserHandle) { SteamHTMLSurface()->Reload(BrowserHandle); }
+	void Reload(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->Reload(BrowserHandle); }
 
 	/**
 	 * You MUST call this when you are done with an HTML surface, freeing the resources associated with it.
 	 * Failing to call this will result in a memory leak!
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void RemoveBrowser(int32 BrowserHandle) { SteamHTMLSurface()->RemoveBrowser(BrowserHandle); }
+	void RemoveBrowser(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->RemoveBrowser(BrowserHandle); }
 
 	/**
 	 * Enable/disable low-resource background mode, where javascript and repaint timers are throttled, resources are more aggressively purged from memory, and audio/video elements are paused.
 	 * When background mode is enabled, all HTML5 video and audio objects will execute ".pause()" and gain the property "._steam_background_paused = 1".
 	 * When background mode is disabled, any video or audio objects with that property will resume with ".play()".
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param bool bBackgroundMode
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetBackgroundMode(int32 BrowserHandle, bool bBackgroundMode) { SteamHTMLSurface()->SetBackgroundMode(BrowserHandle, bBackgroundMode); }
+	void SetBackgroundMode(FHHTMLBrowser BrowserHandle, bool bBackgroundMode) { SteamHTMLSurface()->SetBackgroundMode(BrowserHandle, bBackgroundMode); }
 
 	/**
 	 * Set a webcookie for a specific hostname.
@@ -311,56 +311,56 @@ public:
 	/**
 	 * Scroll the current page horizontally.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param int32 AbsolutePixelScroll
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetHorizontalScroll(int32 BrowserHandle, int32 AbsolutePixelScroll) { SteamHTMLSurface()->SetHorizontalScroll(BrowserHandle, AbsolutePixelScroll); }
+	void SetHorizontalScroll(FHHTMLBrowser BrowserHandle, int32 AbsolutePixelScroll) { SteamHTMLSurface()->SetHorizontalScroll(BrowserHandle, AbsolutePixelScroll); }
 
 	/**
 	 * Tell a HTML surface if it has key focus currently, controls showing the I-beam cursor in text controls amongst other things.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param bool bHasKeyFocus
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetKeyFocus(int32 BrowserHandle, bool bHasKeyFocus) { SteamHTMLSurface()->SetKeyFocus(BrowserHandle, bHasKeyFocus); }
+	void SetKeyFocus(FHHTMLBrowser BrowserHandle, bool bHasKeyFocus) { SteamHTMLSurface()->SetKeyFocus(BrowserHandle, bHasKeyFocus); }
 
 	/**
 	 * Zoom the current page in an HTML surface.
 	 * The current scale factor is available from HTML_NeedsPaint_t.flPageScale, HTML_HorizontalScroll_t.flPageScale, and HTML_VerticalScroll_t.flPageScale.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param float Zoom
 	 * @param int32 PointX
 	 * @param int32 PointY
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetPageScaleFactor(int32 BrowserHandle, float Zoom, int32 PointX, int32 PointY) { SteamHTMLSurface()->SetPageScaleFactor(BrowserHandle, Zoom, PointX, PointY); }
+	void SetPageScaleFactor(FHHTMLBrowser BrowserHandle, float Zoom, int32 PointX, int32 PointY) { SteamHTMLSurface()->SetPageScaleFactor(BrowserHandle, Zoom, PointX, PointY); }
 
 	/**
 	 * Sets the display size of a surface in pixels.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param int32 Width
 	 * @param int32 Height
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetSize(int32 BrowserHandle, int32 Width, int32 Height) { SteamHTMLSurface()->SetSize(BrowserHandle, Width, Height); }
+	void SetSize(FHHTMLBrowser BrowserHandle, int32 Width, int32 Height) { SteamHTMLSurface()->SetSize(BrowserHandle, Width, Height); }
 
 	/**
 	 * Scroll the current page vertically.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @param int32 AbsolutePixelScroll
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetVerticalScroll(int32 BrowserHandle, int32 AbsolutePixelScroll) { SteamHTMLSurface()->SetVerticalScroll(BrowserHandle, AbsolutePixelScroll); }
+	void SetVerticalScroll(FHHTMLBrowser BrowserHandle, int32 AbsolutePixelScroll) { SteamHTMLSurface()->SetVerticalScroll(BrowserHandle, AbsolutePixelScroll); }
 
 	/**
 	 * Shutdown the ISteamHTMLSurface interface, releasing the memory and handles.
@@ -374,29 +374,29 @@ public:
 	/**
 	 * Cancel a currently running find.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void StopFind(int32 BrowserHandle) { SteamHTMLSurface()->StopFind(BrowserHandle); }
+	void StopFind(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->StopFind(BrowserHandle); }
 
 	/**
 	 * Stop the load of the current HTML page.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void StopLoad(int32 BrowserHandle) { SteamHTMLSurface()->StopLoad(BrowserHandle); }
+	void StopLoad(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->StopLoad(BrowserHandle); }
 
 	/**
 	 * Open the current pages HTML source code in default local text editor, used for debugging.
 	 *
-	 * @param int32 BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void ViewSource(int32 BrowserHandle) { SteamHTMLSurface()->ViewSource(BrowserHandle); }
+	void ViewSource(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->ViewSource(BrowserHandle); }
 
 	/** Delegates */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLBrowserReady"))

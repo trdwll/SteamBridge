@@ -8,8 +8,10 @@
 enum class ESteamPersonaChange : uint8;
 enum class ESteamControllerSourceMode : uint8;
 
+
+
 USTRUCT(BlueprintType)
-struct STEAMBRIDGE_API FSteamID
+struct STEAMBRIDGE_API FUint64
 {
 	GENERATED_BODY()
 
@@ -17,13 +19,12 @@ struct STEAMBRIDGE_API FSteamID
 
 	operator uint64() const { return Value; }
 
-	FSteamID() : Value(0) {}
-	FSteamID(uint64 InSteamID) : Value(InSteamID) {}
-	FSteamID(const FString& InSteamID) : Value(FCString::Strtoui64(*InSteamID, NULL, 10)) {}
+	FUint64() : Value(0) {}
+	FUint64(uint64 value) : Value(value) {}
 };
 
 USTRUCT(BlueprintType)
-struct STEAMBRIDGE_API FHAuthTicket
+struct STEAMBRIDGE_API FUint32
 {
 	GENERATED_BODY()
 
@@ -31,38 +32,25 @@ struct STEAMBRIDGE_API FHAuthTicket
 
 	operator uint32() const { return Value; }
 
-	FHAuthTicket() : Value(0) {}
-	FHAuthTicket(uint32 InValue) : Value(InValue) {}
+	FUint32() : Value(0) {}
+	FUint32(uint32 value) : Value(value) {}
 };
 
 USTRUCT(BlueprintType)
-struct STEAMBRIDGE_API FSteamAPICall
+struct STEAMBRIDGE_API FInt32
 {
 	GENERATED_BODY()
 
-	uint64 Value;
+	int32 Value;
 
-	operator uint64() const { return Value; }
+	operator int32() const { return Value; }
 
-	FSteamAPICall() : Value(0) {}
-	FSteamAPICall(uint64 InValue) : Value(InValue) {}
+	FInt32() : Value(0) {}
+	FInt32(int32 InValue) : Value(InValue) {}
 };
 
 USTRUCT(BlueprintType)
-struct STEAMBRIDGE_API FHSteamUser
-{
-	GENERATED_BODY()
-
-	uint32 Value;
-
-	operator uint32() const { return Value; }
-
-	FHSteamUser() : Value(0) {}
-	FHSteamUser(uint32 InValue) : Value(InValue) {}
-};
-
-USTRUCT(BlueprintType)
-struct STEAMBRIDGE_API FSteamFriendsGroupID
+struct STEAMBRIDGE_API FInt16
 {
 	GENERATED_BODY()
 
@@ -70,9 +58,50 @@ struct STEAMBRIDGE_API FSteamFriendsGroupID
 
 	operator int16() const { return Value; }
 
-	FSteamFriendsGroupID() : Value(0) {}
-	FSteamFriendsGroupID(int16 InValue) : Value(InValue) {}
+	FInt16() : Value(0) {}
+	FInt16(int16 InValue) : Value(InValue) {}
 };
+
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamID : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamAPICall : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamItemInstanceID : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamInventoryUpdateHandle : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FHAuthTicket : public FUint32 { GENERATED_BODY() using FUint32::FUint32; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FHSteamUser : public FUint32 { GENERATED_BODY() using FUint32::FUint32; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FAppID : public FUint32 { GENERATED_BODY() using FUint32::FUint32; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamFriendsGroupID : public FInt16 { GENERATED_BODY() using FInt16::FInt16; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamInventoryResult : public FInt32 { GENERATED_BODY() using FInt32::FInt32; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamItemDef : public FInt32 { GENERATED_BODY() using FInt32::FInt32; };
+
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FInputActionSetHandle : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FInputAnalogActionHandle : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FInputDigitalActionHandle : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FInputHandle : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FHTTPCookieContainerHandle : public FUint32 { GENERATED_BODY() using FUint32::FUint32; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FHTTPRequestHandle : public FUint32 { GENERATED_BODY() using FUint32::FUint32; };
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FHHTMLBrowser : public FUint32 { GENERATED_BODY() using FUint32::FUint32; };
+
 
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FSteamInputAnalogActionData

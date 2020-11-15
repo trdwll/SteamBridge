@@ -20,28 +20,28 @@ USteamHTTP::~USteamHTTP()
 	OnHTTPRequestHeadersReceivedCallback.Unregister();
 }
 
-bool USteamHTTP::GetHTTPResponseBodySize(int32 RequestHandle, int32& BodySize)
+bool USteamHTTP::GetHTTPResponseBodySize(FHTTPRequestHandle RequestHandle, int32& BodySize)
 {
 	uint32 Tmp = 0;
 	BodySize = Tmp;
 	return SteamHTTP()->GetHTTPResponseBodySize(RequestHandle, &Tmp);
 }
 
-bool USteamHTTP::GetHTTPResponseHeaderSize(int32 RequestHandle, const FString& HeaderName, int32& ResponseHeaderSize)
+bool USteamHTTP::GetHTTPResponseHeaderSize(FHTTPRequestHandle RequestHandle, const FString& HeaderName, int32& ResponseHeaderSize)
 {
 	uint32 Tmp = 0;
 	ResponseHeaderSize = Tmp;
 	return SteamHTTP()->GetHTTPResponseHeaderSize(RequestHandle, TCHAR_TO_UTF8(*HeaderName), &Tmp);
 }
 
-bool USteamHTTP::SendHTTPRequest(int32 RequestHandle, FSteamAPICall& CallHandle)
+bool USteamHTTP::SendHTTPRequest(FHTTPRequestHandle RequestHandle, FSteamAPICall& CallHandle)
 {
 	SteamAPICall_t Tmp = 0;
 	CallHandle = Tmp;
 	return SteamHTTP()->SendHTTPRequest(RequestHandle, &Tmp);
 }
 
-bool USteamHTTP::SendHTTPRequestAndStreamResponse(int32 RequestHandle, FSteamAPICall& CallHandle)
+bool USteamHTTP::SendHTTPRequestAndStreamResponse(FHTTPRequestHandle RequestHandle, FSteamAPICall& CallHandle)
 {
 	SteamAPICall_t Tmp = 0;
 	CallHandle = Tmp;

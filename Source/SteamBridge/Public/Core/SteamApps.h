@@ -243,11 +243,11 @@ public:
 	/**
 	 * Allows you to install an optional DLC.
 	 *
-	 * @param int32 DLCAppID
+	 * @param int32 AppID
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Apps")
-	void InstallDLC(int32 DLCAppID) { SteamApps()->InstallDLC(DLCAppID); }
+	void InstallDLC(int32 AppID) { SteamApps()->InstallDLC(AppID); }
 
 	/**
 	 * Allows you to force verify game content on next launch.
@@ -262,11 +262,11 @@ public:
 	/**
 	 * Allows you to uninstall an optional DLC.
 	 *
-	 * @param int32 DLCAppID
+	 * @param int32 AppID
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Apps")
-	void UninstallDLC(int32 DLCAppID) { SteamApps()->UninstallDLC(DLCAppID); }
+	void UninstallDLC(int32 AppID) { SteamApps()->UninstallDLC(AppID); }
 
 	/** Delegates */
 
