@@ -23,7 +23,7 @@ public:
 	USteamInventory();
 	~USteamInventory();
 
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory", meta = (DisplayName = "Steam Inventory", CompactNodeTitle = "SteamInventory"))
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore", meta = (DisplayName = "Steam Inventory", CompactNodeTitle = "SteamInventory"))
 	static USteamInventory* GetSteamInventory() { return USteamInventory::StaticClass()->GetDefaultObject<USteamInventory>(); }
 
 	/**
