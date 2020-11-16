@@ -41,6 +41,7 @@ struct STEAMBRIDGE_API FInt32
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	int32 Value;
 
 	operator int32() const { return Value; }
