@@ -54,9 +54,9 @@ public:
 	/**
 	 * Add a header to any HTTP requests from this browser.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param const FString & Key
-	 * @param const FString & Value
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to add the header to.
+	 * @param const FString & Key - The header name to add.
+	 * @param const FString & Value - 	The header value to associate with the key.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -67,8 +67,8 @@ public:
 	 * NOTE:You MUST call this in response to a HTML_StartRequest_t callback.
 	 * You can use this feature to limit the valid pages allowed in your HTML surface.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param bool bAllowed
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface that is navigating.
+	 * @param bool bAllowed - Allow or deny the navigation to the current start request.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -77,7 +77,7 @@ public:
 	/**
 	 * Copy the currently selected text from the current page in an HTML surface into the local clipboard.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to copy the text from.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -90,12 +90,22 @@ public:
 	 * NOTE: You MUST call RemoveBrowser when you are done using this browser to free up the resources associated with it. Failing to do so will result in a memory leak.
 	 * You will want to call SetSize and LoadURL to start using your display surface.
 	 *
-	 * @param const FString & UserAgent
-	 * @param const FString & UserCSS
-	 * @return FSteamAPICall
+	 * @param const FString & UserAgent - Appends the string to the general user agent string of the browser, allowing you to detect your client on webservers. Use NULL if you do not require this functionality.
+	 * @param const FString & UserCSS - This allows you to set a CSS style to every page displayed by this browser. Use NULL if you do not require this functionality.
+	 * @return FSteamAPICall - SteamAPICall_t to be used with a HTML_BrowserReady_t call result.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|HTMLSurface")
 	FSteamAPICall CreateBrowser(const FString& UserAgent, const FString& UserCSS) const { return SteamHTMLSurface()->CreateBrowser(TCHAR_TO_UTF8(*UserAgent), TCHAR_TO_UTF8(*UserCSS)); }
+
+	/**
+	 * Run a javascript script in the currently loaded page.
+	 *
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface that is navigating.
+	 * @param const FString & Script - The javascript script to run.
+	 * @return void
+	 */
+	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
+	void ExecuteJavascript(FHHTMLBrowser BrowserHandle, const FString& Script) { SteamHTMLSurface()->ExecuteJavascript(BrowserHandle, TCHAR_TO_UTF8(*Script)); }
 
 	// TODO: FileLoadDialogResponse
 
@@ -103,11 +113,12 @@ public:
 	 * Find a string in the current page of an HTML surface.
 	 * This is the equivalent of "ctrl+f" in your browser of choice. It will highlight all of the matching strings.
 	 * You should call StopFind when the input string has changed or you want to stop searching.
+	 * Triggers a HTML_SearchResults_t callback.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param const FString & SearchStr
-	 * @param bool bCurrentlyInFind
-	 * @param bool bReverse
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to find the string in.
+	 * @param const FString & SearchStr - The string to search for.
+	 * @param bool bCurrentlyInFind - Set this to true on subsequent calls to cycle through to the next matching string.
+	 * @param bool bReverse - Search from the bottom up?
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -115,10 +126,11 @@ public:
 
 	/**
 	 * Retrieves details about a link at a specific position on the current page in an HTML surface.
+	 * Triggers a HTML_LinkAtPosition_t callback.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param int32 x
-	 * @param int32 y
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to get a link from.
+	 * @param int32 x - The X (width) position in pixels within the surface. (0, 0) is the top left corner.
+	 * @param int32 y - The Y (height) position in pixels within the surface. (0, 0) is the top left corner.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -127,7 +139,7 @@ public:
 	/**
 	 * Navigate back in the page history.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to navigate back on.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -136,7 +148,7 @@ public:
 	/**
 	 * Navigate forward in the page history
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to navigate forward on.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -147,7 +159,7 @@ public:
 	 * This must be called prior to using any other functions in this interface.
 	 * You MUST call Shutdown when you are done using the interface to free up the resources associated with it. Failing to do so will result in a memory leak!
 	 *
-	 * @return bool
+	 * @return bool - true if the API was successfully initialized; otherwise, false.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
 	bool Init() { return SteamHTMLSurface()->Init(); }
@@ -156,8 +168,8 @@ public:
 	 * Allows you to react to a page wanting to open a javascript modal dialog notification.
 	 * NOTE:You MUST call this in response to HTML_JSAlert_t and HTML_JSConfirm_t callbacks.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param bool bResult
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface that is spawning a dialog.
+	 * @param bool bResult - Set this to true to simulate pressing the "OK" button, otherwise false for "Cancel".
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -166,9 +178,9 @@ public:
 	/**
 	 * UnicodeChar is the unicode character point for this keypress (and potentially multiple chars per press)
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param int32 UnicodeChar
-	 * @param ESteamHTMLKeyModifiers HTMLKeyModifiers
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to send the interaction to.
+	 * @param int32 UnicodeChar - The unicode character point for this keypress; and potentially multiple characters per press.
+	 * @param ESteamHTMLKeyModifiers HTMLKeyModifiers - This should be set to a bitmask of the modifier keys that the user is currently pressing.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -177,22 +189,34 @@ public:
 	/**
 	 * keyboard interactions, native keycode is the virtual key code value from your OS
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param int32 NativeKeyCode
-	 * @param ESteamHTMLKeyModifiers HTMLKeyModifiers
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to send the interaction to.
+	 * @param int32 NativeKeyCode - This is the virtual keycode value from the OS.
+	 * @param ESteamHTMLKeyModifiers HTMLKeyModifiers - This should be set to a bitmask of the modifier keys that the user is currently pressing.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
 	void KeyDown(FHHTMLBrowser BrowserHandle, int32 NativeKeyCode, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyDown(BrowserHandle, NativeKeyCode, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
 
 	/**
+	 * keyboard interactions, native keycode is the virtual key code value from your OS
+	 *
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to send the interaction to.
+	 * @param int32 NativeKeyCode - This is the virtual keycode value from the OS.
+	 * @param ESteamHTMLKeyModifiers HTMLKeyModifiers - This should be set to a bitmask of the modifier keys that the user is currently pressing.
+	 * @return void
+	 */
+	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
+	void KeyUp(FHHTMLBrowser BrowserHandle, int32 NativeKeyCode, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyUp(BrowserHandle, NativeKeyCode, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
+
+	/**
 	 * Navigate to a specified URL.
 	 * If you send POST data with pchPostData then the data should be formatted as: name1=value1&name2=value2.
 	 * You can load any URI scheme supported by Chromium Embedded Framework including but not limited to: http://, https://, ftp://, and file:///. If no scheme is specified then http:// is used.
+	 * Triggers a HTML_StartRequest_t callback.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param const FString & URL
-	 * @param const FString & PostData
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to load this URL in.
+	 * @param const FString & URL - The URL to load.
+	 * @param const FString & PostData - Optionally send a POST request with this data, set this to NULL to not send any data.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -202,8 +226,8 @@ public:
 	 * Tells an HTML surface that a mouse button has been double clicked.
 	 * The click will occur where the surface thinks the mouse is based on the last call to MouseMove.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param ESteamHTMLMouseButton MouseButton
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to send the interaction to.
+	 * @param ESteamHTMLMouseButton MouseButton - The mouse button which was double clicked.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -213,8 +237,8 @@ public:
 	 * Tells an HTML surface that a mouse button has been pressed.
 	 * The click will occur where the surface thinks the mouse is based on the last call to MouseMove.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param ESteamHTMLMouseButton MouseButton
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to send the interaction to.
+	 * @param ESteamHTMLMouseButton MouseButton - 	The mouse button which was pressed.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -223,9 +247,9 @@ public:
 	/**
 	 * Tells an HTML surface where the mouse is.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param int32 x
-	 * @param int32 y
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to send the interaction to.
+	 * @param int32 x - X (width) coordinate in pixels relative to the position of the HTML surface. (0, 0) is the top left.
+	 * @param int32 y - Y (height) coordinate in pixels relative to the position of the HTML surface. (0, 0) is the top left.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -235,8 +259,8 @@ public:
 	 * Tells an HTML surface that a mouse button has been released.
 	 * The click will occur where the surface thinks the mouse is based on the last call to MouseMove.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param ESteamHTMLMouseButton MouseButton
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to send the interaction to.
+	 * @param ESteamHTMLMouseButton MouseButton - The mouse button which was released.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -245,8 +269,8 @@ public:
 	/**
 	 * Tells an HTML surface that the mouse wheel has moved.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param int32 Delta
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to send the interaction to.
+	 * @param int32 Delta - The number of pixels to scroll.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -255,7 +279,7 @@ public:
 	/**
 	 * Paste from the local clipboard to the current page in an HTML surface.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to paste into.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -265,7 +289,7 @@ public:
 	 * Refreshes the current page.
 	 * The reload will most likely hit the local cache instead of going over the network. This is equivalent to F5 or Ctrl+R in your browser of choice.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to reload.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -275,7 +299,7 @@ public:
 	 * You MUST call this when you are done with an HTML surface, freeing the resources associated with it.
 	 * Failing to call this will result in a memory leak!
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The browser handle to release.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -286,8 +310,8 @@ public:
 	 * When background mode is enabled, all HTML5 video and audio objects will execute ".pause()" and gain the property "._steam_background_paused = 1".
 	 * When background mode is disabled, any video or audio objects with that property will resume with ".play()".
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param bool bBackgroundMode
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface set background mode on.
+	 * @param bool bBackgroundMode - Toggle background mode on or off.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -296,13 +320,13 @@ public:
 	/**
 	 * Set a webcookie for a specific hostname.
 	 *
-	 * @param const FString & Hostname
-	 * @param const FString & Key
-	 * @param const FString & Value
-	 * @param const FString & Path
-	 * @param int32 Expires
-	 * @param bool bSecure
-	 * @param bool bHTTPOnly
+	 * @param const FString & Hostname - The hostname of the server to set the cookie for. ('Host' attribute)
+	 * @param const FString & Key - The cookie name to set.
+	 * @param const FString & Value - The cookie value to set.
+	 * @param const FString & Path - Sets the 'Path' attribute on the cookie. You can use this to restrict the cookie to a specific path on the domain. e.g. "/accounts"
+	 * @param int32 Expires - Sets the 'Expires' attribute on the cookie to the specified timestamp in Unix epoch format (seconds since Jan 1st 1970).
+	 * @param bool bSecure - Sets the 'Secure' attribute.
+	 * @param bool bHTTPOnly - Sets the 'HttpOnly' attribute.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -310,9 +334,10 @@ public:
 
 	/**
 	 * Scroll the current page horizontally.
+	 * Triggers a HTML_HorizontalScroll_t callback.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param int32 AbsolutePixelScroll
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to set the horizontal scroll position.
+	 * @param int32 AbsolutePixelScroll - The absolute pixel position to scroll to. 0 is the left and HTML_HorizontalScroll_t.unScrollMax is the right side.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -321,8 +346,8 @@ public:
 	/**
 	 * Tell a HTML surface if it has key focus currently, controls showing the I-beam cursor in text controls amongst other things.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param bool bHasKeyFocus
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to set key focus on.
+	 * @param bool bHasKeyFocus - Turn key focus on or off?
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -332,10 +357,10 @@ public:
 	 * Zoom the current page in an HTML surface.
 	 * The current scale factor is available from HTML_NeedsPaint_t.flPageScale, HTML_HorizontalScroll_t.flPageScale, and HTML_VerticalScroll_t.flPageScale.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param float Zoom
-	 * @param int32 PointX
-	 * @param int32 PointY
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to scale.
+	 * @param float Zoom - The amount to zoom, this can range from 1 (100% and the default) to 2 (200%).
+	 * @param int32 PointX - The X point in pixels to zoom around. Use 0 if you don't care.
+	 * @param int32 PointY - The Y point in pixels to zoom around. Use 0 if you don't care.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -344,9 +369,9 @@ public:
 	/**
 	 * Sets the display size of a surface in pixels.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param int32 Width
-	 * @param int32 Height
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to set the size of.
+	 * @param int32 Width - The width of the surface in pixels.
+	 * @param int32 Height - The height of the surface in pixels.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -354,9 +379,10 @@ public:
 
 	/**
 	 * Scroll the current page vertically.
+	 * Triggers a HTML_VerticalScroll_t callback.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
-	 * @param int32 AbsolutePixelScroll
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to set the vertical scroll position.
+	 * @param int32 AbsolutePixelScroll - The absolute pixel position to scroll to. 0 is the top and HTML_VerticalScroll_t.unScrollMax is the bottom.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -366,7 +392,7 @@ public:
 	 * Shutdown the ISteamHTMLSurface interface, releasing the memory and handles.
 	 * You MUST call this when you are done using this interface to prevent memory and handle leaks. After calling this then all of the functions provided in this interface will fail until you call Init to reinitialize again.
 	 *
-	 * @return bool
+	 * @return bool - This function currently always returns true.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
 	bool Shutdown() { return SteamHTMLSurface()->Shutdown(); }
@@ -374,7 +400,7 @@ public:
 	/**
 	 * Cancel a currently running find.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to stop the find results.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -383,7 +409,7 @@ public:
 	/**
 	 * Stop the load of the current HTML page.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to stop loading.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
@@ -392,76 +418,102 @@ public:
 	/**
 	 * Open the current pages HTML source code in default local text editor, used for debugging.
 	 *
-	 * @param FHHTMLBrowser BrowserHandle
+	 * @param FHHTMLBrowser BrowserHandle - The handle of the surface to view its current pages source.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
 	void ViewSource(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->ViewSource(BrowserHandle); }
 
 	/** Delegates */
+
+	/** A new browser was created and is ready for use. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLBrowserReady"))
 	FOnHTMLBrowserReadyDelegate m_OnHTMLBrowserReady;
 
+	/** Called when page history status has changed the ability to go backwards and forward. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLCanGoBackAndForward"))
 	FOnHTMLCanGoBackAndForwardDelegate m_OnHTMLCanGoBackAndForward;
 
+	/** Called when the current page in a browser gets a new title. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLChangedTitle"))
 	FOnHTMLChangedTitleDelegate m_OnHTMLChangedTitle;
 
+	/** Called when the browser has been requested to close due to user interaction; usually because of a javascript window.close() call. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLCloseBrowser"))
 	FOnHTMLCloseBrowserDelegate m_OnHTMLCloseBrowser;
 
+	/** Called when a browser surface has received a file open dialog from a <input type="file"> click or similar, you must call FileLoadDialogResponse with the file(s) the user selected. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLFileOpenDialog"))
 	FOnHTMLFileOpenDialogDelegate m_OnHTMLFileOpenDialog;
 
+	/** Called when a browser has finished loading a page. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLFinishedRequest"))
 	FOnHTMLFinishedRequestDelegate m_OnHTMLFinishedRequest;
 
+	/** Called when a a browser wants to hide a tooltip. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLHideToolTip"))
 	FOnHTMLHideToolTipDelegate m_OnHTMLHideToolTip;
 
+	/** Provides details on the visibility and size of the horizontal scrollbar. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLHorizontalScroll"))
 	FOnHTMLHorizontalScrollDelegate m_OnHTMLHorizontalScroll;
 
+	/** Called when the browser wants to display a Javascript alert dialog, call JSDialogResponse when the user dismisses this dialog; or right away to ignore it. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLJSAlert"))
 	FOnHTMLJSAlertDelegate m_OnHTMLJSAlert;
 
+	/** Called when the browser wants to display a Javascript confirmation dialog, call JSDialogResponse when the user dismisses this dialog; or right away to ignore it. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLJSConfirm"))
 	FOnHTMLJSConfirmDelegate m_OnHTMLJSConfirm;
 
+	/** Result of a call to GetLinkAtPosition */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLLinkAtPosition"))
 	FOnHTMLLinkAtPositionDelegate m_OnHTMLLinkAtPosition;
 
+	/** Called when a browser surface has a pending paint. This is where you get the actual image data to render to the screen. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLNeedsPaint"))
 	FOnHTMLNeedsPaintDelegate m_OnHTMLNeedsPaint;
 
+	/** A browser has created a new HTML window. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLNewWindow"))
 	FOnHTMLNewWindowDelegate m_OnHTMLNewWindow;
 
+	/** The browser has requested to load a url in a new tab. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLOpenLinkInNewTab"))
 	FOnHTMLOpenLinkInNewTabDelegate m_OnHTMLOpenLinkInNewTab;
 
+	/** Results from a search. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLSearchResults"))
 	FOnHTMLSearchResultsDelegate m_OnHTMLSearchResults;
 
+	/** Called when a browser wants to change the mouse cursor. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLSetCursor"))
 	FOnHTMLSetCursorDelegate m_OnHTMLSetCursor;
 
+	/** Called when a browser wants to display a tooltip. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLShowToolTip"))
 	FOnHTMLShowToolTipDelegate m_OnHTMLShowToolTip;
 
+	/**
+	 * Called when a browser wants to navigate to a new page.
+	 * NOTE: You MUST call AllowStartRequest in response to this callback!
+	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLStartRequest"))
 	FOnHTMLStartRequestDelegate m_OnHTMLStartRequest;
 
+	/** Called when a browser wants you to display an informational message. This is most commonly used when you hover over links. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLStatusText"))
 	FOnHTMLStatusTextDelegate m_OnHTMLStatusText;
 
+	/** Called when the text of an existing tooltip has been updated. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLUpdateToolTip"))
 	FOnHTMLUpdateToolTipDelegate m_OnHTMLUpdateToolTip;
 
+	/** Called when the browser is navigating to a new url */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLURLChanged"))
 	FOnHTMLURLChangedDelegate m_OnHTMLURLChanged;
 
+	/** Provides details on the visibility and size of the vertical scrollbar. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLVerticalScroll"))
 	FOnHTMLVerticalScrollDelegate m_OnHTMLVerticalScroll;
 
