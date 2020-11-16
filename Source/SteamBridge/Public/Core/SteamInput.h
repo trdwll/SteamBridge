@@ -23,15 +23,15 @@ public:
 	USteamInput();
 	~USteamInput();
 
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input", meta = (DisplayName = "Steam Input", CompactNodeTitle = "SteamInput"))
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore", meta = (DisplayName = "Steam Input", CompactNodeTitle = "SteamInput"))
 	static USteamInput* GetSteamInput() { return USteamInput::StaticClass()->GetDefaultObject<USteamInput>(); }
 
 	/**
 	 * Reconfigure the controller to use the specified action set (ie "Menu", "Walk", or "Drive").
 	 * This is cheap, and can be safely called repeatedly. It's often easier to repeatedly call it in your state loops, instead of trying to place it in all of your state transitions.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param FInputActionSetHandle ActionSetHandle
+	 * @param FInputHandle InputHandle - The handle of the controller you want to activate an action set for.
+	 * @param FInputActionSetHandle ActionSetHandle - The handle of the action set you want to activate.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -40,8 +40,8 @@ public:
 	/**
 	 * Reconfigure the controller to use the specified action set layer.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param FInputActionSetHandle ActionSetHandle
+	 * @param FInputHandle InputHandle - The handle of the controller you want to activate an action set layer for.
+	 * @param FInputActionSetHandle ActionSetHandle - The handle of the action set layer you want to activate.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -50,8 +50,8 @@ public:
 	/**
 	 * Reconfigure the controller to stop using the specified action set layer.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param FInputActionSetHandle ActionSetHandle
+	 * @param FInputHandle InputHandle - The handle of the controller you want to deactivate an action set layer for.
+	 * @param FInputActionSetHandle ActionSetHandle - The handle of the action set layer you want to deactivate.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -60,7 +60,7 @@ public:
 	/**
 	 * Reconfigure the controller to stop using all action set layers.
 	 *
-	 * @param FInputHandle InputHandle
+	 * @param FInputHandle InputHandle - The handle of the controller you want to deactivate all action set layers for.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -69,8 +69,8 @@ public:
 	/**
 	 * Fill an array with all of the currently active action set layers for a specified controller handle.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param TArray<int64> & Handles
+	 * @param FInputHandle InputHandle - The handle of the controller you want to get active action set layers for.
+	 * @param TArray<int64> & Handles - This must point to a STEAM_INPUT_MAX_COUNT sized array of InputHandle_t.
 	 * @return int32
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -79,8 +79,8 @@ public:
 	/**
 	 * Lookup the handle for an Action Set. Best to do this once on startup, and store the handles for all future API calls.
 	 *
-	 * @param const FString & ActionSetName
-	 * @return FInputActionSetHandle
+	 * @param const FString & ActionSetName - The string identifier of an action set defined in the game's VDF file.
+	 * @return FInputActionSetHandle - The handle of the specified action set.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	FInputActionSetHandle GetActionSetHandle(const FString& ActionSetName) const { return SteamInput()->GetActionSetHandle(TCHAR_TO_UTF8(*ActionSetName)); }
@@ -88,9 +88,9 @@ public:
 	/**
 	 * Returns the current state of the supplied analog game action.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param FInputActionSetHandle ActionSetHandle
-	 * @return FSteamInputAnalogActionData
+	 * @param FInputHandle InputHandle - The handle of the controller you want to query.
+	 * @param FInputActionSetHandle ActionSetHandle - The handle of the analog action you want to query.
+	 * @return FSteamInputAnalogActionData - The current state of the specified analog action.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	FSteamInputAnalogActionData GetAnalogActionData(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle) const;
@@ -100,8 +100,8 @@ public:
 	 * NOTE: This function does not take an action set handle parameter. That means that each action in your VDF file must have a unique string identifier. In other words, if you use an action called "up" in two -
 	 * different action sets, this function will only ever return one of them and the other will be ignored.
 	 *
-	 * @param const FString & ActionName
-	 * @return FInputAnalogActionHandle
+	 * @param const FString & ActionName - The string identifier of the analog action defined in the game's VDF file.
+	 * @return FInputAnalogActionHandle - The handle of the specified analog action.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	FInputAnalogActionHandle GetAnalogActionHandle(const FString& ActionName) const { return SteamInput()->GetAnalogActionHandle(TCHAR_TO_UTF8(*ActionName)); }
@@ -109,11 +109,11 @@ public:
 	/**
 	 * Get the origin(s) for an analog action within an action set by filling originsOut with EInputActionOrigin handles. Use this to display the appropriate on-screen prompt for the action.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param FInputActionSetHandle ActionSetHandle
-	 * @param FInputAnalogActionHandle AnalogActionHandle
-	 * @param TArray<ESteamInputActionOrigin> & Origins
-	 * @return int32
+	 * @param FInputHandle InputHandle - The handle of the controller you want to query.
+	 * @param FInputActionSetHandle ActionSetHandle - The handle of the action set you want to query.
+	 * @param FInputAnalogActionHandle AnalogActionHandle - The handle of the analog action you want to query.
+	 * @param TArray<ESteamInputActionOrigin> & Origins - A STEAM_INPUT_MAX_ORIGINS sized array of EInputActionOrigin handles.
+	 * @return int32 - The number of origins supplied in Origins.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
 	int32 GetAnalogActionOrigins(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle, FInputAnalogActionHandle AnalogActionHandle, TArray<ESteamInputActionOrigin>& Origins);
@@ -121,8 +121,8 @@ public:
 	/**
 	 * Enumerates currently connected controllers by filling handlesOut with controller handles.
 	 *
-	 * @param TArray<int64> & Handles
-	 * @return int32
+	 * @param TArray<int64> & Handles - This must point to a STEAM_INPUT_MAX_COUNT sized array of InputHandle_t.
+	 * @return int32 - The number of handles written to Handles.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
 	int32 GetConnectedControllers(TArray<FInputHandle>& Handles);
@@ -130,7 +130,7 @@ public:
 	/**
 	 * Returns the associated controller handle for the specified emulated gamepad. Can be used with GetInputTypeForHandle to determine the controller type of a controller using Steam Input Gamepad Emulation.
 	 *
-	 * @param int32 Index
+	 * @param int32 Index - The index of the emulated gamepad you want to get a controller handle for.
 	 * @return FInputHandle
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -139,8 +139,8 @@ public:
 	/**
 	 * Get the currently active action set for the specified controller.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @return FInputActionSetHandle
+	 * @param FInputHandle InputHandle - The handle of the controller you want to query.
+	 * @return FInputActionSetHandle - The handle of the action set activated for the specified controller.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	FInputActionSetHandle GetCurrentActionSet(FInputHandle InputHandle) const { return SteamInput()->GetCurrentActionSet(InputHandle); }
@@ -148,9 +148,9 @@ public:
 	/**
 	 * Returns the current state of the supplied digital game action.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param FInputDigitalActionHandle DigitalActionHandle
-	 * @return FSteamInputDigitalActionData
+	 * @param FInputHandle InputHandle - The handle of the controller you want to query.
+	 * @param FInputDigitalActionHandle DigitalActionHandle - The handle of the digital action you want to query.
+	 * @return FSteamInputDigitalActionData - The current state of the specified digital action.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	FSteamInputDigitalActionData GetDigitalActionData(FInputHandle InputHandle, FInputDigitalActionHandle DigitalActionHandle) const;
@@ -160,8 +160,8 @@ public:
 	 * NOTE: This function does not take an action set handle parameter. That means that each action in your VDF file must have a unique string identifier. In other words, if you use an action called "up" in two -
 	 * different action sets, this function will only ever return one of them and the other will be ignored.
 	 *
-	 * @param const FString & ActionName
-	 * @return FInputDigitalActionHandle
+	 * @param const FString & ActionName - 	The string identifier of the digital action defined in the game's VDF file.
+	 * @return FInputDigitalActionHandle - The handle of the specified digital action.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	FInputDigitalActionHandle GetDigitalActionHandle(const FString& ActionName) const { return SteamInput()->GetDigitalActionHandle(TCHAR_TO_UTF8(*ActionName)); }
@@ -169,11 +169,11 @@ public:
 	/**
 	 * Get the origin(s) for a digital action within an action set by filling originsOut with EInputActionOrigin handles. Use this to display the appropriate on-screen prompt for the action.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param FInputActionSetHandle ActionSetHandle
-	 * @param FInputDigitalActionHandle DigitalActionHandle
-	 * @param TArray<ESteamInputActionOrigin> & Origins
-	 * @return int32
+	 * @param FInputHandle InputHandle - The handle of the controller you want to query.
+	 * @param FInputActionSetHandle ActionSetHandle - The handle of the action set you want to query.
+	 * @param FInputDigitalActionHandle DigitalActionHandle - The handle of the digital aciton you want to query.
+	 * @param TArray<ESteamInputActionOrigin> & Origins - A STEAM_INPUT_MAX_ORIGINS sized array of EInputActionOrigin handles.
+	 * @return int32 - The number of origins supplied in Origins.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	int32 GetDigitalActionOrigins(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle, FInputDigitalActionHandle DigitalActionHandle, TArray<ESteamInputActionOrigin>& Origins);
@@ -181,7 +181,7 @@ public:
 	/**
 	 * Returns the associated gamepad index for the specified controller, if emulating a gamepad.
 	 *
-	 * @param FInputHandle ControllerHandle
+	 * @param FInputHandle ControllerHandle - The handle of the controller you want to get a gamepad index for.
 	 * @return int32
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
@@ -199,7 +199,7 @@ public:
 	/**
 	 * Returns the input type (device model) for the specified controller. This tells you if a given controller is a Steam controller, XBox 360 controller, PS4 controller, etc.
 	 *
-	 * @param FInputHandle InputHandle
+	 * @param FInputHandle InputHandle - The handle of the controller whose input type (device model) you want to query
 	 * @return ESteamInputType_
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
@@ -208,7 +208,7 @@ public:
 	/**
 	 * Returns raw motion data for the specified controller.
 	 *
-	 * @param FInputHandle InputHandle
+	 * @param FInputHandle InputHandle - The handle of the controller you want to get motion data for.
 	 * @return FSteamInputMotionData
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
@@ -226,7 +226,7 @@ public:
 	/**
 	 * Must be called when starting use of the ISteamInput interface.
 	 *
-	 * @return bool
+	 * @return bool - Always returns true.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
 	bool Init() { return SteamInput()->Init(); }
@@ -245,11 +245,11 @@ public:
 	 * NOTE: The VSC does not support any color but white, and will interpret the RGB values as a greyscale value affecting the brightness of the Steam button LED.
 	 * The DS4 responds to full color information and uses the values to set the color & brightness of the lightbar.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param uint8 R
-	 * @param uint8 G
-	 * @param uint8 B
-	 * @param const TArray<ESteamControllerLEDFlag_> & Flags
+	 * @param FInputHandle InputHandle - The handle of the controller to affect.
+	 * @param uint8 R - The red component of the color to set (0-255).
+	 * @param uint8 G - The green component of the color to set (0-255).
+	 * @param uint8 B - The blue component of the color to set (0-255).
+	 * @param const TArray<ESteamControllerLEDFlag_> & Flags - Bit-masked flags combined from values defined in ESteamControllerLEDFlag.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -260,9 +260,9 @@ public:
 	 * NOTE: The VSC does not support any color but white, and will interpret the RGB values as a greyscale value affecting the brightness of the Steam button LED.
 	 * The DS4 responds to full color information and uses the values to set the color & brightness of the lightbar.
 	 *
-	 * @param FInputHandle InputHandle
+	 * @param FInputHandle InputHandle - The handle of the controller to affect.
 	 * @param const FLinearColor & Color
-	 * @param const TArray<ESteamControllerLEDFlag_> & Flags
+	 * @param const TArray<ESteamControllerLEDFlag_> & Flags - Bit-masked flags combined from values defined in ESteamControllerLEDFlag.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -271,8 +271,8 @@ public:
 	/**
 	 * Invokes the Steam overlay and brings up the binding screen.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @return bool
+	 * @param FInputHandle InputHandle - The handle of the controller you want to bring up the binding screen for.
+	 * @return bool - true for success; false if overlay is disabled/unavailable, or the user is not in Big Picture Mode.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	bool ShowBindingPanel(FInputHandle InputHandle) const { return SteamInput()->ShowBindingPanel(InputHandle); }
@@ -280,7 +280,7 @@ public:
 	/**
 	 * Must be called when ending use of the ISteamInput interface.
 	 *
-	 * @return bool
+	 * @return bool - Always returns true.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
 	bool Shutdown() { return SteamInput()->Shutdown(); }
@@ -289,8 +289,8 @@ public:
 	 * Stops the momentum of an analog action (where applicable, ie a touchpad w/ virtual trackball settings).
 	 * NOTE: This will also stop all associated haptics. This is useful for situations where you want to indicate to the user that the limit of an action has been reached, such as spinning a carousel or scrolling a webpage.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param FInputAnalogActionHandle ActionHandle
+	 * @param FInputHandle InputHandle - The handle of the controller to affect.
+	 * @param FInputAnalogActionHandle ActionHandle - The analog action to stop momentum for.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -303,9 +303,9 @@ public:
 	 * The typical max value of an unsigned short is 65535, which means the longest haptic pulse you can trigger with this method has a duration of 0.065535 seconds (ie, less than 1/10th of a second).
 	 * This function should be thought of as a low-level primitive meant to be repeatedly used in higher-level user functions to generate more sophisticated behavior.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param ESteamControllerPad_ TargetPad
-	 * @param int32 DurationMicroSec
+	 * @param FInputHandle InputHandle - The handle of the controller to affect.
+	 * @param ESteamControllerPad_ TargetPad - Which haptic touch pad to affect.
+	 * @param int32 DurationMicroSec - Duration of the pulse, in microseconds (1/1,000,000th of a second)
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -318,11 +318,11 @@ public:
 	 * This is a more user-friendly function to call than TriggerHapticPulse as it can generate pulse patterns long enough to be actually noticed by the user.
 	 * Changing the usDurationMicroSec and usOffMicroSec parameters will change the "texture" of the haptic pulse.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param ESteamControllerPad_ TargetPad
-	 * @param int32 DurationMicroSec
-	 * @param int32 OffMicroSec
-	 * @param int32 Repeat
+	 * @param FInputHandle InputHandle - The handle of the controller to affect.
+	 * @param ESteamControllerPad_ TargetPad - 	Which haptic touch pad to affect.
+	 * @param int32 DurationMicroSec - 	Duration of the pulse, in microseconds (1/1,000,000th of a second).
+	 * @param int32 OffMicroSec - Duration of the pause between pulses, in microseconds.
+	 * @param int32 Repeat - Number of times to repeat the DurationMicroSec / OffMicroSec duty cycle.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
@@ -334,14 +334,21 @@ public:
 	 * This generates the traditional "rumble" vibration effect.
 	 * The VSC will emulate traditional rumble using its haptics.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param int32 LeftSpeed
-	 * @param int32 RightSpeed
+	 * @param FInputHandle InputHandle - The handle of the controller to affect.
+	 * @param int32 LeftSpeed - The intensity value for the left rumble motor.
+	 * @param int32 RightSpeed - The intensity value for the right rumble motor.
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
 	void TriggerVibration(FInputHandle InputHandle, int32 LeftSpeed, int32 RightSpeed) { SteamInput()->TriggerVibration(InputHandle, LeftSpeed, RightSpeed); }
 
+	/**
+	 * Get an action origin that you can use in your glyph look up table or passed into GetGlyphForActionOrigin or GetStringForActionOrigin
+	 *
+	 * @param FInputHandle InputHandle - The handle of the controller to affect. You can use GetControllerForGamepadIndex to get this handle
+	 * @param ESteamXboxOrigin Origin - This is the button you want to get the image for ex: k_EXboxOrigin_A
+	 * @return ESteamInputActionOrigin
+	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	ESteamInputActionOrigin GetActionOriginFromXboxOrigin(FInputHandle InputHandle, ESteamXboxOrigin Origin) const { return (ESteamInputActionOrigin)SteamInput()->GetActionOriginFromXboxOrigin(InputHandle, (EXboxOrigin)Origin); }
 
@@ -349,8 +356,8 @@ public:
 	 * Get the equivalent origin for a given controller type or the closest controller type that existed in the SDK you built into your game if eDestinationInputType is k_ESteamInputType_Unknown. This action origin -
 	 * can be used in your glyph look up table or passed into GetGlyphForActionOrigin or GetStringForActionOrigin
 	 *
-	 * @param ESteamInputType_ DestinationInputType
-	 * @param ESteamInputActionOrigin SourceOrigin
+	 * @param ESteamInputType_ DestinationInputType - 	The controller type you want to translate to. Steam will pick the closest type from your SDK version if k_ESteamInputType_Unknown is used
+	 * @param ESteamInputActionOrigin SourceOrigin - This is the button you want to translate
 	 * @return ESteamInputActionOrigin
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
@@ -362,10 +369,10 @@ public:
 	 * New configurations will need to be made for every controller when updating the major revision. Minor revisions are for small changes such as adding a new optional action or updating localization in the configuration.
 	 * When updating the minor revision you generally can update a single configuration and check the "Use Action Block" to apply the action block changes to the other configurations.
 	 *
-	 * @param FInputHandle InputHandle
-	 * @param int32 & Major
-	 * @param int32 & Minor
-	 * @return bool
+	 * @param FInputHandle InputHandle - The handle of the controller to query.
+	 * @param int32 & Major - Pointer to int that Major binding revision will be populated into
+	 * @param int32 & Minor - Pointer to int that Minor binding revision will be populated into
+	 * @return bool - true if a device binding was successfully found and false if the binding is still loading.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	bool GetDeviceBindingRevision(FInputHandle InputHandle, int32& Major, int32& Minor) const { return SteamInput()->GetDeviceBindingRevision(InputHandle, &Major, &Minor); }
@@ -373,8 +380,8 @@ public:
 	/**
 	 * Get the Steam Remote Play session ID associated with a device, or 0 if there is no session associated with it. See isteamremoteplay.h for more information on Steam Remote Play sessions
 	 *
-	 * @param FInputHandle InputHandle
-	 * @return int32
+	 * @param FInputHandle InputHandle - The handle of the controller to query.
+	 * @return int32 - Steam Remote Play session ID
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
 	int32 GetRemotePlaySessionID(FInputHandle InputHandle) const { return SteamInput()->GetRemotePlaySessionID(InputHandle); }
