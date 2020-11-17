@@ -3,12 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SteamEnums.h"
+#include "Steam.h"
 #include "SteamStructs.generated.h"
-
-enum class ESteamPersonaChange : uint8;
-enum class ESteamControllerSourceMode : uint8;
-
-
 
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FUint64
@@ -141,4 +138,36 @@ struct STEAMBRIDGE_API FSteamInputMotionData
 
 	FSteamInputMotionData() {}
 	FSteamInputMotionData(const FQuat& quat, const FVector& pos, const FVector& rotvel) : RotQuat(quat), PosAccel(pos), RotVel(rotvel) {}
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamItemDetails
+{
+	GENERATED_BODY()
+
+	FSteamItemInstanceID ItemID;
+	FSteamItemDef Definition;
+	int32 Quantity;
+	TArray<ESteamItemFlags_> Flags;
+
+	FSteamItemDetails() {}
+	FSteamItemDetails(FSteamItemInstanceID instance, FSteamItemDef itemdef, int32 quantity, const TArray<ESteamItemFlags_>& flags) : ItemID(instance), Definition(itemdef), Quantity(quantity), Flags(flags) {}
+	FSteamItemDetails(const SteamItemDetails_t& details)
+	{
+		ItemID = details.m_itemId;
+		Definition = details.m_iDefinition;
+		Quantity = details.m_unQuantity;
+		if (details.m_unFlags & 1 << (int32)ESteamItemFlags_::NoTrade)
+		{
+			Flags.Add(ESteamItemFlags_::NoTrade);
+		}
+		if (details.m_unFlags & 1 << (int32)ESteamItemFlags_::ItemRemoved)
+		{
+			Flags.Add(ESteamItemFlags_::ItemRemoved);
+		}
+		if (details.m_unFlags & 1 << (int32)ESteamItemFlags_::ItemConsumed)
+		{
+			Flags.Add(ESteamItemFlags_::ItemConsumed);
+		}
+	}
 };

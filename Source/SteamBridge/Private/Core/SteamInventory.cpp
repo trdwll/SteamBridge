@@ -107,3 +107,33 @@ bool USteamInventory::GetItemPrice(FSteamItemDef ItemDef, int64& CurrentPrice, i
 	BasePrice = TmpBase;
 	return SteamInventory()->GetItemPrice(ItemDef.Value, &TmpCurrent, &TmpBase);
 }
+
+bool USteamInventory::GetResultItemProperty(FSteamInventoryResult ResultHandle, int32 ItemIndex, const FString& PropertyName, FString& Value) const
+{
+	TArray<char> TmpStr;
+	uint32 TmpStringValue = 0;
+	bool result = SteamInventory()->GetResultItemProperty(ResultHandle, ItemIndex, TCHAR_TO_UTF8(*PropertyName), TmpStr.GetData(), (uint32*)TmpStringValue);
+	Value = UTF8_TO_TCHAR(TmpStr.GetData());
+	return result;
+}
+
+bool USteamInventory::GetResultItems(FSteamInventoryResult ResultHandle, TArray<FSteamItemDetails>& ItemsArray) const
+{
+	uint32 TmpCount = 0;
+
+	if (SteamInventory()->GetResultItems(ResultHandle, nullptr, &TmpCount))
+	{
+		TArray<SteamItemDetails_t> TmpArray;
+		TmpArray.SetNum(TmpCount);
+		bool result = SteamInventory()->GetResultItems(ResultHandle, TmpArray.GetData(), &TmpCount);
+
+		for (int32 i = 0; i < (int32)TmpCount; i++)
+		{
+			ItemsArray.Add((FSteamItemDetails)TmpArray[i]);
+		}
+
+		return result;
+	}
+
+	return false;
+}

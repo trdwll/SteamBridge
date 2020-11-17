@@ -94,6 +94,16 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
 	int32 GetNumItemsWithPrices() const { return SteamInventory()->GetNumItemsWithPrices(); }
 
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
+	bool GetResultItemProperty(FSteamInventoryResult ResultHandle, int32 ItemIndex, const FString& PropertyName, FString& Value) const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
+	bool GetResultItems(FSteamInventoryResult ResultHandle, TArray<FSteamItemDetails>& ItemsArray) const;
+
+
+
+
+
 protected:
 private:
 };

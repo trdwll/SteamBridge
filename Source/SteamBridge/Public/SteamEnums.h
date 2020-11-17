@@ -834,3 +834,12 @@ enum class ESteamXboxOrigin : uint8
 	DPad_East,
 	Count,
 };
+
+// Added the _ since Steam actually has this enum already and we need it accessible in BP
+UENUM(BlueprintType)
+enum class ESteamItemFlags_ : uint8
+{
+	NoTrade = 0,
+	ItemRemoved = 8,
+	ItemConsumed = 9,
+};
