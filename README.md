@@ -4,6 +4,39 @@
 
 A UE4 implementation of the Steamworks API. 
 
+Interface | Completed | Notes |
+|---------------|---------------|---------------|
+ISteamApps | :heavy_check_mark: | 
+ISteamFriends | :heavy_check_mark: | [1] (1) |
+ISteamGameServer | :heavy_check_mark: | [1] (4) |
+ISteamGameServerStats | :heavy_check_mark: | [1] (1) |
+ISteamHTMLSurface | :heavy_check_mark: | 
+ISteamHTTP | :heavy_check_mark: | 
+ISteamInput | :heavy_check_mark: | 
+ISteamInventory | :x: | 
+ISteamMatchmaking | :x: | 
+ISteamMatchmakingServers | :x: | 
+ISteamMusic | :x: | 
+ISteamMusicRemote | :x: | 
+ISteamNetworkingMessages | :x: | 
+ISteamNetworkingSockets | :x: | 
+ISteamNetworkingUtils | :x: | 
+ISteamParties | :x: | 
+ISteamRemotePlay | :x: | 
+ISteamRemoteStorage | :x: | 
+ISteamScreenshots | :x: | 
+ISteamUGC | :x: | 
+ISteamUser | :heavy_check_mark: | 
+ISteamUserStats | :x: | 
+ISteamUtils | :x: | 
+ISteamVideo | :x: | 
+SteamEncryptedAppTicket | :x: | 
+SteamWeb | :x: | [2] |
+
+
+- [1] Some methods were left out temporarily and will be added eventually.
+- [2] Steam Web API will come after the core interfaces are implemented and are stable. 
+
 
 ## Installation
 
