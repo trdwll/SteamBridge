@@ -30,7 +30,6 @@ ISteamUser | :heavy_check_mark: |
 ISteamUserStats | :x: | 
 ISteamUtils | :x: | 
 ISteamVideo | :x: | 
-SteamEncryptedAppTicket | :x: | 
 SteamWeb | :x: | [2] |
 
 
