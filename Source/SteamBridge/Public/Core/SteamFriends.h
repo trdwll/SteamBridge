@@ -125,7 +125,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
 	FSteamAPICall DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, int32 ClansToRequest = 1) const;
 
-	// TODO: EnumerateFollowingList
+	// #TODO EnumerateFollowingList
 
 	/**
 	 * Gets the Steam ID at the given index in a Steam group chat.

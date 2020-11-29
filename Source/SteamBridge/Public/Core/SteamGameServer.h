@@ -90,7 +90,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|GameServer")
 	void ClearAllKeyValues() { SteamGameServer()->ClearAllKeyValues(); }
 
-	// TODO: ComputeNewPlayerCompatibility
+	// #TODO ComputeNewPlayerCompatibility
 
 	/**
 	 * Tells the Steam master servers whether or not you want to be active.
@@ -134,8 +134,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServer")
 	FHAuthTicket GetAuthSessionTicket(TArray<uint8>& AuthTicket);
 
-	// TODO: GetNextOutgoingPacket
-	// TODO: GetPublicIP
+	// #TODO GetNextOutgoingPacket
+	// #TODO GetPublicIP
 
 	/**
 	 * Gets the Steam ID of the game server.
@@ -145,8 +145,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServer")
 	FSteamID GetSteamID() const { return SteamGameServer()->GetSteamID().ConvertToUint64(); }
 
-	// TODO: HandleIncomingPacket
-	// TODO: InitGameServer
+	// #TODO HandleIncomingPacket
+	// #TODO InitGameServer
 
 	/**
 	 * Begin process of logging the game server out of steam.

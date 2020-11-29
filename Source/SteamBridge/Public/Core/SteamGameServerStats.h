@@ -92,7 +92,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
 	bool GetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float& Data) { return SteamGameServerStats()->GetUserStat(SteamIDUser.Value, TCHAR_TO_UTF8(*Name), &Data); }
 
-	// TODO: RequestUserStats
+	// #TODO RequestUserStats
 
 	/**
 	 * Unlocks an achievement for the specified user.
@@ -149,7 +149,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
 	bool SetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float Data) { return SteamGameServerStats()->SetUserStat(SteamIDUser.Value, TCHAR_TO_UTF8(*Name), Data); }
 
-	// TODO: StoreUserStats
+	// #TODO StoreUserStats
 
 	/**
 	 * Updates an AVGRATE stat with new values for the specified user.

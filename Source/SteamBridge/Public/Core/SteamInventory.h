@@ -128,7 +128,7 @@ public:
 	 * Any items that can be granted MUST have an exchange attribute in their itemdef. The exchange attribute specifies a set of recipes that are valid exchanges for this item. Exchange recipes are evaluated atomically -
 	 * by the Inventory Service; if the supplied components do not match the recipe, or do not contain sufficient quantity, the exchange will fail.
 	 * For example: exchange: 101x1,102x1;103x5;104x3,105x3
-	 * Will allow the item to be exchanged for either one #101 and one #102, five #103s or three #104s and three #105s. See the Steam Inventory Schema documentation for more details.
+	 * Will allow the item to be exchanged for either one 101 and one 102, five 103s or three 104s and three 105s. See the Steam Inventory Schema documentation for more details.
 	 * NOTE: You must call DestroyResult on the provided inventory result when you are done with it.
 	 *
 	 * @param FSteamInventoryResult & ResultHandle - Returns a new inventory result handle.

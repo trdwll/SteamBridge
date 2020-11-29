@@ -268,7 +268,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
 	int32 GetVoiceOptimalSampleRate() { return (uint32)SteamUser()->GetVoiceOptimalSampleRate(); }
 
-	// TODO: RequestEncryptedAppTicket, RequestStoreAuthURL
+	// #TODO RequestEncryptedAppTicket, RequestStoreAuthURL
 
 	/**
 	 * Starts voice recording.

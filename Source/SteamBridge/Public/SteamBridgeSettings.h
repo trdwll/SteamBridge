@@ -18,5 +18,5 @@ public:
 	UPROPERTY(EditAnywhere, config, Category = General)
 	bool bTest;
 
-	// TODO: Implement OSS Steam settings to remove the requirement of setting the info via text editor
+	// #TODO Implement OSS Steam settings to remove the requirement of setting the info via text editor
 };
