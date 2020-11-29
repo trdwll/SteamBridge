@@ -14,7 +14,7 @@ ISteamHTMLSurface | :heavy_check_mark: |
 ISteamHTTP | :heavy_check_mark: | 
 ISteamInput | :heavy_check_mark: | 
 ISteamInventory | :heavy_check_mark: | [1] (5)
-ISteamMatchmaking | :x: | 
+ISteamMatchmaking | :heavy_check_mark: | 
 ISteamMatchmakingServers | :x: | 
 ISteamMusic | :x: | 
 ISteamMusicRemote | :x: | 

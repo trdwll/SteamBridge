@@ -843,3 +843,50 @@ enum class ESteamItemFlags_ : uint8
 	ItemRemoved = 8,
 	ItemConsumed = 9,
 };
+
+UENUM(BlueprintType)
+enum class ESteamFavoriteFlags : uint8
+{
+	None = 0 UMETA(DisplayName = "None"),
+	Favorite = 1 UMETA(DisplayName = "Favorite"),
+	History = 2 UMETA(DisplayName = "History"),
+};
+
+UENUM(BlueprintType)
+enum class ESteamLobbyDistanceFilter : uint8
+{
+	Close = 0,
+	Default = 1,
+	Far = 2,
+	Worldwide = 3
+};
+
+UENUM(BlueprintType)
+enum class ESteamLobbyComparison : uint8
+{
+	EqualToOrLessThan = 0,
+	LessThan = 1,
+	Equal = 2,
+	GreaterThan = 3,
+	EqualToOrGreaterThan = 4,
+	NotEqual = 5
+};
+
+UENUM(BlueprintType)
+enum class ESteamLobbyType : uint8
+{
+	Private = 0 UMETA(DisplayName = "Private"),
+	FriendsOnly = 1 UMETA(DisplayName = "FriendsOnly"),
+	Public = 2 UMETA(DisplayName = "Public"),
+	Invisible = 3 UMETA(DisplayName = "Invisible"),
+};
+
+UENUM(BlueprintType)
+enum class ESteamChatMemberStateChange : uint8
+{
+	Entered = 0 UMETA(DisplayName = "Entered"),
+	Left = 1 UMETA(DisplayName = "Left"),
+	Disconnected = 2 UMETA(DisplayName = "Disconnected"),
+	Kicked = 3 UMETA(DisplayName = "Kicked"),
+	Banned = 4 UMETA(DisplayName = "Banned")
+};

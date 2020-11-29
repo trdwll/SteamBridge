@@ -76,6 +76,8 @@ struct STEAMBRIDGE_API FHSteamUser : public FUint32 { GENERATED_BODY() using FUi
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FAppID : public FUint32 { GENERATED_BODY() using FUint32::FUint32; };
 USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FAccountID : public FUint32 { GENERATED_BODY() using FUint32::FUint32; };
+USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FSteamFriendsGroupID : public FInt16 { GENERATED_BODY() using FInt16::FInt16; };
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FSteamInventoryResult : public FInt32 { GENERATED_BODY() using FInt32::FInt32; };
