@@ -14,7 +14,7 @@
 #include "SteamBridgeSettings.h"
 
 #define LOCTEXT_NAMESPACE "FSteamBridgeModule"
-#define SDK_VER TEXT("Steamv147")
+
 void FSteamBridgeModule::StartupModule()
 {
 	RegisterSettings();

@@ -8,6 +8,8 @@
 #pragma warning(disable:4265)
 #endif
 
+#define SDK_VER TEXT("Steamv147")
+
 #include "ThirdParty/Steamworks/Steamv147/sdk/public/steam/steam_api.h"
 #include "ThirdParty/Steamworks/Steamv147/sdk/public/steam/steam_gameserver.h"
 
