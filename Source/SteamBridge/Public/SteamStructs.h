@@ -60,6 +60,16 @@ struct STEAMBRIDGE_API FInt16
 	FInt16(int16 InValue) : Value(InValue) {}
 };
 
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FHServerListRequest
+{
+	GENERATED_BODY()
+
+	void* Value;
+
+	FHServerListRequest() : Value(nullptr) {}
+	FHServerListRequest(void* InValue) : Value(InValue) {}
+};
 
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FSteamID : public FUint64 { GENERATED_BODY() using FUint64::FUint64; };
@@ -83,6 +93,8 @@ USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FSteamInventoryResult : public FInt32 { GENERATED_BODY() using FInt32::FInt32; };
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FSteamItemDef : public FInt32 { GENERATED_BODY() using FInt32::FInt32; };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FHServerQuery : public FInt32 { GENERATED_BODY() using FInt32::FInt32; };
 
 
 USTRUCT(BlueprintType)

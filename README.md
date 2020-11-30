@@ -15,7 +15,7 @@ ISteamHTTP | :heavy_check_mark: |
 ISteamInput | :heavy_check_mark: | 
 ISteamInventory | :heavy_check_mark: | [1] (5)
 ISteamMatchmaking | :heavy_check_mark: | 
-ISteamMatchmakingServers | :x: | 
+ISteamMatchmakingServers | :heavy_check_mark: | [1] (10)
 ISteamMusic | :x: | 
 ISteamMusicRemote | :x: | 
 ISteamNetworkingMessages | :x: | 
