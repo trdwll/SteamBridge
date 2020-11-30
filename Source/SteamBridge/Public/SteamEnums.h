@@ -890,3 +890,12 @@ enum class ESteamChatMemberStateChange : uint8
 	Kicked = 3 UMETA(DisplayName = "Kicked"),
 	Banned = 4 UMETA(DisplayName = "Banned")
 };
+
+UENUM(BlueprintType)
+enum class ESteamAudioPlaybackStatus : uint8
+{
+	Undefined = 0,
+	Playing = 1,
+	Paused = 2,
+	Idle = 3
+};
