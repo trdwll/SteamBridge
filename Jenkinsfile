@@ -6,14 +6,21 @@ pipeline {
     node {
       label 'Windows'
     }
-
   }
   stages {
     stage('Build') {
       steps {
-        bat 'C:\\build-scripts\\SteamBridge-build.bat'
+        bat "py C:\\jenkins.py SteamBridge Build \"%WORKSPACE%\""
       }
     }
 
+    stage('Publish') {
+      when {
+        branch "main"
+      }
+      steps {
+        bat "py C:\\jenkins.py SteamBridge Publish \"%WORKSPACE%\""
+      }
+    }
   }
 }
