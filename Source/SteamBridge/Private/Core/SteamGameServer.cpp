@@ -31,7 +31,7 @@ USteamGameServer::~USteamGameServer()
 ESteamBeginAuthSessionResult USteamGameServer::BeginAuthSession(TArray<uint8> AuthTicket, FSteamID SteamID)
 {
 	AuthTicket.SetNum(8192);
-	return (ESteamBeginAuthSessionResult)SteamGameServer()->BeginAuthSession(AuthTicket.GetData(), 8192, SteamID.Value);
+	return (ESteamBeginAuthSessionResult)SteamGameServer()->BeginAuthSession(AuthTicket.GetData(), 8192, SteamID);
 }
 
 FHAuthTicket USteamGameServer::GetAuthSessionTicket(TArray<uint8> &AuthTicket)

@@ -58,7 +58,7 @@ void USteamFriends::ActivateGameOverlay(const ESteamGameOverlayTypes OverlayType
 void USteamFriends::ActivateGameOverlayToUser(const ESteamGameUserOverlayTypes OverlayType, FSteamID SteamID)
 {
 	const FString Str = USteamBridgeUtils::GetEnumValueAsStringParsed(USteamBridgeUtils::GetEnumValueAsString<ESteamGameUserOverlayTypes>("ESteamGameUserOverlayTypes", OverlayType));
-	SteamFriends()->ActivateGameOverlayToUser(TCHAR_TO_ANSI(*Str), SteamID.Value);
+	SteamFriends()->ActivateGameOverlayToUser(TCHAR_TO_ANSI(*Str), SteamID);
 }
 
 FSteamAPICall USteamFriends::DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, int32 ClansToRequest) const
@@ -80,7 +80,7 @@ int32 USteamFriends::GetClanChatMessage(FSteamID SteamIDClanChat, int32 MessageI
 	TArray<char> TmpMessage;
 	TmpMessage.SetNum(MAX_int32);
 	CSteamID TmpSteamID;
-	int32 res = SteamFriends()->GetClanChatMessage(SteamIDClanChat.Value, MessageID, TmpMessage.GetData(), MAX_int32, &TmpEntryType, &TmpSteamID);
+	int32 res = SteamFriends()->GetClanChatMessage(SteamIDClanChat, MessageID, TmpMessage.GetData(), MAX_int32, &TmpEntryType, &TmpSteamID);
 	if (res < 0)
 	{
 		return -1;
@@ -126,7 +126,7 @@ int32 USteamFriends::GetFriendCount(const TArray<ESteamFriendFlags>& FriendFlags
 bool USteamFriends::GetFriendGamePlayed(FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& GamePort, int32& QueryPort, FSteamID& SteamIDLobby)
 {
 	FriendGameInfo_t InGameInfoStruct;
-	bool bResult = SteamFriends()->GetFriendGamePlayed(SteamIDFriend.Value, &InGameInfoStruct);
+	bool bResult = SteamFriends()->GetFriendGamePlayed(SteamIDFriend, &InGameInfoStruct);
 	GameID = InGameInfoStruct.m_gameID.ToUint64();
 	GameIP = USteamBridgeUtils::ConvertIPToString(InGameInfoStruct.m_unGameIP);
 	GamePort = InGameInfoStruct.m_usGamePort;
@@ -140,7 +140,7 @@ int32 USteamFriends::GetFriendMessage(FSteamID SteamIDFriend, int32 MessageIndex
 	EChatEntryType TmpEntryType;
 	TArray<char> TmpMessage;
 	TmpMessage.SetNum(MAX_int32);
-	int32 res = SteamFriends()->GetFriendMessage(SteamIDFriend.Value, MessageIndex, TmpMessage.GetData(), MAX_int32, &TmpEntryType);
+	int32 res = SteamFriends()->GetFriendMessage(SteamIDFriend, MessageIndex, TmpMessage.GetData(), MAX_int32, &TmpEntryType);
 	if (res < 0)
 	{
 		return 0;
@@ -160,7 +160,7 @@ void USteamFriends::GetFriendsGroupMembersList(FSteamFriendsGroupID FriendsGroup
 	}
 
 	TArray<CSteamID> TmpArray;
-	SteamFriends()->GetFriendsGroupMembersList(FriendsGroupID.Value, TmpArray.GetData(), count);
+	SteamFriends()->GetFriendsGroupMembersList(FriendsGroupID, TmpArray.GetData(), count);
 	for (int32 i = 0; i < count; i++)
 	{
 		MemberSteamIDs.Add(TmpArray[i].ConvertToUint64());
@@ -173,13 +173,13 @@ UTexture2D* USteamFriends::GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarS
 	switch (AvatarSize)
 	{
 	case ESteamAvatarSize::Small:
-		Avatar = SteamFriends()->GetSmallFriendAvatar(SteamIDFriend.Value);
+		Avatar = SteamFriends()->GetSmallFriendAvatar(SteamIDFriend);
 		break;
 	case ESteamAvatarSize::Medium:
-		Avatar = SteamFriends()->GetMediumFriendAvatar(SteamIDFriend.Value);
+		Avatar = SteamFriends()->GetMediumFriendAvatar(SteamIDFriend);
 		break;
 	case ESteamAvatarSize::Large:
-		Avatar = SteamFriends()->GetLargeFriendAvatar(SteamIDFriend.Value);
+		Avatar = SteamFriends()->GetLargeFriendAvatar(SteamIDFriend);
 		break;
 	}
 
@@ -236,7 +236,7 @@ bool USteamFriends::HasFriend(FSteamID SteamIDFriend, const TArray<ESteamFriendF
 		}
 	}
 
-	return SteamFriends()->HasFriend(SteamIDFriend.Value, flags);
+	return SteamFriends()->HasFriend(SteamIDFriend, flags);
 }
 
 void USteamFriends::OnAvatarImageLoaded(AvatarImageLoaded_t* pParam)

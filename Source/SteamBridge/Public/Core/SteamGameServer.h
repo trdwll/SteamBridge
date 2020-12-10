@@ -42,7 +42,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a AssociateWithClanResult_t call result.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServer")
-	FSteamAPICall AssociateWithClan(FSteamID SteamIDClan) const { return SteamGameServer()->AssociateWithClan(SteamIDClan.Value); }
+	FSteamAPICall AssociateWithClan(FSteamID SteamIDClan) const { return SteamGameServer()->AssociateWithClan(SteamIDClan); }
 
 	/**
 	 * Authenticate the ticket from the entity Steam ID to be sure it is valid and isn't reused.
@@ -80,7 +80,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|GameServer")
-	void CancelAuthTicket(FHAuthTicket AuthTicketHandle) { SteamGameServer()->CancelAuthTicket(AuthTicketHandle.Value); }
+	void CancelAuthTicket(FHAuthTicket AuthTicketHandle) { SteamGameServer()->CancelAuthTicket(AuthTicketHandle); }
 
 	/**
 	 * Clears the whole list of key/values that are sent in rules queries.
@@ -109,7 +109,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|GameServer")
-	void EndAuthSession(FSteamID SteamID) { SteamGameServer()->EndAuthSession(SteamID.Value); }
+	void EndAuthSession(FSteamID SteamID) { SteamGameServer()->EndAuthSession(SteamID); }
 
 	/**
 	 * Force a heartbeat to the Steam master servers at the next opportunity.
@@ -191,7 +191,7 @@ public:
 	 * @return bool - true if the call was successfully sent out to the Steam servers; otherwise, false if we're not connected to the steam servers or an invalid user or group was provided.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServer")
-	bool RequestUserGroupStatus(FSteamID SteamIDUser, FSteamID SteamIDGroup) const { return SteamGameServer()->RequestUserGroupStatus(SteamIDUser.Value, SteamIDGroup.Value); }
+	bool RequestUserGroupStatus(FSteamID SteamIDUser, FSteamID SteamIDGroup) const { return SteamGameServer()->RequestUserGroupStatus(SteamIDUser, SteamIDGroup); }
 
 	/**
 	 * Sets the number of bot/AI players on the game server. The default value is 0.
@@ -359,7 +359,7 @@ public:
 	 * @return ESteamUserHasLicenseForAppResult
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|GameServer")
-	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID SteamID, int32 AppID) { return (ESteamUserHasLicenseForAppResult)SteamGameServer()->UserHasLicenseForApp(SteamID.Value, AppID); }
+	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID SteamID, int32 AppID) { return (ESteamUserHasLicenseForAppResult)SteamGameServer()->UserHasLicenseForApp(SteamID, AppID); }
 
 	/**
 	 * Checks if the master server has alerted us that we are out of date.

@@ -46,7 +46,7 @@ public:
 	 *	The stat must be allowed to be set by game server.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
-	bool ClearUserAchievement(FSteamID SteamIDUser, const FString& Name) const { return SteamGameServerStats()->ClearUserAchievement(SteamIDUser.Value, TCHAR_TO_UTF8(*Name)); }
+	bool ClearUserAchievement(FSteamID SteamIDUser, const FString& Name) const { return SteamGameServerStats()->ClearUserAchievement(SteamIDUser, TCHAR_TO_UTF8(*Name)); }
 
 	/**
 	 * Gets the unlock status of the Achievement.
@@ -60,7 +60,7 @@ public:
 	 * If the call is successful then the unlock status is returned via the bAchieved parameter.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
-	bool GetUserAchievement(FSteamID SteamIDUser, const FString& Name, bool& bAchieved) { return SteamGameServerStats()->GetUserAchievement(SteamIDUser.Value, TCHAR_TO_UTF8(*Name), &bAchieved); }
+	bool GetUserAchievement(FSteamID SteamIDUser, const FString& Name, bool& bAchieved) { return SteamGameServerStats()->GetUserAchievement(SteamIDUser, TCHAR_TO_UTF8(*Name), &bAchieved); }
 
 	/**
 	 * Gets the current value of the a stat for the specified user.
@@ -75,7 +75,7 @@ public:
 	 * The type passed to this function must match the type listed in the App Admin panel of the Steamworks website.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
-	bool GetUserStatInt(FSteamID SteamIDUser, const FString& Name, int32& Data) { return SteamGameServerStats()->GetUserStat(SteamIDUser.Value, TCHAR_TO_UTF8(*Name), &Data); }
+	bool GetUserStatInt(FSteamID SteamIDUser, const FString& Name, int32& Data) { return SteamGameServerStats()->GetUserStat(SteamIDUser, TCHAR_TO_UTF8(*Name), &Data); }
 
 	/**
 	 * Gets the current value of the a stat for the specified user.
@@ -90,7 +90,7 @@ public:
 	 * The type passed to this function must match the type listed in the App Admin panel of the Steamworks website.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
-	bool GetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float& Data) { return SteamGameServerStats()->GetUserStat(SteamIDUser.Value, TCHAR_TO_UTF8(*Name), &Data); }
+	bool GetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float& Data) { return SteamGameServerStats()->GetUserStat(SteamIDUser, TCHAR_TO_UTF8(*Name), &Data); }
 
 	// #TODO RequestUserStats
 
@@ -109,7 +109,7 @@ public:
 	 * The stat must be allowed to be set by game server.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
-	bool SetUserAchievement(FSteamID SteamIDUser, const FString& Name) const { return SteamGameServerStats()->SetUserAchievement(SteamIDUser.Value, TCHAR_TO_UTF8(*Name)); }
+	bool SetUserAchievement(FSteamID SteamIDUser, const FString& Name) const { return SteamGameServerStats()->SetUserAchievement(SteamIDUser, TCHAR_TO_UTF8(*Name)); }
 
 	/**
 	 * Sets / updates the value of a given stat for the specified user.
@@ -128,7 +128,7 @@ public:
 	 * The stat must be allowed to be set by game server.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
-	bool SetUserStatInt(FSteamID SteamIDUser, const FString& Name, int32 Data) { return SteamGameServerStats()->SetUserStat(SteamIDUser.Value, TCHAR_TO_UTF8(*Name), Data); }
+	bool SetUserStatInt(FSteamID SteamIDUser, const FString& Name, int32 Data) { return SteamGameServerStats()->SetUserStat(SteamIDUser, TCHAR_TO_UTF8(*Name), Data); }
 
 	/**
 	 * Sets / updates the value of a given stat for the specified user.
@@ -147,7 +147,7 @@ public:
 	 * The stat must be allowed to be set by game server.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
-	bool SetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float Data) { return SteamGameServerStats()->SetUserStat(SteamIDUser.Value, TCHAR_TO_UTF8(*Name), Data); }
+	bool SetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float Data) { return SteamGameServerStats()->SetUserStat(SteamIDUser, TCHAR_TO_UTF8(*Name), Data); }
 
 	// #TODO StoreUserStats
 

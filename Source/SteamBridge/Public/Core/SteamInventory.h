@@ -78,7 +78,7 @@ public:
 	 * @return bool - true if the result belongs to the target steam ID; otherwise, false.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool CheckResultSteamID(FSteamInventoryResult ResultHandle, FSteamID SteamIDExpected) const { return SteamInventory()->CheckResultSteamID(ResultHandle, SteamIDExpected.Value); }
+	bool CheckResultSteamID(FSteamInventoryResult ResultHandle, FSteamID SteamIDExpected) const { return SteamInventory()->CheckResultSteamID(ResultHandle, SteamIDExpected); }
 
 	/**
 	 * Consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.

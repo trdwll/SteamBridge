@@ -63,7 +63,7 @@ public:
 	FSteamAPICall CreateLobby(ESteamLobbyType LobbyType = ESteamLobbyType::FriendsOnly, uint8 MaxMembers = 1) const { return SteamMatchmaking()->CreateLobby((ELobbyType)LobbyType, MaxMembers); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool DeleteLobbyData(FSteamID SteamIDLobby, const FString& Key) const { return SteamMatchmaking()->DeleteLobbyData(SteamIDLobby.Value, TCHAR_TO_UTF8(*Key)); }
+	bool DeleteLobbyData(FSteamID SteamIDLobby, const FString& Key) const { return SteamMatchmaking()->DeleteLobbyData(SteamIDLobby, TCHAR_TO_UTF8(*Key)); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
 	bool GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, int32& TimeLastPlayedOnServer) const;
@@ -78,46 +78,46 @@ public:
 	int32 GetLobbyChatEntry(FSteamID SteamIDLobby, int32 ChatID, FSteamID& SteamIDUser, FString& Message, ESteamChatEntryType& ChatEntryType) const;
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Matchmaking")
-	FString GetLobbyData(FSteamID SteamIDLobby, const FString& Key) const { return UTF8_TO_TCHAR(SteamMatchmaking()->GetLobbyData(SteamIDLobby.Value, TCHAR_TO_UTF8(*Key))); }
+	FString GetLobbyData(FSteamID SteamIDLobby, const FString& Key) const { return UTF8_TO_TCHAR(SteamMatchmaking()->GetLobbyData(SteamIDLobby, TCHAR_TO_UTF8(*Key))); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
 	bool GetLobbyDataByIndex(FSteamID SteamIDLobby, int32 LobbyData, FString& Key, FString& Value) const;
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Matchmaking")
-	int32 GetLobbyDataCount(FSteamID SteamIDLobby) const { return SteamMatchmaking()->GetLobbyDataCount(SteamIDLobby.Value); }
+	int32 GetLobbyDataCount(FSteamID SteamIDLobby) const { return SteamMatchmaking()->GetLobbyDataCount(SteamIDLobby); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
 	bool GetLobbyGameServer(FSteamID SteamIDLobby, FString& GameServerIP, int32& GameServerPort, FSteamID& SteamIDGameServer) const;
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Matchmaking")
-	FSteamID GetLobbyMemberByIndex(FSteamID SteamIDLobby, int32 MemberIndex) const { return SteamMatchmaking()->GetLobbyMemberByIndex(SteamIDLobby.Value, MemberIndex).ConvertToUint64(); }
+	FSteamID GetLobbyMemberByIndex(FSteamID SteamIDLobby, int32 MemberIndex) const { return SteamMatchmaking()->GetLobbyMemberByIndex(SteamIDLobby, MemberIndex).ConvertToUint64(); }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Matchmaking")
-	FString GetLobbyMemberData(FSteamID SteamIDLobby, FSteamID SteamIDUser, const FString& Key) const { return UTF8_TO_TCHAR(SteamMatchmaking()->GetLobbyMemberData(SteamIDLobby.Value, SteamIDUser.Value, TCHAR_TO_UTF8(*Key))); }
+	FString GetLobbyMemberData(FSteamID SteamIDLobby, FSteamID SteamIDUser, const FString& Key) const { return UTF8_TO_TCHAR(SteamMatchmaking()->GetLobbyMemberData(SteamIDLobby, SteamIDUser, TCHAR_TO_UTF8(*Key))); }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Matchmaking")
-	int32 GetLobbyMemberLimit(FSteamID SteamIDLobby) const { return SteamMatchmaking()->GetLobbyMemberLimit(SteamIDLobby.Value); }
+	int32 GetLobbyMemberLimit(FSteamID SteamIDLobby) const { return SteamMatchmaking()->GetLobbyMemberLimit(SteamIDLobby); }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Matchmaking")
-	FSteamID GetLobbyOwner(FSteamID SteamIDLobby) const { return SteamMatchmaking()->GetLobbyOwner(SteamIDLobby.Value).ConvertToUint64(); }
+	FSteamID GetLobbyOwner(FSteamID SteamIDLobby) const { return SteamMatchmaking()->GetLobbyOwner(SteamIDLobby).ConvertToUint64(); }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Matchmaking")
-	int32 GetNumLobbyMembers(FSteamID SteamIDLobby) const { return SteamMatchmaking()->GetNumLobbyMembers(SteamIDLobby.Value); }
+	int32 GetNumLobbyMembers(FSteamID SteamIDLobby) const { return SteamMatchmaking()->GetNumLobbyMembers(SteamIDLobby); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool InviteUserToLobby(FSteamID SteamIDLobby, FSteamID SteamIDInvitee) const { return SteamMatchmaking()->InviteUserToLobby(SteamIDLobby.Value, SteamIDInvitee.Value); }
+	bool InviteUserToLobby(FSteamID SteamIDLobby, FSteamID SteamIDInvitee) const { return SteamMatchmaking()->InviteUserToLobby(SteamIDLobby, SteamIDInvitee); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	FSteamAPICall JoinLobby(FSteamID SteamIDLobby) const { return SteamMatchmaking()->JoinLobby(SteamIDLobby.Value); }
+	FSteamAPICall JoinLobby(FSteamID SteamIDLobby) const { return SteamMatchmaking()->JoinLobby(SteamIDLobby); }
 
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Matchmaking")
-	void LeaveLobby(FSteamID SteamIDLobby) { SteamMatchmaking()->LeaveLobby(SteamIDLobby.Value); }
+	void LeaveLobby(FSteamID SteamIDLobby) { SteamMatchmaking()->LeaveLobby(SteamIDLobby); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
 	bool RemoveFavoriteGame(int32 AppID, const FString& IP, int32 ConnPort, int32 QueryPort, const TArray<ESteamFavoriteFlags>& Flags) const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool RequestLobbyData(FSteamID SteamIDLobby) const { return SteamMatchmaking()->RequestLobbyData(SteamIDLobby.Value); }
+	bool RequestLobbyData(FSteamID SteamIDLobby) const { return SteamMatchmaking()->RequestLobbyData(SteamIDLobby); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
 	FSteamAPICall RequestLobbyList() const { return SteamMatchmaking()->RequestLobbyList(); }
@@ -126,25 +126,25 @@ public:
 	bool SendLobbyChatMsg(FSteamID SteamIDLobby, FString Message) const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool SetLobbyData(FSteamID SteamIDLobby, const FString& Key, const FString& Value) const { return SteamMatchmaking()->SetLobbyData(SteamIDLobby.Value, TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
+	bool SetLobbyData(FSteamID SteamIDLobby, const FString& Key, const FString& Value) const { return SteamMatchmaking()->SetLobbyData(SteamIDLobby, TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
 
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Matchmaking")
 	void SetLobbyGameServer(FSteamID SteamIDLobby, const FString& GameServerIP, int32 GameServerPort, FSteamID SteamIDGameServer) const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool SetLobbyJoinable(FSteamID SteamIDLobby, bool bLobbyJoinable) const { return SteamMatchmaking()->SetLobbyJoinable(SteamIDLobby.Value, bLobbyJoinable); }
+	bool SetLobbyJoinable(FSteamID SteamIDLobby, bool bLobbyJoinable) const { return SteamMatchmaking()->SetLobbyJoinable(SteamIDLobby, bLobbyJoinable); }
 
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Matchmaking")
-	void SetLobbyMemberData(FSteamID SteamIDLobby, const FString& Key, const FString& Value) { SteamMatchmaking()->SetLobbyMemberData(SteamIDLobby.Value, TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
+	void SetLobbyMemberData(FSteamID SteamIDLobby, const FString& Key, const FString& Value) { SteamMatchmaking()->SetLobbyMemberData(SteamIDLobby, TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool SetLobbyMemberLimit(FSteamID SteamIDLobby, uint8 MaxMembers = 5) const { return SteamMatchmaking()->SetLobbyMemberLimit(SteamIDLobby.Value, MaxMembers); }
+	bool SetLobbyMemberLimit(FSteamID SteamIDLobby, uint8 MaxMembers = 5) const { return SteamMatchmaking()->SetLobbyMemberLimit(SteamIDLobby, MaxMembers); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool SetLobbyOwner(FSteamID SteamIDLobby, FSteamID SteamIDNewOwner) const { return SteamMatchmaking()->SetLobbyOwner(SteamIDLobby.Value, SteamIDNewOwner.Value); }
+	bool SetLobbyOwner(FSteamID SteamIDLobby, FSteamID SteamIDNewOwner) const { return SteamMatchmaking()->SetLobbyOwner(SteamIDLobby, SteamIDNewOwner); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool SetLobbyType(FSteamID SteamIDLobby, ESteamLobbyType LobbyType) const { return SteamMatchmaking()->SetLobbyType(SteamIDLobby.Value, (ELobbyType)LobbyType); }
+	bool SetLobbyType(FSteamID SteamIDLobby, ESteamLobbyType LobbyType) const { return SteamMatchmaking()->SetLobbyType(SteamIDLobby, (ELobbyType)LobbyType); }
 
 	/** Delegates */
 

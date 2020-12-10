@@ -42,7 +42,7 @@ void USteamUser::AdvertiseGame(FSteamID SteamID, const FString& IP, int32 Port)
 {
 	uint32 TmpIP;
 	USteamBridgeUtils::ConvertIPStringToUint32(IP, TmpIP);
-	SteamUser()->AdvertiseGame(SteamID.Value, TmpIP, FMath::Clamp<uint16>(Port, 0, 65535));
+	SteamUser()->AdvertiseGame(SteamID, TmpIP, FMath::Clamp<uint16>(Port, 0, 65535));
 }
 
 ESteamVoiceResult USteamUser::DecompressVoice(const TArray<uint8>& CompressedBuffer, TArray<uint8>& UncompressedBuffer)

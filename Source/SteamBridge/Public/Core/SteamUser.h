@@ -65,7 +65,7 @@ public:
      * @return ESteamBeginAuthSessionResult
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> Ticket, FSteamID SteamID) { return (ESteamBeginAuthSessionResult)SteamUser()->BeginAuthSession(Ticket.GetData(), Ticket.Num(), SteamID.Value); }
+	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> Ticket, FSteamID SteamID) { return (ESteamBeginAuthSessionResult)SteamUser()->BeginAuthSession(Ticket.GetData(), Ticket.Num(), SteamID); }
 
 	/**
 	 * Checks if the current users looks like they are behind a NAT device.
@@ -148,7 +148,7 @@ public:
      * @return void
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void EndAuthSession(FSteamID SteamID) { SteamUser()->EndAuthSession(SteamID.Value); }
+	void EndAuthSession(FSteamID SteamID) { SteamUser()->EndAuthSession(SteamID); }
 
 	/**
 	 * Retrieve a authentication ticket to be sent to the entity who wishes to authenticate you.
@@ -293,12 +293,12 @@ public:
 	 * Checks if the user owns a specific piece of Downloadable Content (DLC).
 	 * This can only be called after sending the users auth ticket to ISteamGameServer::BeginAuthSession
 	 *
-	 * @param FSteamID steamID - The Steam ID of the user that sent the auth ticket.
-	 * @param int32 appID - The DLC App ID to check if the user owns it.
+	 * @param FSteamID SteamID - The Steam ID of the user that sent the auth ticket.
+	 * @param int32 AppID - The DLC App ID to check if the user owns it.
 	 * @return ESteamUserHasLicenseForAppResult
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID steamID, int32 appID) { return (ESteamUserHasLicenseForAppResult)SteamUser()->UserHasLicenseForApp(steamID.Value, appID); }
+	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID SteamID, int32 AppID) { return (ESteamUserHasLicenseForAppResult)SteamUser()->UserHasLicenseForApp(SteamID, AppID); }
 
 	/** Delegates */
 

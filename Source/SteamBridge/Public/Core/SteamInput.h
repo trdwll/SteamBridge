@@ -35,7 +35,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Input")
-	void ActivateActionSet(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle) { SteamInput()->ActivateActionSet(InputHandle, ActionSetHandle.Value); }
+	void ActivateActionSet(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle) { SteamInput()->ActivateActionSet(InputHandle, ActionSetHandle); }
 
 	/**
 	 * Reconfigure the controller to use the specified action set layer.

@@ -75,11 +75,11 @@ bool USteamMatchmaking::GetFavoriteGame(int32 GameIndex, int32& AppID, FString& 
 int32 USteamMatchmaking::GetLobbyChatEntry(FSteamID SteamIDLobby, int32 ChatID, FSteamID& SteamIDUser, FString& Message, ESteamChatEntryType& ChatEntryType) const
 {
 	EChatEntryType TmpType;
-	CSteamID TmpUserSteamID = SteamIDUser.Value;
+	CSteamID TmpUserSteamID = SteamIDUser;
 	TArray<uint8> MessageBuffer;
 	MessageBuffer.SetNum(8192);
 
-	int32 Result = SteamMatchmaking()->GetLobbyChatEntry(SteamIDLobby.Value, ChatID, &TmpUserSteamID, MessageBuffer.GetData(), 8192, &TmpType);
+	int32 Result = SteamMatchmaking()->GetLobbyChatEntry(SteamIDLobby, ChatID, &TmpUserSteamID, MessageBuffer.GetData(), 8192, &TmpType);
 
 	SteamIDUser = TmpUserSteamID.ConvertToUint64();
 	ChatEntryType = (ESteamChatEntryType)TmpType;
@@ -97,7 +97,7 @@ bool USteamMatchmaking::GetLobbyDataByIndex(FSteamID SteamIDLobby, int32 LobbyDa
 	TmpKey.SetNum(8192);
 	TmpValue.SetNum(8192);
 
-	bool bResult = SteamMatchmaking()->GetLobbyDataByIndex(SteamIDLobby.Value, LobbyData, TmpKey.GetData(), 8192, TmpValue.GetData(), 8192);
+	bool bResult = SteamMatchmaking()->GetLobbyDataByIndex(SteamIDLobby, LobbyData, TmpKey.GetData(), 8192, TmpValue.GetData(), 8192);
 
 	Key = UTF8_TO_TCHAR(TmpKey.GetData());
 	Value = UTF8_TO_TCHAR(TmpValue.GetData());
@@ -111,7 +111,7 @@ bool USteamMatchmaking::GetLobbyGameServer(FSteamID SteamIDLobby, FString& GameS
 	uint16 TmpPort = 0;
 	CSteamID TmpSteamID;
 
-	bool bResult = SteamMatchmaking()->GetLobbyGameServer(SteamIDLobby.Value, &TmpIP, &TmpPort, &TmpSteamID);
+	bool bResult = SteamMatchmaking()->GetLobbyGameServer(SteamIDLobby, &TmpIP, &TmpPort, &TmpSteamID);
 
 	GameServerIP = USteamBridgeUtils::ConvertIPToString(TmpIP);
 	GameServerPort = TmpPort;
@@ -141,7 +141,7 @@ bool USteamMatchmaking::SendLobbyChatMsg(FSteamID SteamIDLobby, FString Message)
 	MemWriter << Message;
 	MemWriter.Close();
 
-	return SteamMatchmaking()->SendLobbyChatMsg(SteamIDLobby.Value, MessageBuffer.GetData(), MessageBuffer.Num());
+	return SteamMatchmaking()->SendLobbyChatMsg(SteamIDLobby, MessageBuffer.GetData(), MessageBuffer.Num());
 }
 
 void USteamMatchmaking::SetLobbyGameServer(FSteamID SteamIDLobby, const FString& GameServerIP, int32 GameServerPort, FSteamID SteamIDGameServer) const
@@ -149,7 +149,7 @@ void USteamMatchmaking::SetLobbyGameServer(FSteamID SteamIDLobby, const FString&
 	uint32 TmpIP = 0;
 	USteamBridgeUtils::ConvertIPStringToUint32(GameServerIP, TmpIP);
 
-	SteamMatchmaking()->SetLobbyGameServer(SteamIDLobby.Value, TmpIP, GameServerPort, SteamIDGameServer.Value);
+	SteamMatchmaking()->SetLobbyGameServer(SteamIDLobby, TmpIP, GameServerPort, SteamIDGameServer);
 }
 
 void USteamMatchmaking::OnFavoritesListAccountsUpdated(FavoritesListAccountsUpdated_t* pParam)

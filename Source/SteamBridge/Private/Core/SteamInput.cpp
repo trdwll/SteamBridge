@@ -17,7 +17,7 @@ USteamInput::~USteamInput()
 int32 USteamInput::GetActiveActionSetLayers(FInputHandle InputHandle, TArray<FInputHandle>& Handles)
 {
 	TArray<uint64> Tmp;
-	int32 result = SteamInput()->GetActiveActionSetLayers(InputHandle.Value, Tmp.GetData());
+	int32 result = SteamInput()->GetActiveActionSetLayers(InputHandle, Tmp.GetData());
 
 	for (int32 i = 0; i < result; i++)
 	{
@@ -29,7 +29,7 @@ int32 USteamInput::GetActiveActionSetLayers(FInputHandle InputHandle, TArray<FIn
 
 FSteamInputAnalogActionData USteamInput::GetAnalogActionData(FInputHandle InputHandle, FInputActionSetHandle ActionSetLayerHandle) const
 {
-	InputAnalogActionData_t data = SteamInput()->GetAnalogActionData(InputHandle.Value, ActionSetLayerHandle.Value);
+	InputAnalogActionData_t data = SteamInput()->GetAnalogActionData(InputHandle, ActionSetLayerHandle);
 	return {(ESteamControllerSourceMode)data.eMode, data.x, data.y, data.bActive};
 }
 
@@ -61,14 +61,14 @@ int32 USteamInput::GetConnectedControllers(TArray<FInputHandle>& Handles)
 
 FSteamInputDigitalActionData USteamInput::GetDigitalActionData(FInputHandle InputHandle, FInputDigitalActionHandle DigitalActionHandle) const
 {
-	InputDigitalActionData_t data = SteamInput()->GetDigitalActionData(InputHandle.Value, DigitalActionHandle);
+	InputDigitalActionData_t data = SteamInput()->GetDigitalActionData(InputHandle, DigitalActionHandle);
 	return {data.bState, data.bActive};
 }
 
 int32 USteamInput::GetDigitalActionOrigins(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle, FInputDigitalActionHandle DigitalActionHandle, TArray<ESteamInputActionOrigin>& Origins)
 {
 	TArray<EInputActionOrigin> Tmp;
-	int32 result = SteamInput()->GetDigitalActionOrigins(InputHandle.Value, ActionSetHandle.Value, DigitalActionHandle, Tmp.GetData());
+	int32 result = SteamInput()->GetDigitalActionOrigins(InputHandle, ActionSetHandle, DigitalActionHandle, Tmp.GetData());
 
 	for (int32 i = 0; i < result; i++)
 	{
@@ -80,7 +80,7 @@ int32 USteamInput::GetDigitalActionOrigins(FInputHandle InputHandle, FInputActio
 
 FSteamInputMotionData USteamInput::GetMotionData(FInputHandle InputHandle) const
 {
-	InputMotionData_t data = SteamInput()->GetMotionData(InputHandle.Value);
+	InputMotionData_t data = SteamInput()->GetMotionData(InputHandle);
 	return {{data.rotQuatX, data.rotQuatY, data.rotQuatZ, data.rotQuatW}, {data.posAccelX, data.posAccelY, data.posAccelZ}, {data.rotVelX, data.rotVelY, data.rotVelZ}};
 }
 
@@ -91,7 +91,7 @@ void USteamInput::SetLEDColorU(FInputHandle InputHandle, uint8 R, uint8 G, uint8
 	{
 		Tmp |= 1 << (uint8)Flags[i];
 	}
-	SteamInput()->SetLEDColor(InputHandle.Value, R, G, B, Tmp);
+	SteamInput()->SetLEDColor(InputHandle, R, G, B, Tmp);
 }
 
 void USteamInput::SetLEDColor(FInputHandle InputHandle, const FLinearColor& Color, const TArray<ESteamControllerLEDFlag_>& Flags)
@@ -101,5 +101,5 @@ void USteamInput::SetLEDColor(FInputHandle InputHandle, const FLinearColor& Colo
 	{
 		Tmp |= 1 << (uint8)Flags[i];
 	}
-	SteamInput()->SetLEDColor(InputHandle.Value, Color.R, Color.G, Color.B, Tmp);
+	SteamInput()->SetLEDColor(InputHandle, Color.R, Color.G, Color.B, Tmp);
 }

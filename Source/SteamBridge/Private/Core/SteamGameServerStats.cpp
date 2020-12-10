@@ -22,7 +22,7 @@ USteamGameServerStats::~USteamGameServerStats()
 
 bool USteamGameServerStats::UpdateUserAvgRateStat(FSteamID SteamIDUser, const FString& Name, float CountThisSession, float SessionLength) const
 {
-	return SteamGameServerStats()->UpdateUserAvgRateStat(SteamIDUser.Value, TCHAR_TO_UTF8(*Name), CountThisSession, SessionLength);
+	return SteamGameServerStats()->UpdateUserAvgRateStat(SteamIDUser, TCHAR_TO_UTF8(*Name), CountThisSession, SessionLength);
 }
 
 void USteamGameServerStats::OnGSStatsReceived(GSStatsReceived_t *pParam)

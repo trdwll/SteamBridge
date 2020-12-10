@@ -77,11 +77,11 @@ bool USteamInventory::GenerateItems(FSteamInventoryResult& ResultHandle, const T
 bool USteamInventory::GetEligiblePromoItemDefinitionIDs(FSteamID SteamID, TArray<FSteamItemDef>& Items) const
 {
 	uint32 TmpCount = 0;
-	if (SteamInventory()->GetEligiblePromoItemDefinitionIDs(SteamID.Value, nullptr, &TmpCount))
+	if (SteamInventory()->GetEligiblePromoItemDefinitionIDs(SteamID, nullptr, &TmpCount))
 	{
 		TArray<SteamItemDef_t> TmpArray;
 		TmpArray.SetNum(TmpCount);
-		bool result = SteamInventory()->GetEligiblePromoItemDefinitionIDs(SteamID.Value, TmpArray.GetData(), &TmpCount);
+		bool result = SteamInventory()->GetEligiblePromoItemDefinitionIDs(SteamID, TmpArray.GetData(), &TmpCount);
 
 		for (int32 i = 0; i < (int32)TmpCount; i++)
 		{
@@ -117,7 +117,7 @@ bool USteamInventory::GetItemPrice(FSteamItemDef ItemDef, int64& CurrentPrice, i
 	uint64 TmpCurrent = 0, TmpBase = 0;
 	CurrentPrice = TmpCurrent;
 	BasePrice = TmpBase;
-	return SteamInventory()->GetItemPrice(ItemDef.Value, &TmpCurrent, &TmpBase);
+	return SteamInventory()->GetItemPrice(ItemDef, &TmpCurrent, &TmpBase);
 }
 
 bool USteamInventory::GetResultItemProperty(FSteamInventoryResult ResultHandle, int32 ItemIndex, const FString& PropertyName, FString& Value) const
@@ -153,10 +153,10 @@ bool USteamInventory::GetResultItems(FSteamInventoryResult ResultHandle, TArray<
 bool USteamInventory::SerializeResult(FSteamInventoryResult ResultHandle, TArray<uint8>& Buffer) const
 {
 	uint32 TmpCount = 0;
-	if (SteamInventory()->SerializeResult(ResultHandle.Value, nullptr, &TmpCount))
+	if (SteamInventory()->SerializeResult(ResultHandle, nullptr, &TmpCount))
 	{
 		Buffer.SetNum(TmpCount);
-		bool bResult = SteamInventory()->SerializeResult(ResultHandle.Value, Buffer.GetData(), &TmpCount);
+		bool bResult = SteamInventory()->SerializeResult(ResultHandle, Buffer.GetData(), &TmpCount);
 		return bResult;
 	}
 
