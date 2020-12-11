@@ -899,3 +899,22 @@ enum class ESteamAudioPlaybackStatus : uint8
 	Paused = 2,
 	Idle = 3
 };
+
+UENUM(BlueprintType)
+enum class ESteamPartyBeaconLocation : uint8
+{
+	Invalid = 0,
+	ChatGroup = 1,
+	Max
+};
+
+// Added the _ since Steam actually has this enum already and we need it accessible in BP
+UENUM(BlueprintType)
+enum class ESteamPartyBeaconLocationData_ : uint8
+{
+	Invalid = 0,
+	Name = 1,
+	IconURLSmall = 2,
+	IconURLMedium = 3,
+	IconURLLarge = 4,
+};

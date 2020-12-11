@@ -21,7 +21,7 @@ ISteamMusicRemote | :heavy_check_mark: | [1] (2)
 ISteamNetworkingMessages | :x: | 
 ISteamNetworkingSockets | :x: | 
 ISteamNetworkingUtils | :x: | 
-ISteamParties | :x: | 
+ISteamParties | :heavy_check_mark: | 
 ISteamRemotePlay | :x: | 
 ISteamRemoteStorage | :x: | 
 ISteamScreenshots | :x: | 

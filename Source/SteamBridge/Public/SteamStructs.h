@@ -186,6 +186,12 @@ struct STEAMBRIDGE_API FInputHandle : public FUint64
 	GENERATED_BODY()
 	using FUint64::FUint64;
 };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FPartyBeaconID : public FUint64
+{
+	GENERATED_BODY()
+	using FUint64::FUint64;
+};
 
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FHTTPCookieContainerHandle : public FUint32
@@ -280,4 +286,19 @@ struct STEAMBRIDGE_API FSteamItemDetails
 			Flags.Add(ESteamItemFlags_::ItemConsumed);
 		}
 	}
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamPartyBeaconLocation
+{
+	GENERATED_BODY()
+
+	ESteamPartyBeaconLocation Type;
+	uint64 LocationID;
+
+	FSteamPartyBeaconLocation() {}
+	FSteamPartyBeaconLocation(ESteamPartyBeaconLocation type, uint64 id) :
+		Type(Type), LocationID(id) {}
+	FSteamPartyBeaconLocation(SteamPartyBeaconLocation_t type) :
+		Type((ESteamPartyBeaconLocation)type.m_eType), LocationID(type.m_ulLocationID) {}
 };
