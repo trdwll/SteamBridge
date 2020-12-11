@@ -36,7 +36,7 @@ SteamWeb | :x: | [2] |
 - [1] Some methods were left out temporarily and will be added eventually.
 - [2] Steam Web API will come after the core interfaces are implemented and are stable. 
 
-Another note for [1]. I'm skipping some methods that will take a while to implement. I'm doing this so I can add most of the functionality quickly. If you need a specific method that isn't in the plugin then post an [issue](https://github.com/trdwll/SteamBridge/issues).
+Another note for [1]. I'm skipping some methods that will take a while to implement. I'm doing this so I can add most of the functionality quickly. If you need a specific method that isn't in the plugin then post an [issue](https://github.com/trdwll/SteamBridge/issues) or add it yourself and submit a [Pull Request](https://github.com/trdwll/SteamBridge/pulls).
 
 
 ## Installation
