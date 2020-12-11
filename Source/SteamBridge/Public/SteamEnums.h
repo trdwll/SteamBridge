@@ -982,3 +982,39 @@ enum class ESteamGamepadTextInputLineMode : uint8
 	SingleLine = 0,
 	MultipleLines = 1
 };
+
+UENUM(BlueprintType)
+enum class ESteamLeaderboardDataRequest : uint8
+{
+	Global = 0,
+	GlobalAroundUser = 1,
+	Friends = 2,
+	Users = 3
+};
+
+// the sort order of a leaderboard
+UENUM(BlueprintType)
+enum class ESteamLeaderboardSortMethod : uint8
+{
+	None = 0,
+	Ascending = 1,	// top-score is lowest number
+	Descending = 2,	// top-score is highest number
+};
+
+// the display type (used by the Steam Community web site) for a leaderboard
+UENUM(BlueprintType)
+enum class ESteamLeaderboardDisplayType : uint8
+{
+	None = 0,
+	Numeric = 1,			// simple numerical score
+	TimeSeconds = 2,		// the score represents a time, in seconds
+	TimeMilliSeconds = 3,	// the score represents a time, in milliseconds
+};
+
+UENUM(BlueprintType)
+enum class ESteamLeaderboardUploadScoreMethod : uint8
+{
+	None = 0,
+	KeepBest = 1,	// Leaderboard will keep user's best score
+	ForceUpdate = 2,	// Leaderboard will always replace score with specified
+};

@@ -194,6 +194,45 @@ struct STEAMBRIDGE_API FPartyBeaconID : public FUint64
 };
 
 USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FUGCHandle : public FUint64
+{
+	GENERATED_BODY()
+	using FUint64::FUint64;
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FPublishedFileId : public FUint64
+{
+	GENERATED_BODY()
+	using FUint64::FUint64;
+};
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FPublishedFileUpdateHandle : public FUint64
+{
+	GENERATED_BODY()
+	using FUint64::FUint64;
+};
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FUGCFileWriteStreamHandle : public FUint64
+{
+	GENERATED_BODY()
+	using FUint64::FUint64;
+};
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamLeaderboardEntries : public FUint64
+{
+	GENERATED_BODY()
+	using FUint64::FUint64;
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamLeaderboard : public FUint64
+{
+	GENERATED_BODY()
+	using FUint64::FUint64;
+};
+
+USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FHTTPCookieContainerHandle : public FUint32
 {
 	GENERATED_BODY()
@@ -299,7 +338,7 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 	operator SteamPartyBeaconLocation_t() const
 	{
 		SteamPartyBeaconLocation_t o;
-		o.m_eType= (ESteamPartyBeaconLocationType)Type;
+		o.m_eType = (ESteamPartyBeaconLocationType)Type;
 		o.m_ulLocationID = LocationID;
 		return o;
 	}
@@ -307,6 +346,24 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 	FSteamPartyBeaconLocation() {}
 	FSteamPartyBeaconLocation(ESteamPartyBeaconLocation type, uint64 id) :
 		Type(Type), LocationID(id) {}
-	FSteamPartyBeaconLocation(SteamPartyBeaconLocation_t type) :
+	FSteamPartyBeaconLocation(const SteamPartyBeaconLocation_t& type) :
 		Type((ESteamPartyBeaconLocation)type.m_eType), LocationID(type.m_ulLocationID) {}
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamLeaderboardEntry
+{
+	GENERATED_BODY()
+
+	FSteamID SteamIDUser;
+	int32 GlobalRank;
+	int32 Score;
+	int32 Details;
+	FUGCHandle UGC;
+
+	FSteamLeaderboardEntry() {}
+	FSteamLeaderboardEntry(FSteamID steamid, int32 glob, int32 score, int32 details, FUGCHandle handle) :
+		SteamIDUser(steamid), GlobalRank(glob), Score(score), Details(details), UGC(handle) {}
+	FSteamLeaderboardEntry(const LeaderboardEntry_t& type) :
+		SteamIDUser(type.m_steamIDUser.ConvertToUint64()), GlobalRank(type.m_nGlobalRank), Score(type.m_nScore), Details(type.m_cDetails), UGC(type.m_hUGC) {}
 };
