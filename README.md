@@ -29,7 +29,7 @@ ISteamUGC | :x: |
 ISteamUser | :heavy_check_mark: | 
 ISteamUserStats | :x: | 
 ISteamUtils | :heavy_check_mark: | [1] (5)
-ISteamVideo | :x: | 
+ISteamVideo | :heavy_check_mark: | 
 SteamWeb | :x: | [2] |
 
 
