@@ -296,6 +296,14 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 	ESteamPartyBeaconLocation Type;
 	uint64 LocationID;
 
+	operator SteamPartyBeaconLocation_t() const
+	{
+		SteamPartyBeaconLocation_t o;
+		o.m_eType= (ESteamPartyBeaconLocationType)Type;
+		o.m_ulLocationID = LocationID;
+		return o;
+	}
+
 	FSteamPartyBeaconLocation() {}
 	FSteamPartyBeaconLocation(ESteamPartyBeaconLocation type, uint64 id) :
 		Type(Type), LocationID(id) {}

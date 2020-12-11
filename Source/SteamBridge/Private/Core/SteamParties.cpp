@@ -58,22 +58,26 @@ FSteamAPICall USteamParties::CreateBeacon(int32 OpenSlots, FSteamPartyBeaconLoca
 bool USteamParties::GetBeaconDetails(FPartyBeaconID BeaconID, FSteamID& SteamIDBeaconOwner, FSteamPartyBeaconLocation& BeaconLocation, FString& Metadata) const
 {
 	TArray<char> TmpMeta;
-	bool bResult = SteamParties()->GetBeaconDetails(BeaconID, &SteamIDBeaconOwner, &BeaconLocation, TmpMeta.GetData(), 8192);  // Might not be the smartest to hardcode
+	CSteamID TmpSteamID;
+	SteamPartyBeaconLocation_t TmpBeaconLocation;
+	bool bResult = SteamParties()->GetBeaconDetails(BeaconID, &TmpSteamID, &TmpBeaconLocation, TmpMeta.GetData(), 8192);  // Might not be the smartest to hardcode
 	Metadata = UTF8_TO_TCHAR(TmpMeta.GetData());
+	SteamIDBeaconOwner = TmpSteamID.ConvertToUint64();
+	BeaconLocation = TmpBeaconLocation;
 	return bResult;
 }
 
-bool USteamParties::GetBeaconLocationData(FSteamPartyBeaconLocation BeaconLocation, ESteamPartyBeaconLocationData LocationData, FString& DataString) const
+bool USteamParties::GetBeaconLocationData(FSteamPartyBeaconLocation BeaconLocation, ESteamPartyBeaconLocationData_ LocationData, FString& DataString) const
 {
 	TArray<char> TmpData;
-	bool bResult = SteamParties()->GetBeaconLocationData(BeaconLocation, LocationData, TmpData.GetData(), 8192);  // Might not be the smartest to hardcode
-	DataString = UTF8_TO_TCHAR(TmpMeta.GetData());
+	bool bResult = SteamParties()->GetBeaconLocationData(BeaconLocation, (ESteamPartyBeaconLocationData)LocationData, TmpData.GetData(), 8192);  // Might not be the smartest to hardcode
+	DataString = UTF8_TO_TCHAR(TmpData.GetData());
 	return bResult;
 }
 
 void USteamParties::OnJoinParty(JoinPartyCallback_t* pParam)
 {
-	m_OnJoinParty.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_ulBeaconID, pParam->m_SteamIDBeaconOwner, UTF8_TO_TCHAR(pParam->m_rgchConnectString));
+	m_OnJoinParty.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_ulBeaconID, pParam->m_SteamIDBeaconOwner.ConvertToUint64(), UTF8_TO_TCHAR(pParam->m_rgchConnectString));
 }
 
 void USteamParties::OnCreateBeacon(CreateBeaconCallback_t* pParam)
@@ -83,7 +87,7 @@ void USteamParties::OnCreateBeacon(CreateBeaconCallback_t* pParam)
 
 void USteamParties::OnReservationNotification(ReservationNotificationCallback_t* pParam)
 {
-	m_OnReservationNotification.Broadcast(pParam->m_ulBeaconID, pParam->m_steamIDJoiner);
+	m_OnReservationNotification.Broadcast(pParam->m_ulBeaconID, pParam->m_steamIDJoiner.ConvertToUint64());
 }
 
 void USteamParties::OnChangeNumOpenSlots(ChangeNumOpenSlotsCallback_t* pParam)
