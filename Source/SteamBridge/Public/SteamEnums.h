@@ -918,3 +918,14 @@ enum class ESteamPartyBeaconLocationData_ : uint8
 	IconURLMedium = 3,
 	IconURLLarge = 4,
 };
+
+// Added the _ since Steam actually has this enum already and we need it accessible in BP
+UENUM(BlueprintType)
+enum class ESteamDeviceFormFactor_ : uint8
+{
+	Unknown = 0,
+	Phone = 1,
+	Tablet = 2,
+	Computer = 3,
+	TV = 4,
+};

@@ -22,7 +22,7 @@ ISteamNetworkingMessages | :x: |
 ISteamNetworkingSockets | :x: | 
 ISteamNetworkingUtils | :x: | 
 ISteamParties | :heavy_check_mark: | 
-ISteamRemotePlay | :x: | 
+ISteamRemotePlay | :heavy_check_mark: | 
 ISteamRemoteStorage | :x: | 
 ISteamScreenshots | :x: | 
 ISteamUGC | :x: | 
