@@ -929,3 +929,56 @@ enum class ESteamDeviceFormFactor_ : uint8
 	Computer = 3,
 	TV = 4,
 };
+
+UENUM(BlueprintType)
+enum class ESteamAPICallFailure_ : uint8
+{
+	None = 0,			// no failure
+	SteamGone = 1,		// the local Steam process has gone away
+	NetworkFailure = 2,	// the network connection to Steam has been broken, or was already broken
+	InvalidHandle = 3,	// the SteamAPICall_t handle passed in no longer exists
+	MismatchedCallback = 4,// GetAPICallResult() was called with the wrong callback type for this API call
+};
+
+UENUM(BlueprintType)
+enum class ESteamUniverse : uint8
+{
+	Invalid = 0,
+	Public = 1,
+	Beta = 2,
+	Internal = 3,
+	Dev = 4,
+	Max
+};
+
+UENUM(BlueprintType)
+enum class ESteamTextFilteringContext : uint8
+{
+	Unknown = 0,
+	GameContent = 1,
+	Chat = 2,
+	Name = 3
+};
+
+UENUM(BlueprintType)
+enum class ESteamNotificationPosition : uint8
+{
+	TopLeft = 0,
+	TopRight = 1,
+	BottomLeft = 2,
+	BottomRight = 3,
+};
+
+UENUM(BlueprintType)
+enum class ESteamGamepadTextInputMode : uint8
+{
+	Normal = 0,
+	Password = 1
+};
+
+UENUM(BlueprintType)
+enum class ESteamGamepadTextInputLineMode : uint8
+{
+	SingleLine = 0,
+	MultipleLines = 1
+};

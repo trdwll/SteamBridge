@@ -28,7 +28,7 @@ ISteamScreenshots | :x: |
 ISteamUGC | :x: | 
 ISteamUser | :heavy_check_mark: | 
 ISteamUserStats | :x: | 
-ISteamUtils | :x: | 
+ISteamUtils | :heavy_check_mark: | [1] (5)
 ISteamVideo | :x: | 
 SteamWeb | :x: | [2] |
 
