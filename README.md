@@ -27,7 +27,7 @@ ISteamRemoteStorage | :x: |
 ISteamScreenshots | :x: | 
 ISteamUGC | :x: | 
 ISteamUser | :heavy_check_mark: | 
-ISteamUserStats | :x: | 
+ISteamUserStats | :heavy_check_mark: | [1] (4)
 ISteamUtils | :heavy_check_mark: | [1] (5)
 ISteamVideo | :heavy_check_mark: | 
 SteamWeb | :x: | [2] |
@@ -48,7 +48,7 @@ Go to the [releases](https://github.com/trdwll/SteamBridge/releases) page and do
 
 Using SteamBridge is actually really easy.
 
-- Edit your `DefaultEngine.ini` and make sure the Steam config exists like below.
+- Edit your `DefaultEngine.ini` and make sure the Steam config exists like [here](https://github.com/trdwll/SteamBridge/blob/main/ExampleDefaultEngine.ini).
 - Open your project and start using SteamBridge.
 
 
