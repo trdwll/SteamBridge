@@ -24,14 +24,6 @@ USteamParties::~USteamParties()
 	OnActiveBeaconsUpdatedCallback.Unregister();
 }
 
-bool USteamParties::GetNumAvailableBeaconLocations(int32& NumLocations) const
-{
-	uint32 TmpNum = 0;
-	bool bResult = SteamParties()->GetNumAvailableBeaconLocations(&TmpNum);
-	NumLocations = TmpNum;
-	return bResult;
-}
-
 bool USteamParties::GetAvailableBeaconLocations(TArray<FSteamPartyBeaconLocation>& LocationList) const
 {
 	TArray<SteamPartyBeaconLocation_t> TmpArray;

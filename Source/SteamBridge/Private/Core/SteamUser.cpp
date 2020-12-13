@@ -86,13 +86,13 @@ bool USteamUser::GetEncryptedAppTicket(TArray<uint8>& Ticket)
 
 ESteamVoiceResult USteamUser::GetVoice(TArray<uint8>& VoiceData)
 {
-	int32 tmpData = 0;
-	ESteamVoiceResult result = GetAvailableVoice(tmpData);
+	int32 TmpData = 0;
+	ESteamVoiceResult result = GetAvailableVoice(TmpData);
 	if (result == ESteamVoiceResult::OK)
 	{
-		VoiceData.SetNum(tmpData);
-		result = (ESteamVoiceResult)SteamUser()->GetVoice(true, VoiceData.GetData(), VoiceData.Num(), (uint32*)&tmpData);
-		VoiceData.SetNum(tmpData);
+		VoiceData.SetNum(TmpData);
+		result = (ESteamVoiceResult)SteamUser()->GetVoice(true, VoiceData.GetData(), VoiceData.Num(), (uint32*)&TmpData);
+		VoiceData.SetNum(TmpData);
 	}
 	return result;
 }

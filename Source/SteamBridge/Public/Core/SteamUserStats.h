@@ -148,7 +148,7 @@ public:
 	 * If the call is successful then the achieved status and unlock time are provided via the arguments pbAchieved and punUnlockTime.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	bool GetAchievementAndUnlockTime(const FString& Name, bool& bAchieved, int32& UnlockTime) const;
+	bool GetAchievementAndUnlockTime(const FString& Name, bool& bAchieved, int32& UnlockTime) const { return SteamUserStats()->GetAchievementAndUnlockTime(TCHAR_TO_UTF8(*Name), &bAchieved, (uint32*)&UnlockTime); }
 
 	/**
 	 * Get general attributes for an achievement. Currently provides: Name, Description, and Hidden status.
@@ -223,7 +223,7 @@ public:
 	 * The type matches the type listed in the App Admin panel of the Steamworks website.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	bool GetGlobalStatFloat(const FString& StatName, float& Data) const;
+	bool GetGlobalStatFloat(const FString& StatName, float& Data) const { return SteamUserStats()->GetGlobalStat(TCHAR_TO_UTF8(*StatName), (double*)&Data); }
 
 	/**
 	 * Gets the daily history for an aggregated stat. pData will be filled with daily values, starting with today. So when called, pData[0] will be today, pData[1] will be yesterday, and pData[2] will be two days ago, etc.
@@ -240,7 +240,7 @@ public:
 	 * There is no history available.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	int32 GetGlobalStatHistoryInt64(const FString& StatName, TArray<int64>& Data, int32 Size = 10) const;
+	int32 GetGlobalStatHistoryInt64(const FString& StatName, TArray<int64>& Data, int32 Size = 10) const { return SteamUserStats()->GetGlobalStatHistory(TCHAR_TO_UTF8(*StatName), Data.GetData(), Size); }
 
 	/**
 	 * Gets the daily history for an aggregated stat. pData will be filled with daily values, starting with today. So when called, pData[0] will be today, pData[1] will be yesterday, and pData[2] will be two days ago, etc.
@@ -378,7 +378,7 @@ public:
 	 * If the call is successful then the achieved status and unlock time are provided via the arguments pbAchieved and punUnlockTime.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	bool GetUserAchievementAndUnlockTime(FSteamID SteamIDUser, const FString& Name, bool& bAchieved, int32& UnlockTime) const;
+	bool GetUserAchievementAndUnlockTime(FSteamID SteamIDUser, const FString& Name, bool& bAchieved, int32& UnlockTime) const { return SteamUserStats()->GetUserAchievementAndUnlockTime(SteamIDUser, TCHAR_TO_UTF8(*Name), &bAchieved, (uint32*)&UnlockTime); }
 
 	/**
 	 * Gets the current value of the a stat for the specified user.

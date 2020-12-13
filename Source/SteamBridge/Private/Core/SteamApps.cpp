@@ -26,10 +26,8 @@ bool USteamApps::BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, F
 		return false;
 	}
 
-	uint32 Temp = 0;
 	TArray<char> TempStr;
-	bool bResult = SteamApps()->BGetDLCDataByIndex(DLC, &Temp, &bAvailable, TempStr.GetData(), MAX_int32);
-	AppID = Temp;
+	bool bResult = SteamApps()->BGetDLCDataByIndex(DLC, (uint32*)&AppID, &bAvailable, TempStr.GetData(), MAX_int32);
 	Name = UTF8_TO_TCHAR(TempStr.GetData());
 	return bResult;
 }
@@ -54,15 +52,6 @@ bool USteamApps::GetCurrentBetaName(FString& Name)
 	TArray<char> TempStr;
 	bool bResult = SteamApps()->GetCurrentBetaName(TempStr.GetData(), 4096);
 	Name = UTF8_TO_TCHAR(TempStr.GetData());
-	return bResult;
-}
-
-bool USteamApps::GetDlcDownloadProgress(int32 AppID, int64& BytesDownloaded, int64& BytesTotal)
-{
-	uint64 TempDownloaded = 0, TempTotal = 0;
-	bool bResult = SteamApps()->GetDlcDownloadProgress(AppID, &TempDownloaded, &TempTotal);
-	BytesDownloaded = TempDownloaded;
-	BytesTotal = TempTotal;
 	return bResult;
 }
 

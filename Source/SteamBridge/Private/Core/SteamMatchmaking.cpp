@@ -50,16 +50,10 @@ int32 USteamMatchmaking::AddFavoriteGame(int32 AppID, const FString& IP, int32 C
 
 bool USteamMatchmaking::GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, int32& TimeLastPlayedOnServer) const
 {
-	uint32 TmpAppID = 0, TmpIP = 0, TmpFlags = 0, TmpTime = 0;
-	uint16 TmpConnPort = 0, TmpQueryPort = 0;
+	uint32 TmpIP = 0, TmpFlags = 0;
 
-	bool bResult = SteamMatchmaking()->GetFavoriteGame(GameIndex, &TmpAppID, &TmpIP, &TmpConnPort, &TmpQueryPort, &TmpFlags, &TmpTime);
-
-	AppID = TmpAppID;
+	bool bResult = SteamMatchmaking()->GetFavoriteGame(GameIndex, (uint32*)&AppID, &TmpIP, (uint16*)&ConnPort, (uint16*)&QueryPort, &TmpFlags, (uint32*)&TimeLastPlayedOnServer);
 	IP = USteamBridgeUtils::ConvertIPToString(TmpIP);
-	ConnPort = TmpConnPort;
-	QueryPort = TmpQueryPort;
-	TimeLastPlayedOnServer = TmpTime;
 
 	for (int32 i = 0; i < 32; i++)
 	{
@@ -108,15 +102,8 @@ bool USteamMatchmaking::GetLobbyDataByIndex(FSteamID SteamIDLobby, int32 LobbyDa
 bool USteamMatchmaking::GetLobbyGameServer(FSteamID SteamIDLobby, FString& GameServerIP, int32& GameServerPort, FSteamID& SteamIDGameServer) const
 {
 	uint32 TmpIP = 0;
-	uint16 TmpPort = 0;
-	CSteamID TmpSteamID;
-
-	bool bResult = SteamMatchmaking()->GetLobbyGameServer(SteamIDLobby, &TmpIP, &TmpPort, &TmpSteamID);
-
+	bool bResult = SteamMatchmaking()->GetLobbyGameServer(SteamIDLobby, &TmpIP, (uint16*)&GameServerPort, (CSteamID*)&SteamIDGameServer);
 	GameServerIP = USteamBridgeUtils::ConvertIPToString(TmpIP);
-	GameServerPort = TmpPort;
-	SteamIDGameServer = TmpSteamID.ConvertToUint64();
-
 	return bResult;
 }
 
