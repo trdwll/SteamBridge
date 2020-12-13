@@ -1040,3 +1040,120 @@ enum class ESteamVRScreenshotType : uint8
 	MonoPanorama = 4,
 	StereoPanorama = 5
 };
+
+UENUM(BlueprintType)
+enum class ESteamItemPreviewType : uint8
+{
+	Image = 0,	// standard image file expected (e.g. jpg, png, gif, etc.)
+	YouTubeVideo = 1,	// video id is stored
+	Sketchfab = 2,	// model id is stored
+	EnvironmentMap_HorizontalCross = 3,	// standard image file expected - cube map in the layout
+	EnvironmentMap_LatLong = 4,	// standard image file expected
+	ReservedMax = 255,	// you can specify your own types above this value
+};
+
+UENUM(BlueprintType)
+enum class ESteamWorkshopFileType : uint8
+{
+	First = 0,
+
+	Community = 0,		// normal Workshop item that can be subscribed to
+	Microtransaction = 1,		// Workshop item that is meant to be voted on for the purpose of selling in-game
+	Collection = 2,		// a collection of Workshop or Greenlight items
+	Art = 3,		// artwork
+	Video = 4,		// external video
+	Screenshot = 5,		// screenshot
+	Game = 6,		// Greenlight game entry
+	Software = 7,		// Greenlight software entry
+	Concept = 8,		// Greenlight concept
+	WebGuide = 9,		// Steam web guide
+	IntegratedGuide = 10,		// application integrated guide
+	Merch = 11,		// Workshop merchandise meant to be voted on for the purpose of being sold
+	ControllerBinding = 12,		// Steam Controller bindings
+	SteamworksAccessInvite = 13,		// internal
+	SteamVideo = 14,		// Steam video
+	GameManagedItem = 15,		// managed completely by the game, not the user, and not shown on the web
+
+	// Update k_EWorkshopFileTypeMax if you add values.
+	Max = 16
+};
+
+UENUM(BlueprintType)
+enum class ESteamUGCQuery : uint8
+{
+	RankedByVote = 0,
+	RankedByPublicationDate = 1,
+	AcceptedForGameRankedByAcceptanceDate = 2,
+	RankedByTrend = 3,
+	FavoritedByFriendsRankedByPublicationDate = 4,
+	CreatedByFriendsRankedByPublicationDate = 5,
+	RankedByNumTimesReported = 6,
+	CreatedByFollowedUsersRankedByPublicationDate = 7,
+	NotYetRated = 8,
+	RankedByTotalVotesAsc = 9,
+	RankedByVotesUp = 10,
+	RankedByTextSearch = 11,
+	RankedByTotalUniqueSubscriptions = 12,
+	RankedByPlaytimeTrend = 13,
+	RankedByTotalPlaytime = 14,
+	RankedByAveragePlaytimeTrend = 15,
+	RankedByLifetimeAveragePlaytime = 16,
+	RankedByPlaytimeSessionsTrend = 17,
+	RankedByLifetimePlaytimeSessions = 18,
+};
+
+UENUM(BlueprintType)
+enum class ESteamUGCMatchingUGCType : uint8
+{
+	Items = 0,		// both mtx items and ready-to-use items
+	Items_Mtx = 1,
+	Items_ReadyToUse = 2,
+	Collections = 3,
+	Artwork = 4,
+	Videos = 5,
+	Screenshots = 6,
+	AllGuides = 7,		// both web guides and integrated guides
+	WebGuides = 8,
+	IntegratedGuides = 9,
+	UsableInGame = 10,		// ready-to-use items and integrated guides
+	ControllerBindings = 11,
+	GameManagedItems = 12,		// game managed items (not managed by users)
+	All = 254,		// @note: will only be valid for CreateQueryUserUGCRequest requests
+};
+
+UENUM(BlueprintType)
+enum class ESteamUserUGCList : uint8
+{
+	Published,
+	VotedOn,
+	VotedUp,
+	VotedDown,
+	WillVoteLater,
+	Favorited,
+	Subscribed,
+	UsedOrPlayed,
+	Followed,
+};
+
+UENUM(BlueprintType)
+enum class ESteamUserUGCListSortOrder : uint8
+{
+	CreationOrderDesc,
+	CreationOrderAsc,
+	TitleAsc,
+	LastUpdatedDesc,
+	SubscriptionDateDesc,
+	VoteScoreDesc,
+	ForModeration,
+};
+
+UENUM(BlueprintType)
+enum class ESteamItemUpdateStatus : uint8
+{
+	Invalid = 0, // The item update handle was invalid, job might be finished, listen too SubmitItemUpdateResult_t
+	PreparingConfig = 1, // The item update is processing configuration data
+	PreparingContent = 2, // The item update is reading and processing content files
+	UploadingContent = 3, // The item update is uploading content changes to Steam
+	UploadingPreviewFile = 4, // The item update is uploading new preview file image
+	CommittingChanges = 5  // The item update is committing all changes
+};

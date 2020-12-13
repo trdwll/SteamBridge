@@ -237,6 +237,18 @@ struct STEAMBRIDGE_API FSteamLeaderboard : public FUint64
 	GENERATED_BODY()
 	using FUint64::FUint64;
 };
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FUGCQueryHandle : public FUint64
+{
+	GENERATED_BODY()
+		using FUint64::FUint64;
+};
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FUGCUpdateHandle : public FUint64
+{
+	GENERATED_BODY()
+		using FUint64::FUint64;
+};
 
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FHTTPCookieContainerHandle : public FUint32
