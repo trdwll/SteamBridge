@@ -52,7 +52,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Parties")
-	bool GetNumAvailableBeaconLocations(int32& NumLocations) const;
+	bool GetNumAvailableBeaconLocations(int32& NumLocations) const { return SteamParties()->GetNumAvailableBeaconLocations((uint32*)&NumLocations); }
 
 	/**
 	 * Get the list of locations in which you can post a party beacon.

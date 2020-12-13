@@ -188,7 +188,7 @@ public:
 	 * @return bool - true if the specified DLC exists and is currently downloading; otherwise, false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	bool GetDlcDownloadProgress(int32 AppID, int64& BytesDownloaded, int64& BytesTotal);
+	bool GetDlcDownloadProgress(int32 AppID, int64& BytesDownloaded, int64& BytesTotal) const { return SteamApps()->GetDlcDownloadProgress(AppID, (uint64*)&BytesDownloaded, (uint64*)&BytesTotal); }
 
 	/**
 	 * Gets the time of purchase of the specified app in Unix epoch format (time since Jan 1st, 1970).

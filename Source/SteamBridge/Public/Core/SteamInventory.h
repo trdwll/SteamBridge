@@ -204,7 +204,7 @@ public:
 	 * false if the parameters are invalid or if there is no price for the given item definition id.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
-	bool GetItemPrice(FSteamItemDef ItemDef, int64& CurrentPrice, int64& BasePrice) const;
+	bool GetItemPrice(FSteamItemDef ItemDef, int64& CurrentPrice, int64& BasePrice) const { return SteamInventory()->GetItemPrice(ItemDef, (uint64*)&CurrentPrice, (uint64*)&BasePrice); }
 
 	// #TODO GetItemsWithPrices
 

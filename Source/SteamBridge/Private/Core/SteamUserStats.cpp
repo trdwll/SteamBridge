@@ -46,30 +46,6 @@ FSteamAPICall USteamUserStats::FindOrCreateLeaderboard(const FString& Leaderboar
 	return SteamUserStats()->FindOrCreateLeaderboard(TCHAR_TO_UTF8(*LeaderboardName), (ELeaderboardSortMethod)LeaderboardSortMethod, (ELeaderboardDisplayType)LeaderboardDisplayType);
 }
 
-bool USteamUserStats::GetAchievementAndUnlockTime(const FString& Name, bool& bAchieved, int32& UnlockTime) const
-{
-	uint32 TmpTime = 0;
-	bool bResult = SteamUserStats()->GetAchievementAndUnlockTime(TCHAR_TO_UTF8(*Name), &bAchieved, &TmpTime);
-	UnlockTime = TmpTime;
-	return bResult;
-}
-
-bool USteamUserStats::GetGlobalStatFloat(const FString& StatName, float& Data) const
-{
-	double TmpData = 0;
-	bool bResult = SteamUserStats()->GetGlobalStat(TCHAR_TO_UTF8(*StatName), &TmpData);
-	Data = TmpData;
-	return bResult;
-}
-
-int32 USteamUserStats::GetGlobalStatHistoryInt64(const FString& StatName, TArray<int64>& Data, int32 Size) const
-{
-	TArray<int64> TmpData;
-	int32 result = SteamUserStats()->GetGlobalStatHistory(TCHAR_TO_UTF8(*StatName), TmpData.GetData(), Size);
-	Data = TmpData;
-	return result;
-}
-
 int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray<float>& Data, int32 Size) const
 {
 	TArray<double> TmpData;
@@ -79,14 +55,6 @@ int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray
 		Data.Add((float)TmpData[i]);
 	}
 	return result;
-}
-
-bool USteamUserStats::GetUserAchievementAndUnlockTime(FSteamID SteamIDUser, const FString& Name, bool& bAchieved, int32& UnlockTime) const
-{
-	uint32 TmpUnlockTime;
-	bool bResult = SteamUserStats()->GetUserAchievementAndUnlockTime(SteamIDUser, TCHAR_TO_UTF8(*Name), &bAchieved, &TmpUnlockTime);
-	UnlockTime = TmpUnlockTime;
-	return bResult;
 }
 
 FSteamAPICall USteamUserStats::UploadLeaderboardScore(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardUploadScoreMethod LeaderboardUploadScoreMethod, int32 Score, const TArray<int32>& ScoreDetails) const

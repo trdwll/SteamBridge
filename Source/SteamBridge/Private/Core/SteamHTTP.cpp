@@ -20,34 +20,6 @@ USteamHTTP::~USteamHTTP()
 	OnHTTPRequestHeadersReceivedCallback.Unregister();
 }
 
-bool USteamHTTP::GetHTTPResponseBodySize(FHTTPRequestHandle RequestHandle, int32& BodySize)
-{
-	uint32 Tmp = 0;
-	BodySize = Tmp;
-	return SteamHTTP()->GetHTTPResponseBodySize(RequestHandle, &Tmp);
-}
-
-bool USteamHTTP::GetHTTPResponseHeaderSize(FHTTPRequestHandle RequestHandle, const FString& HeaderName, int32& ResponseHeaderSize)
-{
-	uint32 Tmp = 0;
-	ResponseHeaderSize = Tmp;
-	return SteamHTTP()->GetHTTPResponseHeaderSize(RequestHandle, TCHAR_TO_UTF8(*HeaderName), &Tmp);
-}
-
-bool USteamHTTP::SendHTTPRequest(FHTTPRequestHandle RequestHandle, FSteamAPICall& CallHandle)
-{
-	SteamAPICall_t Tmp = 0;
-	CallHandle = Tmp;
-	return SteamHTTP()->SendHTTPRequest(RequestHandle, &Tmp);
-}
-
-bool USteamHTTP::SendHTTPRequestAndStreamResponse(FHTTPRequestHandle RequestHandle, FSteamAPICall& CallHandle)
-{
-	SteamAPICall_t Tmp = 0;
-	CallHandle = Tmp;
-	return SteamHTTP()->SendHTTPRequestAndStreamResponse(RequestHandle, &Tmp);
-}
-
 void USteamHTTP::OnHTTPRequestCompleted(HTTPRequestCompleted_t* pParam)
 {
 	m_OnHTTPRequestCompleted.Broadcast(pParam->m_hRequest, pParam->m_ulContextValue, pParam->m_bRequestSuccessful, (ESteamHTTPStatus::Type)pParam->m_eStatusCode, pParam->m_unBodySize);
