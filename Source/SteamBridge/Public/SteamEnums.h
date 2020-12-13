@@ -933,11 +933,11 @@ enum class ESteamDeviceFormFactor_ : uint8
 UENUM(BlueprintType)
 enum class ESteamAPICallFailure_ : uint8
 {
-	None = 0,			// no failure
-	SteamGone = 1,		// the local Steam process has gone away
-	NetworkFailure = 2,	// the network connection to Steam has been broken, or was already broken
-	InvalidHandle = 3,	// the SteamAPICall_t handle passed in no longer exists
-	MismatchedCallback = 4,// GetAPICallResult() was called with the wrong callback type for this API call
+	None = 0,                // no failure
+	SteamGone = 1,           // the local Steam process has gone away
+	NetworkFailure = 2,      // the network connection to Steam has been broken, or was already broken
+	InvalidHandle = 3,       // the SteamAPICall_t handle passed in no longer exists
+	MismatchedCallback = 4,  // GetAPICallResult() was called with the wrong callback type for this API call
 };
 
 UENUM(BlueprintType)
@@ -997,8 +997,8 @@ UENUM(BlueprintType)
 enum class ESteamLeaderboardSortMethod : uint8
 {
 	None = 0,
-	Ascending = 1,	// top-score is lowest number
-	Descending = 2,	// top-score is highest number
+	Ascending = 1,   // top-score is lowest number
+	Descending = 2,  // top-score is highest number
 };
 
 // the display type (used by the Steam Community web site) for a leaderboard
@@ -1006,15 +1006,26 @@ UENUM(BlueprintType)
 enum class ESteamLeaderboardDisplayType : uint8
 {
 	None = 0,
-	Numeric = 1,			// simple numerical score
-	TimeSeconds = 2,		// the score represents a time, in seconds
-	TimeMilliSeconds = 3,	// the score represents a time, in milliseconds
+	Numeric = 1,           // simple numerical score
+	TimeSeconds = 2,       // the score represents a time, in seconds
+	TimeMilliSeconds = 3,  // the score represents a time, in milliseconds
 };
 
 UENUM(BlueprintType)
 enum class ESteamLeaderboardUploadScoreMethod : uint8
 {
 	None = 0,
-	KeepBest = 1,	// Leaderboard will keep user's best score
-	ForceUpdate = 2,	// Leaderboard will always replace score with specified
+	KeepBest = 1,     // Leaderboard will keep user's best score
+	ForceUpdate = 2,  // Leaderboard will always replace score with specified
+};
+
+UENUM(BlueprintType)
+enum class ESteamRemoteStoragePlatform : uint8
+{
+	Windows = 0 UMETA(DisplayName = "Windows"),
+	OSX = 1 UMETA(DisplayName = "OSX"),
+	PS3 = 2 UMETA(DisplayName = "PS3"),
+	Linux = 3 UMETA(DisplayName = "Linux"),
+	Reserved = 4 UMETA(DisplayName = "Reserved"),
+	All = 5 UMETA(DisplayName = "All")
 };
