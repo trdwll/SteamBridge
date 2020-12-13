@@ -1029,3 +1029,14 @@ enum class ESteamRemoteStoragePlatform : uint8
 	Reserved = 4 UMETA(DisplayName = "Reserved"),
 	All = 5 UMETA(DisplayName = "All")
 };
+
+UENUM(BlueprintType)
+enum class ESteamVRScreenshotType : uint8
+{
+	None = 0,
+	Mono = 1,
+	Stereo = 2,
+	MonoCubemap = 3,
+	MonoPanorama = 4,
+	StereoPanorama = 5
+};

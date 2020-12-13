@@ -24,7 +24,7 @@ ISteamNetworkingUtils | :x: |
 ISteamParties | :heavy_check_mark: | 
 ISteamRemotePlay | :heavy_check_mark: | 
 ISteamRemoteStorage | :heavy_check_mark: | [1] (5) 
-ISteamScreenshots | :x: | 
+ISteamScreenshots | :heavy_check_mark: | 
 ISteamUGC | :x: | 
 ISteamUser | :heavy_check_mark: | 
 ISteamUserStats | :heavy_check_mark: | [1] (4)

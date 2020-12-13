@@ -138,6 +138,12 @@ struct STEAMBRIDGE_API FAccountID : public FUint32
 	using FUint32::FUint32;
 };
 USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FScreenshotHandle : public FUint32
+{
+	GENERATED_BODY()
+	using FUint32::FUint32;
+};
+USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FSteamFriendsGroupID : public FInt16
 {
 	GENERATED_BODY()
