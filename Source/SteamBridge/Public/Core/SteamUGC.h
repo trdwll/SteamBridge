@@ -10,6 +10,23 @@
 
 #include "SteamUGC.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAddAppDependencyResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, int32, AppID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAddUGCDependencyResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, FPublishedFileId, ChildPublishedFileID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnCreateItemResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, bool, bUserNeedsToAcceptWorkshopLegalAgreement);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnDownloadItemResultDelegate, int32, AppID, FPublishedFileId, PublishedFileID, ESteamResult, Result);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnGetAppDependenciesResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, TArray<int32>, AppID, int32, NumAppDependencies, int32, TotalNumAppDependencies);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDeleteItemResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnGetUserItemVoteResultDelegate, FPublishedFileId, PublishedFileID, ESteamResult, Result, bool, bVotedUp, bool, bVotedDown, bool, bVoteSkipped);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnItemInstalledDelegate, int32, AppID, FPublishedFileId, PublishedFileID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnRemoveAppDependencyResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, int32, AppID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnRemoveUGCDependencyResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, FPublishedFileId, ChildPublishedFileID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSetUserItemVoteResultDelegate, FPublishedFileId, PublishedFileID, ESteamResult, Result, bool, bVoteUp);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStartPlaytimeTrackingResultDelegate, ESteamResult, Result);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnSteamUGCQueryCompletedDelegate, FUGCQueryHandle, Handle, ESteamResult, Result, int32, NumResultsReturned, int32, TotalMatchingResults, bool, bCachedData);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStopPlaytimeTrackingResultDelegate, ESteamResult, Result);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSubmitItemUpdateResultDelegate, ESteamResult, Result, bool, bUserNeedsToAcceptWorkshopLegalAgreement);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnUserFavoriteItemsListChangedDelegate, FPublishedFileId, PublishedFileID, ESteamResult, Result, bool, bWasAddRequest);
+
 /**
  * Functions to create, consume, and interact with the Steam Workshop.
  * https://partner.steamgames.com/doc/api/ISteamUGC
@@ -825,7 +842,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UGC")
 	FUGCUpdateHandle StartItemUpdate(int32 ConsumerAppId, FPublishedFileId PublishedFileID) const { return SteamUGC()->StartItemUpdate(ConsumerAppId, PublishedFileID); }
 
-
 	// #NOTE: These methods need to be async
 	// #TODO: StartPlaytimeTracking
 	// #TODO: StopPlaytimeTracking
@@ -840,7 +856,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a SubmitItemUpdateResult_t call result. Returns k_uAPICallInvalid if handle is invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UGC")
-	FSteamAPICall SubmitItemUpdate(FUGCUpdateHandle  handle, const FString& ChangeNote) const { return SteamUGC()->SubmitItemUpdate(handle, TCHAR_TO_UTF8(*ChangeNote)); }
+	FSteamAPICall SubmitItemUpdate(FUGCUpdateHandle handle, const FString& ChangeNote) const { return SteamUGC()->SubmitItemUpdate(handle, TCHAR_TO_UTF8(*ChangeNote)); }
 
 	/**
 	 * Subscribe to a workshop item. It will be downloaded and installed as soon as possible.
@@ -895,12 +911,88 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UGC")
 	bool UpdateItemPreviewVideo(FUGCUpdateHandle handle, int32 index, const FString& VideoID) const { return SteamUGC()->UpdateItemPreviewVideo(handle, index, TCHAR_TO_UTF8(*VideoID)); }
 
-
-
 	/** Delegates */
 
+	/** The result of a call to AddAppDependency. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnAddAppDependencyResult"))
+	FOnAddAppDependencyResultDelegate m_OnAddAppDependencyResult;
 
+	/** The result of a call to AddDependency. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnAddUGCDependencyResult"))
+	FOnAddUGCDependencyResultDelegate m_OnAddUGCDependencyResult;
+
+	/** Called when a new workshop item has been created. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnCreateItemResult"))
+	FOnCreateItemResultDelegate m_OnCreateItemResult;
+
+	/** Called when a workshop item has been downloaded. NOTE: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnDownloadItemResult"))
+	FOnDownloadItemResultDelegate m_OnDownloadItemResult;
+
+	/** Called when getting the app dependencies for an item. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnGetAppDependenciesResult"))
+	FOnGetAppDependenciesResultDelegate m_OnGetAppDependenciesResult;
+
+	/** Called when an attempt at deleting an item completes. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnDeleteItemResult"))
+	FOnDeleteItemResultDelegate m_OnDeleteItemResult;
+
+	/** Called when getting the users vote status on an item. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnGetUserItemVoteResult"))
+	FOnGetUserItemVoteResultDelegate m_OnGetUserItemVoteResult;
+
+	/** Called when a workshop item has been installed or updated. NOTE: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnItemInstalled"))
+	FOnItemInstalledDelegate m_OnItemInstalled;
+
+	/** Purpose: The result of a call to RemoveAppDependency. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnRemoveAppDependencyResult"))
+	FOnRemoveAppDependencyResultDelegate m_OnRemoveAppDependencyResult;
+
+	/** Purpose: The result of a call to RemoveDependency. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnRemoveUGCDependencyResult"))
+	FOnRemoveUGCDependencyResultDelegate m_OnRemoveUGCDependencyResult;
+
+	/** Called when the user has voted on an item. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnSetUserItemVoteResult"))
+	FOnSetUserItemVoteResultDelegate m_OnSetUserItemVoteResult;
+
+	/** Called when workshop item playtime tracking has started. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnStartPlaytimeTrackingResult"))
+	FOnStartPlaytimeTrackingResultDelegate m_OnStartPlaytimeTrackingResult;
+
+	/** Called when a UGC query request completes. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnSteamUGCQueryCompleted"))
+	FOnSteamUGCQueryCompletedDelegate m_OnSteamUGCQueryCompleted;
+
+	/** Called when workshop item playtime tracking has stopped. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnStopPlaytimeTrackingResult"))
+	FOnStopPlaytimeTrackingResultDelegate m_OnStopPlaytimeTrackingResult;
+
+	/** Called when an item update has completed. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnSubmitItemUpdateResult"))
+	FOnSubmitItemUpdateResultDelegate m_OnSubmitItemUpdateResult;
+
+	/** Called when the user has added or removed an item to/from their favorites. */
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnUserFavoriteItemsListChanged"))
+	FOnUserFavoriteItemsListChangedDelegate m_OnUserFavoriteItemsListChanged;
 
 protected:
 private:
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnAddAppDependencyResult, AddAppDependencyResult_t, OnAddAppDependencyResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnAddUGCDependencyResult, AddUGCDependencyResult_t, OnAddUGCDependencyResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnCreateItemResult, CreateItemResult_t, OnCreateItemResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnDownloadItemResult, DownloadItemResult_t, OnDownloadItemResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnGetAppDependenciesResult, GetAppDependenciesResult_t, OnGetAppDependenciesResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnDeleteItemResult, DeleteItemResult_t, OnDeleteItemResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnGetUserItemVoteResult, GetUserItemVoteResult_t, OnGetUserItemVoteResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnItemInstalled, ItemInstalled_t, OnItemInstalledCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnRemoveAppDependencyResult, RemoveAppDependencyResult_t, OnRemoveAppDependencyResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnRemoveUGCDependencyResult, RemoveUGCDependencyResult_t, OnRemoveUGCDependencyResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnSetUserItemVoteResult, SetUserItemVoteResult_t, OnSetUserItemVoteResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnStartPlaytimeTrackingResult, StartPlaytimeTrackingResult_t, OnStartPlaytimeTrackingResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnSteamUGCQueryCompleted, SteamUGCQueryCompleted_t, OnSteamUGCQueryCompletedCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnStopPlaytimeTrackingResult, StopPlaytimeTrackingResult_t, OnStopPlaytimeTrackingResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnSubmitItemUpdateResult, SubmitItemUpdateResult_t, OnSubmitItemUpdateResultCallback);
+	STEAM_CALLBACK_MANUAL(USteamUGC, OnUserFavoriteItemsListChanged, UserFavoriteItemsListChanged_t, OnUserFavoriteItemsListChangedCallback);
 };
