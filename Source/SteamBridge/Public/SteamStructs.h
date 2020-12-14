@@ -512,3 +512,21 @@ struct STEAMBRIDGE_API FSteamUGCDetails
 		FString(UTF8_TO_TCHAR(data.m_rgchTags)).ParseIntoArray(Tags, TEXT(","), true);
 	}
 };
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamItemPriceData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
+	FSteamItemDef ItemDef;
+
+	UPROPERTY(BlueprintReadWrite)
+	int64 CurrentPrice;
+
+	UPROPERTY(BlueprintReadWrite)
+	int64 BasePrice;
+
+	FSteamItemPriceData() {}
+	FSteamItemPriceData(FSteamItemDef def, int64 currentPrice, int64 basePrice) : ItemDef(def), CurrentPrice(currentPrice), BasePrice(basePrice) {}
+};

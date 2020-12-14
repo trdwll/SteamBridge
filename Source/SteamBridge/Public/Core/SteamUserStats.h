@@ -82,7 +82,7 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UserStats")
 	FSteamAPICall DownloadLeaderboardEntries(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardDataRequest LeaderboardDataRequest, int32 RangeStart, int32 RangeEnd) const;
 
-	// #TODO: FSteamAPICall DownloadLeaderboardEntriesForUsers(FSteamLeaderboard SteamLeaderboard, TArray<FSteamID>& Users) const;
+	// #TODO: DownloadLeaderboardEntriesForUsers
 
 	/**
 	 * Gets a leaderboard by name.
@@ -195,7 +195,23 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
 	FString GetAchievementName(int32 AchievementIndex = 0) const { return SteamUserStats()->GetAchievementName(AchievementIndex); }
 
-	// #TODO: bool GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries SteamLeaderboardEntries, int32 index, FSteamLeaderboardEntry& LeaderboardEntry, int32& Details, int32 DetailsMax) const;
+	/**
+	 * Retrieves the data for a single leaderboard entry.
+	 * You should use a for loop from 0 to LeaderboardScoresDownloaded_t.m_cEntryCount to get all the downloaded entries. Once you've accessed all the entries, the data will be freed, and the SteamLeaderboardEntries_t handle will become invalid.
+	 * Optionally details may be returned for the entry via the pDetails. If this is NULL then cDetailsMax MUST be 0.
+	 *
+	 * @param FSteamLeaderboardEntries SteamLeaderboardEntries - A leaderboard entries handle obtained from the most recently received LeaderboardScoresDownloaded_t call result.
+	 * @param int32 index - The index of the leaderboard entry to receive, must be between 0 and LeaderboardScoresDownloaded_t.m_cEntryCount.
+	 * @param FSteamLeaderboardEntry & LeaderboardEntry - Variable where the entry will be returned to.
+	 * @param TArray<int32> & Details - A preallocated array where the details of this entry get returned into.
+	 * @param int32 DetailsMax - The length of the pDetails array.
+	 * @return bool - This function returns true upon success if all of the following conditions are met; otherwise, false.
+	 * hSteamLeaderboardEntries must be a valid handle from the last received LeaderboardScoresDownloaded_t call result.
+	 * index must be between 0 and LeaderboardScoresDownloaded_t.m_cEntryCount
+	 * If the call is successful then the entry is returned via the parameter pLeaderboardEntry and if cDetailsMax is not 0 then pDetails is filled with the unlock details.
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
+	bool GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries SteamLeaderboardEntries, int32 index, FSteamLeaderboardEntry& LeaderboardEntry, TArray<int32>& Details, int32 DetailsMax) const;
 
 	/**
 	 * Gets the lifetime totals for an aggregated stat.
@@ -296,9 +312,32 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
 	ESteamLeaderboardSortMethod GetLeaderboardSortMethod(FSteamLeaderboard SteamLeaderboard) const { return (ESteamLeaderboardSortMethod)SteamUserStats()->GetLeaderboardSortMethod(SteamLeaderboard); }
 
-	// #NOTE: There was some weird error preventing implementation of these methods, will look into later
-	// #TODO: GetMostAchievedAchievementInfo
-	// #TODO: GetNextMostAchievedAchievementInfo
+	/**
+	 * Gets the info on the most achieved achievement for the game.
+	 * You must have called RequestGlobalAchievementPercentages and it needs to return successfully via its callback prior to calling this.
+	 *
+	 * @param FString & Name - String buffer to return the 'API Name' of the achievement into.
+	 * @param float & Percent - Variable to return the percentage of people that have unlocked this achievement from 0 to 100.
+	 * @param bool & bAchieved - Variable to return whether the current user has unlocked this achievement.
+	 * @return int32 - Returns -1 if RequestGlobalAchievementPercentages has not been called or if there are no global achievement percentages for this app Id.
+	 * If the call is successful it returns an iterator which should be used with GetNextMostAchievedAchievementInfo.
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
+	int32 GetMostAchievedAchievementInfo(FString& Name, float& Percent, bool& bAchieved) const;
+
+	/**
+	 * Gets the info on the next most achieved achievement for the game.
+	 * You must have called RequestGlobalAchievementPercentages and it needs to return successfully via its callback prior to calling this.
+	 *
+	 * @param int32 IteratorPrevious - Iterator returned from the previous call to this function or from GetMostAchievedAchievementInfo
+	 * @param FString & Name - String buffer to return the 'API Name' of the achievement into.
+	 * @param float & Percent - Variable to return the percentage of people that have unlocked this achievement from 0 to 100.
+	 * @param bool & bAchieved - Variable to return whether the current user has unlocked this achievement.
+	 * @return int32 - Returns -1 if RequestGlobalAchievementPercentages has not been called or if there are no global achievement percentages for this app Id.
+	 * If the call is successful it returns an iterator which should be used with subsequent calls to this function.
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
+	int32 GetNextMostAchievedAchievementInfo(int32 IteratorPrevious, FString& Name, float& Percent, bool& bAchieved) const;
 
 	/**
 	 * Get the number of achievements defined in the App Admin panel of the Steamworks website.

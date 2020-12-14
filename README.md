@@ -9,11 +9,11 @@ Interface | Completed | Notes |
 ISteamApps | :heavy_check_mark: | 
 ISteamFriends | :heavy_check_mark: | [1] (1) |
 ISteamGameServer | :heavy_check_mark: | [1] (4) |
-ISteamGameServerStats | :heavy_check_mark: | [1] (1) |
+ISteamGameServerStats | :heavy_check_mark: | [1] (2) |
 ISteamHTMLSurface | :heavy_check_mark: | 
 ISteamHTTP | :heavy_check_mark: | 
 ISteamInput | :heavy_check_mark: | 
-ISteamInventory | :heavy_check_mark: | [1] (5)
+ISteamInventory | :heavy_check_mark: | [1] (2)
 ISteamMatchmaking | :heavy_check_mark: | 
 ISteamMatchmakingServers | :heavy_check_mark: | [1] (10)
 ISteamMusic | :heavy_check_mark: | 
@@ -27,8 +27,8 @@ ISteamRemoteStorage | :heavy_check_mark: | [1] (5)
 ISteamScreenshots | :heavy_check_mark: | 
 ISteamUGC | :heavy_check_mark: | [1][3] (3/3)
 ISteamUser | :heavy_check_mark: | 
-ISteamUserStats | :heavy_check_mark: | [1] (4)
-ISteamUtils | :heavy_check_mark: | [1] (5)
+ISteamUserStats | :heavy_check_mark: | [1] (1)
+ISteamUtils | :heavy_check_mark: | [1] (3)
 ISteamVideo | :heavy_check_mark: | 
 SteamWeb | :x: | [2] |
 

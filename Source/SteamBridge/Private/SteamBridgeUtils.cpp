@@ -19,7 +19,7 @@ FString USteamBridgeUtils::ConvertIPToString(uint32 IP)
 	return FString::FromInt(IP >> 24) + "." + FString::FromInt((IP >> 16) % 256) + "." + FString::FromInt((IP >> 8) % 256) + "." + FString::FromInt(IP % 256);
 }
 
-FString USteamBridgeUtils::GetSteamIDAsString(const FSteamID& SteamID) const
+FString USteamBridgeUtils::GetSteamIDAsString(const FSteamID& SteamID)
 {
 	return FString::Printf(TEXT("%llu"), SteamID.Value);
 }

@@ -110,8 +110,29 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
 	int32 GetEnteredGamepadTextLength() const { return SteamUtils()->GetEnteredGamepadTextLength(); }
 
-	// #TODO: GetImageRGBA
-	// #TODO: GetImageSize
+	/**
+	 * Gets the image bytes from an image handle.
+	 * Prior to calling this you must get the size of the image by calling GetImageSize so that you can create your buffer with an appropriate size. You can then allocate your buffer with the width and height as:
+	 * width * height * 4. The image is provided in RGBA format. This call can be somewhat expensive as it converts from the compressed type (JPG, PNG, TGA) and provides no internal caching of returned buffer,
+	 * thus it is highly recommended to only call this once per image handle and cache the result. This function is only used for Steam Avatars and Achievement images and those are not expected to change mid game.
+	 *
+	 * @param int32 Image - The handle to the image that will be obtained.
+	 * @param TArray<uint8> & Buffer - The buffer that will be filled.
+	 * @return bool - true upon success if the image handle is valid and the buffer was filled out, otherwise false.
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
+	bool GetImageRGBA(int32 Image, TArray<uint8>& Buffer) const;
+
+	/**
+	 * Gets the size of a Steam image handle.
+	 * This must be called before calling GetImageRGBA to create an appropriately sized buffer that will be filled with the raw image data.
+	 *
+	 * @param int32 Image - The image handle to get the size for.
+	 * @param FIntPoint & Size - Returns the width/height of the image.
+	 * @return bool - true upon success if the image handle is valid and the sizes were filled out, otherwise false.
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
+	bool GetImageSize(int32 Image, FIntPoint& Size) const;
 
 	/**
 	 * Returns the number of IPC calls made since the last time this function was called.
@@ -201,7 +222,8 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Utils")
 	bool InitFilterText() const { return SteamUtils()->InitFilterText(); }
 
-	// #TODO: FilterText (conflict with API and docs)
+	// #NOTE: There's a conflict with API and docs
+	// #TODO: FilterText
 
 	/**
 	 * Checks if Steam & the Steam Overlay are running in Big Picture mode.

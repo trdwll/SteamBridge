@@ -125,7 +125,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
 	FSteamAPICall DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, int32 ClansToRequest = 1) const;
 
-	// #TODO EnumerateFollowingList
+	/*UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
+	TArray<FSteamID> EnumerateFollowingList() const;*/
 
 	/**
 	 * Gets the Steam ID at the given index in a Steam group chat.
@@ -509,10 +510,11 @@ public:
 	 *
 	 * @param FSteamID SteamIDFriend
 	 * @param ESteamAvatarSize AvatarSize
+	 * @param int32& ImageHandle
 	 * @return UTexture2D*
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	UTexture2D* GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarSize AvatarSize) const;
+	UTexture2D* GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarSize AvatarSize, int32& ImageHandle) const;
 
 	/**
 	 * Gets the current users persona (display) name.

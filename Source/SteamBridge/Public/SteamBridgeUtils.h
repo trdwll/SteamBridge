@@ -20,8 +20,8 @@ public:
 
 	static FString ConvertIPToString(uint32 IP);
 
-	UFUNCTION(BlueprintPure, Category = "Steam|USteamBridgeUtils")
-	FString GetSteamIDAsString(const FSteamID& SteamID) const;
+	UFUNCTION(BlueprintCallable, Category = "Steam|USteamBridgeUtils")
+	static FString GetSteamIDAsString(const FSteamID& SteamID);
 
 	// Thanks to Rama for this method
 	// GetEnumValueAsString<EEnumType>("EEnumType", Value);

@@ -55,7 +55,7 @@ public:
 	 * @return ESteamBeginAuthSessionResult
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|GameServer")
-	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> AuthTicket, FSteamID SteamID);
+	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> AuthTicket, FSteamID SteamID) const;
 
 	/**
 	 * Checks if the game server is logged on.
@@ -132,10 +132,20 @@ public:
 	 * @return FHAuthTicket - A handle to the auth ticket. When you're done interacting with the entity you must call CancelAuthTicket on the handle.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServer")
-	FHAuthTicket GetAuthSessionTicket(TArray<uint8>& AuthTicket);
+	FHAuthTicket GetAuthSessionTicket(TArray<uint8>& AuthTicket) const;
 
 	// #TODO GetNextOutgoingPacket
-	// #TODO GetPublicIP
+
+
+	// #NOTE This method only returns IPv4 for now, will eventually return a struct of the IPs (to support IPv6)
+	/**
+	 * Gets the public IP of the server according to Steam.
+	 * This is useful when the server is behind NAT and you want to advertise its IP in a lobby for other clients to directly connect to.
+	 *
+	 * @return FString - Returns the IP address (IPv4) as an FString
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServer")
+	FString GetPublicIP() const;
 
 	/**
 	 * Gets the Steam ID of the game server.
@@ -359,7 +369,7 @@ public:
 	 * @return ESteamUserHasLicenseForAppResult
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|GameServer")
-	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID SteamID, int32 AppID) { return (ESteamUserHasLicenseForAppResult)SteamGameServer()->UserHasLicenseForApp(SteamID, AppID); }
+	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID SteamID, int32 AppID) const { return (ESteamUserHasLicenseForAppResult)SteamGameServer()->UserHasLicenseForApp(SteamID, AppID); }
 
 	/**
 	 * Checks if the master server has alerted us that we are out of date.

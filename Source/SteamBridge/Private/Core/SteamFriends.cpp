@@ -74,6 +74,42 @@ FSteamAPICall USteamFriends::DownloadClanActivityCounts(TArray<FSteamID>& SteamC
 	return res;
 }
 
+// #NOTE: This should work, but the reason of failure is k_ESteamAPICallFailureSteamGone so I'm assuming it's where this method isn't async
+//TArray<FSteamID> USteamFriends::EnumerateFollowingList() const
+//{
+//	int32 ResultCount = 0;
+//	FriendsEnumerateFollowingList_t Result;
+//	TArray<FSteamID> SteamIDs;
+//
+//	do
+//	{
+//		if (SteamAPICall_t ResultHandle = SteamFriends()->EnumerateFollowingList(ResultCount))
+//		{
+//			if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Orange, "LOL");
+//			bool bTmpResult;
+//			if (SteamUtils()->GetAPICallResult(ResultHandle, &Result, sizeof(Result), Result.k_iCallback, &bTmpResult))
+//			{
+//				if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Orange, "LOL2");
+//				ResultCount += Result.m_nResultsReturned;
+//				for (const auto& id : Result.m_rgSteamID)
+//				{
+//					if (id.IsValid())
+//					{
+//						SteamIDs.Add(id.ConvertToUint64());
+//					}
+//				}
+//			}
+//
+//			ESteamAPICallFailure_ reason = (ESteamAPICallFailure_)((uint8)SteamUtils()->GetAPICallFailureReason(ResultHandle) - 1);
+//
+//			if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Orange, USteamBridgeUtils::GetEnumValueAsString<ESteamAPICallFailure_>("ESteamAPICallFailure_", reason));
+//
+//		}
+//	} while (ResultCount < Result.m_nTotalResultCount);
+//
+//	return SteamIDs;
+//}
+
 int32 USteamFriends::GetClanChatMessage(FSteamID SteamIDClanChat, int32 MessageID, FString& Message, ESteamChatEntryType& ChatEntryType, FSteamID& SteamIDChatter)
 {
 	EChatEntryType TmpEntryType;
@@ -167,7 +203,7 @@ void USteamFriends::GetFriendsGroupMembersList(FSteamFriendsGroupID FriendsGroup
 	}
 }
 
-UTexture2D* USteamFriends::GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarSize AvatarSize) const
+UTexture2D* USteamFriends::GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarSize AvatarSize, int32& ImageHandle) const
 {
 	int32 Avatar = 0;
 	switch (AvatarSize)
@@ -183,6 +219,7 @@ UTexture2D* USteamFriends::GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarS
 		break;
 	}
 
+	ImageHandle = Avatar;
 	uint32 Width = 0, Height = 0;
 	SteamUtils()->GetImageSize(Avatar, &Width, &Height);
 	if (Width > 0 && Height > 0)

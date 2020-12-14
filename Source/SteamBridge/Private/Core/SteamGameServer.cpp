@@ -28,19 +28,27 @@ USteamGameServer::~USteamGameServer()
 	OnGSPolicyResponseCallback.Unregister();
 }
 
-ESteamBeginAuthSessionResult USteamGameServer::BeginAuthSession(TArray<uint8> AuthTicket, FSteamID SteamID)
+ESteamBeginAuthSessionResult USteamGameServer::BeginAuthSession(TArray<uint8> AuthTicket, FSteamID SteamID) const
 {
 	AuthTicket.SetNum(8192);
 	return (ESteamBeginAuthSessionResult)SteamGameServer()->BeginAuthSession(AuthTicket.GetData(), 8192, SteamID);
 }
 
-FHAuthTicket USteamGameServer::GetAuthSessionTicket(TArray<uint8> &AuthTicket)
+FHAuthTicket USteamGameServer::GetAuthSessionTicket(TArray<uint8> &AuthTicket) const
 {
 	uint32 length = 0;
 	AuthTicket.SetNum(8192);
 	FHAuthTicket result = (FHAuthTicket)SteamGameServer()->GetAuthSessionTicket(AuthTicket.GetData(), 8192, &length);
 	AuthTicket.SetNum(length);
 	return result;
+}
+
+FString USteamGameServer::GetPublicIP() const
+{
+	FString TmpIP;
+	USteamBridgeUtils::ConvertIPToString(SteamGameServer()->GetPublicIP().m_unIPv4);
+
+	return TmpIP;
 }
 
 void USteamGameServer::OnAssociateWithClanResult(AssociateWithClanResult_t *pParam)

@@ -112,6 +112,56 @@ bool USteamInventory::GetItemDefinitionIDs(TArray<FSteamItemDef>& Items) const
 	return false;
 }
 
+bool USteamInventory::GetItemDefinitionProperty(FSteamItemDef Definition, const FString& PropertyName, FString& Value) const
+{
+	uint32 Size = 0;
+	if (SteamInventory()->GetItemDefinitionProperty(Definition, TCHAR_TO_UTF8(*PropertyName), nullptr, &Size))
+	{
+		TArray<char> TmpStr;
+		TmpStr.SetNum(Size);
+		bool bResult = SteamInventory()->GetItemDefinitionProperty(Definition, TCHAR_TO_UTF8(*PropertyName), TmpStr.GetData(), &Size);
+		Value = UTF8_TO_TCHAR(TmpStr.GetData());
+		return bResult;
+	}
+	return false;
+}
+
+bool USteamInventory::GetItemsByID(FSteamInventoryResult& ResultHandle, const TArray<FSteamItemInstanceID>& InstanceIDs) const
+{
+	const int32 Size = InstanceIDs.Num();
+	TArray<SteamItemInstanceID_t> TmpIDs;
+	TmpIDs.SetNum(Size);
+
+	for (int32 i = 0; i < Size; i++)
+	{
+		TmpIDs.Add(InstanceIDs[i]);
+	}
+
+	return SteamInventory()->GetItemsByID((SteamInventoryResult_t*)&ResultHandle, TmpIDs.GetData(), Size);
+}
+
+bool USteamInventory::GetItemsWithPrices(TArray<FSteamItemPriceData>& ItemData) const
+{
+	const int32 Size = SteamInventory()->GetNumItemsWithPrices();
+
+	TArray<SteamItemDef_t> TmpItems;
+	TArray<uint64> TmpCurrentPrices;
+	TArray<uint64> TmpBasePrices;
+	TmpItems.SetNum(Size);
+	TmpCurrentPrices.SetNum(Size);
+	TmpBasePrices.SetNum(Size);
+
+	if (bool bResult = SteamInventory()->GetItemsWithPrices(TmpItems.GetData(), TmpCurrentPrices.GetData(), TmpBasePrices.GetData(), Size))
+	{
+		for (int32 i = 0; i < Size; i++)
+		{
+			ItemData.Add({TmpItems[i], (int64)TmpCurrentPrices[i], (int64)TmpBasePrices[i] });
+		}
+		return bResult;
+	}
+	return false;
+}
+
 bool USteamInventory::GetResultItemProperty(FSteamInventoryResult ResultHandle, int32 ItemIndex, const FString& PropertyName, FString& Value) const
 {
 	TArray<char> TmpStr;

@@ -46,6 +46,15 @@ FSteamAPICall USteamUserStats::FindOrCreateLeaderboard(const FString& Leaderboar
 	return SteamUserStats()->FindOrCreateLeaderboard(TCHAR_TO_UTF8(*LeaderboardName), (ELeaderboardSortMethod)LeaderboardSortMethod, (ELeaderboardDisplayType)LeaderboardDisplayType);
 }
 
+bool USteamUserStats::GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries SteamLeaderboardEntries, int32 index, FSteamLeaderboardEntry& LeaderboardEntry, TArray<int32>& Details, int32 DetailsMax) const
+{
+	Details.SetNum(DetailsMax);
+	LeaderboardEntry_t TmpEntry;
+	bool bResult = SteamUserStats()->GetDownloadedLeaderboardEntry(SteamLeaderboardEntries, index, &TmpEntry, Details.GetData(), DetailsMax);
+	LeaderboardEntry = TmpEntry;
+	return bResult;
+}
+
 int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray<float>& Data, int32 Size) const
 {
 	TArray<double> TmpData;
@@ -55,6 +64,22 @@ int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray
 		Data.Add((float)TmpData[i]);
 	}
 	return result;
+}
+
+int32 USteamUserStats::GetMostAchievedAchievementInfo(FString& Name, float& Percent, bool& bAchieved) const
+{
+	TArray<char> TmpName;
+	int32 result = SteamUserStats()->GetMostAchievedAchievementInfo(TmpName.GetData(), 1024, &Percent, &bAchieved);
+	Name = UTF8_TO_TCHAR(TmpName.GetData());
+	return  result;
+}
+
+int32 USteamUserStats::GetNextMostAchievedAchievementInfo(int32 IteratorPrevious, FString& Name, float& Percent, bool& bAchieved) const
+{
+	TArray<char> TmpName;
+	int32 result = SteamUserStats()->GetNextMostAchievedAchievementInfo(IteratorPrevious, TmpName.GetData(), 1024, &Percent, &bAchieved);
+	Name = UTF8_TO_TCHAR(TmpName.GetData());
+	return  result;
 }
 
 FSteamAPICall USteamUserStats::UploadLeaderboardScore(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardUploadScoreMethod LeaderboardUploadScoreMethod, int32 Score, const TArray<int32>& ScoreDetails) const

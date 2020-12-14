@@ -183,7 +183,8 @@ public:
 	/**
 	 * Returns the set of all item definition IDs which are defined in the App Admin panel of the Steamworks website.
 	 * These item definitions may not necessarily be contiguous integers.
-	 * This should be called in response to a SteamInventoryDefinitionUpdate_t callback. There is no reason to call this function if your game hardcodes the numeric definition IDs (eg, purple face mask = 20, blue weapon mod = 55) and does not allow for adding new item types without a client patch.
+	 * This should be called in response to a SteamInventoryDefinitionUpdate_t callback. There is no reason to call this function if your game hardcodes the numeric definition IDs (eg, purple face mask = 20, blue weapon mod = 55)
+	 * and does not allow for adding new item types without a client patch.
 	 *
 	 * @param TArray<FSteamItemDef> & Items - Returns the item definitions by copying them into this array.
 	 * @return bool - This call returns true upon success. It only returns false if item definitions have not been loaded from the server, or no item defintions exist for the current application.
@@ -191,8 +192,35 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
 	bool GetItemDefinitionIDs(TArray<FSteamItemDef>& Items) const;
 
-	// #TODO GetItemDefinitionProperty
-	// #TODO GetItemsByID
+	/**
+	 * Gets a string property from the specified item definition.
+	 * Gets a property value for a specific item definition.
+	 * Note that some properties (for example, "name") may be localized and will depend on the current Steam language settings (see ISteamApps::GetCurrentGameLanguage). Property names are always ASCII alphanumeric and underscores.
+	 * Pass in NULL for pchPropertyName to get a comma-separated list of available property names. In this mode, punValueBufferSizeOut will contain the suggested buffer size. Otherwise it will be the number of bytes actually copied to pchValueBuffer.
+	 *
+	 * @param FSteamItemDef Definition - The item definition to get the properties for.
+	 * @param const FString & PropertyName - The property name to get the value for. If you pass in NULL then pchValueBuffer will contain a comma-separated list of all the available names.
+	 * @param FString & Value - Returns the value associated with pchPropertyName.
+	 * @return bool - This returns true upon success; otherwise, false indicating that the item definitions have not been loaded from the server, or no item definitions exist for the current application, or the property name was not found in the item definition.
+	 * The associated value is returned via pchValueBuffer, and the total number of bytes required to hold the value is available from punValueBufferSizeOut. It's recommended to call this function twice, the first time with pchValueBuffer
+	 * set to NULL and punValueBufferSizeOut set to zero to get the size required for the buffer for the subsequent call.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
+	bool GetItemDefinitionProperty(FSteamItemDef Definition, const FString& PropertyName, FString& Value) const;
+
+	/**
+	 * Gets the state of a subset of the current user's inventory.
+	 * The subset is specified by an array of item instance IDs.
+	 * The results from this call can be serialized using SerializeResult and passed to other players to "prove" that the current user owns specific items, without exposing the user's entire inventory.
+	 * For example, you could call this with the IDs of the user's currently equipped items and serialize this to a buffer, and then transmit this buffer to other players upon joining a game.
+	 * NOTE: You must call DestroyResult on the provided inventory result when you are done with it.
+	 *
+	 * @param FSteamInventoryResult & ResultHandle - Returns a new inventory result handle.
+	 * @param const TArray<FSteamItemInstanceID> & InstanceIDs - A list of the item instance ids to update the state of.
+	 * @return bool - This function always returns true when called by a regular user, and always returns false when called from SteamGameServer. Returns a new result handle via pResultHandle.
+	 */
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
+	bool GetItemsByID(FSteamInventoryResult& ResultHandle, const TArray<FSteamItemInstanceID>& InstanceIDs) const;
 
 	/**
 	 * After a successful call to RequestPrices, you can call this method to get the pricing for a specific item definition.
@@ -206,7 +234,14 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
 	bool GetItemPrice(FSteamItemDef ItemDef, int64& CurrentPrice, int64& BasePrice) const { return SteamInventory()->GetItemPrice(ItemDef, (uint64*)&CurrentPrice, (uint64*)&BasePrice); }
 
-	// #TODO GetItemsWithPrices
+	/**
+	 * After a successful call to RequestPrices, you can call this method to get all the pricing for applicable item definitions. Use the result of GetNumItemsWithPrices as the the size of the arrays that you pass in.
+	 *
+	 * @param TArray<FSteamItemPriceData> & ItemData - The array of item definition ids to populate
+	 * @return bool - true upon success, indicating that pArrayItemDefs and pPrices have been successfully filled with the item definition ids and prices of items that are for sale. false if the parameters are invalid
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
+	bool GetItemsWithPrices(TArray<FSteamItemPriceData>& ItemData) const;
 
 	/**
 	 * After a successful call to RequestPrices, this will return the number of item definitions with valid pricing.
