@@ -25,7 +25,7 @@ ISteamParties | :heavy_check_mark: |
 ISteamRemotePlay | :heavy_check_mark: | 
 ISteamRemoteStorage | :heavy_check_mark: | [1] (5) 
 ISteamScreenshots | :heavy_check_mark: | 
-ISteamUGC | :heavy_check_mark: | 
+ISteamUGC | :heavy_check_mark: | [1][3] (3/3)
 ISteamUser | :heavy_check_mark: | 
 ISteamUserStats | :heavy_check_mark: | [1] (4)
 ISteamUtils | :heavy_check_mark: | [1] (5)
@@ -35,6 +35,7 @@ SteamWeb | :x: | [2] |
 
 - [1] Some methods were left out temporarily and will be added eventually.
 - [2] Steam Web API will come after the core interfaces are implemented and are stable. 
+- [3] Some methods that were left out are added in a newer sdk version so thery're unable to be added at the current version.
 
 Another note for [1]. I'm skipping some methods that will take a while to implement. I'm doing this so I can add most of the functionality quickly. If you need a specific method that isn't in the plugin then post an [issue](https://github.com/trdwll/SteamBridge/issues) or add it yourself and submit a [Pull Request](https://github.com/trdwll/SteamBridge/pulls).
 
