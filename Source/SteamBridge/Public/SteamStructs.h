@@ -241,13 +241,13 @@ USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FUGCQueryHandle : public FUint64
 {
 	GENERATED_BODY()
-		using FUint64::FUint64;
+	using FUint64::FUint64;
 };
 USTRUCT(BlueprintType)
 struct STEAMBRIDGE_API FUGCUpdateHandle : public FUint64
 {
 	GENERATED_BODY()
-		using FUint64::FUint64;
+	using FUint64::FUint64;
 };
 
 USTRUCT(BlueprintType)
@@ -275,9 +275,16 @@ struct STEAMBRIDGE_API FSteamInputAnalogActionData
 {
 	GENERATED_BODY()
 
+	UPROPERTY(BlueprintReadWrite)
 	ESteamControllerSourceMode Mode;
+
+	UPROPERTY(BlueprintReadWrite)
 	float X;
+
+	UPROPERTY(BlueprintReadWrite)
 	float Y;
+
+	UPROPERTY(BlueprintReadWrite)
 	bool bActive;
 
 	FSteamInputAnalogActionData() {}
@@ -290,7 +297,10 @@ struct STEAMBRIDGE_API FSteamInputDigitalActionData
 {
 	GENERATED_BODY()
 
+	UPROPERTY(BlueprintReadWrite)
 	bool bState;
+
+	UPROPERTY(BlueprintReadWrite)
 	bool bActive;
 
 	FSteamInputDigitalActionData() {}
@@ -303,8 +313,13 @@ struct STEAMBRIDGE_API FSteamInputMotionData
 {
 	GENERATED_BODY()
 
+	UPROPERTY(BlueprintReadWrite)
 	FQuat RotQuat;
+
+	UPROPERTY(BlueprintReadWrite)
 	FVector PosAccel;
+
+	UPROPERTY(BlueprintReadWrite)
 	FVector RotVel;
 
 	FSteamInputMotionData() {}
@@ -317,9 +332,16 @@ struct STEAMBRIDGE_API FSteamItemDetails
 {
 	GENERATED_BODY()
 
+	UPROPERTY(BlueprintReadWrite)
 	FSteamItemInstanceID ItemID;
+
+	UPROPERTY(BlueprintReadWrite)
 	FSteamItemDef Definition;
+
+	UPROPERTY(BlueprintReadWrite)
 	int32 Quantity;
+
+	UPROPERTY(BlueprintReadWrite)
 	TArray<ESteamItemFlags_> Flags;
 
 	FSteamItemDetails() {}
@@ -350,8 +372,11 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 {
 	GENERATED_BODY()
 
+	UPROPERTY(BlueprintReadWrite)
 	ESteamPartyBeaconLocation Type;
-	uint64 LocationID;
+
+	UPROPERTY(BlueprintReadWrite)
+	int64 LocationID;
 
 	operator SteamPartyBeaconLocation_t() const
 	{
@@ -373,10 +398,19 @@ struct STEAMBRIDGE_API FSteamLeaderboardEntry
 {
 	GENERATED_BODY()
 
+	UPROPERTY(BlueprintReadWrite)
 	FSteamID SteamIDUser;
+
+	UPROPERTY(BlueprintReadWrite)
 	int32 GlobalRank;
+
+	UPROPERTY(BlueprintReadWrite)
 	int32 Score;
+
+	UPROPERTY(BlueprintReadWrite)
 	int32 Details;
+
+	UPROPERTY(BlueprintReadWrite)
 	FUGCHandle UGC;
 
 	FSteamLeaderboardEntry() {}
@@ -384,4 +418,97 @@ struct STEAMBRIDGE_API FSteamLeaderboardEntry
 		SteamIDUser(steamid), GlobalRank(glob), Score(score), Details(details), UGC(handle) {}
 	FSteamLeaderboardEntry(const LeaderboardEntry_t& type) :
 		SteamIDUser(type.m_steamIDUser.ConvertToUint64()), GlobalRank(type.m_nGlobalRank), Score(type.m_nScore), Details(type.m_cDetails), UGC(type.m_hUGC) {}
+};
+
+USTRUCT(BlueprintType)
+struct STEAMBRIDGE_API FSteamUGCDetails
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
+	FPublishedFileId PublishedFileId;
+
+	UPROPERTY(BlueprintReadWrite)
+	ESteamResult Result;  // The result of the operation.
+
+	UPROPERTY(BlueprintReadWrite)
+	ESteamWorkshopFileType FileType;  // Type of the file
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 CreatorAppID;  // ID of the app that created this file.
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 ConsumerAppID;  // ID of the app that will consume this file.
+
+	UPROPERTY(BlueprintReadWrite)
+	FString Title;  // title of document
+
+	UPROPERTY(BlueprintReadWrite)
+	FString Description;  // description of document
+
+	UPROPERTY(BlueprintReadWrite)
+	FSteamID SteamIDOwner;  // Steam ID of the user who created this content.
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 TimeCreated;  // time when the published file was created
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 TimeUpdated;  // time when the published file was last updated
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 TimeAddedToUserList;  // time when the user added the published file to their list (not always applicable)
+
+	UPROPERTY(BlueprintReadWrite)
+	ESteamRemoteStoragePublishedFileVisibility Visibility;  // visibility
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bBanned;  // whether the file was banned
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bAcceptedForUse;  // developer has specifically flagged this item as accepted in the Workshop
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bTagsTruncated;  // whether the list of tags was too long to be returned in the provided buffer
+
+	UPROPERTY(BlueprintReadWrite)
+	TArray<FString> Tags;  // comma separated list of all tags associated with this file
+
+	UPROPERTY(BlueprintReadWrite)
+	FUGCHandle File;  // The handle of the primary file
+
+	UPROPERTY(BlueprintReadWrite)
+	FUGCHandle PreviewFile;  // The handle of the preview file
+
+	UPROPERTY(BlueprintReadWrite)
+	FString FileName;  // The cloud filename of the primary file
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 FileSize;  // Size of the primary file
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 PreviewFileSize;  // Size of the preview file
+
+	UPROPERTY(BlueprintReadWrite)
+	FString URL;  // URL (for a video or a website)
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 VotesUp;  // number of votes up
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 VotesDown;  // number of votes down
+
+	UPROPERTY(BlueprintReadWrite)
+	float Score;  // calculated score
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 NumChildren;
+
+	FSteamUGCDetails() :
+		PublishedFileId(0), Result(ESteamResult::None), FileType(ESteamWorkshopFileType::Max), CreatorAppID(0), ConsumerAppID(0), Title(""), Description(""), SteamIDOwner(0), TimeCreated(0), TimeUpdated(0), TimeAddedToUserList(0), Visibility(ESteamRemoteStoragePublishedFileVisibility::Public), bBanned(false), bAcceptedForUse(false), bTagsTruncated(false), Tags({}), File(0), PreviewFile(0), FileName(""), FileSize(0), PreviewFileSize(0), URL(""), VotesUp(0), VotesDown(0), Score(0.0f), NumChildren(0) {}
+
+	FSteamUGCDetails(const SteamUGCDetails_t& data) :
+		PublishedFileId(data.m_nPublishedFileId), Result((ESteamResult)data.m_eResult), FileType((ESteamWorkshopFileType)data.m_eFileType), CreatorAppID(data.m_nCreatorAppID), ConsumerAppID(data.m_nConsumerAppID), Title(FString(UTF8_TO_TCHAR(data.m_rgchTitle))), Description(FString(UTF8_TO_TCHAR(data.m_rgchDescription))), SteamIDOwner(data.m_ulSteamIDOwner), TimeCreated(data.m_rtimeCreated), TimeUpdated(data.m_rtimeUpdated), TimeAddedToUserList(data.m_rtimeAddedToUserList), Visibility((ESteamRemoteStoragePublishedFileVisibility)data.m_eVisibility), bBanned(data.m_bBanned), bAcceptedForUse(data.m_bAcceptedForUse), bTagsTruncated(data.m_bTagsTruncated), File(data.m_hFile), PreviewFile(data.m_hPreviewFile), FileName(data.m_pchFileName), FileSize(data.m_nFileSize), PreviewFileSize(data.m_nPreviewFileSize), URL(UTF8_TO_TCHAR(data.m_rgchURL)), VotesUp(data.m_unVotesUp), VotesDown(data.m_unVotesDown), Score(data.m_flScore), NumChildren(data.m_unNumChildren)
+	{
+		FString(UTF8_TO_TCHAR(data.m_rgchTags)).ParseIntoArray(Tags, TEXT(","), true);
+	}
 };

@@ -12,6 +12,21 @@ USteamUGC::~USteamUGC()
 {
 }
 
+bool USteamUGC::AddRequiredTagGroup(FUGCQueryHandle handle, const TArray<FString>& Tags) const
+{
+	TArray<char*> TmpTags;
+	SteamParamStringArray_t TmpTagsArray;
+	for (int32 i = 0; i < Tags.Num(); i++)
+	{
+		TmpTags.Add(TCHAR_TO_UTF8(*Tags[i]));
+	}
+
+	TmpTagsArray.m_ppStrings = (const char**)TmpTags.GetData();
+	TmpTagsArray.m_nNumStrings = Tags.Num();
+
+	return SteamUGC()->AddRequiredTagGroup(handle, &TmpTagsArray);
+}
+
 FUGCQueryHandle USteamUGC::CreateQueryAllUGCRequest(ESteamUGCQuery QueryType, ESteamUGCMatchingUGCType MatchingUGCTypeFileType, int32 CreatorAppID, int32 ConsumerAppID, int32 Page) const
 {
 	return SteamUGC()->CreateQueryAllUGCRequest((EUGCQuery)QueryType, (EUGCMatchingUGCType)MatchingUGCTypeFileType, CreatorAppID, ConsumerAppID, Page);
@@ -71,4 +86,47 @@ bool USteamUGC::GetQueryUGCMetadata(FUGCQueryHandle handle, int32 index, FString
 	bool bResult = SteamUGC()->GetQueryUGCMetadata(handle, index, TmpStr.GetData(), TmpStr.Num());
 	Metadata = UTF8_TO_TCHAR(TmpStr.GetData());
 	return bResult;
+}
+
+bool USteamUGC::GetQueryUGCPreviewURL(FUGCQueryHandle handle, int32 index, FString& URL, int32 URLSize) const
+{
+	TArray<char> TmpUrl;
+	TmpUrl.SetNum(URLSize);
+	bool bResult = SteamUGC()->GetQueryUGCPreviewURL(handle, index, TmpUrl.GetData(), TmpUrl.Num());
+	URL = UTF8_TO_TCHAR(TmpUrl.GetData());
+	return bResult;
+}
+
+bool USteamUGC::GetQueryUGCResult(FUGCQueryHandle handle, int32 index, FSteamUGCDetails& Details) const
+{
+	SteamUGCDetails_t TmpDetails;
+	bool bResult = SteamUGC()->GetQueryUGCResult(handle, index, &TmpDetails);
+	Details = TmpDetails;
+	return bResult;
+}
+
+int32 USteamUGC::GetSubscribedItems(TArray<FPublishedFileId>& PublishedFileIDs, int32 MaxEntries) const
+{
+	TArray<PublishedFileId_t> TmpData;
+	int32 result = SteamUGC()->GetSubscribedItems(TmpData.GetData(), MaxEntries);
+	for (int32 i = 0; i < result; i++)
+	{
+		PublishedFileIDs.Add(TmpData[i]);
+	}
+
+	return result;
+}
+
+bool USteamUGC::SetItemTags(FUGCUpdateHandle UpdateHandle, const TArray<FString>& Tags) const
+{
+	TArray<char*> TmpTags;
+	SteamParamStringArray_t TmpTagsArray;
+	for (int32 i = 0; i < Tags.Num(); i++)
+	{
+		TmpTags.Add(TCHAR_TO_UTF8(*Tags[i]));
+	}
+
+	TmpTagsArray.m_ppStrings = (const char**)TmpTags.GetData();
+	TmpTagsArray.m_nNumStrings = Tags.Num();
+	return SteamUGC()->SetItemTags(UpdateHandle, &TmpTagsArray);
 }

@@ -1157,3 +1157,29 @@ enum class ESteamItemUpdateStatus : uint8
 	UploadingPreviewFile = 4, // The item update is uploading new preview file image
 	CommittingChanges = 5  // The item update is committing all changes
 };
+
+UENUM(BlueprintType)
+enum class ESteamRemoteStoragePublishedFileVisibility : uint8
+{
+	Public = 0,
+	FriendsOnly = 1,
+	Private = 2,
+};
+
+UENUM(BlueprintType)
+enum class ESteamItemStatistic : uint8
+{
+	NumSubscriptions = 0,
+	NumFavorites = 1,
+	NumFollowers = 2,
+	NumUniqueSubscriptions = 3,
+	NumUniqueFavorites = 4,
+	NumUniqueFollowers = 5,
+	NumUniqueWebsiteViews = 6,
+	ReportScore = 7,
+	NumSecondsPlayed = 8,
+	NumPlaytimeSessions = 9,
+	NumComments = 10,
+	NumSecondsPlayedDuringTimePeriod = 11,
+	NumPlaytimeSessionsDuringTimePeriod = 12,
+};
