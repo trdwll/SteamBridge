@@ -14,7 +14,10 @@ public class SteamBridge : ModuleRules
             "CoreUObject",
             "Engine",
             "Projects",
-            "Steamworks"
+            "Steamworks",
+            "OnlineSubsystem",
+            "OnlineSubsystemUtils",
+            "OnlineSubsystemSteam",
         });
 
         AddEngineThirdPartyPrivateStaticDependencies(Target, "Steamworks");
