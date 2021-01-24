@@ -450,13 +450,13 @@ struct STEAMBRIDGE_API FSteamUGCDetails
 	FSteamID SteamIDOwner;  // Steam ID of the user who created this content.
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 TimeCreated;  // time when the published file was created
+	FDateTime TimeCreated;  // time when the published file was created
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 TimeUpdated;  // time when the published file was last updated
+	FDateTime TimeUpdated;  // time when the published file was last updated
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 TimeAddedToUserList;  // time when the user added the published file to their list (not always applicable)
+	FDateTime TimeAddedToUserList;  // time when the user added the published file to their list (not always applicable)
 
 	UPROPERTY(BlueprintReadWrite)
 	ESteamRemoteStoragePublishedFileVisibility Visibility;  // visibility
@@ -504,10 +504,10 @@ struct STEAMBRIDGE_API FSteamUGCDetails
 	int32 NumChildren;
 
 	FSteamUGCDetails() :
-		PublishedFileId(0), Result(ESteamResult::None), FileType(ESteamWorkshopFileType::Max), CreatorAppID(0), ConsumerAppID(0), Title(""), Description(""), SteamIDOwner(0), TimeCreated(0), TimeUpdated(0), TimeAddedToUserList(0), Visibility(ESteamRemoteStoragePublishedFileVisibility::Public), bBanned(false), bAcceptedForUse(false), bTagsTruncated(false), Tags({}), File(0), PreviewFile(0), FileName(""), FileSize(0), PreviewFileSize(0), URL(""), VotesUp(0), VotesDown(0), Score(0.0f), NumChildren(0) {}
+		PublishedFileId(0), Result(ESteamResult::None), FileType(ESteamWorkshopFileType::Max), CreatorAppID(0), ConsumerAppID(0), Title(""), Description(""), SteamIDOwner(0), TimeCreated(FDateTime::Now()), TimeUpdated(FDateTime::Now()), TimeAddedToUserList(FDateTime::Now()), Visibility(ESteamRemoteStoragePublishedFileVisibility::Public), bBanned(false), bAcceptedForUse(false), bTagsTruncated(false), Tags({}), File(0), PreviewFile(0), FileName(""), FileSize(0), PreviewFileSize(0), URL(""), VotesUp(0), VotesDown(0), Score(0.0f), NumChildren(0) {}
 
 	FSteamUGCDetails(const SteamUGCDetails_t& data) :
-		PublishedFileId(data.m_nPublishedFileId), Result((ESteamResult)data.m_eResult), FileType((ESteamWorkshopFileType)data.m_eFileType), CreatorAppID(data.m_nCreatorAppID), ConsumerAppID(data.m_nConsumerAppID), Title(FString(UTF8_TO_TCHAR(data.m_rgchTitle))), Description(FString(UTF8_TO_TCHAR(data.m_rgchDescription))), SteamIDOwner(data.m_ulSteamIDOwner), TimeCreated(data.m_rtimeCreated), TimeUpdated(data.m_rtimeUpdated), TimeAddedToUserList(data.m_rtimeAddedToUserList), Visibility((ESteamRemoteStoragePublishedFileVisibility)data.m_eVisibility), bBanned(data.m_bBanned), bAcceptedForUse(data.m_bAcceptedForUse), bTagsTruncated(data.m_bTagsTruncated), File(data.m_hFile), PreviewFile(data.m_hPreviewFile), FileName(data.m_pchFileName), FileSize(data.m_nFileSize), PreviewFileSize(data.m_nPreviewFileSize), URL(UTF8_TO_TCHAR(data.m_rgchURL)), VotesUp(data.m_unVotesUp), VotesDown(data.m_unVotesDown), Score(data.m_flScore), NumChildren(data.m_unNumChildren)
+		PublishedFileId(data.m_nPublishedFileId), Result((ESteamResult)data.m_eResult), FileType((ESteamWorkshopFileType)data.m_eFileType), CreatorAppID(data.m_nCreatorAppID), ConsumerAppID(data.m_nConsumerAppID), Title(FString(UTF8_TO_TCHAR(data.m_rgchTitle))), Description(FString(UTF8_TO_TCHAR(data.m_rgchDescription))), SteamIDOwner(data.m_ulSteamIDOwner), TimeCreated(FDateTime::FromUnixTimestamp(data.m_rtimeCreated)), TimeUpdated(FDateTime::FromUnixTimestamp(data.m_rtimeUpdated)), TimeAddedToUserList(FDateTime::FromUnixTimestamp(data.m_rtimeAddedToUserList)), Visibility((ESteamRemoteStoragePublishedFileVisibility)data.m_eVisibility), bBanned(data.m_bBanned), bAcceptedForUse(data.m_bAcceptedForUse), bTagsTruncated(data.m_bTagsTruncated), File(data.m_hFile), PreviewFile(data.m_hPreviewFile), FileName(data.m_pchFileName), FileSize(data.m_nFileSize), PreviewFileSize(data.m_nPreviewFileSize), URL(UTF8_TO_TCHAR(data.m_rgchURL)), VotesUp(data.m_unVotesUp), VotesDown(data.m_unVotesDown), Score(data.m_flScore), NumChildren(data.m_unNumChildren)
 	{
 		FString(UTF8_TO_TCHAR(data.m_rgchTags)).ParseIntoArray(Tags, TEXT(","), true);
 	}
@@ -528,5 +528,6 @@ struct STEAMBRIDGE_API FSteamItemPriceData
 	int64 BasePrice;
 
 	FSteamItemPriceData() {}
-	FSteamItemPriceData(FSteamItemDef def, int64 currentPrice, int64 basePrice) : ItemDef(def), CurrentPrice(currentPrice), BasePrice(basePrice) {}
+	FSteamItemPriceData(FSteamItemDef def, int64 currentPrice, int64 basePrice) :
+		ItemDef(def), CurrentPrice(currentPrice), BasePrice(basePrice) {}
 };
