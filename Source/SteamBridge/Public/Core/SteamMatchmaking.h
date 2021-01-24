@@ -170,6 +170,7 @@ public:
 	bool GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, int32& TimeLastPlayedOnServer) const;
 
 	/**
+	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetFavoriteGame is the original method.
 	 * Gets the details of the favorite game server by index.
 	 * NOTE: You must call GetFavoriteGameCount before calling this.
 	 *
@@ -179,7 +180,7 @@ public:
 	 * @param int32 & ConnPort - Returns the port used to connect to the server, in host order.
 	 * @param int32 & QueryPort - Returns the port used to query the server, in host order.
 	 * @param TArray<ESteamFavoriteFlags> & Flags - Returns whether the server is on the favorites list or the history list. See k_unFavoriteFlagNone for more information.
-	 * @param FDateTime & TimeLastPlayedOnServer - Returns the time the server was last added to the favorites list in Unix epoch format (seconds since Jan 1st, 1970).
+	 * @param FDateTime & TimeLastPlayedOnServer - Returns the time the server was last added to the favorites list in a friendly format.
 	 * @return bool - true if the details were successfully retrieved. false if iGame was an invalid index.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")

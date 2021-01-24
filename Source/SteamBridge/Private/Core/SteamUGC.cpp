@@ -78,6 +78,14 @@ bool USteamUGC::GetItemInstallInfo(FPublishedFileId PublishedFileID, int64& Size
 	return bResult;
 }
 
+bool USteamUGC::GetItemInstallInfoDateTime(FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, int32 FolderSize, FDateTime& TimeStamp) const
+{
+	int32 Tmp;
+	bool bResult = GetItemInstallInfo(PublishedFileID, SizeOnDisk, FolderName, FolderSize, Tmp);
+	TimeStamp = FDateTime::FromUnixTimestamp(Tmp);
+	return bResult;
+}
+
 bool USteamUGC::GetQueryUGCAdditionalPreview(FUGCQueryHandle handle, int32 index, int32 previewIndex, FString& URLOrVideoID, int32 URLSize, FString& OriginalFileName, int32 OriginalFileNameSize, ESteamItemPreviewType& PreviewType) const
 {
 	TArray<char> TmpStr, TmpStr2;

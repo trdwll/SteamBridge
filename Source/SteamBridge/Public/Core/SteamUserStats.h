@@ -151,6 +151,23 @@ public:
 	bool GetAchievementAndUnlockTime(const FString& Name, bool& bAchieved, int32& UnlockTime) const { return SteamUserStats()->GetAchievementAndUnlockTime(TCHAR_TO_UTF8(*Name), &bAchieved, (uint32*)&UnlockTime); }
 
 	/**
+	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetAchievementAndUnlockTime is the original method.
+	 * Gets the achievement status, and the time it was unlocked if unlocked.
+	 * If the return value is true, but the unlock time is zero, that means it was unlocked before Steam began tracking achievement unlock times (December 2009). The time is provided in a friendly format.
+	 * The equivalent function for other users is GetUserAchievementAndUnlockTime.
+	 *
+	 * @param const FString & Name - The 'API Name' of the achievement.
+	 * @param bool & bAchieved - Returns whether the current user has unlocked the achievement.
+	 * @param FDateTime & UnlockTime - Returns the time that the achievement was unlocked; if pbAchieved is true.
+	 * @return bool - This function returns true upon success if all of the following conditions are met; otherwise, false.
+	 * RequestCurrentStats has completed and successfully returned its callback.
+	 * The 'API Name' of the specified achievement exists in App Admin on the Steamworks website, and the changes are published.
+	 * If the call is successful then the achieved status and unlock time are provided via the arguments pbAchieved and punUnlockTime.
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
+	bool GetAchievementAndUnlockDateTime(const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const;
+
+	/**
 	 * Get general attributes for an achievement. Currently provides: Name, Description, and Hidden status.
 	 * This receives the value from a dictionary/map keyvalue store, so you must provide one of the following keys.
 	 * "name" to retrive the localized achievement name in UTF8
@@ -418,6 +435,24 @@ public:
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
 	bool GetUserAchievementAndUnlockTime(FSteamID SteamIDUser, const FString& Name, bool& bAchieved, int32& UnlockTime) const { return SteamUserStats()->GetUserAchievementAndUnlockTime(SteamIDUser, TCHAR_TO_UTF8(*Name), &bAchieved, (uint32*)&UnlockTime); }
+
+	/**
+	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetUserAchievementAndUnlockTime is the original method.
+	 * Gets the achievement status, and the time it was unlocked if unlocked.
+	 * If the return value is true, but the unlock time is zero, that means it was unlocked before Steam began tracking achievement unlock times (December 2009). The time is provided in a friendly format.
+	 * The equivalent function for the local user is GetAchievementAndUnlockTime.
+	 *
+	 * @param FSteamID SteamIDUser - The Steam ID of the user to get the achievement for.
+	 * @param const FString & Name - The 'API Name' of the achievement.
+	 * @param bool & bAchieved - Returns whether the current user has unlocked the achievement.
+	 * @param FDateTime & UnlockTime - Returns the time that the achievement was unlocked; if pbAchieved is true.
+	 * @return bool - This function returns true upon success if all of the following conditions are met; otherwise, false.
+	 * RequestUserStats has completed and successfully returned its callback.
+	 * The 'API Name' of the specified achievement exists in App Admin on the Steamworks website, and the changes are published.
+	 * If the call is successful then the achieved status and unlock time are provided via the arguments pbAchieved and punUnlockTime.
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
+	bool GetUserAchievementAndUnlockDateTime(FSteamID SteamIDUser, const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const;
 
 	/**
 	 * Gets the current value of the a stat for the specified user.

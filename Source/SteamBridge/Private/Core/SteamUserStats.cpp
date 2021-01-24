@@ -46,6 +46,14 @@ FSteamAPICall USteamUserStats::FindOrCreateLeaderboard(const FString& Leaderboar
 	return SteamUserStats()->FindOrCreateLeaderboard(TCHAR_TO_UTF8(*LeaderboardName), (ELeaderboardSortMethod)LeaderboardSortMethod, (ELeaderboardDisplayType)LeaderboardDisplayType);
 }
 
+bool USteamUserStats::GetAchievementAndUnlockDateTime(const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const
+{
+	int32 Tmp;
+	bool bResult = GetAchievementAndUnlockTime(Name, bAchieved, Tmp);
+	UnlockTime = FDateTime::FromUnixTimestamp(Tmp);
+	return bResult;
+}
+
 bool USteamUserStats::GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries SteamLeaderboardEntries, int32 index, FSteamLeaderboardEntry& LeaderboardEntry, TArray<int32>& Details, int32 DetailsMax) const
 {
 	Details.SetNum(DetailsMax);
@@ -80,6 +88,14 @@ int32 USteamUserStats::GetNextMostAchievedAchievementInfo(int32 IteratorPrevious
 	int32 result = SteamUserStats()->GetNextMostAchievedAchievementInfo(IteratorPrevious, TmpName.GetData(), 1024, &Percent, &bAchieved);
 	Name = UTF8_TO_TCHAR(TmpName.GetData());
 	return  result;
+}
+
+bool USteamUserStats::GetUserAchievementAndUnlockDateTime(FSteamID SteamIDUser, const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const
+{
+	int32 Tmp;
+	bool bResult = GetUserAchievementAndUnlockTime(SteamIDUser, Name, bAchieved, Tmp);
+	UnlockTime = FDateTime::FromUnixTimestamp(Tmp);
+	return bResult;
 }
 
 FSteamAPICall USteamUserStats::UploadLeaderboardScore(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardUploadScoreMethod LeaderboardUploadScoreMethod, int32 Score, const TArray<int32>& ScoreDetails) const
