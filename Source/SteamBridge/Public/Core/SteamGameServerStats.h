@@ -149,7 +149,18 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
 	bool SetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float Data) { return SteamGameServerStats()->SetUserStat(SteamIDUser, TCHAR_TO_UTF8(*Name), Data); }
 
-	// #TODO StoreUserStats
+	/**
+	* Send the changed stats and achievements data to the server for permanent storage for the specified user.
+	* If this fails then nothing is sent to the server. It's advisable to keep trying until the call is successful.
+	* This call can be rate limited. Call frequency should be on the order of minutes, rather than seconds.
+	* You should only be calling this during major state changes such as the end of a round, the map changing, or the user leaving a server.
+	* If you have stats or achievements that you have saved locally but haven't uploaded with this function when your application process ends
+	* then this function will automatically be called.
+	*
+	* @param FSteamID SteamIDUser - The Steam ID of the user to store the stats of.
+	*/
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|GameServerStats")
+	FSteamAPICall StoreUserStats(FSteamID SteamIDUser) const { return SteamGameServerStats()->StoreUserStats(SteamIDUser); }
 
 	/**
 	 * Updates an AVGRATE stat with new values for the specified user.
