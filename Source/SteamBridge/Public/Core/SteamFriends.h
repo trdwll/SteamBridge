@@ -14,7 +14,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnAvatarImageLoadedDelegate, FSte
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnClanOfficerListResponseDelegate, FSteamID, SteamID, int32, OfficersCount, bool, bSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDownloadClanActivityCountsResultDelegate, bool, bSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnFriendRichPresenceUpdateDelegate, FSteamID, SteamID, int32, AppID);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnFriendsEnumerateFollowingListDelegate, ESteamResult, Result, TArray<FSteamID>, SteamIDs, int32, ResultsReturned, int32, TotalResults);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnFriendsEnumerateFollowingListDelegate, ESteamResult, Result, const TArray<FSteamID>&, SteamIDs, int32, ResultsReturned, int32, TotalResults);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnFriendsGetFollowerCountDelegate, ESteamResult, Result, FSteamID, SteamID, int32, Count);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnFriendsIsFollowingDelegate, ESteamResult, Result, FSteamID, SteamID, bool, bIsFollowing);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGameConnectedChatJoinDelegate, FSteamID, SteamIDClanChat, FSteamID, SteamIDUser);

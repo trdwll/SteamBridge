@@ -14,7 +14,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAddAppDependencyResultDelegate
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAddUGCDependencyResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, FPublishedFileId, ChildPublishedFileID);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnCreateItemResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, bool, bUserNeedsToAcceptWorkshopLegalAgreement);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnDownloadItemResultDelegate, int32, AppID, FPublishedFileId, PublishedFileID, ESteamResult, Result);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnGetAppDependenciesResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, TArray<int32>, AppID, int32, NumAppDependencies, int32, TotalNumAppDependencies);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnGetAppDependenciesResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID, const TArray<int32>&, AppID, int32, NumAppDependencies, int32, TotalNumAppDependencies);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDeleteItemResultDelegate, ESteamResult, Result, FPublishedFileId, PublishedFileID);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnGetUserItemVoteResultDelegate, FPublishedFileId, PublishedFileID, ESteamResult, Result, bool, bVotedUp, bool, bVotedDown, bool, bVoteSkipped);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnItemInstalledDelegate, int32, AppID, FPublishedFileId, PublishedFileID);

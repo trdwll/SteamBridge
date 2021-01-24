@@ -11,7 +11,7 @@
 #include "SteamMatchmaking.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFavoritesListAccountsUpdatedDelegate, ESteamResult, Result);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_SevenParams(FOnFavoritesListChangedDelegate, FString, IP, int32, QueryPort, int32, ConnectionPort, int32, AppID, TArray<ESteamFavoriteFlags>, Flags, bool, bAdd, FAccountID, AccountID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SevenParams(FOnFavoritesListChangedDelegate, FString, IP, int32, QueryPort, int32, ConnectionPort, int32, AppID, const TArray<ESteamFavoriteFlags>&, Flags, bool, bAdd, FAccountID, AccountID);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnLobbyChatMsgDelegate, FSteamID, SteamIDLobby, FSteamID, SteamIDUser, ESteamChatEntryType, ChatEntryType, int32, ChatID);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnLobbyChatUpdateDelegate, FSteamID, SteamIDLobby, FSteamID, SteamIDUserChanged, FSteamID, SteamIDMakingChange, const TArray<ESteamChatMemberStateChange>&, ChatMemberStateChange);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLobbyCreatedDelegate, ESteamResult, Result, FSteamID, SteamIDLobby);
