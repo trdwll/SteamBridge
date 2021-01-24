@@ -45,7 +45,7 @@ public:
 	 *	RequestUserStats has completed and successfully returned its callback for the specified user.
 	 *	The stat must be allowed to be set by game server.
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|GameServerStats")
 	bool ClearUserAchievement(FSteamID SteamIDUser, const FString& Name) const { return SteamGameServerStats()->ClearUserAchievement(SteamIDUser, TCHAR_TO_UTF8(*Name)); }
 
 	/**
@@ -108,7 +108,7 @@ public:
 	 * RequestUserStats has completed and successfully returned its callback for the specified user.
 	 * The stat must be allowed to be set by game server.
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|GameServerStats")
 	bool SetUserAchievement(FSteamID SteamIDUser, const FString& Name) const { return SteamGameServerStats()->SetUserAchievement(SteamIDUser, TCHAR_TO_UTF8(*Name)); }
 
 	/**
@@ -127,7 +127,7 @@ public:
 	 * The type passed to this function must match the type listed in the App Admin panel of the Steamworks website.
 	 * The stat must be allowed to be set by game server.
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|GameServerStats")
 	bool SetUserStatInt(FSteamID SteamIDUser, const FString& Name, int32 Data) { return SteamGameServerStats()->SetUserStat(SteamIDUser, TCHAR_TO_UTF8(*Name), Data); }
 
 	/**
@@ -146,7 +146,7 @@ public:
 	 * The type passed to this function must match the type listed in the App Admin panel of the Steamworks website.
 	 * The stat must be allowed to be set by game server.
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|GameServerStats")
 	bool SetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float Data) { return SteamGameServerStats()->SetUserStat(SteamIDUser, TCHAR_TO_UTF8(*Name), Data); }
 
 	/**
@@ -183,7 +183,7 @@ public:
 	 * The type must be AVGRATE in the Steamworks Partner backend.
 	 * The stat must be allowed to be set by game server.
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|GameServerStats")
 	bool UpdateUserAvgRateStat(FSteamID SteamIDUser, const FString& Name, float CountThisSession, float SessionLength) const;
 
 	/** Delegates */
