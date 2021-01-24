@@ -302,22 +302,11 @@ public:
 	 * Gets the server time at which the result was generated.
 	 *
 	 * @param FSteamInventoryResult ResultHandle - 	The inventory result handle to get the timestamp for.
-	 * @return int32 - The timestamp is provided as Unix epoch time (Time since Jan 1st, 1970)
-	 * You can compare this value against ISteamUtils::GetServerRealTime to determine the age of the result.
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
-	int32 GetResultTimestamp(FSteamInventoryResult ResultHandle) const { return SteamInventory()->GetResultTimestamp(ResultHandle); }
-
-	/**
-	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetResultTimestamp is the original method.
-	 * Gets the server time at which the result was generated.
-	 *
-	 * @param FSteamInventoryResult ResultHandle - 	The inventory result handle to get the timestamp for.
 	 * @return FDateTime - The timestamp is provided as a friendly time
 	 * You can compare this value against ISteamUtils::GetServerRealTime to determine the age of the result.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
-	FDateTime GetResultTimestampDateTime(FSteamInventoryResult ResultHandle) const { return FDateTime::FromUnixTimestamp(SteamInventory()->GetResultTimestamp(ResultHandle)); }
+	FDateTime GetResultTimestamp(FSteamInventoryResult ResultHandle) const { return FDateTime::FromUnixTimestamp(SteamInventory()->GetResultTimestamp(ResultHandle)); }
 
 	/**
 	 * Grant all potential one-time promotional items to the current user.

@@ -301,20 +301,10 @@ public:
 	 * Gets the timestamp of when the user played with someone on their recently-played-with list.
 	 *
 	 * @param FSteamID SteamIDFriend - The Steam ID of the user on the recently-played-with list to get the timestamp for.
-	 * @return int32 - The time is provided in Unix epoch format (seconds since Jan 1st 1970). Steam IDs not in the recently-played-with list return 0.
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetFriendCoplayTime(FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendCoplayTime(SteamIDFriend); }
-
-	/**
-	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetFriendCoplayTime is the original method.
-	 * Gets the timestamp of when the user played with someone on their recently-played-with list.
-	 *
-	 * @param FSteamID SteamIDFriend - The Steam ID of the user on the recently-played-with list to get the timestamp for.
 	 * @return FDateTime - The time is provided in a friendly format. Steam IDs not in the recently-played-with list return 0.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FDateTime GetFriendCoplayDateTime(FSteamID SteamIDFriend) const { return FDateTime::FromUnixTimestamp(SteamFriends()->GetFriendCoplayTime(SteamIDFriend)); }
+	FDateTime GetFriendCoplayTime(FSteamID SteamIDFriend) const { return FDateTime::FromUnixTimestamp(SteamFriends()->GetFriendCoplayTime(SteamIDFriend)); }
 
 	/**
 	 * Gets the number of users the client knows about who meet a specified criteria. (Friends, blocked, users on the same server, etc)

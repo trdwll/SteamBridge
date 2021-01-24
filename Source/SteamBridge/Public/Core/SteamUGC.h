@@ -296,25 +296,6 @@ public:
 	 * @param int64 & SizeOnDisk - Returns the size of the workshop item in bytes.
 	 * @param FString & FolderName - Returns the absolute path to the folder containing the content by copying it.
 	 * @param int32 FolderSize - The size of pchFolder in bytes.
-	 * @param int32 & TimeStamp - Returns the time when the workshop item was last updated.
-	 * @return bool - true if the workshop item is already installed. false in the following cases:
-	 * cchFolderSize is 0.
-	 * The workshop item has no content.
-	 * The workshop item is not installed.
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UGC")
-	bool GetItemInstallInfo(FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, int32 FolderSize, int32& TimeStamp) const;
-
-	/**
-	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetItemDownloadInfo is the original method.
-	 * Gets info about currently installed content on the disc for workshop items that have k_EItemStateInstalled set.
-	 * Calling this sets the "used" flag on the workshop item for the current player and adds it to their k_EUserUGCList_UsedOrPlayed list.
-	 * If k_EItemStateLegacyItem is set then pchFolder contains the path to the legacy file itself, not a folder.
-	 *
-	 * @param FPublishedFileId PublishedFileID - The workshop item to get the install info for.
-	 * @param int64 & SizeOnDisk - Returns the size of the workshop item in bytes.
-	 * @param FString & FolderName - Returns the absolute path to the folder containing the content by copying it.
-	 * @param int32 FolderSize - The size of pchFolder in bytes.
 	 * @param FDateTime & TimeStamp - Returns the time when the workshop item was last updated.
 	 * @return bool - true if the workshop item is already installed. false in the following cases:
 	 * cchFolderSize is 0.
@@ -322,7 +303,7 @@ public:
 	 * The workshop item is not installed.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UGC")
-	bool GetItemInstallInfoDateTime(FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, int32 FolderSize, FDateTime& TimeStamp) const;
+	bool GetItemInstallInfo(FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, int32 FolderSize, FDateTime& TimeStamp) const;
 
 	/**
 	 * Gets the current state of a workshop item on this client.

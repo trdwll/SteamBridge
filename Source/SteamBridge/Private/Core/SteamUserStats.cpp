@@ -46,11 +46,11 @@ FSteamAPICall USteamUserStats::FindOrCreateLeaderboard(const FString& Leaderboar
 	return SteamUserStats()->FindOrCreateLeaderboard(TCHAR_TO_UTF8(*LeaderboardName), (ELeaderboardSortMethod)LeaderboardSortMethod, (ELeaderboardDisplayType)LeaderboardDisplayType);
 }
 
-bool USteamUserStats::GetAchievementAndUnlockDateTime(const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const
+bool USteamUserStats::GetAchievementAndUnlockTime(const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const
 {
-	int32 Tmp;
-	bool bResult = GetAchievementAndUnlockTime(Name, bAchieved, Tmp);
-	UnlockTime = FDateTime::FromUnixTimestamp(Tmp);
+	uint32 TmpTime;
+	bool bResult = SteamUserStats()->GetAchievementAndUnlockTime(TCHAR_TO_UTF8(*Name), &bAchieved, &TmpTime);
+	UnlockTime = FDateTime::FromUnixTimestamp(TmpTime);
 	return bResult;
 }
 
@@ -90,11 +90,11 @@ int32 USteamUserStats::GetNextMostAchievedAchievementInfo(int32 IteratorPrevious
 	return  result;
 }
 
-bool USteamUserStats::GetUserAchievementAndUnlockDateTime(FSteamID SteamIDUser, const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const
+bool USteamUserStats::GetUserAchievementAndUnlockTime(FSteamID SteamIDUser, const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const
 {
-	int32 Tmp;
-	bool bResult = GetUserAchievementAndUnlockTime(SteamIDUser, Name, bAchieved, Tmp);
-	UnlockTime = FDateTime::FromUnixTimestamp(Tmp);
+	uint32 TmpTime;
+	bool bResult = SteamUserStats()->GetUserAchievementAndUnlockTime(SteamIDUser, TCHAR_TO_UTF8(*Name), &bAchieved, &TmpTime);
+	UnlockTime = FDateTime::FromUnixTimestamp(TmpTime);
 	return bResult;
 }
 

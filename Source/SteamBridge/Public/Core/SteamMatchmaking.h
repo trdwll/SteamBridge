@@ -46,26 +46,11 @@ public:
 	 * @param int32 ConnPort - The port used to connect to the server, in host order.
 	 * @param int32 QueryPort - The port used to query the server, in host order.
 	 * @param const TArray<ESteamFavoriteFlags> & Flags - Sets the whether the server should be added to the favorites list or history list. See k_unFavoriteFlagNone for more information.
-	 * @param int32 TimeLastPlayedOnServer - This should be the current time in Unix epoch format (seconds since Jan 1st, 1970).
-	 * @return int32
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	int32 AddFavoriteGame(int32 AppID, const FString& IP, int32 ConnPort, int32 QueryPort, const TArray<ESteamFavoriteFlags>& Flags, int32 TimeLastPlayedOnServer) const;
-
-	/**
-	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. AddFavoriteGame is the original method.
-	 * Adds the game server to the local favorites list or updates the time played of the server if it already exists in the list.
-	 *
-	 * @param int32 AppID - The App ID of the game.
-	 * @param const FString & IP - The IP address of the server
-	 * @param int32 ConnPort - The port used to connect to the server, in host order.
-	 * @param int32 QueryPort - The port used to query the server, in host order.
-	 * @param const TArray<ESteamFavoriteFlags> & Flags - Sets the whether the server should be added to the favorites list or history list. See k_unFavoriteFlagNone for more information.
 	 * @param const FDateTime& TimeLastPlayedOnServer - This should be the current time in a friendly format.
 	 * @return int32
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	int32 AddFavoriteGameDateTime(int32 AppID, const FString& IP, int32 ConnPort, int32 QueryPort, const TArray<ESteamFavoriteFlags>& Flags, const FDateTime& TimeLastPlayedOnServer) const;
+	int32 AddFavoriteGame(int32 AppID, const FString& IP, int32 ConnPort, int32 QueryPort, const TArray<ESteamFavoriteFlags>& Flags, const FDateTime& TimeLastPlayedOnServer) const;
 
 	/**
 	 * Sets the physical distance for which we should search for lobbies, this is based on the users IP address and a IP location map on the Steam backed.
@@ -163,28 +148,11 @@ public:
 	 * @param int32 & ConnPort - Returns the port used to connect to the server, in host order.
 	 * @param int32 & QueryPort - Returns the port used to query the server, in host order.
 	 * @param TArray<ESteamFavoriteFlags> & Flags - Returns whether the server is on the favorites list or the history list. See k_unFavoriteFlagNone for more information.
-	 * @param int32 & TimeLastPlayedOnServer - Returns the time the server was last added to the favorites list in Unix epoch format (seconds since Jan 1st, 1970).
-	 * @return bool - true if the details were successfully retrieved. false if iGame was an invalid index.
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, int32& TimeLastPlayedOnServer) const;
-
-	/**
-	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetFavoriteGame is the original method.
-	 * Gets the details of the favorite game server by index.
-	 * NOTE: You must call GetFavoriteGameCount before calling this.
-	 *
-	 * @param int32 GameIndex - The index of the favorite game server to get the details of. This must be between 0 and GetFavoriteGameCount
-	 * @param int32 & AppID - Returns the App ID this server is for.
-	 * @param FString & IP - Returns the IP address of the server
-	 * @param int32 & ConnPort - Returns the port used to connect to the server, in host order.
-	 * @param int32 & QueryPort - Returns the port used to query the server, in host order.
-	 * @param TArray<ESteamFavoriteFlags> & Flags - Returns whether the server is on the favorites list or the history list. See k_unFavoriteFlagNone for more information.
 	 * @param FDateTime & TimeLastPlayedOnServer - Returns the time the server was last added to the favorites list in a friendly format.
 	 * @return bool - true if the details were successfully retrieved. false if iGame was an invalid index.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Matchmaking")
-	bool GetFavoriteGameDateTime(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, FDateTime& TimeLastPlayedOnServer) const;
+	bool GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, FDateTime& TimeLastPlayedOnServer) const;
 
 	/**
 	 * Gets the number of favorite and recent game servers the user has stored locally.

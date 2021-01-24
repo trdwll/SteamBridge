@@ -191,17 +191,6 @@ public:
 	bool GetDlcDownloadProgress(int32 AppID, int64& BytesDownloaded, int64& BytesTotal) const { return SteamApps()->GetDlcDownloadProgress(AppID, (uint64*)&BytesDownloaded, (uint64*)&BytesTotal); }
 
 	/**
-	 * Gets the time of purchase of the specified app in Unix epoch format (time since Jan 1st, 1970).
-	 * This is useful for rewarding users based on their initial purchase date.
-	 *
-	 * @param int32 AppID - The App ID to get the purchase time for.
-	 * @return int32 - The earliest purchase time in Unix epoch format (seconds since Jan 1st, 1970).
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	int32 GetEarliestPurchaseUnixTime(int32 AppID) const { return SteamApps()->GetEarliestPurchaseUnixTime(AppID); }
-
-	/**
-	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetEarliestPurchaseUnixTime is the original method.
 	 * Gets the time of purchase of the specified app in a readable format.
 	 * This is useful for rewarding users based on their initial purchase date.
 	 *
@@ -209,7 +198,7 @@ public:
 	 * @return FDateTime - The earliest purchase time in a readable format.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	FDateTime GetEarliestPurchaseDateTime(int32 AppID) const { return FDateTime::FromUnixTimestamp(SteamApps()->GetEarliestPurchaseUnixTime(AppID)); }
+	FDateTime GetEarliestPurchaseUnixTime(int32 AppID) const { return FDateTime::FromUnixTimestamp(SteamApps()->GetEarliestPurchaseUnixTime(AppID)); }
 
 	/**
 	 * Asynchronously retrieves metadata details about a specific file in the depot manifest.

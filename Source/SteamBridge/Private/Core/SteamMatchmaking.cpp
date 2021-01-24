@@ -34,7 +34,7 @@ USteamMatchmaking::~USteamMatchmaking()
 	OnLobbyMatchListCallback.Unregister();
 }
 
-int32 USteamMatchmaking::AddFavoriteGame(int32 AppID, const FString& IP, int32 ConnPort, int32 QueryPort, const TArray<ESteamFavoriteFlags>& Flags, int32 TimeLastPlayedOnServer) const
+int32 USteamMatchmaking::AddFavoriteGame(int32 AppID, const FString& IP, int32 ConnPort, int32 QueryPort, const TArray<ESteamFavoriteFlags>& Flags, const FDateTime& TimeLastPlayedOnServer) const
 {
 	uint32 TmpIP = 0;
 	USteamBridgeUtils::ConvertIPStringToUint32(IP, TmpIP);
@@ -45,20 +45,16 @@ int32 USteamMatchmaking::AddFavoriteGame(int32 AppID, const FString& IP, int32 C
 		TmpFlags |= 1 << (int32)Flag;
 	}
 
-	return SteamMatchmaking()->AddFavoriteGame(AppID, TmpIP, ConnPort, QueryPort, TmpFlags, TimeLastPlayedOnServer);
+	return SteamMatchmaking()->AddFavoriteGame(AppID, TmpIP, ConnPort, QueryPort, TmpFlags, TimeLastPlayedOnServer.ToUnixTimestamp());
 }
 
-int32 USteamMatchmaking::AddFavoriteGameDateTime(int32 AppID, const FString& IP, int32 ConnPort, int32 QueryPort, const TArray<ESteamFavoriteFlags>& Flags, const FDateTime& TimeLastPlayedOnServer) const
+bool USteamMatchmaking::GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, FDateTime& TimeLastPlayedOnServer) const
 {
-	return AddFavoriteGame(AppID, IP, ConnPort, QueryPort, Flags, TimeLastPlayedOnServer.ToUnixTimestamp());
-}
+	uint32 TmpIP = 0, TmpFlags = 0, TmpTime;
 
-bool USteamMatchmaking::GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, int32& TimeLastPlayedOnServer) const
-{
-	uint32 TmpIP = 0, TmpFlags = 0;
-
-	bool bResult = SteamMatchmaking()->GetFavoriteGame(GameIndex, (uint32*)&AppID, &TmpIP, (uint16*)&ConnPort, (uint16*)&QueryPort, &TmpFlags, (uint32*)&TimeLastPlayedOnServer);
+	bool bResult = SteamMatchmaking()->GetFavoriteGame(GameIndex, (uint32*)&AppID, &TmpIP, (uint16*)&ConnPort, (uint16*)&QueryPort, &TmpFlags, &TmpTime);
 	IP = USteamBridgeUtils::ConvertIPToString(TmpIP);
+	TimeLastPlayedOnServer = FDateTime::FromUnixTimestamp(TmpTime);
 
 	for (int32 i = 0; i < 32; i++)
 	{
@@ -68,14 +64,6 @@ bool USteamMatchmaking::GetFavoriteGame(int32 GameIndex, int32& AppID, FString& 
 		}
 	}
 
-	return bResult;
-}
-
-bool USteamMatchmaking::GetFavoriteGameDateTime(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, FDateTime& TimeLastPlayedOnServer) const
-{
-	int32 Tmp;
-	bool bResult = GetFavoriteGame(GameIndex, AppID, IP, ConnPort, QueryPort, Flags, Tmp);
-	TimeLastPlayedOnServer = FDateTime::FromUnixTimestamp(Tmp);
 	return bResult;
 }
 

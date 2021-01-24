@@ -69,20 +69,15 @@ FUGCQueryHandle USteamUGC::CreateQueryUserUGCRequest(FAccountID AccountID, EStea
 	return SteamUGC()->CreateQueryUserUGCRequest(AccountID, (EUserUGCList)ListType, (EUGCMatchingUGCType)MatchingUGCType, (EUserUGCListSortOrder)SortOrder, CreatorAppID, ConsumerAppID, Page);
 }
 
-bool USteamUGC::GetItemInstallInfo(FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, int32 FolderSize, int32& TimeStamp) const
+
+bool USteamUGC::GetItemInstallInfo(FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, int32 FolderSize, FDateTime& TimeStamp) const
 {
+	uint32 TmpTime;
 	TArray<char> TmpData;
 	TmpData.SetNum(FolderSize);
-	bool bResult = SteamUGC()->GetItemInstallInfo(PublishedFileID, (uint64*)&SizeOnDisk, TmpData.GetData(), TmpData.Num(), (uint32*)&TimeStamp);
+	bool bResult = SteamUGC()->GetItemInstallInfo(PublishedFileID, (uint64*)&SizeOnDisk, TmpData.GetData(), TmpData.Num(), &TmpTime);
 	FolderName = UTF8_TO_TCHAR(TmpData.GetData());
-	return bResult;
-}
-
-bool USteamUGC::GetItemInstallInfoDateTime(FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, int32 FolderSize, FDateTime& TimeStamp) const
-{
-	int32 Tmp;
-	bool bResult = GetItemInstallInfo(PublishedFileID, SizeOnDisk, FolderName, FolderSize, Tmp);
-	TimeStamp = FDateTime::FromUnixTimestamp(Tmp);
+	TimeStamp = FDateTime::FromUnixTimestamp(TmpTime);
 	return bResult;
 }
 

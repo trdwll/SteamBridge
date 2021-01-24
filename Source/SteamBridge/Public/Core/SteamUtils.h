@@ -170,21 +170,12 @@ public:
 	int32 GetSecondsSinceComputerActive() const { return SteamUtils()->GetSecondsSinceComputerActive(); }
 
 	/**
-	 * Returns the Steam server time in Unix epoch format. (Number of seconds since Jan 1, 1970 UTC)
-	 *
-	 * @return int32
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
-	int32 GetServerRealTime() const { return SteamUtils()->GetServerRealTime(); }
-
-	/**
-	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetServerRealTime is the original method.
 	 * Returns the Steam server time in a friendly format.
 	 *
 	 * @return FDateTime
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
-	FDateTime GetServerRealDateTime() const { return FDateTime::FromUnixTimestamp(SteamUtils()->GetServerRealTime()); }
+	FDateTime GetServerRealTime() const { return FDateTime::FromUnixTimestamp(SteamUtils()->GetServerRealTime()); }
 
 	/**
 	 * Returns the language the steam client is running in.
