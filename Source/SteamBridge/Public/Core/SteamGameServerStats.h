@@ -92,7 +92,16 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|GameServerStats")
 	bool GetUserStatFloat(FSteamID SteamIDUser, const FString& Name, float& Data) { return SteamGameServerStats()->GetUserStat(SteamIDUser, TCHAR_TO_UTF8(*Name), &Data); }
 
-	// #TODO RequestUserStats
+	/**
+	* Asynchronously downloads stats and achievements for the specified user from the server.
+	* These stats will only be auto-updated for clients currently playing on the server.
+	* For other users you'll need to call this function again to refresh any data.
+	*
+	* @param FSteamID SteamIDUser - The Steam ID of the user to request the stats for.
+	* @return FSteamAPICall - SteamAPICall_t to be used with a GSStatsReceived_t call result.
+	*/
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|GameServerStats")
+	FSteamAPICall RequestUserStats(FSteamID SteamIDUser) const { return SteamGameServerStats()->RequestUserStats(SteamIDUser); }
 
 	/**
 	 * Unlocks an achievement for the specified user.
