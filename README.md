@@ -9,7 +9,7 @@ Interface | Completed | Notes |
 ISteamApps | :heavy_check_mark: | 
 ISteamFriends | :heavy_check_mark: | [1] (1) |
 ISteamGameServer | :heavy_check_mark: | [1] (4) |
-ISteamGameServerStats | :heavy_check_mark: | [1] (2) |
+ISteamGameServerStats | :heavy_check_mark: | [1] (1) |
 ISteamHTMLSurface | :heavy_check_mark: | 
 ISteamHTTP | :heavy_check_mark: | 
 ISteamInput | :heavy_check_mark: | 
