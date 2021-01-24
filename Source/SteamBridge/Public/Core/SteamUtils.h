@@ -181,10 +181,10 @@ public:
 	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetServerRealTime is the original method.
 	 * Returns the Steam server time in a friendly format.
 	 *
-	 * @return int32
+	 * @return FDateTime
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
-	int32 GetServerRealDateTime() const { return FDateTime::FromUnixTimestamp(SteamUtils()->GetServerRealTime()); }
+	FDateTime GetServerRealDateTime() const { return FDateTime::FromUnixTimestamp(SteamUtils()->GetServerRealTime()); }
 
 	/**
 	 * Returns the language the steam client is running in.

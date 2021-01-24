@@ -71,6 +71,14 @@ bool USteamMatchmaking::GetFavoriteGame(int32 GameIndex, int32& AppID, FString& 
 	return bResult;
 }
 
+bool USteamMatchmaking::GetFavoriteGameDateTime(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, FDateTime& TimeLastPlayedOnServer) const
+{
+	int32 Tmp;
+	bool bResult = GetFavoriteGame(GameIndex, AppID, IP, ConnPort, QueryPort, Flags, Tmp);
+	TimeLastPlayedOnServer = FDateTime::FromUnixTimestamp(Tmp);
+	return bResult;
+}
+
 int32 USteamMatchmaking::GetLobbyChatEntry(FSteamID SteamIDLobby, int32 ChatID, FSteamID& SteamIDUser, FString& Message, ESteamChatEntryType& ChatEntryType) const
 {
 	EChatEntryType TmpType;
