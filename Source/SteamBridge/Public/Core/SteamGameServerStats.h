@@ -156,8 +156,12 @@ public:
 	* You should only be calling this during major state changes such as the end of a round, the map changing, or the user leaving a server.
 	* If you have stats or achievements that you have saved locally but haven't uploaded with this function when your application process ends
 	* then this function will automatically be called.
+	* You can find additional debug information written to the %steam_install%\logs\stats_log.txt file.
 	*
 	* @param FSteamID SteamIDUser - The Steam ID of the user to store the stats of.
+	* @return FSteamAPICall - SteamAPICall_t to be used with a GSStatsStored_t call result.
+	* If m_eResult has a result of k_EResultInvalidParam, then one or more stats uploaded has been rejected, either because they broke constraints or were out of date.
+	* In this case the server sends back updated values and the stats should be updated locally to keep in sync.
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|GameServerStats")
 	FSteamAPICall StoreUserStats(FSteamID SteamIDUser) const { return SteamGameServerStats()->StoreUserStats(SteamIDUser); }
