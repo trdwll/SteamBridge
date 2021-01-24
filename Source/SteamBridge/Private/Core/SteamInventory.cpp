@@ -29,9 +29,9 @@ USteamInventory::~USteamInventory()
 bool USteamInventory::AddPromoItems(FSteamInventoryResult& ResultHandle, const TArray<FSteamItemDef>& ItemDefs) const
 {
 	TArray<int32> Tmp;
-	for (int32 i = 0; i < ItemDefs.Num(); i++)
+	for (const auto& Item : ItemDefs)
 	{
-		Tmp.Add(ItemDefs[i]);
+		Tmp.Add(Item);
 	}
 
 	return SteamInventory()->AddPromoItems(&ResultHandle.Value, Tmp.GetData(), Tmp.Num());
@@ -132,9 +132,9 @@ bool USteamInventory::GetItemsByID(FSteamInventoryResult& ResultHandle, const TA
 	TArray<SteamItemInstanceID_t> TmpIDs;
 	TmpIDs.SetNum(Size);
 
-	for (int32 i = 0; i < Size; i++)
+	for (const auto& ID : InstanceIDs)
 	{
-		TmpIDs.Add(InstanceIDs[i]);
+		TmpIDs.Add(ID);
 	}
 
 	return SteamInventory()->GetItemsByID((SteamInventoryResult_t*)&ResultHandle, TmpIDs.GetData(), Size);

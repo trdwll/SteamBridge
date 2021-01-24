@@ -94,9 +94,9 @@ bool USteamUGC::GetQueryUGCChildren(FUGCQueryHandle handle, int32 index, TArray<
 	TArray<PublishedFileId_t> TmpData;
 	TmpData.SetNum(MaxEntries);
 	bool bResult = SteamUGC()->GetQueryUGCChildren(handle, index, TmpData.GetData(), TmpData.Num());
-	for (int32 i = 0; i < TmpData.Num(); i++)
+	for (const auto& Entry : TmpData)
 	{
-		PublishedFileIDs.Add(TmpData[i]);
+		PublishedFileIDs.Add(Entry);
 	}
 	return bResult;
 }
@@ -153,9 +153,9 @@ bool USteamUGC::SetItemTags(FUGCUpdateHandle UpdateHandle, const TArray<FString>
 {
 	TArray<char*> TmpTags;
 	SteamParamStringArray_t TmpTagsArray;
-	for (int32 i = 0; i < Tags.Num(); i++)
+	for (const auto& Tag : Tags)
 	{
-		TmpTags.Add(TCHAR_TO_UTF8(*Tags[i]));
+		TmpTags.Add(TCHAR_TO_UTF8(*Tag));
 	}
 
 	TmpTagsArray.m_ppStrings = (const char**)TmpTags.GetData();

@@ -40,9 +40,9 @@ int32 USteamMatchmaking::AddFavoriteGame(int32 AppID, const FString& IP, int32 C
 	USteamBridgeUtils::ConvertIPStringToUint32(IP, TmpIP);
 
 	int32 TmpFlags = 0;
-	for (int32 i = 0; i < Flags.Num(); i++)
+	for (const auto& Flag : Flags)
 	{
-		TmpFlags |= 1 << (int32)Flags[i];
+		TmpFlags |= 1 << (int32)Flag;
 	}
 
 	return SteamMatchmaking()->AddFavoriteGame(AppID, TmpIP, ConnPort, QueryPort, TmpFlags, TimeLastPlayedOnServer);
@@ -113,9 +113,9 @@ bool USteamMatchmaking::RemoveFavoriteGame(int32 AppID, const FString& IP, int32
 	USteamBridgeUtils::ConvertIPStringToUint32(IP, TmpIP);
 
 	int32 TmpFlags = 0;
-	for (int32 i = 0; i < Flags.Num(); i++)
+	for (const auto& Flag : Flags)
 	{
-		TmpFlags |= 1 << (int32)Flags[i];
+		TmpFlags |= 1 << (int32)Flag;
 	}
 
 	return SteamMatchmaking()->RemoveFavoriteGame(AppID, TmpIP, ConnPort, QueryPort, TmpFlags);

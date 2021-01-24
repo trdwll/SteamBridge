@@ -150,9 +150,9 @@ int32 USteamFriends::GetFriendCount(const TArray<ESteamFriendFlags>& FriendFlags
 
 	if (flags == 0)
 	{
-		for (int32 i = 0; i < FriendFlags.Num(); i++)
+		for (const auto& Flag : FriendFlags)
 		{
-			flags |= 1 << (int32)FriendFlags[i];
+			flags |= 1 << (int32)Flag;
 		}
 	}
 
@@ -251,7 +251,7 @@ TArray<ESteamUserRestrictions> USteamFriends::GetUserRestrictions() const
 {
 	TArray<ESteamUserRestrictions> TmpArray;
 	uint32 flags = SteamFriends()->GetUserRestrictions();
-	for (int i = 0; i < 32; i++)
+	for (int32 i = 0; i < 32; i++)
 	{
 		if (flags & 1 << i)
 		{

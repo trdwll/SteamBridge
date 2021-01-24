@@ -59,9 +59,9 @@ int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray
 {
 	TArray<double> TmpData;
 	int32 result = SteamUserStats()->GetGlobalStatHistory(TCHAR_TO_UTF8(*StatName), TmpData.GetData(), Size);
-	for (int32 i = 0; i < TmpData.Num(); i++)
+	for (const auto& LData : TmpData)
 	{
-		Data.Add((float)TmpData[i]);
+		Data.Add((float)LData);
 	}
 	return result;
 }
