@@ -63,6 +63,11 @@ void USteamHTMLSurface::SetCookie(const FString& Hostname, const FString& Key, c
 	SteamHTMLSurface()->SetCookie(TCHAR_TO_UTF8(*Hostname), TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value), TCHAR_TO_UTF8(*Path), Expires, bSecure, bHTTPOnly);
 }
 
+void USteamHTMLSurface::SetCookieFriendly(const FString& Hostname, const FString& Key, const FString& Value, FDateTime Expires, const FString& Path, bool bSecure, bool bHTTPOnly)
+{
+	SteamHTMLSurface()->SetCookie(TCHAR_TO_UTF8(*Hostname), TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value), TCHAR_TO_UTF8(*Path), Expires.ToUnixTimestamp(), bSecure, bHTTPOnly);
+}
+
 void USteamHTMLSurface::OnHTMLBrowserReady(HTML_BrowserReady_t* pParam)
 {
 	m_OnHTMLBrowserReady.Broadcast(pParam->unBrowserHandle);

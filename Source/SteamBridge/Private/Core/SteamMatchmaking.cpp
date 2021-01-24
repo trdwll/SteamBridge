@@ -48,6 +48,11 @@ int32 USteamMatchmaking::AddFavoriteGame(int32 AppID, const FString& IP, int32 C
 	return SteamMatchmaking()->AddFavoriteGame(AppID, TmpIP, ConnPort, QueryPort, TmpFlags, TimeLastPlayedOnServer);
 }
 
+int32 USteamMatchmaking::AddFavoriteGameDateTime(int32 AppID, const FString& IP, int32 ConnPort, int32 QueryPort, const TArray<ESteamFavoriteFlags>& Flags, const FDateTime& TimeLastPlayedOnServer) const
+{
+	return AddFavoriteGame(AppID, IP, ConnPort, QueryPort, Flags, TimeLastPlayedOnServer.ToUnixTimestamp());
+}
+
 bool USteamMatchmaking::GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, int32& TimeLastPlayedOnServer) const
 {
 	uint32 TmpIP = 0, TmpFlags = 0;

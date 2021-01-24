@@ -333,6 +333,22 @@ public:
 	void SetCookie(const FString& Hostname, const FString& Key, const FString& Value, const FString& Path = "/", int32 Expires = 0, bool bSecure = false, bool bHTTPOnly = false);
 
 	/**
+	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. SetCookie is the original method.
+	 * Set a webcookie for a specific hostname.
+	 *
+	 * @param const FString & Hostname - The hostname of the server to set the cookie for. ('Host' attribute)
+	 * @param const FString & Key - The cookie name to set.
+	 * @param const FString & Value - The cookie value to set.
+	 * @param FDateTime Expires - Sets the 'Expires' attribute on the cookie to the specified timestamp in a friendly format.
+	 * @param const FString & Path - Sets the 'Path' attribute on the cookie. You can use this to restrict the cookie to a specific path on the domain. e.g. "/accounts"
+	 * @param bool bSecure - Sets the 'Secure' attribute.
+	 * @param bool bHTTPOnly - Sets the 'HttpOnly' attribute.
+	 * @return void
+	 */
+	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
+	void SetCookieFriendly(const FString& Hostname, const FString& Key, const FString& Value, FDateTime Expires, const FString& Path = "/", bool bSecure = false, bool bHTTPOnly = false);
+
+	/**
 	 * Scroll the current page horizontally.
 	 * Triggers a HTML_HorizontalScroll_t callback.
 	 *

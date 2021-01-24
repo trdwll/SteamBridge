@@ -178,6 +178,15 @@ public:
 	int32 GetServerRealTime() const { return SteamUtils()->GetServerRealTime(); }
 
 	/**
+	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetServerRealTime is the original method.
+	 * Returns the Steam server time in a friendly format.
+	 *
+	 * @return int32
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
+	int32 GetServerRealDateTime() const { return FDateTime::FromUnixTimestamp(SteamUtils()->GetServerRealTime()); }
+
+	/**
 	 * Returns the language the steam client is running in.
 	 * You probably want ISteamApps::GetCurrentGameLanguage instead, this should only be used in very special cases.
 	 *

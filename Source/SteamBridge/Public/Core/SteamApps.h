@@ -201,6 +201,17 @@ public:
 	int32 GetEarliestPurchaseUnixTime(int32 AppID) const { return SteamApps()->GetEarliestPurchaseUnixTime(AppID); }
 
 	/**
+	 * NOTE: This method has been rewritten to use FDateTime instead of epoch time. GetEarliestPurchaseUnixTime is the original method.
+	 * Gets the time of purchase of the specified app in a readable format.
+	 * This is useful for rewarding users based on their initial purchase date.
+	 *
+	 * @param int32 AppID - The App ID to get the purchase time for.
+	 * @return FDateTime - The earliest purchase time in a readable format.
+	 */
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
+	FDateTime GetEarliestPurchaseDateTime(int32 AppID) const { return FDateTime::FromUnixTimestamp(SteamApps()->GetEarliestPurchaseUnixTime(AppID)); }
+
+	/**
 	 * Asynchronously retrieves metadata details about a specific file in the depot manifest.
 	 *
 	 * @param const FString & FileName - The absolute path and name to the file.
