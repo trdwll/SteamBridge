@@ -885,6 +885,7 @@ enum class ESteamLobbyType : uint8
 UENUM(BlueprintType)
 enum class ESteamChatMemberStateChange : uint8
 {
+	None = 0,
 	Entered = 1 UMETA(DisplayName = "Entered"),
 	Left = 2 UMETA(DisplayName = "Left"),
 	Disconnected = 4 UMETA(DisplayName = "Disconnected"),
