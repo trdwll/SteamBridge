@@ -346,13 +346,14 @@ enum class ESteamAvatarSize : uint8
 UENUM(BlueprintType)
 enum class ESteamUserRestrictions : uint8
 {
-	Unknown = 0 UMETA(DisplayName = "Unknown"),
-	AnyChat = 1 UMETA(DisplayName = "AnyChat"),
-	VoiceChat = 2 UMETA(DisplayName = "VoiceChat"),
-	GroupChat = 3 UMETA(DisplayName = "GroupChat"),
-	Rating = 4 UMETA(DisplayName = "Rating"),
-	GameInvites = 5 UMETA(DisplayName = "GameInvites"),
-	Trading = 6 UMETA(DisplayName = "Trading")
+	None = 0,
+	Unknown = 1 UMETA(DisplayName = "Unknown"),
+	AnyChat = 2 UMETA(DisplayName = "AnyChat"),
+	VoiceChat = 4 UMETA(DisplayName = "VoiceChat"),
+	GroupChat = 8 UMETA(DisplayName = "GroupChat"),
+	Rating = 16 UMETA(DisplayName = "Rating"),
+	GameInvites = 32 UMETA(DisplayName = "GameInvites"),
+	Trading = 64 UMETA(DisplayName = "Trading")
 };
 
 UENUM(BlueprintType)
@@ -884,11 +885,11 @@ enum class ESteamLobbyType : uint8
 UENUM(BlueprintType)
 enum class ESteamChatMemberStateChange : uint8
 {
-	Entered = 0 UMETA(DisplayName = "Entered"),
-	Left = 1 UMETA(DisplayName = "Left"),
-	Disconnected = 2 UMETA(DisplayName = "Disconnected"),
-	Kicked = 3 UMETA(DisplayName = "Kicked"),
-	Banned = 4 UMETA(DisplayName = "Banned")
+	Entered = 1 UMETA(DisplayName = "Entered"),
+	Left = 2 UMETA(DisplayName = "Left"),
+	Disconnected = 4 UMETA(DisplayName = "Disconnected"),
+	Kicked = 8 UMETA(DisplayName = "Kicked"),
+	Banned = 16 UMETA(DisplayName = "Banned")
 };
 
 UENUM(BlueprintType)
@@ -1022,12 +1023,13 @@ enum class ESteamLeaderboardUploadScoreMethod : uint8
 UENUM(BlueprintType)
 enum class ESteamRemoteStoragePlatform : uint8
 {
-	Windows = 0 UMETA(DisplayName = "Windows"),
-	OSX = 1 UMETA(DisplayName = "OSX"),
-	PS3 = 2 UMETA(DisplayName = "PS3"),
-	Linux = 3 UMETA(DisplayName = "Linux"),
-	Reserved = 4 UMETA(DisplayName = "Reserved"),
-	All = 5 UMETA(DisplayName = "All")
+	None = 0,
+	Windows = (1 << 0) UMETA(DisplayName = "Windows"),
+	OSX = (1 << 1) UMETA(DisplayName = "OSX"),
+	PS3 = (1 << 2) UMETA(DisplayName = "PS3"),
+	Linux = (1 << 3) UMETA(DisplayName = "Linux"),
+	Reserved = (1 << 4) UMETA(DisplayName = "Reserved"),
+	All = 254 UMETA(DisplayName = "All")
 };
 
 UENUM(BlueprintType)
