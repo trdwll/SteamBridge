@@ -45,7 +45,7 @@ struct STEAMBRIDGE_API FInt32
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 Value;
 
 	operator int32() { return Value; }
@@ -275,16 +275,16 @@ struct STEAMBRIDGE_API FSteamInputAnalogActionData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	ESteamControllerSourceMode Mode;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	float X;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	float Y;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	bool bActive;
 
 	FSteamInputAnalogActionData() {}
@@ -297,10 +297,10 @@ struct STEAMBRIDGE_API FSteamInputDigitalActionData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	bool bState;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	bool bActive;
 
 	FSteamInputDigitalActionData() {}
@@ -313,13 +313,13 @@ struct STEAMBRIDGE_API FSteamInputMotionData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FQuat RotQuat;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FVector PosAccel;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FVector RotVel;
 
 	FSteamInputMotionData() {}
@@ -332,16 +332,16 @@ struct STEAMBRIDGE_API FSteamItemDetails
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FSteamItemInstanceID ItemID;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FSteamItemDef Definition;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 Quantity;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	TArray<ESteamItemFlags_> Flags;
 
 	FSteamItemDetails() {}
@@ -372,10 +372,10 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	ESteamPartyBeaconLocation Type;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int64 LocationID;
 
 	operator SteamPartyBeaconLocation_t() const
@@ -398,19 +398,19 @@ struct STEAMBRIDGE_API FSteamLeaderboardEntry
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FSteamID SteamIDUser;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 GlobalRank;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 Score;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 Details;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FUGCHandle UGC;
 
 	FSteamLeaderboardEntry() {}
@@ -425,82 +425,82 @@ struct STEAMBRIDGE_API FSteamUGCDetails
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FPublishedFileId PublishedFileId;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	ESteamResult Result;  // The result of the operation.
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	ESteamWorkshopFileType FileType;  // Type of the file
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 CreatorAppID;  // ID of the app that created this file.
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 ConsumerAppID;  // ID of the app that will consume this file.
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FString Title;  // title of document
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FString Description;  // description of document
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FSteamID SteamIDOwner;  // Steam ID of the user who created this content.
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FDateTime TimeCreated;  // time when the published file was created
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FDateTime TimeUpdated;  // time when the published file was last updated
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FDateTime TimeAddedToUserList;  // time when the user added the published file to their list (not always applicable)
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	ESteamRemoteStoragePublishedFileVisibility Visibility;  // visibility
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	bool bBanned;  // whether the file was banned
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	bool bAcceptedForUse;  // developer has specifically flagged this item as accepted in the Workshop
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	bool bTagsTruncated;  // whether the list of tags was too long to be returned in the provided buffer
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	TArray<FString> Tags;  // comma separated list of all tags associated with this file
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FUGCHandle File;  // The handle of the primary file
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FUGCHandle PreviewFile;  // The handle of the preview file
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FString FileName;  // The cloud filename of the primary file
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 FileSize;  // Size of the primary file
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 PreviewFileSize;  // Size of the preview file
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FString URL;  // URL (for a video or a website)
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 VotesUp;  // number of votes up
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 VotesDown;  // number of votes down
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	float Score;  // calculated score
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int32 NumChildren;
 
 	FSteamUGCDetails() :
@@ -518,13 +518,13 @@ struct STEAMBRIDGE_API FSteamItemPriceData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FSteamItemDef ItemDef;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int64 CurrentPrice;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	int64 BasePrice;
 
 	FSteamItemPriceData() {}
