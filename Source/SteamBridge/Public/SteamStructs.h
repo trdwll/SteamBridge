@@ -18,6 +18,9 @@ struct STEAMBRIDGE_API FUint64
 	operator uint64() { return Value; }
 	operator uint64() const { return Value; }
 
+	bool operator==(FUint64 Other) const { return Value == Other; }
+	bool operator!=(FUint64 Other) const { return Value != Other; }
+
 	FUint64() :
 		Value(0) {}
 	FUint64(uint64 value) :
@@ -33,6 +36,9 @@ struct STEAMBRIDGE_API FUint32
 
 	operator uint32() { return Value; }
 	operator uint32() const { return Value; }
+
+	bool operator==(FUint32 Other) const { return Value == Other; }
+	bool operator!=(FUint32 Other) const { return Value != Other; }
 
 	FUint32() :
 		Value(0) {}
@@ -51,6 +57,9 @@ struct STEAMBRIDGE_API FInt32
 	operator int32() { return Value; }
 	operator int32() const { return Value; }
 
+	bool operator==(FInt32 Other) const { return Value == Other; }
+	bool operator!=(FInt32 Other) const { return Value != Other; }
+
 	FInt32() :
 		Value(0) {}
 	FInt32(int32 InValue) :
@@ -66,6 +75,9 @@ struct STEAMBRIDGE_API FInt16
 
 	operator int16() { return Value; }
 	operator int16() const { return Value; }
+
+	bool operator==(FInt16 Other) const { return Value == Other; }
+	bool operator!=(FInt16 Other) const { return Value != Other; }
 
 	FInt16() :
 		Value(0) {}
@@ -86,7 +98,7 @@ struct STEAMBRIDGE_API FHServerListRequest
 		Value(InValue) {}
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, meta = (HasNativeMake = "SteamBridge.SteamBPUtils.MakeSteamID", HasNativeBreak = "SteamBridge.SteamBPUtils.BreakSteamID"))
 struct STEAMBRIDGE_API FSteamID : public FUint64
 {
 	GENERATED_BODY()
@@ -125,13 +137,13 @@ struct STEAMBRIDGE_API FHSteamUser : public FUint32
 	GENERATED_BODY()
 	using FUint32::FUint32;
 };
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, meta = (HasNativeMake = "SteamBridge.SteamBPUtils.MakeAppID", HasNativeBreak = "SteamBridge.SteamBPUtils.BreakAppID"))
 struct STEAMBRIDGE_API FAppID : public FUint32
 {
 	GENERATED_BODY()
 	using FUint32::FUint32;
 };
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, meta = (HasNativeMake = "SteamBridge.SteamBPUtils.MakeAccountID", HasNativeBreak = "SteamBridge.SteamBPUtils.BreakAccountID"))
 struct STEAMBRIDGE_API FAccountID : public FUint32
 {
 	GENERATED_BODY()
@@ -290,6 +302,9 @@ struct STEAMBRIDGE_API FSteamInputAnalogActionData
 	FSteamInputAnalogActionData() {}
 	FSteamInputAnalogActionData(ESteamControllerSourceMode mode, float x, float y, bool bactive) :
 		Mode(mode), X(x), Y(y), bActive(bactive) {}
+
+	bool operator==(const FSteamInputAnalogActionData& Other) const { return Mode == Other.Mode && X == Other.X && Y == Other.Y && bActive == Other.bActive; }
+	bool operator!=(const FSteamInputAnalogActionData& Other) const { return !(*this == Other); }
 };
 
 USTRUCT(BlueprintType)
@@ -306,6 +321,9 @@ struct STEAMBRIDGE_API FSteamInputDigitalActionData
 	FSteamInputDigitalActionData() {}
 	FSteamInputDigitalActionData(bool bstate, bool bactive) :
 		bState(bstate), bActive(bactive) {}
+
+	bool operator==(const FSteamInputDigitalActionData& Other) const { return bState == Other.bState && bActive == Other.bActive; }
+	bool operator!=(const FSteamInputDigitalActionData& Other) const { return !(*this == Other); }
 };
 
 USTRUCT(BlueprintType)
@@ -325,6 +343,9 @@ struct STEAMBRIDGE_API FSteamInputMotionData
 	FSteamInputMotionData() {}
 	FSteamInputMotionData(const FQuat& quat, const FVector& pos, const FVector& rotvel) :
 		RotQuat(quat), PosAccel(pos), RotVel(rotvel) {}
+
+	bool operator==(const FSteamInputMotionData& Other) const { return RotQuat == Other.RotQuat && PosAccel == Other.PosAccel && RotVel == Other.RotVel; }
+	bool operator!=(const FSteamInputMotionData& Other) const { return !(*this == Other); }
 };
 
 USTRUCT(BlueprintType)
@@ -365,6 +386,9 @@ struct STEAMBRIDGE_API FSteamItemDetails
 			Flags.Add(ESteamItemFlags_::ItemConsumed);
 		}
 	}
+
+	bool operator==(const FSteamItemDetails& Other) const { return ItemID == Other.ItemID && Definition == Other.Definition && Quantity == Other.Quantity && Flags == Other.Flags; }
+	bool operator!=(const FSteamItemDetails& Other) const { return !(*this == Other); }
 };
 
 USTRUCT(BlueprintType)
@@ -391,6 +415,9 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 		Type(Type), LocationID(id) {}
 	FSteamPartyBeaconLocation(const SteamPartyBeaconLocation_t& type) :
 		Type((ESteamPartyBeaconLocation)type.m_eType), LocationID(type.m_ulLocationID) {}
+
+	bool operator==(const FSteamPartyBeaconLocation& Other) const { return Type == Other.Type && LocationID == Other.LocationID; }
+	bool operator!=(const FSteamPartyBeaconLocation& Other) const { return !(*this == Other); }
 };
 
 USTRUCT(BlueprintType)
@@ -418,6 +445,9 @@ struct STEAMBRIDGE_API FSteamLeaderboardEntry
 		SteamIDUser(steamid), GlobalRank(glob), Score(score), Details(details), UGC(handle) {}
 	FSteamLeaderboardEntry(const LeaderboardEntry_t& type) :
 		SteamIDUser(type.m_steamIDUser.ConvertToUint64()), GlobalRank(type.m_nGlobalRank), Score(type.m_nScore), Details(type.m_cDetails), UGC(type.m_hUGC) {}
+
+	bool operator==(const FSteamLeaderboardEntry& Other) const { return SteamIDUser == Other.SteamIDUser && GlobalRank == Other.GlobalRank && Score == Other.Score && Details == Other.Details && UGC == Other.UGC; }
+	bool operator!=(const FSteamLeaderboardEntry& Other) const { return !(*this == Other); }
 };
 
 USTRUCT(BlueprintType)
@@ -511,6 +541,9 @@ struct STEAMBRIDGE_API FSteamUGCDetails
 	{
 		FString(UTF8_TO_TCHAR(data.m_rgchTags)).ParseIntoArray(Tags, TEXT(","), true);
 	}
+
+	bool operator==(const FSteamUGCDetails& Other) const { return PublishedFileId == Other.PublishedFileId && Result == Other.Result && FileType == Other.FileType && CreatorAppID == Other.CreatorAppID && ConsumerAppID == Other.ConsumerAppID && Title == Other.Title && Description == Other.Description && SteamIDOwner == Other.SteamIDOwner && TimeCreated == Other.TimeCreated && TimeUpdated == Other.TimeUpdated && TimeAddedToUserList == Other.TimeAddedToUserList && Visibility == Other.Visibility && bBanned == Other.bBanned && bAcceptedForUse == Other.bAcceptedForUse && bTagsTruncated == Other.bTagsTruncated && Tags == Other.Tags && File == Other.File && PreviewFile == Other.PreviewFile && FileName == Other.FileName && FileSize == Other.FileSize && PreviewFileSize == Other.PreviewFileSize && URL == Other.URL && VotesUp == Other.VotesUp && VotesDown == Other.VotesDown && Score == Other.Score && NumChildren == Other.NumChildren; }
+	bool operator!=(const FSteamUGCDetails& Other) const { return !(*this == Other); }
 };
 
 USTRUCT(BlueprintType)
@@ -530,4 +563,7 @@ struct STEAMBRIDGE_API FSteamItemPriceData
 	FSteamItemPriceData() {}
 	FSteamItemPriceData(FSteamItemDef def, int64 currentPrice, int64 basePrice) :
 		ItemDef(def), CurrentPrice(currentPrice), BasePrice(basePrice) {}
+
+	bool operator==(const FSteamItemPriceData& Other) const { return ItemDef == Other.ItemDef && CurrentPrice == Other.CurrentPrice && BasePrice == Other.BasePrice; }
+	bool operator!=(const FSteamItemPriceData& Other) const { return !(*this == Other); }
 };
