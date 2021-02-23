@@ -412,7 +412,7 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 
 	FSteamPartyBeaconLocation() {}
 	FSteamPartyBeaconLocation(ESteamPartyBeaconLocation type, uint64 id) :
-		Type(Type), LocationID(id) {}
+		Type(type), LocationID(id) {}
 	FSteamPartyBeaconLocation(const SteamPartyBeaconLocation_t& type) :
 		Type((ESteamPartyBeaconLocation)type.m_eType), LocationID(type.m_ulLocationID) {}
 
