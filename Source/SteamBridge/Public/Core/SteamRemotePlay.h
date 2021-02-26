@@ -62,7 +62,7 @@ public:
 	 * @return FString - The name of the device associated with the Remote Play session, or NULL if the session ID is not valid.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemotePlay")
-	FString GetSessionClientName(int32 SessionID) const { return UTF8_TO_TCHAR(*SteamRemotePlay()->GetSessionClientName(SessionID)); }
+	FString GetSessionClientName(int32 SessionID) const { return UTF8_TO_TCHAR(SteamRemotePlay()->GetSessionClientName(SessionID)); }
 
 	/**
 	 * Get the form factor of the session client device
