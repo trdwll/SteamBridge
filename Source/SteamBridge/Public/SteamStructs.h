@@ -332,7 +332,7 @@ struct STEAMBRIDGE_API FSteamInputMotionData
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FQuat RotQuat = {};
+	FQuat RotQuat = FQuat::Identity;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FVector PosAccel = FVector::ZeroVector;
