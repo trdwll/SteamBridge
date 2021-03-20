@@ -288,16 +288,16 @@ struct STEAMBRIDGE_API FSteamInputAnalogActionData
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	ESteamControllerSourceMode Mode;
+	ESteamControllerSourceMode Mode = ESteamControllerSourceMode::None;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	float X;
+	float X = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	float Y;
+	float Y = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bActive;
+	bool bActive = false;
 
 	FSteamInputAnalogActionData() {}
 	FSteamInputAnalogActionData(ESteamControllerSourceMode mode, float x, float y, bool bactive) :
@@ -313,10 +313,10 @@ struct STEAMBRIDGE_API FSteamInputDigitalActionData
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bState;
+	bool bState = false;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bActive;
+	bool bActive = false;
 
 	FSteamInputDigitalActionData() {}
 	FSteamInputDigitalActionData(bool bstate, bool bactive) :
@@ -332,13 +332,13 @@ struct STEAMBRIDGE_API FSteamInputMotionData
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FQuat RotQuat;
+	FQuat RotQuat = {};
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FVector PosAccel;
+	FVector PosAccel = FVector::ZeroVector;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FVector RotVel;
+	FVector RotVel = FVector::ZeroVector;
 
 	FSteamInputMotionData() {}
 	FSteamInputMotionData(const FQuat& quat, const FVector& pos, const FVector& rotvel) :
@@ -360,7 +360,7 @@ struct STEAMBRIDGE_API FSteamItemDetails
 	FSteamItemDef Definition;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 Quantity;
+	int32 Quantity = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	TArray<ESteamItemFlags_> Flags;
@@ -397,10 +397,10 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	ESteamPartyBeaconLocation Type;
+	ESteamPartyBeaconLocation Type = ESteamPartyBeaconLocation::Invalid;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int64 LocationID;
+	int64 LocationID = INDEX_NONE;
 
 	operator SteamPartyBeaconLocation_t() const
 	{
@@ -429,13 +429,13 @@ struct STEAMBRIDGE_API FSteamLeaderboardEntry
 	FSteamID SteamIDUser;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 GlobalRank;
+	int32 GlobalRank = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 Score;
+	int32 Score = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 Details;
+	int32 Details = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	FUGCHandle UGC;
@@ -555,10 +555,10 @@ struct STEAMBRIDGE_API FSteamItemPriceData
 	FSteamItemDef ItemDef;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int64 CurrentPrice;
+	int64 CurrentPrice = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int64 BasePrice;
+	int64 BasePrice = 0;
 
 	FSteamItemPriceData() {}
 	FSteamItemPriceData(FSteamItemDef def, int64 currentPrice, int64 basePrice) :
