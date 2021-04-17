@@ -218,7 +218,7 @@ struct STEAMBRIDGE_API FUGCHandle : public FUint64
 	using FUint64::FUint64;
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, meta = (HasNativeMake = "SteamBridge.SteamBPUtils.MakePublishedFileId"))
 struct STEAMBRIDGE_API FPublishedFileId : public FUint64
 {
 	GENERATED_BODY()

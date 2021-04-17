@@ -261,6 +261,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|USteamBPUtils", meta = (NativeBreakFunc))
 	static int32 BreakAccountID(FAccountID AccountID) { return (int32)AccountID; }
 
+	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|USteamBPUtils", meta = (NativeMakeFunc))
+	static FPublishedFileId MakePublishedFileId(const FString& FileID);
+
 protected:
 private:
 };
