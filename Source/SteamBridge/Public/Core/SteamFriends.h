@@ -786,7 +786,7 @@ public:
 	 * pchValue was longer than k_cchMaxRichPresenceValueLength.
 	 * The user has reached the maximum amount of rich presence keys as defined by k_cchMaxRichPresenceKeys.
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
+	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Friends")
 	bool SetRichPresence(const FString& Key, const FString& Value) const { return SteamFriends()->SetRichPresence(TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
 
 	/** Delegates */
