@@ -259,7 +259,7 @@ public:
 	 * @param bool bMissingFilesOnly - 	Only scan for missing files, don't verify the checksum of each file.
 	 * @return bool
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Apps")
 	bool MarkContentCorrupt(bool bMissingFilesOnly) const { return SteamApps()->MarkContentCorrupt(bMissingFilesOnly); }
 
 	/**

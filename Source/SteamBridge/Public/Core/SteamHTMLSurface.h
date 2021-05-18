@@ -94,7 +94,7 @@ public:
 	 * @param const FString & UserCSS - This allows you to set a CSS style to every page displayed by this browser. Use NULL if you do not require this functionality.
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a HTML_BrowserReady_t call result.
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|HTMLSurface")
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTMLSurface")
 	FSteamAPICall CreateBrowser(const FString& UserAgent, const FString& UserCSS) const { return SteamHTMLSurface()->CreateBrowser(TCHAR_TO_UTF8(*UserAgent), TCHAR_TO_UTF8(*UserCSS)); }
 
 	/**

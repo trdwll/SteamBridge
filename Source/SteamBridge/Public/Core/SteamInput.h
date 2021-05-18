@@ -274,7 +274,7 @@ public:
 	 * @param FInputHandle InputHandle - The handle of the controller you want to bring up the binding screen for.
 	 * @return bool - true for success; false if overlay is disabled/unavailable, or the user is not in Big Picture Mode.
 	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
+	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Input")
 	bool ShowBindingPanel(FInputHandle InputHandle) const { return SteamInput()->ShowBindingPanel(InputHandle); }
 
 	/**
