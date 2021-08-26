@@ -12,10 +12,6 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGlobalAchievementPercentagesReadyDelegate, int64, GameID, ESteamResult, Result);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGlobalStatsReceivedDelegate, int64, GameID, ESteamResult, Result);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLeaderboardFindResultDelegate, FSteamLeaderboard, SteamLeaderboard, bool, bLeaderboardFound);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnLeaderboardScoresDownloadedDelegate, FSteamLeaderboard, SteamLeaderboard, FSteamLeaderboardEntries, LeaderboardEntries, int32, EntryCount);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnLeaderboardScoreUploadedDelegate, bool, bSuccess, FSteamLeaderboard, SteamLeaderboard, int32, Score, bool, bScoreChanged, int32, GlobalRankNew, int32, GlobalRankPrevious);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLeaderboardUGCSetDelegate, ESteamResult, Result, FSteamLeaderboard, SteamLeaderboard);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnNumberOfCurrentPlayersDelegate, bool, bSuccess, int32, PlayersNum);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnUserAchievementIconFetchedDelegate, int64, GameID, FString, AchievementName, bool, bAchieved, int32, IconHandle);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnUserAchievementStoredDelegate, int64, GameID, bool, bGroupAchievement, FString, AchievementName, int32, CurProgress, int32, MaxProgress);
@@ -39,19 +35,6 @@ public:
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore", meta = (DisplayName = "Steam User Stats", CompactNodeTitle = "SteamUserStats"))
 	static USteamUserStats* GetSteamUserStats() { return USteamUserStats::StaticClass()->GetDefaultObject<USteamUserStats>(); }
 
-	/**
-	 * Attaches a piece of user generated content the current user's entry on a leaderboard.
-	 * This content could be a replay of the user achieving the score or a ghost to race against. The attached handle will be available when the entry is retrieved and can be accessed by other users using
-	 * `1	`GetDownloadedLeaderboardEntry which contains LeaderboardEntry_t.m_hUGC. To create and download user generated content see the documentation for the Steam Workshop.
-	 * Once attached, the content will be available even if the underlying Cloud file is changed or deleted by the user.
-	 * You must call FindLeaderboard or FindOrCreateLeaderboard to get a SteamLeaderboard_t prior to calling this function.
-	 *
-	 * @param FSteamLeaderboard SteamLeaderboard - A leaderboard handle obtained from FindLeaderboard or FindOrCreateLeaderboard.
-	 * @param FUGCHandle UGC - Handle to a piece of user generated content that was shared using ISteamRemoteStorage::FileShare or ISteamUGC::CreateItem.
-	 * @return FSteamAPICall - SteamAPICall_t to be used with a LeaderboardUGCSet_t call result.
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UserStats")
-	FSteamAPICall AttachLeaderboardUGC(FSteamLeaderboard SteamLeaderboard, FUGCHandle UGC) const { return SteamUserStats()->AttachLeaderboardUGC(SteamLeaderboard, UGC); }
 
 	/**
 	 * Resets the unlock status of an achievement.
@@ -66,48 +49,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UserStats")
 	bool ClearAchievement(const FString& Name) const { return SteamUserStats()->ClearAchievement(TCHAR_TO_UTF8(*Name)); }
-
-	/**
-	 * Fetches a series of leaderboard entries for a specified leaderboard.
-	 * You can ask for more entries than exist, then this will return as many as do exist.
-	 * If you want to download entries for an arbitrary set of users, such as all of the users on a server then you can use DownloadLeaderboardEntriesForUsers which takes an array of Steam IDs.
-	 * You must call FindLeaderboard or FindOrCreateLeaderboard to get a SteamLeaderboard_t prior to calling this function.
-	 *
-	 * @param FSteamLeaderboard SteamLeaderboard - A leaderboard handle obtained from FindLeaderboard or FindOrCreateLeaderboard.
-	 * @param ESteamLeaderboardDataRequest LeaderboardDataRequest - The type of data request to make.
-	 * @param int32 RangeStart - The index to start downloading entries relative to eLeaderboardDataRequest.
-	 * @param int32 RangeEnd - The last index to retrieve entries for relative to eLeaderboardDataRequest.
-	 * @return FSteamAPICall - SteamAPICall_t to be used with a LeaderboardScoresDownloaded_t call result.
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UserStats")
-	FSteamAPICall DownloadLeaderboardEntries(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardDataRequest LeaderboardDataRequest, int32 RangeStart, int32 RangeEnd) const;
-
-	// #TODO: DownloadLeaderboardEntriesForUsers
-
-	/**
-	 * Gets a leaderboard by name.
-	 * You must call either this or FindOrCreateLeaderboard to obtain the leaderboard handle which is valid for the game session for each leaderboard you wish to access prior to calling any other Leaderboard functions.
-	 *
-	 * @param const FString & LeaderboardName - The name of the leaderboard to find. Must not be longer than k_cchLeaderboardNameMax.
-	 * @return FSteamAPICall - SteamAPICall_t to be used with a LeaderboardFindResult_t call result.
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UserStats")
-	FSteamAPICall FindLeaderboard(const FString& LeaderboardName) const { return SteamUserStats()->FindLeaderboard(TCHAR_TO_UTF8(*LeaderboardName)); }
-
-	/**
-	 * Gets a leaderboard by name, it will create it if it's not yet created.
-	 * You must call either this or FindLeaderboard to obtain the leaderboard handle which is valid for the game session for each leaderboard you wish to access prior to calling any other Leaderboard functions.
-	 * Leaderboards created with this function will not automatically show up in the Steam Community. You must manually set the Community Name field in the App Admin panel of the Steamworks website. As such it's generally
-	 * recommended to prefer creating the leaderboards in the App Admin panel on the Steamworks website and using FindLeaderboard unless you're expected to have a large amount of dynamically created leaderboards.
-	 * You should never pass k_ELeaderboardSortMethodNone for eLeaderboardSortMethod or k_ELeaderboardDisplayTypeNone for eLeaderboardDisplayType as this is undefined behavior.
-	 *
-	 * @param const FString & LeaderboardName - The name of the leaderboard to find or create. Must not be longer than k_cchLeaderboardNameMax.
-	 * @param ESteamLeaderboardSortMethod LeaderboardSortMethod - The sort order of the new leaderboard if it's created.
-	 * @param ESteamLeaderboardDisplayType LeaderboardDisplayType - The display type (used by the Steam Community web site) of the new leaderboard if it's created.
-	 * @return FSteamAPICall - SteamAPICall_t to be used with a LeaderboardFindResult_t call result.
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UserStats")
-	FSteamAPICall FindOrCreateLeaderboard(const FString& LeaderboardName, ESteamLeaderboardSortMethod LeaderboardSortMethod, ESteamLeaderboardDisplayType LeaderboardDisplayType) const;
 
 	/**
 	 * Gets the unlock status of the Achievement.
@@ -196,24 +137,6 @@ public:
 	FString GetAchievementName(int32 AchievementIndex = 0) const { return SteamUserStats()->GetAchievementName(AchievementIndex); }
 
 	/**
-	 * Retrieves the data for a single leaderboard entry.
-	 * You should use a for loop from 0 to LeaderboardScoresDownloaded_t.m_cEntryCount to get all the downloaded entries. Once you've accessed all the entries, the data will be freed, and the SteamLeaderboardEntries_t handle will become invalid.
-	 * Optionally details may be returned for the entry via the pDetails. If this is NULL then cDetailsMax MUST be 0.
-	 *
-	 * @param FSteamLeaderboardEntries SteamLeaderboardEntries - A leaderboard entries handle obtained from the most recently received LeaderboardScoresDownloaded_t call result.
-	 * @param int32 index - The index of the leaderboard entry to receive, must be between 0 and LeaderboardScoresDownloaded_t.m_cEntryCount.
-	 * @param FSteamLeaderboardEntry & LeaderboardEntry - Variable where the entry will be returned to.
-	 * @param TArray<int32> & Details - A preallocated array where the details of this entry get returned into.
-	 * @param int32 DetailsMax - The length of the pDetails array.
-	 * @return bool - This function returns true upon success if all of the following conditions are met; otherwise, false.
-	 * hSteamLeaderboardEntries must be a valid handle from the last received LeaderboardScoresDownloaded_t call result.
-	 * index must be between 0 and LeaderboardScoresDownloaded_t.m_cEntryCount
-	 * If the call is successful then the entry is returned via the parameter pLeaderboardEntry and if cDetailsMax is not 0 then pDetails is filled with the unlock details.
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	bool GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries SteamLeaderboardEntries, int32 index, FSteamLeaderboardEntry& LeaderboardEntry, TArray<int32>& Details, int32 DetailsMax) const;
-
-	/**
 	 * Gets the lifetime totals for an aggregated stat.
 	 * You must have called RequestGlobalStats and it needs to return successfully via its callback prior to calling this.
 	 *
@@ -274,43 +197,6 @@ public:
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
 	int32 GetGlobalStatHistoryFloat(const FString& StatName, TArray<float>& Data, int32 Size = 10) const;
-
-	/**
-	 * Returns the display type of a leaderboard handle.
-	 *
-	 * @param FSteamLeaderboard SteamLeaderboard - A leaderboard handle obtained from FindLeaderboard or FindOrCreateLeaderboard.
-	 * @return ESteamLeaderboardDisplayType - The display type of the leaderboard. Returns k_ELeaderboardDisplayTypeNone if the leaderboard handle is invalid.
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	ESteamLeaderboardDisplayType GetLeaderboardDisplayType(FSteamLeaderboard SteamLeaderboard) const { return (ESteamLeaderboardDisplayType)SteamUserStats()->GetLeaderboardDisplayType(SteamLeaderboard); }
-
-	/**
-	 * Returns the total number of entries in a leaderboard.
-	 * This is cached on a per leaderboard basis upon the first call to FindLeaderboard or FindOrCreateLeaderboard and is refreshed on each successful call to DownloadLeaderboardEntries, DownloadLeaderboardEntriesForUsers, and UploadLeaderboardScore.
-	 *
-	 * @param FSteamLeaderboard SteamLeaderboard - 	A leaderboard handle obtained from FindLeaderboard or FindOrCreateLeaderboard.
-	 * @return int32 - The number of entries in the leaderboard. Returns 0 if the leaderboard handle is invalid.
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	int32 GetLeaderboardEntryCount(FSteamLeaderboard SteamLeaderboard) const { return SteamUserStats()->GetLeaderboardEntryCount(SteamLeaderboard); }
-
-	/**
-	 * Returns the name of a leaderboard handle.
-	 *
-	 * @param FSteamLeaderboard SteamLeaderboard - A leaderboard handle obtained from FindLeaderboard or FindOrCreateLeaderboard.
-	 * @return FString - The name of the leaderboard. Returns an empty string if the leaderboard handle is invalid.
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	FString GetLeaderboardName(FSteamLeaderboard SteamLeaderboard) const { return UTF8_TO_TCHAR(SteamUserStats()->GetLeaderboardName(SteamLeaderboard)); }
-
-	/**
-	 * Returns the sort order of a leaderboard handle.
-	 *
-	 * @param FSteamLeaderboard SteamLeaderboard - A leaderboard handle obtained from FindLeaderboard or FindOrCreateLeaderboard.
-	 * @return ESteamLeaderboardSortMethod - The sort method of the leaderboard. Returns k_ELeaderboardSortMethodNone if the leaderboard handle is invalid.
-	 */
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|UserStats")
-	ESteamLeaderboardSortMethod GetLeaderboardSortMethod(FSteamLeaderboard SteamLeaderboard) const { return (ESteamLeaderboardSortMethod)SteamUserStats()->GetLeaderboardSortMethod(SteamLeaderboard); }
 
 	/**
 	 * Gets the info on the most achieved achievement for the game.
@@ -611,21 +497,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UserStats")
 	bool UpdateAvgRateStat(const FString& Name, float CountThisSession, float SessionLength) const { return SteamUserStats()->UpdateAvgRateStat(TCHAR_TO_UTF8(*Name), CountThisSession, (double)SessionLength); }
 
-	/**
-	 * Uploads a user score to a specified leaderboard.
-	 * Details are optional game-defined information which outlines how the user got that score. For example if it's a racing style time based leaderboard you could store the timestamps when the player hits each checkpoint.
-	 * If you have collectibles along the way you could use bit fields as booleans to store the items the player picked up in the playthrough.
-	 * Uploading scores to Steam is rate limited to 10 uploads per 10 minutes and you may only have one outstanding call to this function at a time.
-	 *
-	 * @param FSteamLeaderboard SteamLeaderboard - A leaderboard handle obtained from FindLeaderboard or FindOrCreateLeaderboard.
-	 * @param ESteamLeaderboardUploadScoreMethod LeaderboardUploadScoreMethod - Do you want to force the score to change, or keep the previous score if it was better?
-	 * @param int32 Score - The score to upload.
-	 * @param const TArray<int32> & ScoreDetails - Optional: Array containing the details surrounding the unlocking of this score.
-	 * @return FSteamAPICall - SteamAPICall_t to be used with a LeaderboardScoreUploaded_t call result.
-	 */
-	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|UserStats")
-	FSteamAPICall UploadLeaderboardScore(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardUploadScoreMethod LeaderboardUploadScoreMethod, int32 Score, const TArray<int32>& ScoreDetails) const;
-
 	/** Delegates */
 
 	/** Called when the global achievement percentages have been received from the server. */
@@ -635,25 +506,6 @@ public:
 	/** Called when the global stats have been received from the server. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnGlobalStatsReceived"))
 	FOnGlobalStatsReceivedDelegate m_OnGlobalStatsReceived;
-
-	/** Result when finding a leaderboard. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnLeaderboardFindResult"))
-	FOnLeaderboardFindResultDelegate m_OnLeaderboardFindResult;
-
-	/**
-	 * Called when scores for a leaderboard have been downloaded and are ready to be retrieved.
-	 * After calling you must use GetDownloadedLeaderboardEntry to retrieve the info for each downloaded entry.
-	 */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnLeaderboardScoresDownloaded"))
-	FOnLeaderboardScoresDownloadedDelegate m_OnLeaderboardScoresDownloaded;
-
-	/** Result indicating that a leaderboard score has been uploaded. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnLeaderboardScoreUploaded"))
-	FOnLeaderboardScoreUploadedDelegate m_OnLeaderboardScoreUploaded;
-
-	/** Result indicating that user generated content has been attached to one of the current user's leaderboard entries. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnLeaderboardUGCSet"))
-	FOnLeaderboardUGCSetDelegate m_OnLeaderboardUGCSet;
 
 	/** Gets the current number of players for the current AppId. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnNumberOfCurrentPlayers"))
@@ -686,10 +538,6 @@ protected:
 private:
 	STEAM_CALLBACK_MANUAL(USteamUserStats, OnGlobalAchievementPercentagesReady, GlobalAchievementPercentagesReady_t, OnGlobalAchievementPercentagesReadyCallback);
 	STEAM_CALLBACK_MANUAL(USteamUserStats, OnGlobalStatsReceived, GlobalStatsReceived_t, OnGlobalStatsReceivedCallback);
-	STEAM_CALLBACK_MANUAL(USteamUserStats, OnLeaderboardFindResult, LeaderboardFindResult_t, OnLeaderboardFindResultCallback);
-	STEAM_CALLBACK_MANUAL(USteamUserStats, OnLeaderboardScoresDownloaded, LeaderboardScoresDownloaded_t, OnLeaderboardScoresDownloadedCallback);
-	STEAM_CALLBACK_MANUAL(USteamUserStats, OnLeaderboardScoreUploaded, LeaderboardScoreUploaded_t, OnLeaderboardScoreUploadedCallback);
-	STEAM_CALLBACK_MANUAL(USteamUserStats, OnLeaderboardUGCSet, LeaderboardUGCSet_t, OnLeaderboardUGCSetCallback);
 	STEAM_CALLBACK_MANUAL(USteamUserStats, OnNumberOfCurrentPlayers, NumberOfCurrentPlayers_t, OnNumberOfCurrentPlayersCallback);
 	STEAM_CALLBACK_MANUAL(USteamUserStats, OnUserAchievementIconFetched, UserAchievementIconFetched_t, OnUserAchievementIconFetchedCallback);
 	STEAM_CALLBACK_MANUAL(USteamUserStats, OnUserAchievementStored, UserAchievementStored_t, OnUserAchievementStoredCallback);

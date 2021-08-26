@@ -8,10 +8,6 @@ USteamUserStats::USteamUserStats()
 {
 	OnGlobalAchievementPercentagesReadyCallback.Register(this, &USteamUserStats::OnGlobalAchievementPercentagesReady);
 	OnGlobalStatsReceivedCallback.Register(this, &USteamUserStats::OnGlobalStatsReceived);
-	OnLeaderboardFindResultCallback.Register(this, &USteamUserStats::OnLeaderboardFindResult);
-	OnLeaderboardScoresDownloadedCallback.Register(this, &USteamUserStats::OnLeaderboardScoresDownloaded);
-	OnLeaderboardScoreUploadedCallback.Register(this, &USteamUserStats::OnLeaderboardScoreUploaded);
-	OnLeaderboardUGCSetCallback.Register(this, &USteamUserStats::OnLeaderboardUGCSet);
 	OnNumberOfCurrentPlayersCallback.Register(this, &USteamUserStats::OnNumberOfCurrentPlayers);
 	OnUserAchievementIconFetchedCallback.Register(this, &USteamUserStats::OnUserAchievementIconFetched);
 	OnUserAchievementStoredCallback.Register(this, &USteamUserStats::OnUserAchievementStored);
@@ -24,10 +20,6 @@ USteamUserStats::~USteamUserStats()
 {
 	OnGlobalAchievementPercentagesReadyCallback.Unregister();
 	OnGlobalStatsReceivedCallback.Unregister();
-	OnLeaderboardFindResultCallback.Unregister();
-	OnLeaderboardScoresDownloadedCallback.Unregister();
-	OnLeaderboardScoreUploadedCallback.Unregister();
-	OnLeaderboardUGCSetCallback.Unregister();
 	OnNumberOfCurrentPlayersCallback.Unregister();
 	OnUserAchievementIconFetchedCallback.Unregister();
 	OnUserAchievementStoredCallback.Unregister();
@@ -36,30 +28,12 @@ USteamUserStats::~USteamUserStats()
 	OnUserStatsUnloadedCallback.Unregister();
 }
 
-FSteamAPICall USteamUserStats::DownloadLeaderboardEntries(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardDataRequest LeaderboardDataRequest, int32 RangeStart, int32 RangeEnd) const
-{
-	return SteamUserStats()->DownloadLeaderboardEntries(SteamLeaderboard, (ELeaderboardDataRequest)LeaderboardDataRequest, RangeStart, RangeEnd);
-}
-
-FSteamAPICall USteamUserStats::FindOrCreateLeaderboard(const FString& LeaderboardName, ESteamLeaderboardSortMethod LeaderboardSortMethod, ESteamLeaderboardDisplayType LeaderboardDisplayType) const
-{
-	return SteamUserStats()->FindOrCreateLeaderboard(TCHAR_TO_UTF8(*LeaderboardName), (ELeaderboardSortMethod)LeaderboardSortMethod, (ELeaderboardDisplayType)LeaderboardDisplayType);
-}
 
 bool USteamUserStats::GetAchievementAndUnlockTime(const FString& Name, bool& bAchieved, FDateTime& UnlockTime) const
 {
 	uint32 TmpTime;
 	bool bResult = SteamUserStats()->GetAchievementAndUnlockTime(TCHAR_TO_UTF8(*Name), &bAchieved, &TmpTime);
 	UnlockTime = FDateTime::FromUnixTimestamp(TmpTime);
-	return bResult;
-}
-
-bool USteamUserStats::GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries SteamLeaderboardEntries, int32 index, FSteamLeaderboardEntry& LeaderboardEntry, TArray<int32>& Details, int32 DetailsMax) const
-{
-	Details.SetNum(DetailsMax);
-	LeaderboardEntry_t TmpEntry;
-	bool bResult = SteamUserStats()->GetDownloadedLeaderboardEntry(SteamLeaderboardEntries, index, &TmpEntry, Details.GetData(), DetailsMax);
-	LeaderboardEntry = TmpEntry;
 	return bResult;
 }
 
@@ -98,11 +72,6 @@ bool USteamUserStats::GetUserAchievementAndUnlockTime(FSteamID SteamIDUser, cons
 	return bResult;
 }
 
-FSteamAPICall USteamUserStats::UploadLeaderboardScore(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardUploadScoreMethod LeaderboardUploadScoreMethod, int32 Score, const TArray<int32>& ScoreDetails) const
-{
-	return SteamUserStats()->UploadLeaderboardScore(SteamLeaderboard, (ELeaderboardUploadScoreMethod)LeaderboardUploadScoreMethod, Score, ScoreDetails.GetData(), ScoreDetails.Num());
-}
-
 void USteamUserStats::OnGlobalAchievementPercentagesReady(GlobalAchievementPercentagesReady_t* pParam)
 {
 	m_OnGlobalAchievementPercentagesReady.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult);
@@ -111,26 +80,6 @@ void USteamUserStats::OnGlobalAchievementPercentagesReady(GlobalAchievementPerce
 void USteamUserStats::OnGlobalStatsReceived(GlobalStatsReceived_t* pParam)
 {
 	m_OnGlobalStatsReceived.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult);
-}
-
-void USteamUserStats::OnLeaderboardFindResult(LeaderboardFindResult_t* pParam)
-{
-	m_OnLeaderboardFindResult.Broadcast(pParam->m_hSteamLeaderboard, pParam->m_bLeaderboardFound == 1);
-}
-
-void USteamUserStats::OnLeaderboardScoresDownloaded(LeaderboardScoresDownloaded_t* pParam)
-{
-	m_OnLeaderboardScoresDownloaded.Broadcast(pParam->m_hSteamLeaderboard, pParam->m_hSteamLeaderboardEntries, pParam->m_cEntryCount);
-}
-
-void USteamUserStats::OnLeaderboardScoreUploaded(LeaderboardScoreUploaded_t* pParam)
-{
-	m_OnLeaderboardScoreUploaded.Broadcast(pParam->m_bSuccess == 1, pParam->m_hSteamLeaderboard, pParam->m_nScore, pParam->m_bScoreChanged == 1, pParam->m_nGlobalRankNew, pParam->m_nGlobalRankPrevious);
-}
-
-void USteamUserStats::OnLeaderboardUGCSet(LeaderboardUGCSet_t* pParam)
-{
-	m_OnLeaderboardUGCSet.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_hSteamLeaderboard);
 }
 
 void USteamUserStats::OnNumberOfCurrentPlayers(NumberOfCurrentPlayers_t* pParam)

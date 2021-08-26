@@ -152,18 +152,6 @@ public:
 	static bool UGCFileWriteStreamHandle_NotEqual(FUGCFileWriteStreamHandle UGCFileWriteStreamHandleA, FUGCFileWriteStreamHandle UGCFileWriteStreamHandleB) { return UGCFileWriteStreamHandleA != UGCFileWriteStreamHandleB; }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|USteamBPUtils", meta = (Keywords = "equal == identical is", CompactNodeTitle = "=="))
-	static bool SteamLeaderboardEntries_Equal(FSteamLeaderboardEntries SteamLeaderboardEntriesA, FSteamLeaderboardEntries SteamLeaderboardEntriesB) { return SteamLeaderboardEntriesA == SteamLeaderboardEntriesB; }
-
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|USteamBPUtils", meta = (Keywords = "notequal != notidentical not", CompactNodeTitle = "!="))
-	static bool SteamLeaderboardEntries_NotEqual(FSteamLeaderboardEntries SteamLeaderboardEntriesA, FSteamLeaderboardEntries SteamLeaderboardEntriesB) { return SteamLeaderboardEntriesA != SteamLeaderboardEntriesB; }
-
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|USteamBPUtils", meta = (Keywords = "equal == identical is", CompactNodeTitle = "=="))
-	static bool SteamLeaderboard_Equal(FSteamLeaderboard SteamLeaderboardA, FSteamLeaderboard SteamLeaderboardB) { return SteamLeaderboardA == SteamLeaderboardB; }
-
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|USteamBPUtils", meta = (Keywords = "notequal != notidentical not", CompactNodeTitle = "!="))
-	static bool SteamLeaderboard_NotEqual(FSteamLeaderboard SteamLeaderboardA, FSteamLeaderboard SteamLeaderboardB) { return SteamLeaderboardA != SteamLeaderboardB; }
-
-	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|USteamBPUtils", meta = (Keywords = "equal == identical is", CompactNodeTitle = "=="))
 	static bool UGCQueryHandle_Equal(FUGCQueryHandle UGCQueryHandleA, FUGCQueryHandle UGCQueryHandleB) { return UGCQueryHandleA == UGCQueryHandleB; }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|USteamBPUtils", meta = (Keywords = "notequal != notidentical not", CompactNodeTitle = "!="))
