@@ -35,6 +35,10 @@ void FSteamBridgeModule::StartupModule()
 	SteamDir = FString::Printf(TEXT("%s/%s"), *SteamDir, bIs64Bit ? *FString("x86_64-unknown-linux-gnu/") : *FString("i686-unknown-linux-gnu/"));
 	SDKPath = FPaths::Combine(*SteamDir, "libsteam_api.so");
 	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKPath));
+#elif PLATFORM_MAC
+	SteamDir = FString::Printf(TEXT("%s/%s"), *SteamDir, *FString("Mac/"));
+	SDKPath = FPaths::Combine(*SteamDir, "libsteam_api.dylib");
+	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKPath));
 #endif
 }
 
