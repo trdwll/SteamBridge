@@ -48,12 +48,15 @@ int32 USteamInput::GetAnalogActionOrigins(FInputHandle InputHandle, FInputAction
 
 int32 USteamInput::GetConnectedControllers(TArray<FInputHandle>& Handles)
 {
-	TArray<uint64> Tmp;
-	int32 result = SteamInput()->GetConnectedControllers(Tmp.GetData());
+	TArray<InputHandle_t> controllers;
+
+	controllers.Init(0, STEAM_INPUT_MAX_COUNT);
+
+	int32 result = SteamInput()->GetConnectedControllers(controllers.GetData());
 
 	for (int32 i = 0; i < result; i++)
 	{
-		Handles.Add(Tmp[i]);
+		Handles.Add(controllers[i]);
 	}
 
 	return result;
