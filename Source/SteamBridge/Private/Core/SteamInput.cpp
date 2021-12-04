@@ -35,12 +35,15 @@ FSteamInputAnalogActionData USteamInput::GetAnalogActionData(FInputHandle InputH
 
 int32 USteamInput::GetAnalogActionOrigins(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle, FInputAnalogActionHandle AnalogActionHandle, TArray<ESteamInputActionOrigin>& Origins)
 {
-	TArray<EInputActionOrigin> Tmp;
-	int32 result = SteamInput()->GetAnalogActionOrigins(InputHandle, ActionSetHandle, AnalogActionHandle, Tmp.GetData());
+	TArray<EInputActionOrigin> AnalogActionOrigins;
+
+	AnalogActionOrigins.Init(k_EInputActionOrigin_None, STEAM_INPUT_MAX_ORIGINS);
+
+	int32 result = SteamInput()->GetAnalogActionOrigins(InputHandle, ActionSetHandle, AnalogActionHandle, AnalogActionOrigins.GetData());
 
 	for (int32 i = 0; i < result; i++)
 	{
-		Origins.Add((ESteamInputActionOrigin)Tmp[i]);
+		Origins.Add((ESteamInputActionOrigin)AnalogActionOrigins[i]);
 	}
 
 	return result;
@@ -48,15 +51,15 @@ int32 USteamInput::GetAnalogActionOrigins(FInputHandle InputHandle, FInputAction
 
 int32 USteamInput::GetConnectedControllers(TArray<FInputHandle>& Handles)
 {
-	TArray<InputHandle_t> controllers;
+	TArray<InputHandle_t> ConnectedControllers;
 
-	controllers.Init(0, STEAM_INPUT_MAX_COUNT);
+	ConnectedControllers.Init(0, STEAM_INPUT_MAX_COUNT);
 
-	int32 result = SteamInput()->GetConnectedControllers(controllers.GetData());
+	int32 result = SteamInput()->GetConnectedControllers(ConnectedControllers.GetData());
 
 	for (int32 i = 0; i < result; i++)
 	{
-		Handles.Add(controllers[i]);
+		Handles.Add(ConnectedControllers[i]);
 	}
 
 	return result;
@@ -70,12 +73,15 @@ FSteamInputDigitalActionData USteamInput::GetDigitalActionData(FInputHandle Inpu
 
 int32 USteamInput::GetDigitalActionOrigins(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle, FInputDigitalActionHandle DigitalActionHandle, TArray<ESteamInputActionOrigin>& Origins)
 {
-	TArray<EInputActionOrigin> Tmp;
-	int32 result = SteamInput()->GetDigitalActionOrigins(InputHandle, ActionSetHandle, DigitalActionHandle, Tmp.GetData());
+	TArray<EInputActionOrigin> ActionOrigins;
+
+	ActionOrigins.Init(k_EInputActionOrigin_None, STEAM_INPUT_MAX_ORIGINS);
+
+	int32 result = SteamInput()->GetDigitalActionOrigins(InputHandle, ActionSetHandle, DigitalActionHandle, ActionOrigins.GetData());
 
 	for (int32 i = 0; i < result; i++)
 	{
-		Origins.Add((ESteamInputActionOrigin)Tmp[i]);
+		Origins.Add((ESteamInputActionOrigin)ActionOrigins[i]);
 	}
 
 	return result;
