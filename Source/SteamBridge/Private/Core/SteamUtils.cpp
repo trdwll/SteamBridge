@@ -22,15 +22,16 @@ USteamUtils::~USteamUtils()
 	OnSteamShutdownCallback.Unregister();
 }
 
-bool USteamUtils::GetCSERIPPort(FString& IP, int32& Port) const
-{
-	uint32 TmpIP;
-	uint16 TmpPort;
-	bool bResult = SteamUtils()->GetCSERIPPort(&TmpIP, &TmpPort);
-	IP = USteamBridgeUtils::ConvertIPToString(TmpIP);
-	Port = TmpPort;
-	return bResult;
-}
+//// GetCSERIPPort is deprecated as of more recent Steamworks SDK releases, so this has been dummied out.
+//bool USteamUtils::GetCSERIPPort(FString& IP, int32& Port) const
+//{
+	//uint32 TmpIP;
+	//uint16 TmpPort;
+	//bool bResult = SteamUtils()->GetCSERIPPort(&TmpIP, &TmpPort);
+	//IP = USteamBridgeUtils::ConvertIPToString(TmpIP);
+	//Port = TmpPort;
+	//return bResult;
+//}
 
 bool USteamUtils::GetEnteredGamepadTextInput(FString& Text) const
 {

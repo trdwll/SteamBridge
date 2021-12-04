@@ -18,6 +18,7 @@ public class SteamBridge : ModuleRules
             "OnlineSubsystem",
             "OnlineSubsystemUtils",
             "OnlineSubsystemSteam",
+            "SteamShared"
         });
 
         AddEngineThirdPartyPrivateStaticDependencies(Target, "Steamworks");

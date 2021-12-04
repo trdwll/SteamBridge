@@ -13,32 +13,44 @@
 #include "Steam.h"
 #include "SteamBridgeSettings.h"
 
+#ifndef STEAM_SDK_INSTALLED
+#error Steam SDK not located! Expected to be found in Engine/Source/ThirdParty/Steamworks/{SteamVersion}
+#endif  // STEAM_SDK_INSTALLED
+
+// Steam API for Initialization
+THIRD_PARTY_INCLUDES_START
+#include "steam/steam_api.h"
+#include "steam/steam_gameserver.h"
+THIRD_PARTY_INCLUDES_END
+
 #define LOCTEXT_NAMESPACE "FSteamBridgeModule"
 
 void FSteamBridgeModule::StartupModule()
 {
 	RegisterSettings();
 
-	FString SteamDir = FPaths::EngineDir() / TEXT("Binaries/ThirdParty/Steamworks") / SDK_VER;
-	FString SDKPath = "";
-
-	bool bIs64Bit = false;
-#if PLATFORM_64BITS
-	bIs64Bit = true;
-#endif
+	const FString STEAM_SDK_ROOT_PATH(TEXT("Binaries/ThirdParty/Steamworks"));
 
 #if PLATFORM_WINDOWS
-	SteamDir = FString::Printf(TEXT("%s/%s"), *SteamDir, bIs64Bit ? *FString("Win64/") : *FString("Win32/"));
-	SDKPath = FPaths::Combine(*SteamDir, FString::Printf(TEXT("steam_api%s.dll"), bIs64Bit ? *FString("64") : *FString("")));
-	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKPath));
+#if PLATFORM_64BITS
+	FString STEAM_SDK_PATH = FPaths::EngineDir() / STEAM_SDK_ROOT_PATH / STEAM_SDK_VER_PATH / TEXT("Win64/");
+#else
+	FString STEAM_SDK_PATH = FPaths::EngineDir() / STEAM_SDK_ROOT_PATH / STEAM_SDK_VER_PATH / TEXT("Win32/");
+#endif  //PLATFORM_64BITS
+	FString SDKBinaries = FPaths::Combine(*STEAM_SDK_PATH, FString::Printf(TEXT("steam_api%s.dll"), PLATFORM_64BITS ? *FString("64") : *FString("")));
+	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKBinaries));
 #elif PLATFORM_LINUX
-	SteamDir = FString::Printf(TEXT("%s/%s"), *SteamDir, bIs64Bit ? *FString("x86_64-unknown-linux-gnu/") : *FString("i686-unknown-linux-gnu/"));
-	SDKPath = FPaths::Combine(*SteamDir, "libsteam_api.so");
-	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKPath));
+#if PLATFORM_64BITS
+	FString STEAM_SDK_PATH = FPaths::EngineDir() / STEAM_SDK_ROOT_PATH / STEAM_SDK_VER_PATH / TEXT("x86_64-unknown-linux-gnu/");
+#else
+	FString STEAM_SDK_PATH = FPaths::EngineDir() / STEAM_SDK_ROOT_PATH / STEAM_SDK_VER_PATH / TEXT("i686-unknown-linux-gnu/");
+#endif  //PLATFORM_64BITS
+	FString SDKBinaries = FPaths::Combine(*STEAM_SDK_PATH, "libsteam_api.so");
+	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKBinaries));
 #elif PLATFORM_MAC
-	SteamDir = FString::Printf(TEXT("%s/%s"), *SteamDir, *FString("Mac/"));
-	SDKPath = FPaths::Combine(*SteamDir, "libsteam_api.dylib");
-	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKPath));
+	FString STEAM_SDK_PATH = FPaths::EngineDir() / STEAM_SDK_ROOT_PATH / STEAM_SDK_VER_PATH / TEXT("Mac/");
+	FString SDKBinaries = FPaths::Combine(*STEAM_SDK_PATH, "libsteam_api.dylib");
+	m_SteamLibSDKHandle = FPlatformProcess::GetDllHandle(*(SDKBinaries));
 #endif
 }
 

@@ -79,8 +79,9 @@ public:
 	 * @param int32 & Port - Returns the port that the client is connected to.
 	 * @return bool - Returns true if the user is currently connected; otherwise, false.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Utils")
-	bool GetCSERIPPort(FString& IP, int32& Port) const;
+	// GetCSERIPPort is deprecated as of more recent Steamworks SDK releases, so this has been dummied out.
+	//UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Utils")
+	//bool GetCSERIPPort(FString& IP, int32& Port) const;
 
 	/**
 	 * Gets the current amount of battery power on the computer.
