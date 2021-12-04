@@ -783,7 +783,8 @@ enum class ESteamInputType_ : uint8
 	SwitchProController = 10,
 	MobileTouch = 11,
 	PS3Controller = 12,
-	Count = 13,
+	PS5Controller = 13,
+	Count = 14,
 };
 
 // Added the _ since Steam actually has this enum already and we need it accessible in BP
