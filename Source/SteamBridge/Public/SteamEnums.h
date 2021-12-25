@@ -763,6 +763,9 @@ enum class ESteamInputActionOrigin : uint8
 	Switch_Reserved8,
 	Switch_Reserved9,
 	Switch_Reserved10,
+#if 0
+	// Disabled for now. Not sure about a fix atm. KingKrouch had suggested using FCollisionProfileName or a namespace of FName's to handle this.
+	// I think we could convert this to a namespaced enum like ESteamHTTPStatus
 	PS5_X,
 	PS5_Circle,
 	PS5_Triangle,
@@ -838,6 +841,7 @@ enum class ESteamInputActionOrigin : uint8
 	PS5_Reserved18,
 	PS5_Reserved19,
 	PS5_Reserved20,
+#endif // 0
 	Count
 };
 
