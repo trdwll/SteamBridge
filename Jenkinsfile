@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat "py -u C:\\jenkins.py SteamBridge Build \"%WORKSPACE%\""
+        bat "C:\\JenkinsBuilder.exe SteamBridge Build \"%WORKSPACE%\""
       }
     }
 
@@ -19,7 +19,7 @@ pipeline {
         branch "main"
       }
       steps {
-        bat "py -u C:\\jenkins.py SteamBridge Publish \"%WORKSPACE%\""
+        bat "C:\\JenkinsBuilder.exe SteamBridge Publish \"%WORKSPACE%\""
       }
     }
   }
