@@ -93,7 +93,7 @@ public:
 	 * @return FSteamInputAnalogActionData - The current state of the specified analog action.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Input")
-	FSteamInputAnalogActionData GetAnalogActionData(FInputHandle InputHandle, FInputActionSetHandle ActionSetHandle) const;
+	FSteamInputAnalogActionData GetAnalogActionData(FInputHandle InputHandle, FInputAnalogActionHandle AnalogActionHandle) const;
 
 	/**
 	 * Get the handle of the specified Analog action.
