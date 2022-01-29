@@ -27,9 +27,9 @@ int32 USteamInput::GetActiveActionSetLayers(FInputHandle InputHandle, TArray<FIn
 	return result;
 }
 
-FSteamInputAnalogActionData USteamInput::GetAnalogActionData(FInputHandle InputHandle, FInputActionSetHandle ActionSetLayerHandle) const
+FSteamInputAnalogActionData USteamInput::GetAnalogActionData(FInputHandle InputHandle, FInputAnalogActionHandle AnalogActionHandle) const
 {
-	InputAnalogActionData_t data = SteamInput()->GetAnalogActionData(InputHandle, ActionSetLayerHandle);
+	InputAnalogActionData_t data = SteamInput()->GetAnalogActionData(InputHandle, AnalogActionHandle);
 	return {(ESteamControllerSourceMode)data.eMode, data.x, data.y, data.bActive};
 }
 
