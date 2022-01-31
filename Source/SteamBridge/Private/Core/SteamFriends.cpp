@@ -1,9 +1,9 @@
 // Copyright 2020-2022 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 
-#include <Engine/Texture2D.h>
-
 #include "Core/SteamFriends.h"
 #include "Steam.h"
+
+#include <Engine/Texture2D.h>
 
 USteamFriends::USteamFriends()
 {

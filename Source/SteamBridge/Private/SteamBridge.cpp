@@ -1,5 +1,9 @@
 // Copyright 2020-2022 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 
+#include "Steam.h"
+#include "SteamBridge.h"
+#include "SteamBridgeSettings.h"
+
 #include <Developer/Settings/Public/ISettingsContainer.h>
 #include <Developer/Settings/Public/ISettingsModule.h>
 #include <Developer/Settings/Public/ISettingsSection.h>
@@ -8,10 +12,6 @@
 #include <Interfaces/IPluginManager.h>
 #include <Misc/Paths.h>
 #include <Modules/ModuleManager.h>
-
-#include "SteamBridge.h"
-#include "Steam.h"
-#include "SteamBridgeSettings.h"
 
 #ifndef STEAM_SDK_INSTALLED
 #error Steam SDK not located! Expected to be found in Engine/Source/ThirdParty/Steamworks/{SteamVersion}
