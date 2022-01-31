@@ -14,7 +14,7 @@ struct STEAMBRIDGE_API FUint64
 {
 	GENERATED_BODY()
 
-	uint64 Value;
+	uint64 Value = 0;
 
 	operator uint64() { return Value; }
 	operator uint64() const { return Value; }
@@ -22,10 +22,8 @@ struct STEAMBRIDGE_API FUint64
 	bool operator==(FUint64 Other) const { return Value == Other; }
 	bool operator!=(FUint64 Other) const { return Value != Other; }
 
-	FUint64() :
-		Value(0) {}
-	FUint64(uint64 value) :
-		Value(value) {}
+	FUint64() = default;
+	FUint64(const uint64 value) : Value(value) {}
 };
 
 USTRUCT(BlueprintType)
@@ -33,7 +31,7 @@ struct STEAMBRIDGE_API FUint32
 {
 	GENERATED_BODY()
 
-	uint32 Value;
+	uint32 Value = 0;
 
 	operator uint32() { return Value; }
 	operator uint32() const { return Value; }
@@ -41,10 +39,8 @@ struct STEAMBRIDGE_API FUint32
 	bool operator==(FUint32 Other) const { return Value == Other; }
 	bool operator!=(FUint32 Other) const { return Value != Other; }
 
-	FUint32() :
-		Value(0) {}
-	FUint32(uint32 value) :
-		Value(value) {}
+	FUint32() = default;
+	FUint32(const uint32 value) : Value(value) {}
 };
 
 USTRUCT(BlueprintType)
@@ -53,7 +49,7 @@ struct STEAMBRIDGE_API FInt32
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 Value;
+	int32 Value = 0;
 
 	operator int32() { return Value; }
 	operator int32() const { return Value; }
@@ -61,10 +57,8 @@ struct STEAMBRIDGE_API FInt32
 	bool operator==(FInt32 Other) const { return Value == Other; }
 	bool operator!=(FInt32 Other) const { return Value != Other; }
 
-	FInt32() :
-		Value(0) {}
-	FInt32(int32 InValue) :
-		Value(InValue) {}
+	FInt32() = default;
+	FInt32(const int32 InValue) : Value(InValue) {}
 };
 
 USTRUCT(BlueprintType)
@@ -72,18 +66,16 @@ struct STEAMBRIDGE_API FInt16
 {
 	GENERATED_BODY()
 
-	int16 Value;
+	int16 Value = 0;
 
 	operator int16() { return Value; }
 	operator int16() const { return Value; }
 
-	bool operator==(FInt16 Other) const { return Value == Other; }
-	bool operator!=(FInt16 Other) const { return Value != Other; }
+	bool operator==(const FInt16 Other) const { return Value == Other; }
+	bool operator!=(const FInt16 Other) const { return Value != Other; }
 
-	FInt16() :
-		Value(0) {}
-	FInt16(int16 InValue) :
-		Value(InValue) {}
+	FInt16() = default;
+	FInt16(const int16 InValue) : Value(InValue) {}
 };
 
 USTRUCT(BlueprintType)
@@ -91,12 +83,10 @@ struct STEAMBRIDGE_API FHServerListRequest
 {
 	GENERATED_BODY()
 
-	void* Value;
+	void* Value = nullptr;
 
-	FHServerListRequest() :
-		Value(nullptr) {}
-	FHServerListRequest(void* InValue) :
-		Value(InValue) {}
+	FHServerListRequest() = default;
+	FHServerListRequest(void* InValue) : Value(InValue) {}
 };
 
 USTRUCT(BlueprintType, meta = (HasNativeMake = "SteamBridge.SteamBPUtils.MakeSteamID", HasNativeBreak = "SteamBridge.SteamBPUtils.BreakSteamID"))
@@ -289,21 +279,19 @@ struct STEAMBRIDGE_API FSteamInputAnalogActionData
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	ESteamControllerSourceMode Mode;
+	ESteamControllerSourceMode Mode = ESteamControllerSourceMode::None;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	float X;
+	float X = 0.0f;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	float Y;
+	float Y = 0.0f;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bActive;
+	bool bActive = false;
 
-	FSteamInputAnalogActionData() :
-		Mode(ESteamControllerSourceMode::None), X(0.0f), Y(0.0f) {}
-	FSteamInputAnalogActionData(ESteamControllerSourceMode mode, float x, float y, bool bactive) :
-		Mode(mode), X(x), Y(y), bActive(bactive) {}
+	FSteamInputAnalogActionData() = default;
+	FSteamInputAnalogActionData(const ESteamControllerSourceMode mode, const float x, const float y, const bool bactive) : Mode(mode), X(x), Y(y), bActive(bactive) {}
 
 	bool operator==(const FSteamInputAnalogActionData& Other) const { return Mode == Other.Mode && X == Other.X && Y == Other.Y && bActive == Other.bActive; }
 	bool operator!=(const FSteamInputAnalogActionData& Other) const { return !(*this == Other); }
@@ -315,14 +303,13 @@ struct STEAMBRIDGE_API FSteamInputDigitalActionData
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bState;
+	bool bState = false;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bActive;
+	bool bActive = false;
 
-	FSteamInputDigitalActionData() {}
-	FSteamInputDigitalActionData(bool bstate, bool bactive) :
-		bState(bstate), bActive(bactive) {}
+	FSteamInputDigitalActionData() = default;
+	FSteamInputDigitalActionData(bool bstate, bool bactive) : bState(bstate), bActive(bactive) {}
 
 	bool operator==(const FSteamInputDigitalActionData& Other) const { return bState == Other.bState && bActive == Other.bActive; }
 	bool operator!=(const FSteamInputDigitalActionData& Other) const { return !(*this == Other); }
@@ -334,18 +321,16 @@ struct STEAMBRIDGE_API FSteamInputMotionData
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FQuat RotQuat;
+	FQuat RotQuat = FQuat::Identity;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FVector PosAccel;
+	FVector PosAccel = FVector::ZeroVector;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FVector RotVel;
+	FVector RotVel = FVector::ZeroVector;
 
-	FSteamInputMotionData() :
-		RotQuat(FQuat::Identity), PosAccel(FVector::ZeroVector), RotVel(FVector::ZeroVector) {}
-	FSteamInputMotionData(const FQuat& quat, const FVector& pos, const FVector& rotvel) :
-		RotQuat(quat), PosAccel(pos), RotVel(rotvel) {}
+	FSteamInputMotionData() = default;
+	FSteamInputMotionData(const FQuat& quat, const FVector& pos, const FVector& rotvel) : RotQuat(quat), PosAccel(pos), RotVel(rotvel) {}
 
 	bool operator==(const FSteamInputMotionData& Other) const { return RotQuat == Other.RotQuat && PosAccel == Other.PosAccel && RotVel == Other.RotVel; }
 	bool operator!=(const FSteamInputMotionData& Other) const { return !(*this == Other); }
@@ -357,21 +342,19 @@ struct STEAMBRIDGE_API FSteamItemDetails
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FSteamItemInstanceID ItemID;
+	FSteamItemInstanceID ItemID = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FSteamItemDef Definition;
+	FSteamItemDef Definition = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 Quantity;
+	int32 Quantity = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
 	TArray<ESteamItemFlags_> Flags;
 
-	FSteamItemDetails() :
-		Quantity(0) {}
-	FSteamItemDetails(FSteamItemInstanceID instance, FSteamItemDef itemdef, int32 quantity, const TArray<ESteamItemFlags_>& flags) :
-		ItemID(instance), Definition(itemdef), Quantity(quantity), Flags(flags) {}
+	FSteamItemDetails() = default;
+	FSteamItemDetails(const FSteamItemInstanceID instance, const FSteamItemDef itemdef, const int32 quantity, const TArray<ESteamItemFlags_>& flags) : ItemID(instance), Definition(itemdef), Quantity(quantity), Flags(flags) {}
 	FSteamItemDetails(const SteamItemDetails_t& details)
 	{
 		ItemID = details.m_itemId;
@@ -401,10 +384,10 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	ESteamPartyBeaconLocation Type;
+	ESteamPartyBeaconLocation Type = ESteamPartyBeaconLocation::Invalid;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int64 LocationID;
+	int64 LocationID = 0;
 
 	operator SteamPartyBeaconLocation_t() const
 	{
@@ -414,12 +397,9 @@ struct STEAMBRIDGE_API FSteamPartyBeaconLocation
 		return beacon;
 	}
 
-	FSteamPartyBeaconLocation() :
-		Type(ESteamPartyBeaconLocation::Invalid), LocationID(0) {}
-	FSteamPartyBeaconLocation(ESteamPartyBeaconLocation type, uint64 id) :
-		Type(type), LocationID(id) {}
-	FSteamPartyBeaconLocation(const SteamPartyBeaconLocation_t& type) :
-		Type((ESteamPartyBeaconLocation)type.m_eType), LocationID(type.m_ulLocationID) {}
+	FSteamPartyBeaconLocation() = default;
+	FSteamPartyBeaconLocation(const ESteamPartyBeaconLocation type, const uint64 id) : Type(type), LocationID(id) {}
+	FSteamPartyBeaconLocation(const SteamPartyBeaconLocation_t& type) : Type((ESteamPartyBeaconLocation)type.m_eType), LocationID(type.m_ulLocationID) {}
 
 	bool operator==(const FSteamPartyBeaconLocation& Other) const { return Type == Other.Type && LocationID == Other.LocationID; }
 	bool operator!=(const FSteamPartyBeaconLocation& Other) const { return !(*this == Other); }
@@ -431,26 +411,23 @@ struct STEAMBRIDGE_API FSteamLeaderboardEntry
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FSteamID SteamIDUser;
+	FSteamID SteamIDUser = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 GlobalRank;
+	int32 GlobalRank = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 Score;
+	int32 Score = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 Details;
+	int32 Details = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FUGCHandle UGC;
+	FUGCHandle UGC = 0;
 
-	FSteamLeaderboardEntry() :
-		GlobalRank(0), Score(0), Details(0) {}
-	FSteamLeaderboardEntry(FSteamID steamid, int32 glob, int32 score, int32 details, FUGCHandle handle) :
-		SteamIDUser(steamid), GlobalRank(glob), Score(score), Details(details), UGC(handle) {}
-	FSteamLeaderboardEntry(const LeaderboardEntry_t& type) :
-		SteamIDUser(type.m_steamIDUser.ConvertToUint64()), GlobalRank(type.m_nGlobalRank), Score(type.m_nScore), Details(type.m_cDetails), UGC(type.m_hUGC) {}
+	FSteamLeaderboardEntry() = default;
+	FSteamLeaderboardEntry(FSteamID steamid, int32 glob, int32 score, int32 details, FUGCHandle handle) : SteamIDUser(steamid), GlobalRank(glob), Score(score), Details(details), UGC(handle) {}
+	FSteamLeaderboardEntry(const LeaderboardEntry_t& type) : SteamIDUser(type.m_steamIDUser.ConvertToUint64()), GlobalRank(type.m_nGlobalRank), Score(type.m_nScore), Details(type.m_cDetails), UGC(type.m_hUGC) {}
 
 	bool operator==(const FSteamLeaderboardEntry& Other) const { return SteamIDUser == Other.SteamIDUser && GlobalRank == Other.GlobalRank && Score == Other.Score && Details == Other.Details && UGC == Other.UGC; }
 	bool operator!=(const FSteamLeaderboardEntry& Other) const { return !(*this == Other); }
@@ -462,88 +439,89 @@ struct STEAMBRIDGE_API FSteamUGCDetails
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FPublishedFileId PublishedFileId;
+	FPublishedFileId PublishedFileId = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	ESteamResult Result;  // The result of the operation.
+	ESteamResult Result = ESteamResult::None;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	ESteamWorkshopFileType FileType;  // Type of the file
+	ESteamWorkshopFileType FileType = ESteamWorkshopFileType::Max;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 CreatorAppID;  // ID of the app that created this file.
+	int32 CreatorAppID = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 ConsumerAppID;  // ID of the app that will consume this file.
+	int32 ConsumerAppID = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FString Title;  // title of document
+	FString Title = "";
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FString Description;  // description of document
+	FString Description = "";
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FSteamID SteamIDOwner;  // Steam ID of the user who created this content.
+	FSteamID SteamIDOwner = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FDateTime TimeCreated;  // time when the published file was created
+	FDateTime TimeCreated = FDateTime();
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FDateTime TimeUpdated;  // time when the published file was last updated
+	FDateTime TimeUpdated = FDateTime();
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FDateTime TimeAddedToUserList;  // time when the user added the published file to their list (not always applicable)
+	FDateTime TimeAddedToUserList = FDateTime();
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	ESteamRemoteStoragePublishedFileVisibility Visibility;  // visibility
+	ESteamRemoteStoragePublishedFileVisibility Visibility = ESteamRemoteStoragePublishedFileVisibility::FriendsOnly;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bBanned;  // whether the file was banned
+	bool bBanned = false;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bAcceptedForUse;  // developer has specifically flagged this item as accepted in the Workshop
+	bool bAcceptedForUse = false;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	bool bTagsTruncated;  // whether the list of tags was too long to be returned in the provided buffer
+	bool bTagsTruncated = false;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	TArray<FString> Tags;  // comma separated list of all tags associated with this file
+	TArray<FString> Tags;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FUGCHandle File;  // The handle of the primary file
+	FUGCHandle File = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FUGCHandle PreviewFile;  // The handle of the preview file
+	FUGCHandle PreviewFile = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FString FileName;  // The cloud filename of the primary file
+	FString FileName = "";
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 FileSize;  // Size of the primary file
+	int32 FileSize = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 PreviewFileSize;  // Size of the preview file
+	int32 PreviewFileSize = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FString URL;  // URL (for a video or a website)
+	FString URL = "";
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 VotesUp;  // number of votes up
+	int32 VotesUp = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 VotesDown;  // number of votes down
+	int32 VotesDown = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	float Score;  // calculated score
+	float Score = 0.0f;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int32 NumChildren;
+	int32 NumChildren = 0;
 
-	FSteamUGCDetails() :
-		PublishedFileId(0), Result(ESteamResult::None), FileType(ESteamWorkshopFileType::Max), CreatorAppID(0), ConsumerAppID(0), Title(""), Description(""), SteamIDOwner(0), TimeCreated(FDateTime::Now()), TimeUpdated(FDateTime::Now()), TimeAddedToUserList(FDateTime::Now()), Visibility(ESteamRemoteStoragePublishedFileVisibility::Public), bBanned(false), bAcceptedForUse(false), bTagsTruncated(false), Tags({}), File(0), PreviewFile(0), FileName(""), FileSize(0), PreviewFileSize(0), URL(""), VotesUp(0), VotesDown(0), Score(0.0f), NumChildren(0) {}
-
+	FSteamUGCDetails() = default;
 	FSteamUGCDetails(const SteamUGCDetails_t& data) :
-		PublishedFileId(data.m_nPublishedFileId), Result((ESteamResult)data.m_eResult), FileType((ESteamWorkshopFileType)data.m_eFileType), CreatorAppID(data.m_nCreatorAppID), ConsumerAppID(data.m_nConsumerAppID), Title(FString(UTF8_TO_TCHAR(data.m_rgchTitle))), Description(FString(UTF8_TO_TCHAR(data.m_rgchDescription))), SteamIDOwner(data.m_ulSteamIDOwner), TimeCreated(FDateTime::FromUnixTimestamp(data.m_rtimeCreated)), TimeUpdated(FDateTime::FromUnixTimestamp(data.m_rtimeUpdated)), TimeAddedToUserList(FDateTime::FromUnixTimestamp(data.m_rtimeAddedToUserList)), Visibility((ESteamRemoteStoragePublishedFileVisibility)data.m_eVisibility), bBanned(data.m_bBanned), bAcceptedForUse(data.m_bAcceptedForUse), bTagsTruncated(data.m_bTagsTruncated), File(data.m_hFile), PreviewFile(data.m_hPreviewFile), FileName(data.m_pchFileName), FileSize(data.m_nFileSize), PreviewFileSize(data.m_nPreviewFileSize), URL(UTF8_TO_TCHAR(data.m_rgchURL)), VotesUp(data.m_unVotesUp), VotesDown(data.m_unVotesDown), Score(data.m_flScore), NumChildren(data.m_unNumChildren)
+		PublishedFileId(data.m_nPublishedFileId), Result((ESteamResult)data.m_eResult), FileType((ESteamWorkshopFileType)data.m_eFileType), CreatorAppID(data.m_nCreatorAppID), ConsumerAppID(data.m_nConsumerAppID), Title(FString(UTF8_TO_TCHAR(data.m_rgchTitle))),
+		Description(FString(UTF8_TO_TCHAR(data.m_rgchDescription))), SteamIDOwner(data.m_ulSteamIDOwner), TimeCreated(FDateTime::FromUnixTimestamp(data.m_rtimeCreated)), TimeUpdated(FDateTime::FromUnixTimestamp(data.m_rtimeUpdated)), TimeAddedToUserList(FDateTime::FromUnixTimestamp(data.m_rtimeAddedToUserList)),
+		Visibility((ESteamRemoteStoragePublishedFileVisibility)data.m_eVisibility), bBanned(data.m_bBanned), bAcceptedForUse(data.m_bAcceptedForUse), bTagsTruncated(data.m_bTagsTruncated), File(data.m_hFile), PreviewFile(data.m_hPreviewFile), FileName(data.m_pchFileName), FileSize(data.m_nFileSize),
+		PreviewFileSize(data.m_nPreviewFileSize), URL(UTF8_TO_TCHAR(data.m_rgchURL)), VotesUp(data.m_unVotesUp), VotesDown(data.m_unVotesDown), Score(data.m_flScore), NumChildren(data.m_unNumChildren)
 	{
 		FString(UTF8_TO_TCHAR(data.m_rgchTags)).ParseIntoArray(Tags, TEXT(","), true);
 	}
@@ -558,18 +536,16 @@ struct STEAMBRIDGE_API FSteamItemPriceData
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	FSteamItemDef ItemDef;
+	FSteamItemDef ItemDef = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int64 CurrentPrice;
+	int64 CurrentPrice = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SteamBridgeCore")
-	int64 BasePrice;
+	int64 BasePrice = 0;
 
-	FSteamItemPriceData() :
-		CurrentPrice(0), BasePrice(0) {}
-	FSteamItemPriceData(FSteamItemDef def, int64 currentPrice, int64 basePrice) :
-		ItemDef(def), CurrentPrice(currentPrice), BasePrice(basePrice) {}
+	FSteamItemPriceData() = default;
+	FSteamItemPriceData(const FSteamItemDef def, const int64 currentPrice, const int64 basePrice) : ItemDef(def), CurrentPrice(currentPrice), BasePrice(basePrice) {}
 
 	bool operator==(const FSteamItemPriceData& Other) const { return ItemDef == Other.ItemDef && CurrentPrice == Other.CurrentPrice && BasePrice == Other.BasePrice; }
 	bool operator!=(const FSteamItemPriceData& Other) const { return !(*this == Other); }

@@ -1,7 +1,8 @@
 // Copyright 2020-2022 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 
-#include "Steam.h"
 #include "SteamBridge.h"
+
+#include "Steam.h"
 #include "SteamBridgeSettings.h"
 
 #include <Developer/Settings/Public/ISettingsContainer.h>
