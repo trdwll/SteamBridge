@@ -40,7 +40,7 @@ bool USteamParties::GetAvailableBeaconLocations(TArray<FSteamPartyBeaconLocation
 	return bResult;
 }
 
-FSteamAPICall USteamParties::CreateBeacon(int32 OpenSlots, FSteamPartyBeaconLocation& BeaconLocation, const FString& ConnectString, const FString& Metadata) const
+FSteamAPICall USteamParties::CreateBeacon(const int32 OpenSlots, FSteamPartyBeaconLocation& BeaconLocation, const FString& ConnectString, const FString& Metadata) const
 {
 	SteamPartyBeaconLocation_t TmpLocation;
 	FSteamAPICall result = SteamParties()->CreateBeacon(OpenSlots, &TmpLocation, TCHAR_TO_UTF8(*ConnectString), TCHAR_TO_UTF8(*Metadata));
@@ -48,7 +48,7 @@ FSteamAPICall USteamParties::CreateBeacon(int32 OpenSlots, FSteamPartyBeaconLoca
 	return result;
 }
 
-bool USteamParties::GetBeaconDetails(FPartyBeaconID BeaconID, FSteamID& SteamIDBeaconOwner, FSteamPartyBeaconLocation& BeaconLocation, FString& Metadata) const
+bool USteamParties::GetBeaconDetails(const FPartyBeaconID BeaconID, FSteamID& SteamIDBeaconOwner, FSteamPartyBeaconLocation& BeaconLocation, FString& Metadata) const
 {
 	TArray<char> TmpMeta;
 	TmpMeta.Reserve(SteamDefs::Buffer8192);
@@ -61,7 +61,7 @@ bool USteamParties::GetBeaconDetails(FPartyBeaconID BeaconID, FSteamID& SteamIDB
 	return bResult;
 }
 
-bool USteamParties::GetBeaconLocationData(FSteamPartyBeaconLocation BeaconLocation, ESteamPartyBeaconLocationData_ LocationData, FString& DataString) const
+bool USteamParties::GetBeaconLocationData(const FSteamPartyBeaconLocation BeaconLocation, const ESteamPartyBeaconLocationData_ LocationData, FString& DataString) const
 {
 	TArray<char> TmpData;
 	TmpData.Reserve(SteamDefs::Buffer8192);

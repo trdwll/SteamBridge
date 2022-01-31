@@ -20,7 +20,7 @@ USteamVideo::~USteamVideo()
 	OnGetVideoURLResultCallback.Unregister();
 }
 
-bool USteamVideo::GetOPFStringForApp(int32 VideoAppID, FString& OPFString) const
+bool USteamVideo::GetOPFStringForApp(const int32 VideoAppID, FString& OPFString) const
 {
 	int32 TmpSize = 0;
 	if (SteamVideo()->GetOPFStringForApp(VideoAppID, nullptr, &TmpSize))

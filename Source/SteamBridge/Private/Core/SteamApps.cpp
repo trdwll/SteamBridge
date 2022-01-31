@@ -17,7 +17,7 @@ USteamApps::~USteamApps()
 	OnNewUrlLaunchParametersCallback.Unregister();
 }
 
-bool USteamApps::BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, FString& Name)
+bool USteamApps::BGetDLCDataByIndex(const int32 DLC, int32& AppID, bool& bAvailable, FString& Name)
 {
 	if (DLC > GetDLCCount())
 	{
@@ -31,7 +31,7 @@ bool USteamApps::BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, F
 	return bResult;
 }
 
-int32 USteamApps::GetAppInstallDir(int32 AppID, FString& Folder)
+int32 USteamApps::GetAppInstallDir(const int32 AppID, FString& Folder)
 {
 	TArray<char> TempPath;
 	TempPath.SetNum(SteamDefs::Buffer8192);

@@ -43,7 +43,7 @@ public:
 	 * @return FHTTPCookieContainerHandle - Returns a new cookie container handle to be used with future calls to SteamHTTP functions.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	FHTTPCookieContainerHandle CreateCookieContainer(bool bAllowResponsesToModify) const { return SteamHTTP()->CreateCookieContainer(bAllowResponsesToModify); }
+	FHTTPCookieContainerHandle CreateCookieContainer(const bool bAllowResponsesToModify) const { return SteamHTTP()->CreateCookieContainer(bAllowResponsesToModify); }
 
 	/**
 	 * Initializes a new HTTP request.
@@ -56,7 +56,7 @@ public:
 	 * @return FHTTPRequestHandle - Returns a new request handle to be used with future calls to SteamHTTP functions. Returns INVALID_HTTPREQUEST_HANDLE if pchAbsoluteURL is NULL or empty ("").
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	FHTTPRequestHandle CreateHTTPRequest(ESteamHTTPMethod HTTPRequestMethod, const FString& AbsoluteURL) const { return SteamHTTP()->CreateHTTPRequest((EHTTPMethod)HTTPRequestMethod, TCHAR_TO_UTF8(*AbsoluteURL)); }
+	FHTTPRequestHandle CreateHTTPRequest(const ESteamHTTPMethod HTTPRequestMethod, const FString& AbsoluteURL) const { return SteamHTTP()->CreateHTTPRequest((EHTTPMethod)HTTPRequestMethod, TCHAR_TO_UTF8(*AbsoluteURL)); }
 
 	/**
 	 * Defers a request which has already been sent by moving it at the back of the queue.
@@ -65,7 +65,7 @@ public:
 	 * @return bool - Returns true if the request has been successfully defered. Otherwise false if hRequest is an invalid handle, or if the request has not been sent yet.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool DeferHTTPRequest(FHTTPRequestHandle RequestHandle) const { return SteamHTTP()->DeferHTTPRequest(RequestHandle); }
+	bool DeferHTTPRequest(const FHTTPRequestHandle RequestHandle) const { return SteamHTTP()->DeferHTTPRequest(RequestHandle); }
 
 	/**
 	 * Gets progress on downloading the body for the request.
@@ -77,7 +77,7 @@ public:
 	 * @return bool - Returns true upon success if the download percentage was successfully returned. Otherwise, false if the handle is invalid or pflPercentOut is NULL.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool GetHTTPDownloadProgressPct(FHTTPRequestHandle RequestHandle, float& Percent) const { return SteamHTTP()->GetHTTPDownloadProgressPct(RequestHandle, &Percent); }
+	bool GetHTTPDownloadProgressPct(const FHTTPRequestHandle RequestHandle, float& Percent) const { return SteamHTTP()->GetHTTPDownloadProgressPct(RequestHandle, &Percent); }
 
 	/**
 	 * Check if the reason the request failed was because we timed it out (rather than some harder failure).
@@ -91,7 +91,7 @@ public:
 	 * The request has not been sent or has not completed.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool GetHTTPRequestWasTimedOut(FHTTPRequestHandle RequestHandle, bool& bWasTimedOut) const { return SteamHTTP()->GetHTTPRequestWasTimedOut(RequestHandle, &bWasTimedOut); }
+	bool GetHTTPRequestWasTimedOut(const FHTTPRequestHandle RequestHandle, bool& bWasTimedOut) const { return SteamHTTP()->GetHTTPRequestWasTimedOut(RequestHandle, &bWasTimedOut); }
 
 	/**
 	 * Gets the body data from an HTTP response.
@@ -110,7 +110,7 @@ public:
 	 * unBufferSize is not the same size that was provided by GetHTTPResponseBodySize.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool GetHTTPResponseBodyData(FHTTPRequestHandle RequestHandle, uint8& BodyDataBuffer) const { return SteamHTTP()->GetHTTPResponseBodyData(RequestHandle, &BodyDataBuffer, MAX_uint32); }
+	bool GetHTTPResponseBodyData(const FHTTPRequestHandle RequestHandle, uint8& BodyDataBuffer) const { return SteamHTTP()->GetHTTPResponseBodyData(RequestHandle, &BodyDataBuffer, MAX_uint32); }
 
 	/**
 	 * Gets the size of the body data from an HTTP response.
@@ -126,7 +126,7 @@ public:
 	 * unBodySize is NULL.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool GetHTTPResponseBodySize(FHTTPRequestHandle RequestHandle, int32& BodySize) const { return SteamHTTP()->GetHTTPResponseBodySize(RequestHandle, (uint32*)&BodySize); }
+	bool GetHTTPResponseBodySize(const FHTTPRequestHandle RequestHandle, int32& BodySize) const { return SteamHTTP()->GetHTTPResponseBodySize(RequestHandle, (uint32*)&BodySize); }
 
 	/**
 	 * Checks if a header is present in an HTTP response and returns its size.
@@ -145,7 +145,7 @@ public:
 	 * The header name is not present in the response.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool GetHTTPResponseHeaderSize(FHTTPRequestHandle RequestHandle, const FString& HeaderName, int32& ResponseHeaderSize) const { return SteamHTTP()->GetHTTPResponseHeaderSize(RequestHandle, TCHAR_TO_UTF8(*HeaderName), (uint32*)&ResponseHeaderSize); }
+	bool GetHTTPResponseHeaderSize(const FHTTPRequestHandle RequestHandle, const FString& HeaderName, int32& ResponseHeaderSize) const { return SteamHTTP()->GetHTTPResponseHeaderSize(RequestHandle, TCHAR_TO_UTF8(*HeaderName), (uint32*)&ResponseHeaderSize); }
 
 	/**
 	 * Gets a header value from an HTTP response.
@@ -165,7 +165,7 @@ public:
 	 * unBufferSize is not large enough to hold the value.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool GetHTTPResponseHeaderValue(FHTTPRequestHandle RequestHandle, const FString& HeaderName, uint8& HeaderValueBuffer) const { return SteamHTTP()->GetHTTPResponseHeaderValue(RequestHandle, TCHAR_TO_UTF8(*HeaderName), &HeaderValueBuffer, MAX_uint32); }
+	bool GetHTTPResponseHeaderValue(const FHTTPRequestHandle RequestHandle, const FString& HeaderName, uint8& HeaderValueBuffer) const { return SteamHTTP()->GetHTTPResponseHeaderValue(RequestHandle, TCHAR_TO_UTF8(*HeaderName), &HeaderValueBuffer, MAX_uint32); }
 
 	/**
 	 * Gets the body data from a streaming HTTP response.
@@ -185,7 +185,7 @@ public:
 	 * unBufferSize is not the same size that was provided by HTTPRequestDataReceived_t.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool GetHTTPStreamingResponseBodyData(FHTTPRequestHandle RequestHandle, int32 Offset, uint8& BodyDataBuffer) const { return SteamHTTP()->GetHTTPStreamingResponseBodyData(RequestHandle, Offset, &BodyDataBuffer, MAX_uint32); }
+	bool GetHTTPStreamingResponseBodyData(const FHTTPRequestHandle RequestHandle, const int32 Offset, uint8& BodyDataBuffer) const { return SteamHTTP()->GetHTTPStreamingResponseBodyData(RequestHandle, Offset, &BodyDataBuffer, MAX_uint32); }
 
 	/**
 	 * Prioritizes a request which has already been sent by moving it at the front of the queue.
@@ -194,7 +194,7 @@ public:
 	 * @return bool - Returns true if the request has been successfully prioritized. Otherwise false if hRequest is an invalid handle, or if the request has not been sent yet.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool PrioritizeHTTPRequest(FHTTPRequestHandle RequestHandle) const { return SteamHTTP()->PrioritizeHTTPRequest(RequestHandle); }
+	bool PrioritizeHTTPRequest(const FHTTPRequestHandle RequestHandle) const { return SteamHTTP()->PrioritizeHTTPRequest(RequestHandle); }
 
 	/**
 	 * Releases a cookie container, freeing the memory allocated within Steam.
@@ -204,7 +204,7 @@ public:
 	 * @return bool - Returns true if the handle has been freed; otherwise, false if the handle was invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool ReleaseCookieContainer(FHTTPCookieContainerHandle CookieContainerHandle) const { return SteamHTTP()->ReleaseCookieContainer(CookieContainerHandle); }
+	bool ReleaseCookieContainer(const FHTTPCookieContainerHandle CookieContainerHandle) const { return SteamHTTP()->ReleaseCookieContainer(CookieContainerHandle); }
 
 	/**
 	 * Releases an HTTP request handle, freeing the memory allocated within Steam.
@@ -214,7 +214,7 @@ public:
 	 * @return bool - Returns true if the the handle was released successfully, false only if the handle is invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool ReleaseHTTPRequest(FHTTPRequestHandle RequestHandle) const { return SteamHTTP()->ReleaseHTTPRequest(RequestHandle); }
+	bool ReleaseHTTPRequest(const FHTTPRequestHandle RequestHandle) const { return SteamHTTP()->ReleaseHTTPRequest(RequestHandle); }
 
 	/**
 	 * Sends an HTTP request.
@@ -232,7 +232,7 @@ public:
 	 * pCallHandle is NULL.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SendHTTPRequest(FHTTPRequestHandle RequestHandle, FSteamAPICall& CallHandle) const { return SteamHTTP()->SendHTTPRequest(RequestHandle, (SteamAPICall_t*)&CallHandle); }
+	bool SendHTTPRequest(const FHTTPRequestHandle RequestHandle, FSteamAPICall& CallHandle) const { return SteamHTTP()->SendHTTPRequest(RequestHandle, (SteamAPICall_t*)&CallHandle); }
 
 	/**
 	 * Sends an HTTP request and streams the response back in chunks.
@@ -254,7 +254,7 @@ public:
 	 * pCallHandle is NULL.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SendHTTPRequestAndStreamResponse(FHTTPRequestHandle RequestHandle, FSteamAPICall& CallHandle) const { return SteamHTTP()->SendHTTPRequestAndStreamResponse(RequestHandle, (SteamAPICall_t*)&CallHandle); }
+	bool SendHTTPRequestAndStreamResponse(const FHTTPRequestHandle RequestHandle, FSteamAPICall& CallHandle) const { return SteamHTTP()->SendHTTPRequestAndStreamResponse(RequestHandle, (SteamAPICall_t*)&CallHandle); }
 
 	/**
 	 * Adds a cookie to the specified cookie container that will be used with future requests.
@@ -266,7 +266,7 @@ public:
 	 * @return bool - Returns true if the cookie was set successfully. Otherwise, false if the request handle was invalid or if there was a security issue parsing the cookie.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetCookie(FHTTPCookieContainerHandle CookieContainerHandle, const FString& Host, const FString& Url, const FString& Cookie) const { return SteamHTTP()->SetCookie(CookieContainerHandle, TCHAR_TO_UTF8(*Host), TCHAR_TO_UTF8(*Url), TCHAR_TO_UTF8(*Cookie)); }
+	bool SetCookie(const FHTTPCookieContainerHandle CookieContainerHandle, const FString& Host, const FString& Url, const FString& Cookie) const { return SteamHTTP()->SetCookie(CookieContainerHandle, TCHAR_TO_UTF8(*Host), TCHAR_TO_UTF8(*Url), TCHAR_TO_UTF8(*Cookie)); }
 
 	/**
 	 * Set an absolute timeout in milliseconds for the HTTP request.
@@ -280,7 +280,7 @@ public:
 	 * The request has already been sent.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestAbsoluteTimeoutMS(FHTTPRequestHandle RequestHandle, int32 Milliseconds) const { return SteamHTTP()->SetHTTPRequestAbsoluteTimeoutMS(RequestHandle, Milliseconds); }
+	bool SetHTTPRequestAbsoluteTimeoutMS(const FHTTPRequestHandle RequestHandle, const int32 Milliseconds) const { return SteamHTTP()->SetHTTPRequestAbsoluteTimeoutMS(RequestHandle, Milliseconds); }
 
 	/**
 	 * Set a context value for the request, which will be returned in the HTTPRequestCompleted_t callback after sending the request.
@@ -295,7 +295,7 @@ public:
 	 * The request has already been sent.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestContextValue(FHTTPRequestHandle RequestHandle, int64 ContextValue) const { return SteamHTTP()->SetHTTPRequestContextValue(RequestHandle, ContextValue); }
+	bool SetHTTPRequestContextValue(const FHTTPRequestHandle RequestHandle, const int64 ContextValue) const { return SteamHTTP()->SetHTTPRequestContextValue(RequestHandle, ContextValue); }
 
 	/**
 	 * Associates a cookie container to use for an HTTP request.
@@ -308,7 +308,7 @@ public:
 	 * hCookieContainer was invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestCookieContainer(FHTTPRequestHandle RequestHandle, FHTTPCookieContainerHandle CookieContainerHandle) const { return SteamHTTP()->SetHTTPRequestCookieContainer(RequestHandle, CookieContainerHandle); }
+	bool SetHTTPRequestCookieContainer(const FHTTPRequestHandle RequestHandle, const FHTTPCookieContainerHandle CookieContainerHandle) const { return SteamHTTP()->SetHTTPRequestCookieContainer(RequestHandle, CookieContainerHandle); }
 
 	/**
 	 * Set a GET or POST parameter value on the HTTP request.
@@ -326,7 +326,7 @@ public:
 	 * If the request method is k_EHTTPMethodPOST and a POST body has already been set with SetHTTPRequestRawPostBody.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestGetOrPostParameter(FHTTPRequestHandle RequestHandle, const FString& Name, const FString& Value) const { return SteamHTTP()->SetHTTPRequestGetOrPostParameter(RequestHandle, TCHAR_TO_UTF8(*Name), TCHAR_TO_UTF8(*Value)); }
+	bool SetHTTPRequestGetOrPostParameter(const FHTTPRequestHandle RequestHandle, const FString& Name, const FString& Value) const { return SteamHTTP()->SetHTTPRequestGetOrPostParameter(RequestHandle, TCHAR_TO_UTF8(*Name), TCHAR_TO_UTF8(*Value)); }
 
 	/**
 	 * Set a request header value for the HTTP request.
@@ -344,7 +344,7 @@ public:
 	 * pchHeaderName or pchHeaderValue are NULL.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestHeaderValue(FHTTPRequestHandle RequestHandle, const FString& Name, const FString& Value) const { return SteamHTTP()->SetHTTPRequestHeaderValue(RequestHandle, TCHAR_TO_UTF8(*Name), TCHAR_TO_UTF8(*Value)); }
+	bool SetHTTPRequestHeaderValue(const FHTTPRequestHandle RequestHandle, const FString& Name, const FString& Value) const { return SteamHTTP()->SetHTTPRequestHeaderValue(RequestHandle, TCHAR_TO_UTF8(*Name), TCHAR_TO_UTF8(*Value)); }
 
 	/**
 	 * Set the timeout in seconds for the HTTP request.
@@ -358,7 +358,7 @@ public:
 	 * The request has already been sent.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestNetworkActivityTimeout(FHTTPRequestHandle RequestHandle, int32 TimeoutSeconds) const { return SteamHTTP()->SetHTTPRequestNetworkActivityTimeout(RequestHandle, TimeoutSeconds); }
+	bool SetHTTPRequestNetworkActivityTimeout(const FHTTPRequestHandle RequestHandle, const int32 TimeoutSeconds) const { return SteamHTTP()->SetHTTPRequestNetworkActivityTimeout(RequestHandle, TimeoutSeconds); }
 
 	/**
 	 * Sets the body for an HTTP Post request.
@@ -375,7 +375,7 @@ public:
 	 * A POST body has already been set for this request either via this function or with SetHTTPRequestGetOrPostParameter.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestRawPostBody(FHTTPRequestHandle RequestHandle, const FString& ContentType, uint8& Body) const { return SteamHTTP()->SetHTTPRequestRawPostBody(RequestHandle, TCHAR_TO_UTF8(*ContentType), &Body, MAX_uint8); }
+	bool SetHTTPRequestRawPostBody(const FHTTPRequestHandle RequestHandle, const FString& ContentType, uint8& Body) const { return SteamHTTP()->SetHTTPRequestRawPostBody(RequestHandle, TCHAR_TO_UTF8(*ContentType), &Body, MAX_uint8); }
 
 	/**
 	 * Sets that the HTTPS request should require verified SSL certificate via machines certificate trust store.
@@ -386,7 +386,7 @@ public:
 	 * @return bool - Returns true upon success. Otherwise, false if the request handle is invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestRequiresVerifiedCertificate(FHTTPRequestHandle RequestHandle, bool bRequireVerifiedCertificate) const { return SteamHTTP()->SetHTTPRequestRequiresVerifiedCertificate(RequestHandle, bRequireVerifiedCertificate); }
+	bool SetHTTPRequestRequiresVerifiedCertificate(const FHTTPRequestHandle RequestHandle, const bool bRequireVerifiedCertificate) const { return SteamHTTP()->SetHTTPRequestRequiresVerifiedCertificate(RequestHandle, bRequireVerifiedCertificate); }
 
 	/**
 	 * Set additional user agent info for a request.
@@ -397,7 +397,7 @@ public:
 	 * @return bool - Returns true upon success indicating that the user agent has been updated. Otherwise, false if the request handle is invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|HTTP")
-	bool SetHTTPRequestUserAgentInfo(FHTTPRequestHandle RequestHandle, const FString& UserAgentInfo) const { return SteamHTTP()->SetHTTPRequestUserAgentInfo(RequestHandle, TCHAR_TO_UTF8(*UserAgentInfo)); }
+	bool SetHTTPRequestUserAgentInfo(const FHTTPRequestHandle RequestHandle, const FString& UserAgentInfo) const { return SteamHTTP()->SetHTTPRequestUserAgentInfo(RequestHandle, TCHAR_TO_UTF8(*UserAgentInfo)); }
 
 	/** Delegates */
 

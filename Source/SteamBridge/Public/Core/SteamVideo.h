@@ -42,7 +42,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Video")
-	void GetOPFSettings(int32 VideoAppID) { SteamVideo()->GetOPFSettings(VideoAppID); }
+	void GetOPFSettings(const int32 VideoAppID) { SteamVideo()->GetOPFSettings(VideoAppID); }
 
 	/**
 	 * Gets the OPF string for the specified video App ID.
@@ -55,7 +55,7 @@ public:
 	 * @return bool - true if we have the OPF details from a previous call to GetOPFSettings, otherwise false.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Video")
-	bool GetOPFStringForApp(int32 VideoAppID, FString& OPFString) const;
+	bool GetOPFStringForApp(const int32 VideoAppID, FString& OPFString) const;
 
 	/**
 	 * Asynchronously gets the URL suitable for streaming the video associated with the specified video app ID.
@@ -65,7 +65,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Video")
-	void GetVideoURL(int32 VideoAppID) { SteamVideo()->GetVideoURL(VideoAppID); }
+	void GetVideoURL(const int32 VideoAppID) { SteamVideo()->GetVideoURL(VideoAppID); }
 
 	/**
 	 * Checks if the user is currently live broadcasting and gets the number of users.

@@ -36,12 +36,12 @@ USteamUserStats::~USteamUserStats()
 	OnUserStatsUnloadedCallback.Unregister();
 }
 
-FSteamAPICall USteamUserStats::DownloadLeaderboardEntries(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardDataRequest LeaderboardDataRequest, int32 RangeStart, int32 RangeEnd) const
+FSteamAPICall USteamUserStats::DownloadLeaderboardEntries(const FSteamLeaderboard SteamLeaderboard, const ESteamLeaderboardDataRequest LeaderboardDataRequest, const int32 RangeStart, const int32 RangeEnd) const
 {
 	return SteamUserStats()->DownloadLeaderboardEntries(SteamLeaderboard, (ELeaderboardDataRequest)LeaderboardDataRequest, RangeStart, RangeEnd);
 }
 
-FSteamAPICall USteamUserStats::FindOrCreateLeaderboard(const FString& LeaderboardName, ESteamLeaderboardSortMethod LeaderboardSortMethod, ESteamLeaderboardDisplayType LeaderboardDisplayType) const
+FSteamAPICall USteamUserStats::FindOrCreateLeaderboard(const FString& LeaderboardName, const ESteamLeaderboardSortMethod LeaderboardSortMethod, const ESteamLeaderboardDisplayType LeaderboardDisplayType) const
 {
 	return SteamUserStats()->FindOrCreateLeaderboard(TCHAR_TO_UTF8(*LeaderboardName), (ELeaderboardSortMethod)LeaderboardSortMethod, (ELeaderboardDisplayType)LeaderboardDisplayType);
 }
@@ -54,7 +54,7 @@ bool USteamUserStats::GetAchievementAndUnlockTime(const FString& Name, bool& bAc
 	return bResult;
 }
 
-bool USteamUserStats::GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries SteamLeaderboardEntries, int32 index, FSteamLeaderboardEntry& LeaderboardEntry, TArray<int32>& Details, int32 DetailsMax) const
+bool USteamUserStats::GetDownloadedLeaderboardEntry(const FSteamLeaderboardEntries SteamLeaderboardEntries, const int32 index, FSteamLeaderboardEntry& LeaderboardEntry, TArray<int32>& Details, const int32 DetailsMax) const
 {
 	Details.SetNum(DetailsMax);
 	LeaderboardEntry_t TmpEntry;
@@ -63,7 +63,7 @@ bool USteamUserStats::GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries Ste
 	return bResult;
 }
 
-int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray<float>& Data, int32 Size) const
+int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray<float>& Data, const int32 Size /*= 10*/) const
 {
 	TArray<double> TmpData;
 	TmpData.Reserve(Size);
@@ -84,7 +84,7 @@ int32 USteamUserStats::GetMostAchievedAchievementInfo(FString& Name, float& Perc
 	return  result;
 }
 
-int32 USteamUserStats::GetNextMostAchievedAchievementInfo(int32 IteratorPrevious, FString& Name, float& Percent, bool& bAchieved) const
+int32 USteamUserStats::GetNextMostAchievedAchievementInfo(const int32 IteratorPrevious, FString& Name, float& Percent, bool& bAchieved) const
 {
 	TArray<char> TmpName;
 	TmpName.Reserve(SteamDefs::Buffer1024);
@@ -101,7 +101,7 @@ bool USteamUserStats::GetUserAchievementAndUnlockTime(FSteamID SteamIDUser, cons
 	return bResult;
 }
 
-FSteamAPICall USteamUserStats::UploadLeaderboardScore(FSteamLeaderboard SteamLeaderboard, ESteamLeaderboardUploadScoreMethod LeaderboardUploadScoreMethod, int32 Score, const TArray<int32>& ScoreDetails) const
+FSteamAPICall USteamUserStats::UploadLeaderboardScore(const FSteamLeaderboard SteamLeaderboard, const ESteamLeaderboardUploadScoreMethod LeaderboardUploadScoreMethod, const int32 Score, const TArray<int32>& ScoreDetails) const
 {
 	return SteamUserStats()->UploadLeaderboardScore(SteamLeaderboard, (ELeaderboardUploadScoreMethod)LeaderboardUploadScoreMethod, Score, ScoreDetails.GetData(), ScoreDetails.Num());
 }

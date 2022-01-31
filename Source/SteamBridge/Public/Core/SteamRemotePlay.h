@@ -45,7 +45,7 @@ public:
 	 * @return int32 - The session ID of the session at the specified index, or 0 if the index is less than 0 or greater than or equal to GetSessionCount()
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemotePlay")
-	int32 GetSessionID(int32 SessionIndex) const { return SteamRemotePlay()->GetSessionID(SessionIndex); }
+	int32 GetSessionID(const int32 SessionIndex) const { return SteamRemotePlay()->GetSessionID(SessionIndex); }
 
 	/**
 	 * Get the SteamID of the connected user
@@ -54,7 +54,7 @@ public:
 	 * @return FSteamID - The Steam ID of the user associated with the Remote Play session. This would normally be the logged in user, or a friend in the case of Remote Play Together.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemotePlay")
-	FSteamID GetSessionSteamID(int32 SessionID) const { return SteamRemotePlay()->GetSessionSteamID(SessionID).ConvertToUint64(); }
+	FSteamID GetSessionSteamID(const int32 SessionID) const { return SteamRemotePlay()->GetSessionSteamID(SessionID).ConvertToUint64(); }
 
 	/**
 	 * Get the name of the session client device
@@ -63,7 +63,7 @@ public:
 	 * @return FString - The name of the device associated with the Remote Play session, or NULL if the session ID is not valid.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemotePlay")
-	FString GetSessionClientName(int32 SessionID) const { return UTF8_TO_TCHAR(SteamRemotePlay()->GetSessionClientName(SessionID)); }
+	FString GetSessionClientName(const int32 SessionID) const { return UTF8_TO_TCHAR(SteamRemotePlay()->GetSessionClientName(SessionID)); }
 
 	/**
 	 * Get the form factor of the session client device
@@ -72,7 +72,7 @@ public:
 	 * @return ESteamDeviceFormFactor_ - The form factor of the device associated with the Remote Play session, or k_ESteamDeviceFormFactorUnknown if the session ID is not valid.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemotePlay")
-	ESteamDeviceFormFactor_ GetSessionClientFormFactor(int32 SessionID) const { return (ESteamDeviceFormFactor_)SteamRemotePlay()->GetSessionClientFormFactor(SessionID); }
+	ESteamDeviceFormFactor_ GetSessionClientFormFactor(const int32 SessionID) const { return (ESteamDeviceFormFactor_)SteamRemotePlay()->GetSessionClientFormFactor(SessionID); }
 
 	/**
 	 * Get the resolution, in pixels, of the session client device. This is set to 0x0 if the resolution is not available.
@@ -82,7 +82,7 @@ public:
 	 * @return bool - true if the session ID is valid; otherwise, false.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|RemotePlay")
-	bool BGetSessionClientResolution(int32 SessionID, FIntPoint& Resolution) const;
+	bool BGetSessionClientResolution(const int32 SessionID, FIntPoint& Resolution) const;
 
 	/**
 	 * Invite a friend to join the game using Remote Play Together
@@ -91,7 +91,7 @@ public:
 	 * @return bool - true if the invite was successfully sent; otherwise, false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemotePlay")
-	bool BSendRemotePlayTogetherInvite(FSteamID SteamIDFriend) const { return SteamRemotePlay()->BSendRemotePlayTogetherInvite(SteamIDFriend); }
+	bool BSendRemotePlayTogetherInvite(const FSteamID SteamIDFriend) const { return SteamRemotePlay()->BSendRemotePlayTogetherInvite(SteamIDFriend); }
 
 	/** Delegates */
 

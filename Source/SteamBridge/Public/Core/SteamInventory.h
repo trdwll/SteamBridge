@@ -50,7 +50,7 @@ public:
 	 * Returns a new result handle via pResultHandle.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool AddPromoItem(FSteamInventoryResult& ResultHandle, FSteamItemDef ItemDef) const { return SteamInventory()->AddPromoItem(&ResultHandle.Value, ItemDef.Value); }
+	bool AddPromoItem(FSteamInventoryResult& ResultHandle, const FSteamItemDef ItemDef) const { return SteamInventory()->AddPromoItem(&ResultHandle.Value, ItemDef.Value); }
 
 	/**
 	 * Grant a specific one-time promotional items to the current user.
@@ -79,7 +79,7 @@ public:
 	 * @return bool - true if the result belongs to the target steam ID; otherwise, false.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool CheckResultSteamID(FSteamInventoryResult ResultHandle, FSteamID SteamIDExpected) const { return SteamInventory()->CheckResultSteamID(ResultHandle, SteamIDExpected); }
+	bool CheckResultSteamID(const FSteamInventoryResult ResultHandle, const FSteamID SteamIDExpected) const { return SteamInventory()->CheckResultSteamID(ResultHandle, SteamIDExpected); }
 
 	/**
 	 * Consumes items from a user's inventory. If the quantity of the given item goes to zero, it is permanently removed.
@@ -93,7 +93,7 @@ public:
 	 * @return bool - This function always returns true when called by a regular user, and always returns false when called from SteamGameServer. Returns a new result handle via pResultHandle.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool ConsumeItem(FSteamInventoryResult& ResultHandle, FSteamItemInstanceID ItemID, int32 Quantity) const { return SteamInventory()->ConsumeItem(&ResultHandle.Value, ItemID, Quantity); }
+	bool ConsumeItem(FSteamInventoryResult& ResultHandle, const FSteamItemInstanceID ItemID, const int32 Quantity) const { return SteamInventory()->ConsumeItem(&ResultHandle.Value, ItemID, Quantity); }
 
 	/**
 	 * Deserializes a result set and verifies the signature bytes.
@@ -119,7 +119,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Inventory")
-	void DestroyResult(FSteamInventoryResult ResultHandle) { SteamInventory()->DestroyResult(ResultHandle); }
+	void DestroyResult(const FSteamInventoryResult ResultHandle) { SteamInventory()->DestroyResult(ResultHandle); }
 
 	/**
 	 * Grant one item in exchange for a set of other items.
@@ -179,7 +179,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool GetEligiblePromoItemDefinitionIDs(FSteamID SteamID, TArray<FSteamItemDef>& Items) const;
+	bool GetEligiblePromoItemDefinitionIDs(const FSteamID SteamID, TArray<FSteamItemDef>& Items) const;
 
 	/**
 	 * Returns the set of all item definition IDs which are defined in the App Admin panel of the Steamworks website.
@@ -207,7 +207,7 @@ public:
 	 * set to NULL and punValueBufferSizeOut set to zero to get the size required for the buffer for the subsequent call.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool GetItemDefinitionProperty(FSteamItemDef Definition, const FString& PropertyName, FString& Value) const;
+	bool GetItemDefinitionProperty(const FSteamItemDef Definition, const FString& PropertyName, FString& Value) const;
 
 	/**
 	 * Gets the state of a subset of the current user's inventory.
@@ -233,7 +233,7 @@ public:
 	 * false if the parameters are invalid or if there is no price for the given item definition id.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
-	bool GetItemPrice(FSteamItemDef ItemDef, int64& CurrentPrice, int64& BasePrice) const { return SteamInventory()->GetItemPrice(ItemDef, (uint64*)&CurrentPrice, (uint64*)&BasePrice); }
+	bool GetItemPrice(const FSteamItemDef ItemDef, int64& CurrentPrice, int64& BasePrice) const { return SteamInventory()->GetItemPrice(ItemDef, (uint64*)&CurrentPrice, (uint64*)&BasePrice); }
 
 	/**
 	 * After a successful call to RequestPrices, you can call this method to get all the pricing for applicable item definitions. Use the result of GetNumItemsWithPrices as the the size of the arrays that you pass in.
@@ -264,7 +264,7 @@ public:
 	 * @return bool - This returns true upon success; otherwise, false indicating that the inventory result handle was invalid or the provided index does not contain an item.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
-	bool GetResultItemProperty(FSteamInventoryResult ResultHandle, int32 ItemIndex, const FString& PropertyName, FString& Value) const;
+	bool GetResultItemProperty(const FSteamInventoryResult ResultHandle, const int32 ItemIndex, const FString& PropertyName, FString& Value) const;
 
 	/**
 	 * Get the items associated with an inventory result handle.
@@ -279,7 +279,7 @@ public:
 	 * If the call is successful then punItemDefIDsArraySize will contain the number of item definitions available.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool GetResultItems(FSteamInventoryResult ResultHandle, TArray<FSteamItemDetails>& ItemsArray) const;
+	bool GetResultItems(const FSteamInventoryResult ResultHandle, TArray<FSteamItemDetails>& ItemsArray) const;
 
 	/**
 	 * Find out the status of an asynchronous inventory result handle.
@@ -297,7 +297,7 @@ public:
 	 *  k_EResultFail - ERROR: Generic error.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
-	ESteamResult GetResultStatus(FSteamInventoryResult ResultHandle) const { return (ESteamResult)SteamInventory()->GetResultStatus(ResultHandle); }
+	ESteamResult GetResultStatus(const FSteamInventoryResult ResultHandle) const { return (ESteamResult)SteamInventory()->GetResultStatus(ResultHandle); }
 
 	/**
 	 * Gets the server time at which the result was generated.
@@ -307,7 +307,7 @@ public:
 	 * You can compare this value against ISteamUtils::GetServerRealTime to determine the age of the result.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Inventory")
-	FDateTime GetResultTimestamp(FSteamInventoryResult ResultHandle) const { return FDateTime::FromUnixTimestamp(SteamInventory()->GetResultTimestamp(ResultHandle)); }
+	FDateTime GetResultTimestamp(const FSteamInventoryResult ResultHandle) const { return FDateTime::FromUnixTimestamp(SteamInventory()->GetResultTimestamp(ResultHandle)); }
 
 	/**
 	 * Grant all potential one-time promotional items to the current user.
@@ -367,7 +367,7 @@ public:
 	 * The value passed into punOutBufferSize was smaller then expected and pOutBuffer was not NULL.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool SerializeResult(FSteamInventoryResult ResultHandle, TArray<uint8>& Buffer) const;
+	bool SerializeResult(const FSteamInventoryResult ResultHandle, TArray<uint8>& Buffer) const;
 
 	// #TODO: StartPurchase
 
@@ -386,7 +386,7 @@ public:
 	 * Returns a new result handle via pResultHandle.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool TransferItemQuantity(FSteamInventoryResult& ResultHandle, FSteamItemInstanceID ItemIdSource, int32 Quantity, FSteamItemInstanceID ItemIdDest) const;
+	bool TransferItemQuantity(FSteamInventoryResult& ResultHandle, const FSteamItemInstanceID ItemIdSource, const int32 Quantity, const FSteamItemInstanceID ItemIdDest) const;
 
 	/**
 	 * Trigger an item drop if the user has played a long enough period of time.
@@ -407,7 +407,7 @@ public:
 	 * The inventory result returned by this function will be the new item granted if the player is eligible. If the user is not eligible then it will return an empty result ('[]').
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool TriggerItemDrop(FSteamInventoryResult& ResultHandle, FSteamItemDef DropListDefinition) const { return SteamInventory()->TriggerItemDrop(&ResultHandle.Value, DropListDefinition); }
+	bool TriggerItemDrop(FSteamInventoryResult& ResultHandle, const FSteamItemDef DropListDefinition) const { return SteamInventory()->TriggerItemDrop(&ResultHandle.Value, DropListDefinition); }
 
 	/**
 	 * Starts a transaction request to update dynamic properties on items for the current user. This call is rate-limited by user, so property modifications should be batched as much as possible -
@@ -429,7 +429,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool SubmitUpdateProperties(FSteamInventoryUpdateHandle UpdateHandle, FSteamInventoryResult& ResultHandle) const { return SteamInventory()->SubmitUpdateProperties(UpdateHandle, &ResultHandle.Value); }
+	bool SubmitUpdateProperties(const FSteamInventoryUpdateHandle UpdateHandle, FSteamInventoryResult& ResultHandle) const { return SteamInventory()->SubmitUpdateProperties(UpdateHandle, &ResultHandle.Value); }
 
 	/**
 	 * Removes a dynamic property for the given item.
@@ -440,7 +440,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool RemoveProperty(FSteamInventoryUpdateHandle UpdateHandle, FSteamItemInstanceID ItemID, const FString& PropertyName) const { return SteamInventory()->RemoveProperty(UpdateHandle, ItemID, TCHAR_TO_UTF8(*PropertyName)); }
+	bool RemoveProperty(const FSteamInventoryUpdateHandle UpdateHandle, const FSteamItemInstanceID ItemID, const FString& PropertyName) const { return SteamInventory()->RemoveProperty(UpdateHandle, ItemID, TCHAR_TO_UTF8(*PropertyName)); }
 
 	/**
 	 * Sets a dynamic property for the given item. Supported value types are strings, boolean, 64 bit integers, and 32 bit floats.
@@ -452,7 +452,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool SetPropertyString(FSteamInventoryUpdateHandle UpdateHandle, FSteamItemInstanceID ItemID, const FString& PropertyName, const FString& PropertyValue) const;
+	bool SetPropertyString(const FSteamInventoryUpdateHandle UpdateHandle, const FSteamItemInstanceID ItemID, const FString& PropertyName, const FString& PropertyValue) const;
 
 	/**
 	 * Sets a dynamic property for the given item. Supported value types are strings, boolean, 64 bit integers, and 32 bit floats.
@@ -464,7 +464,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool SetPropertyBool(FSteamInventoryUpdateHandle UpdateHandle, FSteamItemInstanceID ItemID, const FString& PropertyName, bool Value) const { return SteamInventory()->SetProperty(UpdateHandle, ItemID, TCHAR_TO_UTF8(*PropertyName), Value); }
+	bool SetPropertyBool(const FSteamInventoryUpdateHandle UpdateHandle, const FSteamItemInstanceID ItemID, const FString& PropertyName, bool Value) const { return SteamInventory()->SetProperty(UpdateHandle, ItemID, TCHAR_TO_UTF8(*PropertyName), Value); }
 
 	/**
 	 * Sets a dynamic property for the given item. Supported value types are strings, boolean, 64 bit integers, and 32 bit floats.
@@ -476,7 +476,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool SetPropertyInt(FSteamInventoryUpdateHandle UpdateHandle, FSteamItemInstanceID ItemID, const FString& PropertyName, int64 Value) const { return SteamInventory()->SetProperty(UpdateHandle, ItemID, TCHAR_TO_UTF8(*PropertyName), Value); }
+	bool SetPropertyInt(const FSteamInventoryUpdateHandle UpdateHandle, const FSteamItemInstanceID ItemID, const FString& PropertyName, const int64 Value) const { return SteamInventory()->SetProperty(UpdateHandle, ItemID, TCHAR_TO_UTF8(*PropertyName), Value); }
 
 	/**
 	 * Sets a dynamic property for the given item. Supported value types are strings, boolean, 64 bit integers, and 32 bit floats.
@@ -488,7 +488,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Inventory")
-	bool SetPropertyFloat(FSteamInventoryUpdateHandle UpdateHandle, FSteamItemInstanceID ItemID, const FString& PropertyName, float Value) const { return SteamInventory()->SetProperty(UpdateHandle, ItemID, TCHAR_TO_UTF8(*PropertyName), Value); }
+	bool SetPropertyFloat(const FSteamInventoryUpdateHandle UpdateHandle, const FSteamItemInstanceID ItemID, const FString& PropertyName, const float Value) const { return SteamInventory()->SetProperty(UpdateHandle, ItemID, TCHAR_TO_UTF8(*PropertyName), Value); }
 
 	/** Delegates */
 

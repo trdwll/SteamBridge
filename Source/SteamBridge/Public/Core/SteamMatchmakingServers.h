@@ -29,7 +29,7 @@ public:
 	void CancelQuery(const FHServerListRequest& Request) { SteamMatchmakingServers()->CancelQuery(Request.Value); }
 
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|MatchmakingServers")
-	void CancelServerQuery(FHServerQuery ServerQuery) { SteamMatchmakingServers()->CancelServerQuery(ServerQuery.Value); }
+	void CancelServerQuery(const FHServerQuery ServerQuery) { SteamMatchmakingServers()->CancelServerQuery(ServerQuery.Value); }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|MatchmakingServers")
 	int32 GetServerCount(const FHServerListRequest& Request) const { return SteamMatchmakingServers()->GetServerCount(Request.Value); }

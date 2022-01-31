@@ -23,7 +23,7 @@ FScreenshotHandle USteamScreenshots::AddScreenshotToLibrary(const FString& FileN
 	return SteamScreenshots()->AddScreenshotToLibrary(TCHAR_TO_UTF8(*FileName), TCHAR_TO_UTF8(*ThumbnailFileName), Size.X, Size.Y);
 }
 
-FScreenshotHandle USteamScreenshots::AddVRScreenshotToLibrary(ESteamVRScreenshotType Type, const FString& FileName, const FString& VRFileName) const
+FScreenshotHandle USteamScreenshots::AddVRScreenshotToLibrary(const ESteamVRScreenshotType Type, const FString& FileName, const FString& VRFileName) const
 {
 	return SteamScreenshots()->AddVRScreenshotToLibrary((EVRScreenshotType)Type, TCHAR_TO_UTF8(*FileName), TCHAR_TO_UTF8(*VRFileName));
 }

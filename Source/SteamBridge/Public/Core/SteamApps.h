@@ -40,7 +40,7 @@ public:
 	 * @return bool - true if the current App ID has DLC's associated with it and iDLC falls between the range of 0 to GetDLCCount, otherwise false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	bool BGetDLCDataByIndex(int32 DLC, int32& AppID, bool& bAvailable, FString& Name);
+	bool BGetDLCDataByIndex(const int32 DLC, int32& AppID, bool& bAvailable, FString& Name);
 
 	/**
 	 * Checks if a specific app is installed.
@@ -51,7 +51,7 @@ public:
 	 * @return bool - true if the specified App ID is installed; otherwise, false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	bool BIsAppInstalled(int32 AppID) const { return SteamApps()->BIsAppInstalled(AppID); }
+	bool BIsAppInstalled(const int32 AppID) const { return SteamApps()->BIsAppInstalled(AppID); }
 
 	/**
 	 * Checks if the user owns a specific DLC and if the DLC is installed
@@ -61,7 +61,7 @@ public:
 	 * @return bool - true if the user owns the DLC and it's currently installed, otherwise false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	bool BIsDlcInstalled(int32 AppID) const { return SteamApps()->BIsDlcInstalled(AppID); }
+	bool BIsDlcInstalled(const int32 AppID) const { return SteamApps()->BIsDlcInstalled(AppID); }
 
 	/**
 	 * Checks if the license owned by the user provides low violence depots.
@@ -89,7 +89,7 @@ public:
 	 * @return bool - true if the active user is subscribed to the specified App ID, otherwise false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	bool BIsSubscribedApp(int32 AppID) const { return SteamApps()->BIsSubscribedApp(AppID); }
+	bool BIsSubscribedApp(const int32 AppID) const { return SteamApps()->BIsSubscribedApp(AppID); }
 
 	/**
 	 * Checks if the active user is accessing the current appID via a temporary Family Shared license owned by another user.
@@ -134,7 +134,7 @@ public:
 	 * @return int32 - Returns the install directory path as a string into the buffer provided in pchFolder and returns the number of bytes that were copied into that buffer.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	int32 GetAppInstallDir(int32 AppID, FString& Folder);
+	int32 GetAppInstallDir(const int32 AppID, FString& Folder);
 
 	/**
 	 * Gets the Steam ID of the original owner of the current app. If it's different from the current user then it is borrowed.
@@ -189,7 +189,7 @@ public:
 	 * @return bool - true if the specified DLC exists and is currently downloading; otherwise, false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	bool GetDlcDownloadProgress(int32 AppID, int64& BytesDownloaded, int64& BytesTotal) const { return SteamApps()->GetDlcDownloadProgress(AppID, (uint64*)&BytesDownloaded, (uint64*)&BytesTotal); }
+	bool GetDlcDownloadProgress(const int32 AppID, int64& BytesDownloaded, int64& BytesTotal) const { return SteamApps()->GetDlcDownloadProgress(AppID, (uint64*)&BytesDownloaded, (uint64*)&BytesTotal); }
 
 	/**
 	 * Gets the time of purchase of the specified app in a readable format.
@@ -199,7 +199,7 @@ public:
 	 * @return FDateTime - The earliest purchase time in a readable format.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	FDateTime GetEarliestPurchaseUnixTime(int32 AppID) const { return FDateTime::FromUnixTimestamp(SteamApps()->GetEarliestPurchaseUnixTime(AppID)); }
+	FDateTime GetEarliestPurchaseUnixTime(const int32 AppID) const { return FDateTime::FromUnixTimestamp(SteamApps()->GetEarliestPurchaseUnixTime(AppID)); }
 
 	/**
 	 * Asynchronously retrieves metadata details about a specific file in the depot manifest.
@@ -219,7 +219,7 @@ public:
 	 * @return int32 - The number of depots returned.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Apps")
-	int32 GetInstalledDepots(int32 AppID, TArray<int32>& Depots, int32 MaxDepots = 1) { return SteamApps()->GetInstalledDepots(AppID, (DepotId_t*)Depots.GetData(), MaxDepots); }
+	int32 GetInstalledDepots(const int32 AppID, TArray<int32>& Depots, const int32 MaxDepots = 1) { return SteamApps()->GetInstalledDepots(AppID, (DepotId_t*)Depots.GetData(), MaxDepots); }
 
 	/**
 	 * Gets the command line if the game was launched via Steam URL, e.g. steam://run/<appid>//<command line>/. This method is preferable to launching with a command line via the operating system, -
@@ -251,7 +251,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Apps")
-	void InstallDLC(int32 AppID) { SteamApps()->InstallDLC(AppID); }
+	void InstallDLC(const int32 AppID) { SteamApps()->InstallDLC(AppID); }
 
 	/**
 	 * Allows you to force verify game content on next launch.
@@ -261,7 +261,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Apps")
-	bool MarkContentCorrupt(bool bMissingFilesOnly) const { return SteamApps()->MarkContentCorrupt(bMissingFilesOnly); }
+	bool MarkContentCorrupt(const bool bMissingFilesOnly) const { return SteamApps()->MarkContentCorrupt(bMissingFilesOnly); }
 
 	/**
 	 * Allows you to uninstall an optional DLC.
@@ -270,7 +270,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Apps")
-	void UninstallDLC(int32 AppID) { SteamApps()->UninstallDLC(AppID); }
+	void UninstallDLC(const int32 AppID) { SteamApps()->UninstallDLC(AppID); }
 
 	/** Delegates */
 

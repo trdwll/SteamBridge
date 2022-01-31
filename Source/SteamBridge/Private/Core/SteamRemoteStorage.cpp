@@ -28,7 +28,7 @@ USteamRemoteStorage::~USteamRemoteStorage()
 	OnRemoteStorageUnsubscribePublishedFileResultCallback.Unregister();
 }
 
-int32 USteamRemoteStorage::FileRead(const FString& FileName, TArray<uint8>& Data, int32 DataToRead) const
+int32 USteamRemoteStorage::FileRead(const FString& FileName, TArray<uint8>& Data, const int32 DataToRead) const
 {
 	Data.SetNum(DataToRead);
 	int32 result = SteamRemoteStorage()->FileRead(TCHAR_TO_UTF8(*FileName), Data.GetData(), Data.Num());

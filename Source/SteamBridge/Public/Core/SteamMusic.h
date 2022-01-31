@@ -103,7 +103,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Music")
-	void SetVolume(float Volume) { SteamMusic()->SetVolume(Volume); }
+	void SetVolume(const float Volume) { SteamMusic()->SetVolume(Volume); }
 
 	/** Delegates */
 

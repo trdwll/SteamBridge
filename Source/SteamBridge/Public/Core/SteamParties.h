@@ -75,7 +75,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a CreateBeaconCallback_t call result. Returns k_uAPICallInvalid if the process already has an active beacon, or if the location information is invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Parties")
-	FSteamAPICall CreateBeacon(int32 OpenSlots, FSteamPartyBeaconLocation& BeaconLocation, const FString& ConnectString, const FString& Metadata) const;
+	FSteamAPICall CreateBeacon(const int32 OpenSlots, FSteamPartyBeaconLocation& BeaconLocation, const FString& ConnectString, const FString& Metadata) const;
 
 	/**
 	 * When a user follows your beacon, Steam will reserve one of the open party slots for them, and send your game a ReservationNotificationCallback_t callback. When that user joins your party, call
@@ -86,7 +86,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Parties")
-	void OnReservationCompleted(FPartyBeaconID BeaconID, FSteamID SteamIDUser) { SteamParties()->OnReservationCompleted(BeaconID, SteamIDUser); }
+	void OnReservationCompleted(const FPartyBeaconID BeaconID, const FSteamID SteamIDUser) { SteamParties()->OnReservationCompleted(BeaconID, SteamIDUser); }
 
 	/**
 	 * If a user joins your party through other matchmaking (perhaps a direct Steam friend, or your own matchmaking system), your game should reduce the number of open slots that Steam is managing through the party beacon.
@@ -98,7 +98,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a ChangeNumOpenSlotsCallback_t call result. Returns k_uAPICallInvalid if the beacon ID is invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Parties")
-	FSteamAPICall ChangeNumOpenSlots(FPartyBeaconID BeaconID, int32 OpenSlots) const { return SteamParties()->ChangeNumOpenSlots(BeaconID, OpenSlots); }
+	FSteamAPICall ChangeNumOpenSlots(const FPartyBeaconID BeaconID, const int32 OpenSlots) const { return SteamParties()->ChangeNumOpenSlots(BeaconID, OpenSlots); }
 
 	/**
 	 * Call this method to destroy the Steam party beacon. This will immediately cause Steam to stop showing the beacon in the target location. Note that any users currently in-flight may still arrive at your party expecting to join.
@@ -109,7 +109,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Parties")
-	bool DestroyBeacon(FPartyBeaconID BeaconID) const { return SteamParties()->DestroyBeacon(BeaconID); }
+	bool DestroyBeacon(const FPartyBeaconID BeaconID) const { return SteamParties()->DestroyBeacon(BeaconID); }
 
 	/**
 	 * Get the number of active party beacons created by other users for your game, that are visible to the current user.
@@ -127,7 +127,7 @@ public:
 	 * @return FPartyBeaconID - DESCHERE
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Parties")
-	FPartyBeaconID GetBeaconByIndex(int32 Index) const { return SteamParties()->GetBeaconByIndex(Index); }
+	FPartyBeaconID GetBeaconByIndex(const int32 Index) const { return SteamParties()->GetBeaconByIndex(Index); }
 
 	/**
 	 * Get details about the specified beacon. You can use the ISteamFriends API to get further details about pSteamIDBeaconOwner, and ISteamParties::GetBeaconLocationData to get further details about pLocation.
@@ -140,7 +140,7 @@ public:
 	 * @return bool - DESCHERE
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Parties")
-	bool GetBeaconDetails(FPartyBeaconID BeaconID, FSteamID& SteamIDBeaconOwner, FSteamPartyBeaconLocation& BeaconLocation, FString& Metadata) const;
+	bool GetBeaconDetails(const FPartyBeaconID BeaconID, FSteamID& SteamIDBeaconOwner, FSteamPartyBeaconLocation& BeaconLocation, FString& Metadata) const;
 
 	/**
 	 * When the user indicates they wish to join the party advertised by a given beacon, call this method. On success, Steam will reserve a slot for this user in the party and return the necessary "join game" string to use to complete the connection.
@@ -149,7 +149,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a JoinParty_t call result. Returns k_uAPICallInvalid if the beacon ID is invalid.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Parties")
-	FSteamAPICall JoinParty(FPartyBeaconID BeaconID) const { return SteamParties()->JoinParty(BeaconID); }
+	FSteamAPICall JoinParty(const FPartyBeaconID BeaconID) const { return SteamParties()->JoinParty(BeaconID); }
 
 	/**
 	 * Query general metadata for the given beacon location. For instance the Name, or the URL for an icon if the location type supports icons (for example, the icon for a Steam Chat Room Group).
@@ -160,7 +160,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Parties")
-	bool GetBeaconLocationData(FSteamPartyBeaconLocation BeaconLocation, ESteamPartyBeaconLocationData_ LocationData, FString& DataString) const;
+	bool GetBeaconLocationData(const FSteamPartyBeaconLocation BeaconLocation, const ESteamPartyBeaconLocationData_ LocationData, FString& DataString) const;
 
 	/** Delegates */
 

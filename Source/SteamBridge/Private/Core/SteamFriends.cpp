@@ -160,7 +160,7 @@ int32 USteamFriends::GetFriendCount(const TArray<ESteamFriendFlags>& FriendFlags
 	return SteamFriends()->GetFriendCount(flags);
 }
 
-bool USteamFriends::GetFriendGamePlayed(FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& GamePort, int32& QueryPort, FSteamID& SteamIDLobby)
+bool USteamFriends::GetFriendGamePlayed(const FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& GamePort, int32& QueryPort, FSteamID& SteamIDLobby)
 {
 	FriendGameInfo_t InGameInfoStruct;
 	bool bResult = SteamFriends()->GetFriendGamePlayed(SteamIDFriend, &InGameInfoStruct);
@@ -172,7 +172,7 @@ bool USteamFriends::GetFriendGamePlayed(FSteamID SteamIDFriend, FSteamID& GameID
 	return bResult;
 }
 
-int32 USteamFriends::GetFriendMessage(FSteamID SteamIDFriend, int32 MessageIndex, FString& Message, ESteamChatEntryType& ChatEntryType)
+int32 USteamFriends::GetFriendMessage(const FSteamID SteamIDFriend, const int32 MessageIndex, FString& Message, ESteamChatEntryType& ChatEntryType)
 {
 	EChatEntryType TmpEntryType;
 	TArray<char> TmpMessage;
@@ -188,7 +188,7 @@ int32 USteamFriends::GetFriendMessage(FSteamID SteamIDFriend, int32 MessageIndex
 	return res;
 }
 
-void USteamFriends::GetFriendsGroupMembersList(FSteamFriendsGroupID FriendsGroupID, TArray<FSteamID>& MemberSteamIDs)
+void USteamFriends::GetFriendsGroupMembersList(const FSteamFriendsGroupID FriendsGroupID, TArray<FSteamID>& MemberSteamIDs)
 {
 	int32 count = GetFriendsGroupMembersCount(FriendsGroupID);
 	if (count < 0)
@@ -205,7 +205,7 @@ void USteamFriends::GetFriendsGroupMembersList(FSteamFriendsGroupID FriendsGroup
 	}
 }
 
-UTexture2D* USteamFriends::GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarSize AvatarSize, int32& ImageHandle) const
+UTexture2D* USteamFriends::GetFriendAvatar(const FSteamID SteamIDFriend, const ESteamAvatarSize AvatarSize, int32& ImageHandle) const
 {
 	int32 Avatar = 0;
 	switch (AvatarSize)

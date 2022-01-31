@@ -52,7 +52,7 @@ public:
      * @return void
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void AdvertiseGame(FSteamID SteamID, const FString& IP, int32 Port);
+	void AdvertiseGame(const FSteamID SteamID, const FString& IP, int32 Port);
 
 	/**
 	 * Authenticate the ticket from the entity Steam ID to be sure it is valid and isn't reused.
@@ -66,7 +66,7 @@ public:
      * @return ESteamBeginAuthSessionResult
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> Ticket, FSteamID SteamID) { return (ESteamBeginAuthSessionResult)SteamUser()->BeginAuthSession(Ticket.GetData(), Ticket.Num(), SteamID); }
+	ESteamBeginAuthSessionResult BeginAuthSession(TArray<uint8> Ticket, const FSteamID SteamID) { return (ESteamBeginAuthSessionResult)SteamUser()->BeginAuthSession(Ticket.GetData(), Ticket.Num(), SteamID); }
 
 	/**
 	 * Checks if the current users looks like they are behind a NAT device.
@@ -128,7 +128,7 @@ public:
      * @return void
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void CancelAuthTicket(FHAuthTicket AuthTicket) { SteamUser()->CancelAuthTicket(AuthTicket); }
+	void CancelAuthTicket(const FHAuthTicket AuthTicket) { SteamUser()->CancelAuthTicket(AuthTicket); }
 
 	/**
      * Decodes the compressed voice data returned by GetVoice.
@@ -149,7 +149,7 @@ public:
      * @return void
      */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|User")
-	void EndAuthSession(FSteamID SteamID) { SteamUser()->EndAuthSession(SteamID); }
+	void EndAuthSession(const FSteamID SteamID) { SteamUser()->EndAuthSession(SteamID); }
 
 	/**
 	 * Retrieve a authentication ticket to be sent to the entity who wishes to authenticate you.
@@ -210,7 +210,7 @@ public:
 	 * @return int32 - The level of the badge, 0 if they don't have it.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	int32 GetGameBadgeLevel(int32 nSeries, bool bFoil) { return SteamUser()->GetGameBadgeLevel(nSeries, bFoil); }
+	int32 GetGameBadgeLevel(const int32 nSeries, const bool bFoil) { return SteamUser()->GetGameBadgeLevel(nSeries, bFoil); }
 
 	/**
 	 * Gets Steam user handle that this interface represents.
@@ -299,7 +299,7 @@ public:
 	 * @return ESteamUserHasLicenseForAppResult
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|User")
-	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(FSteamID SteamID, int32 AppID) { return (ESteamUserHasLicenseForAppResult)SteamUser()->UserHasLicenseForApp(SteamID, AppID); }
+	ESteamUserHasLicenseForAppResult UserHasLicenseForApp(const FSteamID SteamID, const int32 AppID) { return (ESteamUserHasLicenseForAppResult)SteamUser()->UserHasLicenseForApp(SteamID, AppID); }
 
 	/** Delegates */
 

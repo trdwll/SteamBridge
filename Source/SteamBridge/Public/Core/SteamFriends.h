@@ -65,7 +65,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Friends")
-	void ActivateGameOverlayInviteDialog(FSteamID SteamIDLobby) { SteamFriends()->ActivateGameOverlayInviteDialog(SteamIDLobby); }
+	void ActivateGameOverlayInviteDialog(const FSteamID SteamIDLobby) { SteamFriends()->ActivateGameOverlayInviteDialog(SteamIDLobby); }
 
 	/**
 	 * Activates the Steam Overlay to the Steam store page for the provided app.
@@ -76,7 +76,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Friends")
-	void ActivateGameOverlayToStore(int32 AppID, ESteamOverlayToStoreFlag StoreFlag) { SteamFriends()->ActivateGameOverlayToStore(AppID, (EOverlayToStoreFlag)StoreFlag); }
+	void ActivateGameOverlayToStore(const int32 AppID, const ESteamOverlayToStoreFlag StoreFlag) { SteamFriends()->ActivateGameOverlayToStore(AppID, (EOverlayToStoreFlag)StoreFlag); }
 
 	/**
 	 * Activates Steam Overlay to a specific dialog.
@@ -113,7 +113,7 @@ public:
 	 * @return bool - true if the user successfully left the Steam group chat room. false if the user is not in the provided Steam group chat room.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool CloseClanChatWindowInSteam(FSteamID SteamIDClanChat) const { return SteamFriends()->CloseClanChatWindowInSteam(SteamIDClanChat); }
+	bool CloseClanChatWindowInSteam(const FSteamID SteamIDClanChat) const { return SteamFriends()->CloseClanChatWindowInSteam(SteamIDClanChat); }
 
 	/**
 	 * Refresh the Steam Group activity data or get the data from groups other than one that the current user is a member.
@@ -124,7 +124,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a DownloadClanActivityCountsResult_t call result.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamAPICall DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, int32 ClansToRequest = 1) const;
+	FSteamAPICall DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, const int32 ClansToRequest = 1) const;
 
 	/*UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
 	TArray<FSteamID> EnumerateFollowingList() const;*/
@@ -138,7 +138,7 @@ public:
 	 * @return FSteamID
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamID GetChatMemberByIndex(FSteamID SteamIDClan, int32 UserIndex) const { return SteamFriends()->GetChatMemberByIndex(SteamIDClan, UserIndex).ConvertToUint64(); }
+	FSteamID GetChatMemberByIndex(const FSteamID SteamIDClan, const int32 UserIndex) const { return SteamFriends()->GetChatMemberByIndex(SteamIDClan, UserIndex).ConvertToUint64(); }
 
 	/**
 	 * Gets the most recent information we have about what the users in a Steam Group are doing.
@@ -151,7 +151,7 @@ public:
 	 * @return bool - true if the data was successfully returned. false if the provided Steam ID is invalid or the local client does not have info about the Steam group and sets all the other parameters to 0.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool GetClanActivityCounts(FSteamID SteamIDClan, int32& Online, int32& InGame, int32& Chatting) { return SteamFriends()->GetClanActivityCounts(SteamIDClan, &Online, &InGame, &Chatting); }
+	bool GetClanActivityCounts(const FSteamID SteamIDClan, int32& Online, int32& InGame, int32& Chatting) { return SteamFriends()->GetClanActivityCounts(SteamIDClan, &Online, &InGame, &Chatting); }
 
 	/**
 	 * Gets the Steam group's Steam ID at the given index.
@@ -160,7 +160,7 @@ public:
 	 * @return FSteamID
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamID GetClanByIndex(int32 ClanIndex) const { return SteamFriends()->GetClanByIndex(ClanIndex).ConvertToUint64(); }
+	FSteamID GetClanByIndex(const int32 ClanIndex) const { return SteamFriends()->GetClanByIndex(ClanIndex).ConvertToUint64(); }
 
 	/**
 	 * Get the number of users in a Steam group chat.
@@ -172,7 +172,7 @@ public:
 	 * @return int32 - 0 if the Steam ID provided is invalid or if the local user doesn't have the data available.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetClanChatMemberCount(FSteamID SteamIDClan) const { return SteamFriends()->GetClanChatMemberCount(SteamIDClan); }
+	int32 GetClanChatMemberCount(const FSteamID SteamIDClan) const { return SteamFriends()->GetClanChatMemberCount(SteamIDClan); }
 
 	/**
 	 * Gets the data from a Steam group chat room message.
@@ -186,7 +186,7 @@ public:
 	 * @return int32 - The number of bytes copied into prgchText. Returns 0 and sets peChatEntryType to k_EChatEntryTypeInvalid if the current user is not in the specified Steam group chat room or if the index provided in iMessage is invalid.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetClanChatMessage(FSteamID SteamIDClanChat, int32 MessageID, FString& Message, ESteamChatEntryType& ChatEntryType, FSteamID& SteamIDChatter);
+	int32 GetClanChatMessage(const FSteamID SteamIDClanChat, const int32 MessageID, FString& Message, ESteamChatEntryType& ChatEntryType, FSteamID& SteamIDChatter);
 
 	/**
 	 * Gets the number of Steam groups that the current user is a member of.
@@ -204,7 +204,7 @@ public:
 	 * @return FString - The Steam groups name in UTF-8 format. Returns an empty string ("") if the provided Steam ID is invalid or the user does not know about the group.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FString GetClanName(FSteamID SteamIDClan) const { return SteamFriends()->GetClanName(SteamIDClan); }
+	FString GetClanName(const FSteamID SteamIDClan) const { return SteamFriends()->GetClanName(SteamIDClan); }
 
 	/**
 	 * Gets the Steam ID of the officer at the given index in a Steam group.
@@ -215,7 +215,7 @@ public:
 	 * @return FSteamID
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamID GetClanOfficerByIndex(FSteamID SteamIDClan, int32 OfficerIndex) const { return SteamFriends()->GetClanOfficerByIndex(SteamIDClan, OfficerIndex).ConvertToUint64(); }
+	FSteamID GetClanOfficerByIndex(const FSteamID SteamIDClan, const int32 OfficerIndex) const { return SteamFriends()->GetClanOfficerByIndex(SteamIDClan, OfficerIndex).ConvertToUint64(); }
 
 	/**
 	 * Gets the number of officers (administrators and moderators) in a specified Steam group.
@@ -227,7 +227,7 @@ public:
 	 * @return int32 - The number of officers in the Steam group. Returns 0 if steamIDClan is invalid or if RequestClanOfficerList has not been called for it.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetClanOfficerCount(FSteamID SteamIDClan) const { return SteamFriends()->GetClanOfficerCount(SteamIDClan); }
+	int32 GetClanOfficerCount(const FSteamID SteamIDClan) const { return SteamFriends()->GetClanOfficerCount(SteamIDClan); }
 
 	/**
 	 * Gets the owner of a Steam Group.
@@ -237,7 +237,7 @@ public:
 	 * @return FSteamID - Returns k_steamIDNil if SteamIDClan is invalid or if RequestClanOfficerList has not been called for it.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamID GetClanOwner(FSteamID SteamIDClan) const { return SteamFriends()->GetClanOwner(SteamIDClan).ConvertToUint64(); }
+	FSteamID GetClanOwner(const FSteamID SteamIDClan) const { return SteamFriends()->GetClanOwner(SteamIDClan).ConvertToUint64(); }
 
 	/**
 	 * Gets the unique tag (abbreviation) for the specified Steam group; If the local client knows about it.
@@ -247,7 +247,7 @@ public:
 	 * @return FString - The Steam groups tag in UTF-8 format. Returns an empty string ("") if the provided Steam ID is invalid or the user does not know about the group.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FString GetClanTag(FSteamID SteamIDClan) const { return SteamFriends()->GetClanTag(SteamIDClan); }
+	FString GetClanTag(const FSteamID SteamIDClan) const { return SteamFriends()->GetClanTag(SteamIDClan); }
 
 	/**
 	 * Gets the Steam ID of the recently played with user at the given index.
@@ -257,7 +257,7 @@ public:
 	 * @return FSteamID
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamID GetCoplayFriend(int32 CoplayFriendIndex) const { return SteamFriends()->GetCoplayFriend(CoplayFriendIndex).ConvertToUint64(); }
+	FSteamID GetCoplayFriend(const int32 CoplayFriendIndex) const { return SteamFriends()->GetCoplayFriend(CoplayFriendIndex).ConvertToUint64(); }
 
 	/**
 	 * Gets the number of players that the current users has recently played with, across all games.
@@ -276,7 +276,7 @@ public:
 	 * @return int32 - SteamAPICall_t to be used with a FriendsGetFollowerCount_t call result.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetFollowerCount(FSteamID SteamID) const { return SteamFriends()->GetFollowerCount(SteamID); }
+	int32 GetFollowerCount(const FSteamID SteamID) const { return SteamFriends()->GetFollowerCount(SteamID); }
 
 	/**
 	 * Gets the Steam ID of the user at the given index.
@@ -287,7 +287,7 @@ public:
 	 * @return FSteamID
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamID GetFriendByIndex(int32 FriendIndex, const TArray<ESteamFriendFlags>& FriendFlags) const;
+	FSteamID GetFriendByIndex(const int32 FriendIndex, const TArray<ESteamFriendFlags>& FriendFlags) const;
 
 	/**
 	 * Gets the app ID of the game that user played with someone on their recently-played-with list.
@@ -296,7 +296,7 @@ public:
 	 * @return int32 - Steam IDs not in the recently-played-with list return k_uAppIdInvalid.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetFriendCoplayGame(FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendCoplayGame(SteamIDFriend); }
+	int32 GetFriendCoplayGame(const FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendCoplayGame(SteamIDFriend); }
 
 	/**
 	 * Gets the timestamp of when the user played with someone on their recently-played-with list.
@@ -305,7 +305,7 @@ public:
 	 * @return FDateTime - The time is provided in a friendly format. Steam IDs not in the recently-played-with list return 0.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FDateTime GetFriendCoplayTime(FSteamID SteamIDFriend) const { return FDateTime::FromUnixTimestamp(SteamFriends()->GetFriendCoplayTime(SteamIDFriend)); }
+	FDateTime GetFriendCoplayTime(const FSteamID SteamIDFriend) const { return FDateTime::FromUnixTimestamp(SteamFriends()->GetFriendCoplayTime(SteamIDFriend)); }
 
 	/**
 	 * Gets the number of users the client knows about who meet a specified criteria. (Friends, blocked, users on the same server, etc)
@@ -327,7 +327,7 @@ public:
 	 * @return int32 - 0 if the Steam ID provided is invalid or if the local user doesn't have the data available.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetFriendCountFromSource(FSteamID SteamIDSource) const { return SteamFriends()->GetFriendCountFromSource(SteamIDSource); }
+	int32 GetFriendCountFromSource(const FSteamID SteamIDSource) const { return SteamFriends()->GetFriendCountFromSource(SteamIDSource); }
 
 	/**
 	 * Gets the Steam ID at the given index from a source (Steam group, chat room, lobby, or game server).
@@ -338,7 +338,7 @@ public:
 	 * @return FSteamID
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamID GetFriendFromSourceByIndex(FSteamID SteamIDSource, int32 FriendIndex) const { return SteamFriends()->GetFriendFromSourceByIndex(SteamIDSource, FriendIndex).ConvertToUint64(); }
+	FSteamID GetFriendFromSourceByIndex(const FSteamID SteamIDSource, const int32 FriendIndex) const { return SteamFriends()->GetFriendFromSourceByIndex(SteamIDSource, FriendIndex).ConvertToUint64(); }
 
 	/**
 	 * Checks if the specified friend is in a game, and gets info about the game if they are.
@@ -352,7 +352,7 @@ public:
 	 * @return bool - true if the user is a friend and is in a game; otherwise, false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool GetFriendGamePlayed(FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& GamePort, int32& QueryPort, FSteamID& SteamIDLobby);
+	bool GetFriendGamePlayed(const FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& GamePort, int32& QueryPort, FSteamID& SteamIDLobby);
 
 	/**
 	 * Gets the data from a Steam friends message.
@@ -365,7 +365,7 @@ public:
 	 * @return int32 - The number of bytes copied into pvData. Returns 0 and sets peChatEntryType to k_EChatEntryTypeInvalid if the current user is chat restricted, if the provided Steam ID is not a friend, or if the index provided in iMessageID is invalid.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetFriendMessage(FSteamID SteamIDFriend, int32 MessageIndex, FString& Message, ESteamChatEntryType& ChatEntryType);
+	int32 GetFriendMessage(const FSteamID SteamIDFriend, const int32 MessageIndex, FString& Message, ESteamChatEntryType& ChatEntryType);
 
 	/**
 	 * Gets the specified user's persona (display) name.
@@ -377,7 +377,7 @@ public:
 	 * @return FString - The current users persona name in UTF-8 format. Guaranteed to not be NULL. Returns an empty string (""), or "[unknown]" if the Steam ID is invalid or not known to the caller.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FString GetFriendPersonaName(FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendPersonaName(SteamIDFriend); }
+	FString GetFriendPersonaName(const FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendPersonaName(SteamIDFriend); }
 
 	/**
 	 * Gets one of the previous display names for the specified user.
@@ -388,7 +388,7 @@ public:
 	 * @return FString - The players old persona name at the given index. Returns an empty string when there are no further items in the history.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FString GetFriendPersonaNameHistory(FSteamID SteamIDFriend, int32 NameHistoryIndex = 0) const { return SteamFriends()->GetFriendPersonaNameHistory(SteamIDFriend, NameHistoryIndex); }
+	FString GetFriendPersonaNameHistory(const FSteamID SteamIDFriend, const int32 NameHistoryIndex = 0) const { return SteamFriends()->GetFriendPersonaNameHistory(SteamIDFriend, NameHistoryIndex); }
 
 	/**
 	 * Gets the current status of the specified user.
@@ -399,7 +399,7 @@ public:
 	 * @return ESteamPersonaState - The friend state of the specified user. (Online, Offline, In-Game, etc)
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	ESteamPersonaState GetFriendPersonaState(FSteamID SteamIDFriend) const { return (ESteamPersonaState)SteamFriends()->GetFriendPersonaState(SteamIDFriend); }
+	ESteamPersonaState GetFriendPersonaState(const FSteamID SteamIDFriend) const { return (ESteamPersonaState)SteamFriends()->GetFriendPersonaState(SteamIDFriend); }
 
 	/**
 	 * Gets a relationship to a specified user.
@@ -408,7 +408,7 @@ public:
 	 * @return ESteamFriendRelationship - How the users know each other.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	ESteamFriendRelationship GetFriendRelationship(FSteamID SteamIDFriend) const { return (ESteamFriendRelationship)SteamFriends()->GetFriendRelationship(SteamIDFriend); }
+	ESteamFriendRelationship GetFriendRelationship(const FSteamID SteamIDFriend) const { return (ESteamFriendRelationship)SteamFriends()->GetFriendRelationship(SteamIDFriend); }
 
 	/**
 	 * Get a Rich Presence value from a specified friend.
@@ -418,7 +418,7 @@ public:
 	 * @return FString - Returns an empty string ("") if the specified key is not set.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FString GetFriendRichPresence(FSteamID SteamIDFriend, const FString& Key) const { return SteamFriends()->GetFriendRichPresence(SteamIDFriend, TCHAR_TO_UTF8(*Key)); }
+	FString GetFriendRichPresence(const FSteamID SteamIDFriend, const FString& Key) const { return SteamFriends()->GetFriendRichPresence(SteamIDFriend, TCHAR_TO_UTF8(*Key)); }
 
 	/**
 	 * Get a Rich Presence value from a specified friend by index.
@@ -428,7 +428,7 @@ public:
 	 * @return FString - Returns an empty string ("") if the index is invalid or the specified user has no Rich Presence data available.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FString GetFriendRichPresenceKeyByIndex(FSteamID SteamIDFriend, int32 KeyIndex) const { return SteamFriends()->GetFriendRichPresenceKeyByIndex(SteamIDFriend, KeyIndex); }
+	FString GetFriendRichPresenceKeyByIndex(const FSteamID SteamIDFriend, const int32 KeyIndex) const { return SteamFriends()->GetFriendRichPresenceKeyByIndex(SteamIDFriend, KeyIndex); }
 
 	/**
 	 * Gets the number of Rich Presence keys that are set on the specified user.
@@ -439,7 +439,7 @@ public:
 	 * @return int32 - Returns 0 if there is no Rich Presence information for the specified user.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetFriendRichPresenceKeyCount(FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendRichPresenceKeyCount(SteamIDFriend); }
+	int32 GetFriendRichPresenceKeyCount(const FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendRichPresenceKeyCount(SteamIDFriend); }
 
 	/**
 	 * Gets the number of friends groups (tags) the user has created.
@@ -459,7 +459,7 @@ public:
 	 * @return FSteamFriendsGroupID - Invalid indices return k_FriendsGroupID_Invalid.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamFriendsGroupID GetFriendsGroupIDByIndex(int32 GroupIndex = 0) const { return SteamFriends()->GetFriendsGroupIDByIndex(GroupIndex); }
+	FSteamFriendsGroupID GetFriendsGroupIDByIndex(const int32 GroupIndex = 0) const { return SteamFriends()->GetFriendsGroupIDByIndex(GroupIndex); }
 
 	/**
 	 * Gets the number of friends in a given friends group.
@@ -469,7 +469,7 @@ public:
 	 * @return int32 - The number of friends in the specified friends group.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetFriendsGroupMembersCount(FSteamFriendsGroupID FriendsGroupID) const { return SteamFriends()->GetFriendsGroupMembersCount(FriendsGroupID); }
+	int32 GetFriendsGroupMembersCount(const FSteamFriendsGroupID FriendsGroupID) const { return SteamFriends()->GetFriendsGroupMembersCount(FriendsGroupID); }
 
 	/**
 	 * Gets the number of friends in the given friends group.
@@ -481,7 +481,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Friends")
-	void GetFriendsGroupMembersList(FSteamFriendsGroupID FriendsGroupID, TArray<FSteamID>& MemberSteamIDs);
+	void GetFriendsGroupMembersList(const FSteamFriendsGroupID FriendsGroupID, TArray<FSteamID>& MemberSteamIDs);
 
 	/**
 	 * Gets the name for the given friends group.
@@ -490,7 +490,7 @@ public:
 	 * @return FString - The friend groups name in UTF-8 format. Returns NULL if the group ID is invalid.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FString GetFriendsGroupName(FSteamFriendsGroupID FriendsGroupID) const { return SteamFriends()->GetFriendsGroupName(FriendsGroupID); }
+	FString GetFriendsGroupName(const FSteamFriendsGroupID FriendsGroupID) const { return SteamFriends()->GetFriendsGroupName(FriendsGroupID); }
 
 	/**
 	 * Gets the Steam level of the specified user.
@@ -501,7 +501,7 @@ public:
 	 * When it gets downloaded a PersonaStateChange_t callback will be posted with m_nChangeFlags including k_EPersonaChangeSteamLevel.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	int32 GetFriendSteamLevel(FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendSteamLevel(SteamIDFriend); }
+	int32 GetFriendSteamLevel(const FSteamID SteamIDFriend) const { return SteamFriends()->GetFriendSteamLevel(SteamIDFriend); }
 
 	/**
 	 * Gets a handle to the avatar for the specified user.
@@ -515,7 +515,7 @@ public:
 	 * @return UTexture2D*
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	UTexture2D* GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarSize AvatarSize, int32& ImageHandle) const;
+	UTexture2D* GetFriendAvatar(const FSteamID SteamIDFriend, const ESteamAvatarSize AvatarSize, int32& ImageHandle) const;
 
 	/**
 	 * Gets the current users persona (display) name.
@@ -543,7 +543,7 @@ public:
 	 * @return FString - NULL if the no nickname has been set for that user.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FString GetPlayerNickname(FSteamID SteamIDPlayer) const { return SteamFriends()->GetPlayerNickname(SteamIDPlayer); }
+	FString GetPlayerNickname(const FSteamID SteamIDPlayer) const { return SteamFriends()->GetPlayerNickname(SteamIDPlayer); }
 
 	/**
 	 * Checks if the user meets the specified criteria. (Friends, blocked, users on the same server, etc)
@@ -561,7 +561,7 @@ public:
 	 * @return bool - true if the specified user meets any of the criteria specified in iFriendFlags; otherwise, false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool HasFriend(FSteamID SteamIDFriend, const TArray<ESteamFriendFlags>& FriendFlags);
+	bool HasFriend(const FSteamID SteamIDFriend, const TArray<ESteamFriendFlags>& FriendFlags);
 
 	/**
 	 * Invites a friend or clan member to the current game using a special invite string.
@@ -577,7 +577,7 @@ public:
 	 * The value provided to pchConnectString was too long.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
-	bool InviteUserToGame(FSteamID SteamIDFriend, const FString& ConnectString) const { return SteamFriends()->InviteUserToGame(SteamIDFriend, TCHAR_TO_UTF8(*ConnectString)); }
+	bool InviteUserToGame(const FSteamID SteamIDFriend, const FString& ConnectString) const { return SteamFriends()->InviteUserToGame(SteamIDFriend, TCHAR_TO_UTF8(*ConnectString)); }
 
 	/**
 	 * Checks if a user in the Steam group chat room is an admin.
@@ -587,7 +587,7 @@ public:
 	 * @return bool - true if the specified user is an admin. false if the user is not an admin, if the current user is not in the chat room specified, or the specified user is not in the chat room.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool IsClanChatAdmin(FSteamID SteamIDClanChat, FSteamID SteamIDUser) const { return SteamFriends()->IsClanChatAdmin(SteamIDClanChat, SteamIDUser); }
+	bool IsClanChatAdmin(const FSteamID SteamIDClanChat, const FSteamID SteamIDUser) const { return SteamFriends()->IsClanChatAdmin(SteamIDClanChat, SteamIDUser); }
 
 	/**
 	 * Checks if the Steam group is public.
@@ -596,7 +596,7 @@ public:
 	 * @return bool - true if the specified group is public, false if the specified group is not public
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool IsClanPublic(FSteamID SteamIDClan) const { return SteamFriends()->IsClanPublic(SteamIDClan); }
+	bool IsClanPublic(const FSteamID SteamIDClan) const { return SteamFriends()->IsClanPublic(SteamIDClan); }
 
 	/**
 	 * Checks if the Steam group is an official game group/community hub.
@@ -605,7 +605,7 @@ public:
 	 * @return bool - true if the specified group is an official game group/community hub, false if the specified group is not an official game group/community hub
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool IsClanOfficialGameGroup(FSteamID SteamIDClan) const { return SteamFriends()->IsClanOfficialGameGroup(SteamIDClan); }
+	bool IsClanOfficialGameGroup(const FSteamID SteamIDClan) const { return SteamFriends()->IsClanOfficialGameGroup(SteamIDClan); }
 
 	/**
 	 * Checks if the Steam Group chat room is open in the Steam UI.
@@ -614,7 +614,7 @@ public:
 	 * @return bool - true if the specified Steam group chat room is opened; otherwise, false. This also returns false if the specified Steam group chat room is unknown.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool IsClanChatWindowOpenInSteam(FSteamID SteamIDClanChat) const { return SteamFriends()->IsClanChatWindowOpenInSteam(SteamIDClanChat); }
+	bool IsClanChatWindowOpenInSteam(const FSteamID SteamIDClanChat) const { return SteamFriends()->IsClanChatWindowOpenInSteam(SteamIDClanChat); }
 
 	/**
 	 * Checks if the current user is following the specified user.
@@ -623,7 +623,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a FriendsIsFollowing_t call result.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	FSteamAPICall IsFollowing(FSteamID SteamID) const { return SteamFriends()->IsFollowing(SteamID); }
+	FSteamAPICall IsFollowing(const FSteamID SteamID) const { return SteamFriends()->IsFollowing(SteamID); }
 
 	/**
 	 * Checks if a specified user is in a source (Steam group, chat room, lobby, or game server).
@@ -633,7 +633,7 @@ public:
 	 * @return bool - true if the local user can see that steamIDUser is a member or in steamIDSource; otherwise, false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool IsUserInSource(FSteamID SteamIDUser, FSteamID SteamIDSource) const { return SteamFriends()->IsUserInSource(SteamIDUser, SteamIDSource); }
+	bool IsUserInSource(const FSteamID SteamIDUser, const FSteamID SteamIDSource) const { return SteamFriends()->IsUserInSource(SteamIDUser, SteamIDSource); }
 
 	/**
 	 * Allows the user to join Steam group (clan) chats right within the game.
@@ -648,7 +648,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a JoinClanChatRoomCompletionResult_t call result.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
-	FSteamAPICall JoinClanChatRoom(FSteamID SteamIDClan) const { return SteamFriends()->JoinClanChatRoom(SteamIDClan); }
+	FSteamAPICall JoinClanChatRoom(const FSteamID SteamIDClan) const { return SteamFriends()->JoinClanChatRoom(SteamIDClan); }
 
 	/**
 	 * Leaves a Steam group chat that the user has previously entered with JoinClanChatRoom.
@@ -658,7 +658,7 @@ public:
 	 * @return bool - true if user is in the specified chat room, otherwise false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool LeaveClanChatRoom(FSteamID SteamIDClan) const { return SteamFriends()->LeaveClanChatRoom(SteamIDClan); }
+	bool LeaveClanChatRoom(const FSteamID SteamIDClan) const { return SteamFriends()->LeaveClanChatRoom(SteamIDClan); }
 
 	/**
 	 * Opens the specified Steam group chat room in the Steam UI.
@@ -670,7 +670,7 @@ public:
 	 * The current user is chat restricted.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
-	bool OpenClanChatWindowInSteam(FSteamID SteamIDClanChat) const { return SteamFriends()->OpenClanChatWindowInSteam(SteamIDClanChat); }
+	bool OpenClanChatWindowInSteam(const FSteamID SteamIDClanChat) const { return SteamFriends()->OpenClanChatWindowInSteam(SteamIDClanChat); }
 
 	/**
 	 * Sends a message to a Steam friend.
@@ -680,7 +680,7 @@ public:
 	 * @return bool - true if the message was successfully sent. false if the current user is rate limited or chat restricte
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
-	bool ReplyToFriendMessage(FSteamID SteamIDFriend, const FString& MsgToSend) const { return SteamFriends()->ReplyToFriendMessage(SteamIDFriend, TCHAR_TO_UTF8(*MsgToSend)); }
+	bool ReplyToFriendMessage(const FSteamID SteamIDFriend, const FString& MsgToSend) const { return SteamFriends()->ReplyToFriendMessage(SteamIDFriend, TCHAR_TO_UTF8(*MsgToSend)); }
 
 	/**
 	 * Requests information about a Steam group officers (administrators and moderators).
@@ -691,7 +691,7 @@ public:
 	 * @return FSteamAPICall - SteamAPICall_t to be used with a ClanOfficerListResponse_t call result.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
-	FSteamAPICall RequestClanOfficerList(FSteamID SteamIDClan) const { return SteamFriends()->RequestClanOfficerList(SteamIDClan); }
+	FSteamAPICall RequestClanOfficerList(const FSteamID SteamIDClan) const { return SteamFriends()->RequestClanOfficerList(SteamIDClan); }
 
 	/**
 	 * Requests Rich Presence data from a specific user.
@@ -702,7 +702,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Friends")
-	void RequestFriendRichPresence(FSteamID SteamIDFriend) { SteamFriends()->RequestFriendRichPresence(SteamIDFriend); }
+	void RequestFriendRichPresence(const FSteamID SteamIDFriend) { SteamFriends()->RequestFriendRichPresence(SteamIDFriend); }
 
 	/**
 	 * Requests the persona name and optionally the avatar of a specified user.
@@ -715,7 +715,7 @@ public:
 	 * false means that we already have all the details about that user, and functions that require this information can be used immediately.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool RequestUserInformation(FSteamID SteamIDUser, bool bRequireNameOnly) const { return SteamFriends()->RequestUserInformation(SteamIDUser, bRequireNameOnly); }
+	bool RequestUserInformation(const FSteamID SteamIDUser, const bool bRequireNameOnly) const { return SteamFriends()->RequestUserInformation(SteamIDUser, bRequireNameOnly); }
 
 	/**
 	 * Sends a message to a Steam group chat room.
@@ -730,7 +730,7 @@ public:
 	 * The message in pchText exceeds 2048 characters.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
-	bool SendClanChatMessage(FSteamID SteamIDClanChat, const FString& Text) const { return SteamFriends()->SendClanChatMessage(SteamIDClanChat, TCHAR_TO_UTF8(*Text)); }
+	bool SendClanChatMessage(const FSteamID SteamIDClanChat, const FString& Text) const { return SteamFriends()->SendClanChatMessage(SteamIDClanChat, TCHAR_TO_UTF8(*Text)); }
 
 	/**
 	 * Let Steam know that the user is currently using voice chat in game.
@@ -741,7 +741,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Friends")
-	void SetInGameVoiceSpeaking(FSteamID SteamIDUser, bool bSpeaking) { SteamFriends()->SetInGameVoiceSpeaking(SteamIDUser, bSpeaking); }
+	void SetInGameVoiceSpeaking(const FSteamID SteamIDUser, const bool bSpeaking) { SteamFriends()->SetInGameVoiceSpeaking(SteamIDUser, bSpeaking); }
 
 	/**
 	 * Listens for Steam friends chat messages.
@@ -753,7 +753,7 @@ public:
 	 * @return bool - Always returns true
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Friends")
-	bool SetListenForFriendsMessages(bool bInterceptEnabled) const { return SteamFriends()->SetListenForFriendsMessages(bInterceptEnabled); }
+	bool SetListenForFriendsMessages(const bool bInterceptEnabled) const { return SteamFriends()->SetListenForFriendsMessages(bInterceptEnabled); }
 
 	/**
 	 * Sets the current users persona name, stores it on the server and publishes the changes to all friends who are online.
@@ -774,7 +774,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Friends")
-	void SetPlayedWith(FSteamID SteamIDUserPlayedWith) { SteamFriends()->SetPlayedWith(SteamIDUserPlayedWith); }
+	void SetPlayedWith(const FSteamID SteamIDUserPlayedWith) { SteamFriends()->SetPlayedWith(SteamIDUserPlayedWith); }
 
 	/**
 	 * Sets a Rich Presence key/value for the current user that is automatically shared to all friends playing the same game.

@@ -61,7 +61,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void AddHeader(FHHTMLBrowser BrowserHandle, const FString& Key, const FString& Value) { SteamHTMLSurface()->AddHeader(BrowserHandle, TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
+	void AddHeader(const FHHTMLBrowser BrowserHandle, const FString& Key, const FString& Value) { SteamHTMLSurface()->AddHeader(BrowserHandle, TCHAR_TO_UTF8(*Key), TCHAR_TO_UTF8(*Value)); }
 
 	/**
 	 * Sets whether a pending load is allowed or if it should be canceled.
@@ -73,7 +73,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void AllowStartRequest(FHHTMLBrowser BrowserHandle, bool bAllowed) { SteamHTMLSurface()->AllowStartRequest(BrowserHandle, bAllowed); }
+	void AllowStartRequest(const FHHTMLBrowser BrowserHandle, const bool bAllowed) { SteamHTMLSurface()->AllowStartRequest(BrowserHandle, bAllowed); }
 
 	/**
 	 * Copy the currently selected text from the current page in an HTML surface into the local clipboard.
@@ -82,7 +82,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void CopyToClipboard(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->CopyToClipboard(BrowserHandle); }
+	void CopyToClipboard(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->CopyToClipboard(BrowserHandle); }
 
 	/**
 	 * Create a browser object for displaying of an HTML page.
@@ -106,7 +106,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void ExecuteJavascript(FHHTMLBrowser BrowserHandle, const FString& Script) { SteamHTMLSurface()->ExecuteJavascript(BrowserHandle, TCHAR_TO_UTF8(*Script)); }
+	void ExecuteJavascript(const FHHTMLBrowser BrowserHandle, const FString& Script) { SteamHTMLSurface()->ExecuteJavascript(BrowserHandle, TCHAR_TO_UTF8(*Script)); }
 
 	// #TODO FileLoadDialogResponse
 
@@ -123,7 +123,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void Find(FHHTMLBrowser BrowserHandle, const FString& SearchStr, bool bCurrentlyInFind, bool bReverse) { SteamHTMLSurface()->Find(BrowserHandle, TCHAR_TO_UTF8(*SearchStr), bCurrentlyInFind, bReverse); }
+	void Find(const FHHTMLBrowser BrowserHandle, const FString& SearchStr, const bool bCurrentlyInFind, const bool bReverse) { SteamHTMLSurface()->Find(BrowserHandle, TCHAR_TO_UTF8(*SearchStr), bCurrentlyInFind, bReverse); }
 
 	/**
 	 * Retrieves details about a link at a specific position on the current page in an HTML surface.
@@ -135,7 +135,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void GetLinkAtPosition(FHHTMLBrowser BrowserHandle, int32 x, int32 y) { SteamHTMLSurface()->GetLinkAtPosition(BrowserHandle, x, y); }
+	void GetLinkAtPosition(const FHHTMLBrowser BrowserHandle, const int32 x, const int32 y) { SteamHTMLSurface()->GetLinkAtPosition(BrowserHandle, x, y); }
 
 	/**
 	 * Navigate back in the page history.
@@ -144,7 +144,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void GoBack(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->GoBack(BrowserHandle); }
+	void GoBack(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->GoBack(BrowserHandle); }
 
 	/**
 	 * Navigate forward in the page history
@@ -153,7 +153,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void GoForward(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->GoForward(BrowserHandle); }
+	void GoForward(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->GoForward(BrowserHandle); }
 
 	/**
 	 * Initializes the HTML Surface API.
@@ -174,7 +174,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void JSDialogResponse(FHHTMLBrowser BrowserHandle, bool bResult) { SteamHTMLSurface()->JSDialogResponse(BrowserHandle, bResult); }
+	void JSDialogResponse(const FHHTMLBrowser BrowserHandle, const bool bResult) { SteamHTMLSurface()->JSDialogResponse(BrowserHandle, bResult); }
 
 	/**
 	 * UnicodeChar is the unicode character point for this keypress (and potentially multiple chars per press)
@@ -185,7 +185,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void KeyChar(FHHTMLBrowser BrowserHandle, int32 UnicodeChar, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyChar(BrowserHandle, UnicodeChar, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
+	void KeyChar(const FHHTMLBrowser BrowserHandle, const int32 UnicodeChar, const ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyChar(BrowserHandle, UnicodeChar, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
 
 	/**
 	 * keyboard interactions, native keycode is the virtual key code value from your OS
@@ -196,7 +196,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void KeyDown(FHHTMLBrowser BrowserHandle, int32 NativeKeyCode, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyDown(BrowserHandle, NativeKeyCode, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
+	void KeyDown(const FHHTMLBrowser BrowserHandle, const int32 NativeKeyCode, const ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyDown(BrowserHandle, NativeKeyCode, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
 
 	/**
 	 * keyboard interactions, native keycode is the virtual key code value from your OS
@@ -207,7 +207,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void KeyUp(FHHTMLBrowser BrowserHandle, int32 NativeKeyCode, ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyUp(BrowserHandle, NativeKeyCode, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
+	void KeyUp(const FHHTMLBrowser BrowserHandle, const int32 NativeKeyCode, const ESteamHTMLKeyModifiers HTMLKeyModifiers) { SteamHTMLSurface()->KeyUp(BrowserHandle, NativeKeyCode, (ISteamHTMLSurface::EHTMLKeyModifiers)HTMLKeyModifiers); }
 
 	/**
 	 * Navigate to a specified URL.
@@ -221,7 +221,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void LoadURL(FHHTMLBrowser BrowserHandle, const FString& URL, const FString& PostData) { SteamHTMLSurface()->LoadURL(BrowserHandle, TCHAR_TO_UTF8(*URL), TCHAR_TO_UTF8(*PostData)); }
+	void LoadURL(const FHHTMLBrowser BrowserHandle, const FString& URL, const FString& PostData) { SteamHTMLSurface()->LoadURL(BrowserHandle, TCHAR_TO_UTF8(*URL), TCHAR_TO_UTF8(*PostData)); }
 
 	/**
 	 * Tells an HTML surface that a mouse button has been double clicked.
@@ -232,7 +232,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseDoubleClick(FHHTMLBrowser BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseDoubleClick(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
+	void MouseDoubleClick(const FHHTMLBrowser BrowserHandle, const ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseDoubleClick(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
 
 	/**
 	 * Tells an HTML surface that a mouse button has been pressed.
@@ -243,7 +243,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseDown(FHHTMLBrowser BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseDown(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
+	void MouseDown(const FHHTMLBrowser BrowserHandle, const ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseDown(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
 
 	/**
 	 * Tells an HTML surface where the mouse is.
@@ -254,7 +254,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseMove(FHHTMLBrowser BrowserHandle, int32 x, int32 y) { SteamHTMLSurface()->MouseMove(BrowserHandle, x, y); }
+	void MouseMove(const FHHTMLBrowser BrowserHandle, const int32 x, const int32 y) { SteamHTMLSurface()->MouseMove(BrowserHandle, x, y); }
 
 	/**
 	 * Tells an HTML surface that a mouse button has been released.
@@ -265,7 +265,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseUp(FHHTMLBrowser BrowserHandle, ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseUp(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
+	void MouseUp(const FHHTMLBrowser BrowserHandle, const ESteamHTMLMouseButton MouseButton) { SteamHTMLSurface()->MouseUp(BrowserHandle, (ISteamHTMLSurface::EHTMLMouseButton)MouseButton); }
 
 	/**
 	 * Tells an HTML surface that the mouse wheel has moved.
@@ -275,7 +275,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void MouseWheel(FHHTMLBrowser BrowserHandle, int32 Delta) { SteamHTMLSurface()->MouseWheel(BrowserHandle, Delta); }
+	void MouseWheel(const FHHTMLBrowser BrowserHandle, const int32 Delta) { SteamHTMLSurface()->MouseWheel(BrowserHandle, Delta); }
 
 	/**
 	 * Paste from the local clipboard to the current page in an HTML surface.
@@ -284,7 +284,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void PasteFromClipboard(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->PasteFromClipboard(BrowserHandle); }
+	void PasteFromClipboard(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->PasteFromClipboard(BrowserHandle); }
 
 	/**
 	 * Refreshes the current page.
@@ -294,7 +294,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void Reload(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->Reload(BrowserHandle); }
+	void Reload(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->Reload(BrowserHandle); }
 
 	/**
 	 * You MUST call this when you are done with an HTML surface, freeing the resources associated with it.
@@ -304,7 +304,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void RemoveBrowser(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->RemoveBrowser(BrowserHandle); }
+	void RemoveBrowser(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->RemoveBrowser(BrowserHandle); }
 
 	/**
 	 * Enable/disable low-resource background mode, where javascript and repaint timers are throttled, resources are more aggressively purged from memory, and audio/video elements are paused.
@@ -316,7 +316,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetBackgroundMode(FHHTMLBrowser BrowserHandle, bool bBackgroundMode) { SteamHTMLSurface()->SetBackgroundMode(BrowserHandle, bBackgroundMode); }
+	void SetBackgroundMode(const FHHTMLBrowser BrowserHandle, const bool bBackgroundMode) { SteamHTMLSurface()->SetBackgroundMode(BrowserHandle, bBackgroundMode); }
 
 	/**
 	 * Set a webcookie for a specific hostname.
@@ -331,7 +331,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetCookie(const FString& Hostname, const FString& Key, const FString& Value, FDateTime Expires, const FString& Path = "/", bool bSecure = false, bool bHTTPOnly = false);
+	void SetCookie(const FString& Hostname, const FString& Key, const FString& Value, FDateTime Expires, const FString& Path = "/", const bool bSecure = false, const bool bHTTPOnly = false);
 
 	/**
 	 * Scroll the current page horizontally.
@@ -342,7 +342,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetHorizontalScroll(FHHTMLBrowser BrowserHandle, int32 AbsolutePixelScroll) { SteamHTMLSurface()->SetHorizontalScroll(BrowserHandle, AbsolutePixelScroll); }
+	void SetHorizontalScroll(const FHHTMLBrowser BrowserHandle, const int32 AbsolutePixelScroll) { SteamHTMLSurface()->SetHorizontalScroll(BrowserHandle, AbsolutePixelScroll); }
 
 	/**
 	 * Tell a HTML surface if it has key focus currently, controls showing the I-beam cursor in text controls amongst other things.
@@ -352,7 +352,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetKeyFocus(FHHTMLBrowser BrowserHandle, bool bHasKeyFocus) { SteamHTMLSurface()->SetKeyFocus(BrowserHandle, bHasKeyFocus); }
+	void SetKeyFocus(const FHHTMLBrowser BrowserHandle, const bool bHasKeyFocus) { SteamHTMLSurface()->SetKeyFocus(BrowserHandle, bHasKeyFocus); }
 
 	/**
 	 * Zoom the current page in an HTML surface.
@@ -365,7 +365,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetPageScaleFactor(FHHTMLBrowser BrowserHandle, float Zoom, int32 PointX, int32 PointY) { SteamHTMLSurface()->SetPageScaleFactor(BrowserHandle, Zoom, PointX, PointY); }
+	void SetPageScaleFactor(const FHHTMLBrowser BrowserHandle, const float Zoom, const int32 PointX, const int32 PointY) { SteamHTMLSurface()->SetPageScaleFactor(BrowserHandle, Zoom, PointX, PointY); }
 
 	/**
 	 * Sets the display size of a surface in pixels.
@@ -376,7 +376,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetSize(FHHTMLBrowser BrowserHandle, int32 Width, int32 Height) { SteamHTMLSurface()->SetSize(BrowserHandle, Width, Height); }
+	void SetSize(const FHHTMLBrowser BrowserHandle, const int32 Width, const int32 Height) { SteamHTMLSurface()->SetSize(BrowserHandle, Width, Height); }
 
 	/**
 	 * Scroll the current page vertically.
@@ -387,7 +387,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void SetVerticalScroll(FHHTMLBrowser BrowserHandle, int32 AbsolutePixelScroll) { SteamHTMLSurface()->SetVerticalScroll(BrowserHandle, AbsolutePixelScroll); }
+	void SetVerticalScroll(const FHHTMLBrowser BrowserHandle, const int32 AbsolutePixelScroll) { SteamHTMLSurface()->SetVerticalScroll(BrowserHandle, AbsolutePixelScroll); }
 
 	/**
 	 * Shutdown the ISteamHTMLSurface interface, releasing the memory and handles.
@@ -405,7 +405,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void StopFind(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->StopFind(BrowserHandle); }
+	void StopFind(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->StopFind(BrowserHandle); }
 
 	/**
 	 * Stop the load of the current HTML page.
@@ -414,7 +414,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void StopLoad(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->StopLoad(BrowserHandle); }
+	void StopLoad(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->StopLoad(BrowserHandle); }
 
 	/**
 	 * Open the current pages HTML source code in default local text editor, used for debugging.
@@ -423,7 +423,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|HTMLSurface")
-	void ViewSource(FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->ViewSource(BrowserHandle); }
+	void ViewSource(const FHHTMLBrowser BrowserHandle) { SteamHTMLSurface()->ViewSource(BrowserHandle); }
 
 	/** Delegates */
 

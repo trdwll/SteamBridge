@@ -42,7 +42,7 @@ bool USteamUtils::GetEnteredGamepadTextInput(FString& Text) const
 	return bResult;
 }
 
-bool USteamUtils::GetImageRGBA(int32 Image, TArray<uint8>& Buffer) const
+bool USteamUtils::GetImageRGBA(const int32 Image, TArray<uint8>& Buffer) const
 {
 	uint32 Width, Height;
 	if (SteamUtils()->GetImageSize(Image, &Width, &Height))
@@ -62,7 +62,7 @@ bool USteamUtils::GetImageRGBA(int32 Image, TArray<uint8>& Buffer) const
 	return false;
 }
 
-bool USteamUtils::GetImageSize(int32 Image, FIntPoint& Size) const
+bool USteamUtils::GetImageSize(const int32 Image, FIntPoint& Size) const
 {
 	uint32 Width, Height;
 	bool bResult = SteamUtils()->GetImageSize(Image, &Width, &Height);
@@ -70,7 +70,7 @@ bool USteamUtils::GetImageSize(int32 Image, FIntPoint& Size) const
 	return bResult;
 }
 
-bool USteamUtils::ShowGamepadTextInput(ESteamGamepadTextInputMode InputMode, ESteamGamepadTextInputLineMode LineInputMode, const FString& Description, const FString& ExistingText, int32 CharMax) const
+bool USteamUtils::ShowGamepadTextInput(const ESteamGamepadTextInputMode InputMode, const ESteamGamepadTextInputLineMode LineInputMode, const FString& Description, const FString& ExistingText, const int32 CharMax /*= 200*/) const
 {
 	return SteamUtils()->ShowGamepadTextInput((EGamepadTextInputMode)InputMode, (EGamepadTextInputLineMode)LineInputMode, TCHAR_TO_UTF8(*Description), CharMax, TCHAR_TO_UTF8(*ExistingText));
 }

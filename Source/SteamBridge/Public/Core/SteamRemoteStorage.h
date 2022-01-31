@@ -90,7 +90,7 @@ public:
 	 * @return int32 - The number of bytes read. Returns 0 if the file doesn't exist or the read fails.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|RemoteStorage")
-	int32 FileRead(const FString& FileName, TArray<uint8>& Data, int32 DataToRead) const;
+	int32 FileRead(const FString& FileName, TArray<uint8>& Data, const int32 DataToRead) const;
 
 	// #TODO: FileReadAsync
 	// #TODO: FileReadAsyncComplete
@@ -132,7 +132,7 @@ public:
 	 * @return bool
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|RemoteStorage")
-	bool FileWriteStreamCancel(FUGCFileWriteStreamHandle WriteHandle) const { return SteamRemoteStorage()->FileWriteStreamCancel(WriteHandle); }
+	bool FileWriteStreamCancel(const FUGCFileWriteStreamHandle WriteHandle) const { return SteamRemoteStorage()->FileWriteStreamCancel(WriteHandle); }
 
 	/**
 	 * Closes a file write stream that was started by FileWriteStreamOpen. This flushes the stream to the disk, overwriting the existing file if there was one.
@@ -141,7 +141,7 @@ public:
 	 * @return bool - true if the file write stream was successfully closed, the file has been committed to the disk. false if writeHandle is not a valid file write stream.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|RemoteStorage")
-	bool FileWriteStreamClose(FUGCFileWriteStreamHandle WriteHandle) const { return SteamRemoteStorage()->FileWriteStreamClose(WriteHandle); }
+	bool FileWriteStreamClose(const FUGCFileWriteStreamHandle WriteHandle) const { return SteamRemoteStorage()->FileWriteStreamClose(WriteHandle); }
 
 	/**
 	 * Creates a new file output stream allowing you to stream out data to the Steam Cloud file in chunks. If the target file already exists, it is not overwritten until FileWriteStreamClose has been called.
@@ -164,13 +164,13 @@ public:
 	 * false if writeHandle is not a valid file write stream, cubData is negative or larger than k_unMaxCloudFileChunkSize, or the current user's Steam Cloud storage quota has been exceeded. They may have run out of space, or have too many files.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|RemoteStorage")
-	bool FileWriteStreamWriteChunk(FUGCFileWriteStreamHandle WriteHandle, const TArray<uint8>& Data) const { return SteamRemoteStorage()->FileWriteStreamWriteChunk(WriteHandle, Data.GetData(), Data.Num()); }
+	bool FileWriteStreamWriteChunk(const FUGCFileWriteStreamHandle WriteHandle, const TArray<uint8>& Data) const { return SteamRemoteStorage()->FileWriteStreamWriteChunk(WriteHandle, Data.GetData(), Data.Num()); }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemoteStorage")
 	int32 GetCachedUGCCount() const { return SteamRemoteStorage()->GetCachedUGCCount(); }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemoteStorage")
-	FUGCHandle GetCachedUGCHandle(int32 CachedContent) const { return SteamRemoteStorage()->GetCachedUGCHandle(CachedContent); }
+	FUGCHandle GetCachedUGCHandle(const int32 CachedContent) const { return SteamRemoteStorage()->GetCachedUGCHandle(CachedContent); }
 
 	/**
 	 * Gets the total number of local files synchronized by Steam Cloud. Used for enumeration with GetFileNameAndSize.
@@ -189,7 +189,7 @@ public:
 	 * @return FString - The name of the file at the specified index, if it exists. Returns an empty string ("") if the file doesn't exist.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemoteStorage")
-	FString GetFileNameAndSize(int32 FileIndex, int32& FileSizeInBytes) const { return UTF8_TO_TCHAR(SteamRemoteStorage()->GetFileNameAndSize(FileIndex, &FileSizeInBytes)); }
+	FString GetFileNameAndSize(const int32 FileIndex, int32& FileSizeInBytes) const { return UTF8_TO_TCHAR(SteamRemoteStorage()->GetFileNameAndSize(FileIndex, &FileSizeInBytes)); }
 
 	/**
 	 * Gets the specified files size in bytes.
@@ -232,7 +232,7 @@ public:
 	// #TODO: GetUGCDetails
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|RemoteStorage")
-	bool GetUGCDownloadProgress(FUGCHandle ContentHandle, int32& BytesDownloaded, int32& BytesExpected) const { return SteamRemoteStorage()->GetUGCDownloadProgress(ContentHandle, &BytesDownloaded, &BytesExpected); }
+	bool GetUGCDownloadProgress(const FUGCHandle ContentHandle, int32& BytesDownloaded, int32& BytesExpected) const { return SteamRemoteStorage()->GetUGCDownloadProgress(ContentHandle, &BytesDownloaded, &BytesExpected); }
 
 	/**
 	 * Checks if the account wide Steam Cloud setting is enabled for this user; or if they disabled it in the Settings->Cloud dialog.
@@ -261,7 +261,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|RemoteStorage")
-	void SetCloudEnabledForApp(bool bEnabled) const { SteamRemoteStorage()->SetCloudEnabledForApp(bEnabled); }
+	void SetCloudEnabledForApp(const bool bEnabled) const { SteamRemoteStorage()->SetCloudEnabledForApp(bEnabled); }
 
 	/**
 	 * Allows you to specify which operating systems a file will be synchronized to.
@@ -273,7 +273,7 @@ public:
 	 * @return bool - true if the file exists, otherwise false.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|RemoteStorage")
-	bool SetSyncPlatforms(const FString& FileName, ESteamRemoteStoragePlatform RemoteStoragePlatform) const { return SteamRemoteStorage()->SetSyncPlatforms(TCHAR_TO_UTF8(*FileName), (ERemoteStoragePlatform)RemoteStoragePlatform); }
+	bool SetSyncPlatforms(const FString& FileName, const ESteamRemoteStoragePlatform RemoteStoragePlatform) const { return SteamRemoteStorage()->SetSyncPlatforms(TCHAR_TO_UTF8(*FileName), (ERemoteStoragePlatform)RemoteStoragePlatform); }
 
 	/**
 	 * SteamAPICall_t to be used with a RemoteStorageDownloadUGCResult_t call result.
@@ -283,7 +283,7 @@ public:
 	 * @return FSteamAPICall
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|RemoteStorage")
-	FSteamAPICall UGCDownload(FUGCHandle ContentHandle, int32 Priority) const { return SteamRemoteStorage()->UGCDownload(ContentHandle, Priority); }
+	FSteamAPICall UGCDownload(const FUGCHandle ContentHandle, const int32 Priority) const { return SteamRemoteStorage()->UGCDownload(ContentHandle, Priority); }
 
 	/**
 	 * SteamAPICall_t to be used with a RemoteStorageDownloadUGCResult_t call result.
@@ -294,7 +294,7 @@ public:
 	 * @return FSteamAPICall
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|RemoteStorage")
-	FSteamAPICall UGCDownloadToLocation(FUGCHandle ContentHandle, const FString& Location, int32 Priority) const { return SteamRemoteStorage()->UGCDownloadToLocation(ContentHandle, TCHAR_TO_UTF8(*Location), Priority); }
+	FSteamAPICall UGCDownloadToLocation(const FUGCHandle ContentHandle, const FString& Location, const int32 Priority) const { return SteamRemoteStorage()->UGCDownloadToLocation(ContentHandle, TCHAR_TO_UTF8(*Location), Priority); }
 
 	// #NOTE: No docs for this method currently
 	// #TODO: UGCRead

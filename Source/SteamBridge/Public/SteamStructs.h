@@ -19,8 +19,8 @@ struct STEAMBRIDGE_API FUint64
 	operator uint64() { return Value; }
 	operator uint64() const { return Value; }
 
-	bool operator==(FUint64 Other) const { return Value == Other; }
-	bool operator!=(FUint64 Other) const { return Value != Other; }
+	bool operator==(const FUint64 Other) const { return Value == Other; }
+	bool operator!=(const FUint64 Other) const { return Value != Other; }
 
 	FUint64() = default;
 	FUint64(const uint64 value) : Value(value) {}
@@ -36,8 +36,8 @@ struct STEAMBRIDGE_API FUint32
 	operator uint32() { return Value; }
 	operator uint32() const { return Value; }
 
-	bool operator==(FUint32 Other) const { return Value == Other; }
-	bool operator!=(FUint32 Other) const { return Value != Other; }
+	bool operator==(const FUint32 Other) const { return Value == Other; }
+	bool operator!=(const FUint32 Other) const { return Value != Other; }
 
 	FUint32() = default;
 	FUint32(const uint32 value) : Value(value) {}
@@ -54,8 +54,8 @@ struct STEAMBRIDGE_API FInt32
 	operator int32() { return Value; }
 	operator int32() const { return Value; }
 
-	bool operator==(FInt32 Other) const { return Value == Other; }
-	bool operator!=(FInt32 Other) const { return Value != Other; }
+	bool operator==(const FInt32 Other) const { return Value == Other; }
+	bool operator!=(const FInt32 Other) const { return Value != Other; }
 
 	FInt32() = default;
 	FInt32(const int32 InValue) : Value(InValue) {}

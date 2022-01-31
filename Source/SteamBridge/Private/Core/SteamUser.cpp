@@ -38,7 +38,7 @@ USteamUser::~USteamUser()
 	OnValidateAuthTicketResponseCallback.Unregister();
 }
 
-void USteamUser::AdvertiseGame(FSteamID SteamID, const FString& IP, int32 Port)
+void USteamUser::AdvertiseGame(const FSteamID SteamID, const FString& IP, int32 Port)
 {
 	uint32 TmpIP;
 	USteamBridgeUtils::ConvertIPStringToUint32(IP, TmpIP);

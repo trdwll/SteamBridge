@@ -53,7 +53,7 @@ public:
 	 * @return ESteamAPICallFailure_
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
-	ESteamAPICallFailure_ GetAPICallFailureReason(FSteamAPICall SteamAPICall) const { return (ESteamAPICallFailure_)((uint8)SteamUtils()->GetAPICallFailureReason(SteamAPICall) - 1); }
+	ESteamAPICallFailure_ GetAPICallFailureReason(const FSteamAPICall SteamAPICall) const { return (ESteamAPICallFailure_)((uint8)SteamUtils()->GetAPICallFailureReason(SteamAPICall) - 1); }
 
 	// #TODO: GetAPICallResult
 
@@ -123,7 +123,7 @@ public:
 	 * @return bool - true upon success if the image handle is valid and the buffer was filled out, otherwise false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
-	bool GetImageRGBA(int32 Image, TArray<uint8>& Buffer) const;
+	bool GetImageRGBA(const int32 Image, TArray<uint8>& Buffer) const;
 
 	/**
 	 * Gets the size of a Steam image handle.
@@ -134,7 +134,7 @@ public:
 	 * @return bool - true upon success if the image handle is valid and the sizes were filled out, otherwise false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
-	bool GetImageSize(int32 Image, FIntPoint& Size) const;
+	bool GetImageSize(const int32 Image, FIntPoint& Size) const;
 
 	/**
 	 * Returns the number of IPC calls made since the last time this function was called.
@@ -197,7 +197,7 @@ public:
 	 * @return bool - true if the API Call is valid and has completed, otherwise false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Utils")
-	bool IsAPICallCompleted(FSteamAPICall SteamAPICall, bool& bFailed) const { return SteamUtils()->IsAPICallCompleted(SteamAPICall, &bFailed); }
+	bool IsAPICallCompleted(const FSteamAPICall SteamAPICall, bool& bFailed) const { return SteamUtils()->IsAPICallCompleted(SteamAPICall, &bFailed); }
 
 	/**
 	 * Checks if the Steam Overlay is running & the user can access it.
@@ -273,7 +273,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Utils")
-	void SetOverlayNotificationPosition(ESteamNotificationPosition NotificationPosition) { SteamUtils()->SetOverlayNotificationPosition((ENotificationPosition)NotificationPosition); }
+	void SetOverlayNotificationPosition(const ESteamNotificationPosition NotificationPosition) { SteamUtils()->SetOverlayNotificationPosition((ENotificationPosition)NotificationPosition); }
 
 	/**
 	 * Set whether the HMD content will be streamed via Steam Remote Play.
@@ -285,7 +285,7 @@ public:
 	 * @return void
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SteamBridgeCore|Utils")
-	void SetVRHeadsetStreamingEnabled(bool bEnabled) { SteamUtils()->SetVRHeadsetStreamingEnabled(bEnabled); }
+	void SetVRHeadsetStreamingEnabled(const bool bEnabled) { SteamUtils()->SetVRHeadsetStreamingEnabled(bEnabled); }
 
 	// #TODO: SetWarningMessageHook
 
@@ -300,7 +300,7 @@ public:
 	 * @return bool - true if the big picture overlay is running; otherwise, false.
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|Utils")
-	bool ShowGamepadTextInput(ESteamGamepadTextInputMode InputMode, ESteamGamepadTextInputLineMode LineInputMode, const FString& Description, const FString& ExistingText, int32 CharMax = 200) const;
+	bool ShowGamepadTextInput(const ESteamGamepadTextInputMode InputMode, const ESteamGamepadTextInputLineMode LineInputMode, const FString& Description, const FString& ExistingText, const int32 CharMax = 200) const;
 
 	/**
 	 * Asks Steam to create and render the OpenVR dashboard.

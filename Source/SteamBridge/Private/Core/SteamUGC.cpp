@@ -44,7 +44,7 @@ USteamUGC::~USteamUGC()
 	OnUserFavoriteItemsListChangedCallback.Unregister();
 }
 
-bool USteamUGC::AddRequiredTagGroup(FUGCQueryHandle handle, const TArray<FString>& Tags) const
+bool USteamUGC::AddRequiredTagGroup(const FUGCQueryHandle handle, const TArray<FString>& Tags) const
 {
 	TArray<char*> TmpTags;
 	TmpTags.Reserve(Tags.Num());
@@ -60,18 +60,18 @@ bool USteamUGC::AddRequiredTagGroup(FUGCQueryHandle handle, const TArray<FString
 	return SteamUGC()->AddRequiredTagGroup(handle, &TmpTagsArray);
 }
 
-FUGCQueryHandle USteamUGC::CreateQueryAllUGCRequest(ESteamUGCQuery QueryType, ESteamUGCMatchingUGCType MatchingUGCTypeFileType, int32 CreatorAppID, int32 ConsumerAppID, int32 Page) const
+FUGCQueryHandle USteamUGC::CreateQueryAllUGCRequest(const ESteamUGCQuery QueryType, const ESteamUGCMatchingUGCType MatchingUGCTypeFileType, const int32 CreatorAppID, const int32 ConsumerAppID, const int32 Page) const
 {
 	return SteamUGC()->CreateQueryAllUGCRequest((EUGCQuery)QueryType, (EUGCMatchingUGCType)MatchingUGCTypeFileType, CreatorAppID, ConsumerAppID, Page);
 }
 
-FUGCQueryHandle USteamUGC::CreateQueryUserUGCRequest(FAccountID AccountID, ESteamUserUGCList ListType, ESteamUGCMatchingUGCType MatchingUGCType, ESteamUserUGCListSortOrder SortOrder, int32 CreatorAppID, int32 ConsumerAppID, int32 Page) const
+FUGCQueryHandle USteamUGC::CreateQueryUserUGCRequest(const FAccountID AccountID, const ESteamUserUGCList ListType, ESteamUGCMatchingUGCType MatchingUGCType, ESteamUserUGCListSortOrder SortOrder, const int32 CreatorAppID, const int32 ConsumerAppID, const int32 Page) const
 {
 	return SteamUGC()->CreateQueryUserUGCRequest(AccountID, (EUserUGCList)ListType, (EUGCMatchingUGCType)MatchingUGCType, (EUserUGCListSortOrder)SortOrder, CreatorAppID, ConsumerAppID, Page);
 }
 
 
-bool USteamUGC::GetItemInstallInfo(FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, int32 FolderSize, FDateTime& TimeStamp) const
+bool USteamUGC::GetItemInstallInfo(const FPublishedFileId PublishedFileID, int64& SizeOnDisk, FString& FolderName, const int32 FolderSize, FDateTime& TimeStamp) const
 {
 	uint32 TmpTime;
 	TArray<char> TmpData;
@@ -82,7 +82,7 @@ bool USteamUGC::GetItemInstallInfo(FPublishedFileId PublishedFileID, int64& Size
 	return bResult;
 }
 
-bool USteamUGC::GetQueryUGCAdditionalPreview(FUGCQueryHandle handle, int32 index, int32 previewIndex, FString& URLOrVideoID, int32 URLSize, FString& OriginalFileName, int32 OriginalFileNameSize, ESteamItemPreviewType& PreviewType) const
+bool USteamUGC::GetQueryUGCAdditionalPreview(const FUGCQueryHandle handle, const int32 index, const int32 previewIndex, FString& URLOrVideoID, const int32 URLSize, FString& OriginalFileName, int32 OriginalFileNameSize, ESteamItemPreviewType& PreviewType) const
 {
 	TArray<char> TmpStr, TmpStr2;
 	TmpStr.SetNum(URLSize);
@@ -93,7 +93,7 @@ bool USteamUGC::GetQueryUGCAdditionalPreview(FUGCQueryHandle handle, int32 index
 	return bResult;
 }
 
-bool USteamUGC::GetQueryUGCChildren(FUGCQueryHandle handle, int32 index, TArray<FPublishedFileId>& PublishedFileIDs, int32 MaxEntries) const
+bool USteamUGC::GetQueryUGCChildren(const FUGCQueryHandle handle, const int32 index, TArray<FPublishedFileId>& PublishedFileIDs, const int32 MaxEntries) const
 {
 	TArray<PublishedFileId_t> TmpData;
 	TmpData.SetNum(MaxEntries);
@@ -105,7 +105,7 @@ bool USteamUGC::GetQueryUGCChildren(FUGCQueryHandle handle, int32 index, TArray<
 	return bResult;
 }
 
-bool USteamUGC::GetQueryUGCKeyValueTag(FUGCQueryHandle handle, int32 index, int32 keyValueTagIndex, FString& Key, int32 KeySize, FString& Value, int32 ValueSize) const
+bool USteamUGC::GetQueryUGCKeyValueTag(const FUGCQueryHandle handle, const int32 index, const int32 keyValueTagIndex, FString& Key, const int32 KeySize, FString& Value, const int32 ValueSize) const
 {
 	TArray<char> TmpKey, TmpValue;
 	TmpKey.SetNum(KeySize);
@@ -116,7 +116,7 @@ bool USteamUGC::GetQueryUGCKeyValueTag(FUGCQueryHandle handle, int32 index, int3
 	return bResult;
 }
 
-bool USteamUGC::GetQueryUGCMetadata(FUGCQueryHandle handle, int32 index, FString& Metadata, int32 Metadatasize) const
+bool USteamUGC::GetQueryUGCMetadata(const FUGCQueryHandle handle, const int32 index, FString& Metadata, const int32 Metadatasize) const
 {
 	TArray<char> TmpStr;
 	bool bResult = SteamUGC()->GetQueryUGCMetadata(handle, index, TmpStr.GetData(), TmpStr.Num());
@@ -124,7 +124,7 @@ bool USteamUGC::GetQueryUGCMetadata(FUGCQueryHandle handle, int32 index, FString
 	return bResult;
 }
 
-bool USteamUGC::GetQueryUGCPreviewURL(FUGCQueryHandle handle, int32 index, FString& URL, int32 URLSize) const
+bool USteamUGC::GetQueryUGCPreviewURL(const FUGCQueryHandle handle, const int32 index, FString& URL, const int32 URLSize) const
 {
 	TArray<char> TmpUrl;
 	TmpUrl.SetNum(URLSize);
@@ -133,7 +133,7 @@ bool USteamUGC::GetQueryUGCPreviewURL(FUGCQueryHandle handle, int32 index, FStri
 	return bResult;
 }
 
-bool USteamUGC::GetQueryUGCResult(FUGCQueryHandle handle, int32 index, FSteamUGCDetails& Details) const
+bool USteamUGC::GetQueryUGCResult(const FUGCQueryHandle handle, const int32 index, FSteamUGCDetails& Details) const
 {
 	SteamUGCDetails_t TmpDetails;
 	bool bResult = SteamUGC()->GetQueryUGCResult(handle, index, &TmpDetails);
@@ -141,7 +141,7 @@ bool USteamUGC::GetQueryUGCResult(FUGCQueryHandle handle, int32 index, FSteamUGC
 	return bResult;
 }
 
-int32 USteamUGC::GetSubscribedItems(TArray<FPublishedFileId>& PublishedFileIDs, int32 MaxEntries) const
+int32 USteamUGC::GetSubscribedItems(TArray<FPublishedFileId>& PublishedFileIDs, const int32 MaxEntries) const
 {
 	TArray<PublishedFileId_t> TmpData;
 	int32 result = SteamUGC()->GetSubscribedItems(TmpData.GetData(), MaxEntries);
@@ -153,7 +153,7 @@ int32 USteamUGC::GetSubscribedItems(TArray<FPublishedFileId>& PublishedFileIDs, 
 	return result;
 }
 
-bool USteamUGC::SetItemTags(FUGCUpdateHandle UpdateHandle, const TArray<FString>& Tags) const
+bool USteamUGC::SetItemTags(const FUGCUpdateHandle UpdateHandle, const TArray<FString>& Tags) const
 {
 	TArray<char*> TmpTags;
 	TmpTags.Reserve(Tags.Num());

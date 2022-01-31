@@ -60,22 +60,22 @@ public:
 	bool DeregisterSteamMusicRemote() const { return SteamMusicRemote()->DeregisterSteamMusicRemote(); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool EnableLooped(bool bValue) const { return SteamMusicRemote()->EnableLooped(bValue); }
+	bool EnableLooped(const bool bValue) const { return SteamMusicRemote()->EnableLooped(bValue); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool EnablePlaylists(bool bValue) const { return SteamMusicRemote()->EnablePlaylists(bValue); }
+	bool EnablePlaylists(const bool bValue) const { return SteamMusicRemote()->EnablePlaylists(bValue); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool EnablePlayNext(bool bValue) const { return SteamMusicRemote()->EnablePlayNext(bValue); }
+	bool EnablePlayNext(const bool bValue) const { return SteamMusicRemote()->EnablePlayNext(bValue); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool EnablePlayPrevious(bool bValue) const { return SteamMusicRemote()->EnablePlayPrevious(bValue); }
+	bool EnablePlayPrevious(const bool bValue) const { return SteamMusicRemote()->EnablePlayPrevious(bValue); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool EnableQueue(bool bValue) const { return SteamMusicRemote()->EnableQueue(bValue); }
+	bool EnableQueue(const bool bValue) const { return SteamMusicRemote()->EnableQueue(bValue); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool EnableShuffled(bool bValue) const { return SteamMusicRemote()->EnableShuffled(bValue); }
+	bool EnableShuffled(const bool bValue) const { return SteamMusicRemote()->EnableShuffled(bValue); }
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|MusicRemote")
 	bool PlaylistDidChange() const { return SteamMusicRemote()->PlaylistDidChange(); }
@@ -99,41 +99,41 @@ public:
 	bool ResetQueueEntries() const { return SteamMusicRemote()->ResetQueueEntries(); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool SetCurrentPlaylistEntry(int32 ID) const { return SteamMusicRemote()->SetCurrentPlaylistEntry(ID); }
+	bool SetCurrentPlaylistEntry(const int32 ID) const { return SteamMusicRemote()->SetCurrentPlaylistEntry(ID); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool SetCurrentQueueEntry(int32 ID) const { return SteamMusicRemote()->SetCurrentQueueEntry(ID); }
+	bool SetCurrentQueueEntry(const int32 ID) const { return SteamMusicRemote()->SetCurrentQueueEntry(ID); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
 	bool SetDisplayName(const FString& DisplayName) const { return SteamMusicRemote()->SetDisplayName(TCHAR_TO_UTF8(*DisplayName)); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool SetPlaylistEntry(int32 ID, int32 Position, const FString& EntryText) const { return SteamMusicRemote()->SetPlaylistEntry(ID, Position, TCHAR_TO_UTF8(*EntryText)); }
+	bool SetPlaylistEntry(const int32 ID, int32 Position, const FString& EntryText) const { return SteamMusicRemote()->SetPlaylistEntry(ID, Position, TCHAR_TO_UTF8(*EntryText)); }
 
 	// #TODO: SetPNGIcon_64x64
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool SetQueueEntry(int32 ID, int32 Position, const FString& EntryText) const { return SteamMusicRemote()->SetQueueEntry(ID, Position, TCHAR_TO_UTF8(*EntryText)); }
+	bool SetQueueEntry(const int32 ID, const int32 Position, const FString& EntryText) const { return SteamMusicRemote()->SetQueueEntry(ID, Position, TCHAR_TO_UTF8(*EntryText)); }
 
 	// #TODO: UpdateCurrentEntryCoverArt
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool UpdateCurrentEntryElapsedSeconds(int32 Value) const { return SteamMusicRemote()->UpdateCurrentEntryElapsedSeconds(Value); }
+	bool UpdateCurrentEntryElapsedSeconds(const int32 Value) const { return SteamMusicRemote()->UpdateCurrentEntryElapsedSeconds(Value); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
 	bool UpdateCurrentEntryText(const FString& Text) const { return SteamMusicRemote()->UpdateCurrentEntryText(TCHAR_TO_UTF8(*Text)); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool UpdateLooped(bool bValue) const { return SteamMusicRemote()->UpdateLooped(bValue); }
+	bool UpdateLooped(const bool bValue) const { return SteamMusicRemote()->UpdateLooped(bValue); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
 	bool UpdatePlaybackStatus(ESteamAudioPlaybackStatus Status) const { return SteamMusicRemote()->UpdatePlaybackStatus((AudioPlayback_Status)Status); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool UpdateShuffled(bool bValue) const { return SteamMusicRemote()->UpdateShuffled(bValue); }
+	bool UpdateShuffled(const bool bValue) const { return SteamMusicRemote()->UpdateShuffled(bValue); }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "SteamBridgeCore|MusicRemote")
-	bool UpdateVolume(float Value) const { return SteamMusicRemote()->UpdateVolume(Value); }
+	bool UpdateVolume(const float Value) const { return SteamMusicRemote()->UpdateVolume(Value); }
 
 	/** Delegates */
 
