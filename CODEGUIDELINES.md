@@ -5,19 +5,17 @@ These guidelines are a WIP so feel free to contribute to it if you want. I'm awa
 ## Formatting
 - Tabs with 4 spaces
 - {} on new lines
-- If lines length are > 220 then break to another line
+- If lines length are > 250 then break to another line
 - Classes/Enums/Structs are to be prefixed with like the others in the project
 - No spacing between () or [] etc for example `if ( cond )` or `[ 0 ]`
 - Where there are private/protected variables make a Getter/Setter where it makes sense
 - Class specifiers are to be in the order of `public`, `protected`, `private`
 - Implementations are to be ordered the same as the signature
-- Use m_ as a prefix for variables in the class see below - code uses the [Hungarian Notation](https://en.wikipedia.org/wiki/Hungarian_notation#Examples) format for code. (just read the codebase and you'll see)
-- When exposing variables to Blueprint make sure to add the meta tag with DisplayName
 - Only comment when necessary. Be descriptive with variable names instead. (NO `GetID()`, change to `GetDescriptiveID()`)
 - Inline where it makes sense `FORCEINLINE`
 - When checking if a pointer is null actually write nullptr `if (ptr != nullptr)`
 - In foreach use `auto` if the type is long such as `TPair`
-- Pointers/References are to be left (`Ptr* ptr`)
+- Pointers/References are to be left (`Ptr* ptr` or `Ref& ref`)
 - When using `const` it's to be used like `const bool` or `const Ptr* const` or `Ptr* const`
 
 
@@ -31,7 +29,7 @@ public:
     int32 GetUniquePlayerID() const { return m_UniquePlayerID; }
 
     UFUNCTION(...)
-    FString GetOnlinePlayerUserName() const { return m_OnlinePlayerUserName; }
+    const FString& GetOnlinePlayerUserName() const { return m_OnlinePlayerUserName; }
 
     UFUNCTION(...)
     void SetOnlinePlayerUserName(const FString& NewName);
