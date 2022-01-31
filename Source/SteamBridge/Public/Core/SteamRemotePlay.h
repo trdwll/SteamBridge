@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamRemotePlay.generated.h"
 
@@ -95,10 +96,10 @@ public:
 	/** Delegates */
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemotePlay", meta = (DisplayName = "OnSteamRemotePlaySessionConnected"))
-	FOnSteamRemotePlaySessionConnectedDelegate m_OnSteamRemotePlaySessionConnected;
+	FOnSteamRemotePlaySessionConnectedDelegate OnSteamRemotePlaySessionConnectedDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemotePlay", meta = (DisplayName = "OnSteamRemotePlaySessionDisconnected"))
-	FOnSteamRemotePlaySessionDisconnectedDelegate m_OnSteamRemotePlaySessionDisconnected;
+	FOnSteamRemotePlaySessionDisconnectedDelegate OnSteamRemotePlaySessionDisconnectedDelegate;
 
 protected:
 private:

@@ -3,11 +3,3 @@
 #include "Core/SteamMatchmakingServers.h"
 
 #include "SteamBridgeUtils.h"
-
-USteamMatchmakingServers::USteamMatchmakingServers()
-{
-}
-
-USteamMatchmakingServers::~USteamMatchmakingServers()
-{
-}

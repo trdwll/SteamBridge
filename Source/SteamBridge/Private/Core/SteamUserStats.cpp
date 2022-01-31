@@ -105,60 +105,60 @@ FSteamAPICall USteamUserStats::UploadLeaderboardScore(FSteamLeaderboard SteamLea
 
 void USteamUserStats::OnGlobalAchievementPercentagesReady(GlobalAchievementPercentagesReady_t* pParam)
 {
-	m_OnGlobalAchievementPercentagesReady.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult);
+	OnGlobalAchievementPercentagesReadyDelegate.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult);
 }
 
 void USteamUserStats::OnGlobalStatsReceived(GlobalStatsReceived_t* pParam)
 {
-	m_OnGlobalStatsReceived.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult);
+	OnGlobalStatsReceivedDelegate.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult);
 }
 
 void USteamUserStats::OnLeaderboardFindResult(LeaderboardFindResult_t* pParam)
 {
-	m_OnLeaderboardFindResult.Broadcast(pParam->m_hSteamLeaderboard, pParam->m_bLeaderboardFound == 1);
+	OnLeaderboardFindResultDelegate.Broadcast(pParam->m_hSteamLeaderboard, pParam->m_bLeaderboardFound == 1);
 }
 
 void USteamUserStats::OnLeaderboardScoresDownloaded(LeaderboardScoresDownloaded_t* pParam)
 {
-	m_OnLeaderboardScoresDownloaded.Broadcast(pParam->m_hSteamLeaderboard, pParam->m_hSteamLeaderboardEntries, pParam->m_cEntryCount);
+	OnLeaderboardScoresDownloadedDelegate.Broadcast(pParam->m_hSteamLeaderboard, pParam->m_hSteamLeaderboardEntries, pParam->m_cEntryCount);
 }
 
 void USteamUserStats::OnLeaderboardScoreUploaded(LeaderboardScoreUploaded_t* pParam)
 {
-	m_OnLeaderboardScoreUploaded.Broadcast(pParam->m_bSuccess == 1, pParam->m_hSteamLeaderboard, pParam->m_nScore, pParam->m_bScoreChanged == 1, pParam->m_nGlobalRankNew, pParam->m_nGlobalRankPrevious);
+	OnLeaderboardScoreUploadedDelegate.Broadcast(pParam->m_bSuccess == 1, pParam->m_hSteamLeaderboard, pParam->m_nScore, pParam->m_bScoreChanged == 1, pParam->m_nGlobalRankNew, pParam->m_nGlobalRankPrevious);
 }
 
 void USteamUserStats::OnLeaderboardUGCSet(LeaderboardUGCSet_t* pParam)
 {
-	m_OnLeaderboardUGCSet.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_hSteamLeaderboard);
+	OnLeaderboardUGCSetDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_hSteamLeaderboard);
 }
 
 void USteamUserStats::OnNumberOfCurrentPlayers(NumberOfCurrentPlayers_t* pParam)
 {
-	m_OnNumberOfCurrentPlayers.Broadcast(pParam->m_bSuccess == 1, pParam->m_cPlayers);
+	OnNumberOfCurrentPlayersDelegate.Broadcast(pParam->m_bSuccess == 1, pParam->m_cPlayers);
 }
 
 void USteamUserStats::OnUserAchievementIconFetched(UserAchievementIconFetched_t* pParam)
 {
-	m_OnUserAchievementIconFetched.Broadcast(pParam->m_nGameID.ToUint64(), UTF8_TO_TCHAR(pParam->m_rgchAchievementName), pParam->m_bAchieved, pParam->m_nIconHandle);
+	OnUserAchievementIconFetchedDelegate.Broadcast(pParam->m_nGameID.ToUint64(), UTF8_TO_TCHAR(pParam->m_rgchAchievementName), pParam->m_bAchieved, pParam->m_nIconHandle);
 }
 
 void USteamUserStats::OnUserAchievementStored(UserAchievementStored_t* pParam)
 {
-	m_OnUserAchievementStored.Broadcast(pParam->m_nGameID, pParam->m_bGroupAchievement, UTF8_TO_TCHAR(pParam->m_rgchAchievementName), pParam->m_nCurProgress, pParam->m_nMaxProgress);
+	OnUserAchievementStoredDelegate.Broadcast(pParam->m_nGameID, pParam->m_bGroupAchievement, UTF8_TO_TCHAR(pParam->m_rgchAchievementName), pParam->m_nCurProgress, pParam->m_nMaxProgress);
 }
 
 void USteamUserStats::OnUserStatsReceived(UserStatsReceived_t* pParam)
 {
-	m_OnUserStatsReceived.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult, pParam->m_steamIDUser.ConvertToUint64());
+	OnUserStatsReceivedDelegate.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult, pParam->m_steamIDUser.ConvertToUint64());
 }
 
 void USteamUserStats::OnUserStatsStored(UserStatsStored_t* pParam)
 {
-	m_OnUserStatsStored.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult);
+	OnUserStatsStoredDelegate.Broadcast(pParam->m_nGameID, (ESteamResult)pParam->m_eResult);
 }
 
 void USteamUserStats::OnUserStatsUnloaded(UserStatsUnloaded_t* pParam)
 {
-	m_OnUserStatsUnloaded.Broadcast(pParam->m_steamIDUser.ConvertToUint64());
+	OnUserStatsUnloadedDelegate.Broadcast(pParam->m_steamIDUser.ConvertToUint64());
 }

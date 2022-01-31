@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamMusicRemote.generated.h"
 
@@ -137,46 +138,46 @@ public:
 	/** Delegates */
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerRemoteToFront"))
-	FOnMusicPlayerRemoteToFrontDelegate m_OnMusicPlayerRemoteToFront;
+	FOnMusicPlayerRemoteToFrontDelegate OnMusicPlayerRemoteToFrontDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerRemoteWillActivate"))
-	FOnMusicPlayerRemoteWillActivateDelegate m_OnMusicPlayerRemoteWillActivate;
+	FOnMusicPlayerRemoteWillActivateDelegate OnMusicPlayerRemoteWillActivateDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerRemoteWillDeactivate"))
-	FOnMusicPlayerRemoteWillDeactivateDelegate m_OnMusicPlayerRemoteWillDeactivate;
+	FOnMusicPlayerRemoteWillDeactivateDelegate OnMusicPlayerRemoteWillDeactivateDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerSelectsPlaylistEntry"))
-	FOnMusicPlayerSelectsPlaylistEntryDelegate m_OnMusicPlayerSelectsPlaylistEntry;
+	FOnMusicPlayerSelectsPlaylistEntryDelegate OnMusicPlayerSelectsPlaylistEntryDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerSelectsQueueEntry"))
-	FOnMusicPlayerSelectsQueueEntryDelegate m_OnMusicPlayerSelectsQueueEntry;
+	FOnMusicPlayerSelectsQueueEntryDelegate OnMusicPlayerSelectsQueueEntryDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsLooped"))
-	FOnMusicPlayerWantsLoopedDelegate m_OnMusicPlayerWantsLooped;
+	FOnMusicPlayerWantsLoopedDelegate OnMusicPlayerWantsLoopedDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPause"))
-	FOnMusicPlayerWantsPauseDelegate m_OnMusicPlayerWantsPause;
+	FOnMusicPlayerWantsPauseDelegate OnMusicPlayerWantsPauseDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPlayingRepeatStatus"))
-	FOnMusicPlayerWantsPlayingRepeatStatusDelegate m_OnMusicPlayerWantsPlayingRepeatStatus;
+	FOnMusicPlayerWantsPlayingRepeatStatusDelegate OnMusicPlayerWantsPlayingRepeatStatusDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPlayNext"))
-	FOnMusicPlayerWantsPlayNextDelegate m_OnMusicPlayerWantsPlayNext;
+	FOnMusicPlayerWantsPlayNextDelegate OnMusicPlayerWantsPlayNextDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPlayPrevious"))
-	FOnMusicPlayerWantsPlayPreviousDelegate m_OnMusicPlayerWantsPlayPrevious;
+	FOnMusicPlayerWantsPlayPreviousDelegate OnMusicPlayerWantsPlayPreviousDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPlay"))
-	FOnMusicPlayerWantsPlayDelegate m_OnMusicPlayerWantsPlay;
+	FOnMusicPlayerWantsPlayDelegate OnMusicPlayerWantsPlayDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsShuffled"))
-	FOnMusicPlayerWantsShuffledDelegate m_OnMusicPlayerWantsShuffled;
+	FOnMusicPlayerWantsShuffledDelegate OnMusicPlayerWantsShuffledDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsVolume"))
-	FOnMusicPlayerWantsVolumeDelegate m_OnMusicPlayerWantsVolume;
+	FOnMusicPlayerWantsVolumeDelegate OnMusicPlayerWantsVolumeDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWillQuit"))
-	FOnMusicPlayerWillQuitDelegate m_OnMusicPlayerWillQuit;
+	FOnMusicPlayerWillQuitDelegate OnMusicPlayerWillQuitDelegate;
 
 protected:
 private:

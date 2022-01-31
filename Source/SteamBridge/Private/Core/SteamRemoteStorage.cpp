@@ -47,40 +47,40 @@ bool USteamRemoteStorage::GetQuota(int64& TotalBytes, int64& AvailableBytes) con
 
 void USteamRemoteStorage::OnRemoteStorageDownloadUGCResult(RemoteStorageDownloadUGCResult_t* pParam)
 {
-	m_OnRemoteStorageDownloadUGCResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_hFile, pParam->m_nAppID, pParam->m_nSizeInBytes, UTF8_TO_TCHAR(pParam->m_pchFileName), pParam->m_ulSteamIDOwner);
+	OnRemoteStorageDownloadUGCResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_hFile, pParam->m_nAppID, pParam->m_nSizeInBytes, UTF8_TO_TCHAR(pParam->m_pchFileName), pParam->m_ulSteamIDOwner);
 }
 
 void USteamRemoteStorage::OnRemoteStorageFileReadAsyncComplete(RemoteStorageFileReadAsyncComplete_t* pParam)
 {
-	m_OnRemoteStorageFileReadAsyncComplete.Broadcast(pParam->m_hFileReadAsync, (ESteamResult)pParam->m_eResult, pParam->m_nOffset, pParam->m_cubRead);
+	OnRemoteStorageFileReadAsyncCompleteDelegate.Broadcast(pParam->m_hFileReadAsync, (ESteamResult)pParam->m_eResult, pParam->m_nOffset, pParam->m_cubRead);
 }
 
 void USteamRemoteStorage::OnRemoteStorageFileShareResult(RemoteStorageFileShareResult_t* pParam)
 {
-	m_OnRemoteStorageFileShareResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_hFile, UTF8_TO_TCHAR(pParam->m_rgchFilename));
+	OnRemoteStorageFileShareResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_hFile, UTF8_TO_TCHAR(pParam->m_rgchFilename));
 }
 
 void USteamRemoteStorage::OnRemoteStorageFileWriteAsyncComplete(RemoteStorageFileWriteAsyncComplete_t* pParam)
 {
-	m_OnRemoteStorageFileWriteAsyncComplete.Broadcast((ESteamResult)pParam->m_eResult);
+	OnRemoteStorageFileWriteAsyncCompleteDelegate.Broadcast((ESteamResult)pParam->m_eResult);
 }
 
 void USteamRemoteStorage::OnRemoteStoragePublishedFileSubscribed(RemoteStoragePublishedFileSubscribed_t* pParam)
 {
-	m_OnRemoteStoragePublishedFileSubscribed.Broadcast(pParam->m_nPublishedFileId, pParam->m_nAppID);
+	OnRemoteStoragePublishedFileSubscribedDelegate.Broadcast(pParam->m_nPublishedFileId, pParam->m_nAppID);
 }
 
 void USteamRemoteStorage::OnRemoteStoragePublishedFileUnsubscribed(RemoteStoragePublishedFileUnsubscribed_t* pParam)
 {
-	m_OnRemoteStoragePublishedFileUnsubscribed.Broadcast(pParam->m_nPublishedFileId, pParam->m_nAppID);
+	OnRemoteStoragePublishedFileUnsubscribedDelegate.Broadcast(pParam->m_nPublishedFileId, pParam->m_nAppID);
 }
 
 void USteamRemoteStorage::OnRemoteStorageSubscribePublishedFileResult(RemoteStorageSubscribePublishedFileResult_t* pParam)
 {
-	m_OnRemoteStorageSubscribePublishedFileResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId);
+	OnRemoteStorageSubscribePublishedFileResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId);
 }
 
 void USteamRemoteStorage::OnRemoteStorageUnsubscribePublishedFileResult(RemoteStorageUnsubscribePublishedFileResult_t* pParam)
 {
-	m_OnRemoteStorageUnsubscribePublishedFileResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId);
+	OnRemoteStorageUnsubscribePublishedFileResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId);
 }

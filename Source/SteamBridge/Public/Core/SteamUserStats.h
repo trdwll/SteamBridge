@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamUserStats.generated.h"
 
@@ -630,57 +631,57 @@ public:
 
 	/** Called when the global achievement percentages have been received from the server. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnGlobalAchievementPercentagesReady"))
-	FOnGlobalAchievementPercentagesReadyDelegate m_OnGlobalAchievementPercentagesReady;
+	FOnGlobalAchievementPercentagesReadyDelegate OnGlobalAchievementPercentagesReadyDelegate;
 
 	/** Called when the global stats have been received from the server. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnGlobalStatsReceived"))
-	FOnGlobalStatsReceivedDelegate m_OnGlobalStatsReceived;
+	FOnGlobalStatsReceivedDelegate OnGlobalStatsReceivedDelegate;
 
 	/** Result when finding a leaderboard. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnLeaderboardFindResult"))
-	FOnLeaderboardFindResultDelegate m_OnLeaderboardFindResult;
+	FOnLeaderboardFindResultDelegate OnLeaderboardFindResultDelegate;
 
 	/**
 	 * Called when scores for a leaderboard have been downloaded and are ready to be retrieved.
 	 * After calling you must use GetDownloadedLeaderboardEntry to retrieve the info for each downloaded entry.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnLeaderboardScoresDownloaded"))
-	FOnLeaderboardScoresDownloadedDelegate m_OnLeaderboardScoresDownloaded;
+	FOnLeaderboardScoresDownloadedDelegate OnLeaderboardScoresDownloadedDelegate;
 
 	/** Result indicating that a leaderboard score has been uploaded. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnLeaderboardScoreUploaded"))
-	FOnLeaderboardScoreUploadedDelegate m_OnLeaderboardScoreUploaded;
+	FOnLeaderboardScoreUploadedDelegate OnLeaderboardScoreUploadedDelegate;
 
 	/** Result indicating that user generated content has been attached to one of the current user's leaderboard entries. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnLeaderboardUGCSet"))
-	FOnLeaderboardUGCSetDelegate m_OnLeaderboardUGCSet;
+	FOnLeaderboardUGCSetDelegate OnLeaderboardUGCSetDelegate;
 
 	/** Gets the current number of players for the current AppId. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnNumberOfCurrentPlayers"))
-	FOnNumberOfCurrentPlayersDelegate m_OnNumberOfCurrentPlayers;
+	FOnNumberOfCurrentPlayersDelegate OnNumberOfCurrentPlayersDelegate;
 
 	/** Result of an achievement icon that has been fetched */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnUserAchievementIconFetched"))
-	FOnUserAchievementIconFetchedDelegate m_OnUserAchievementIconFetched;
+	FOnUserAchievementIconFetchedDelegate OnUserAchievementIconFetchedDelegate;
 
 	/** Result of a request to store the achievements on the server, or an "indicate progress" call. If both m_nCurProgress and m_nMaxProgress are zero, that means the achievement has been fully unlocked. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnUserAchievementStored"))
-	FOnUserAchievementStoredDelegate m_OnUserAchievementStored;
+	FOnUserAchievementStoredDelegate OnUserAchievementStoredDelegate;
 
 	/** Called when the latest stats and achievements for a specific user (including the local user) have been received from the server. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnUserStatsReceived"))
-	FOnUserStatsReceivedDelegate m_OnUserStatsReceived;
+	FOnUserStatsReceivedDelegate OnUserStatsReceivedDelegate;
 
 	/** Result of a request to store the user stats.*/
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnUserStatsStored"))
-	FOnUserStatsStoredDelegate m_OnUserStatsStored;
+	FOnUserStatsStoredDelegate OnUserStatsStoredDelegate;
 
 	/**
 	 * Callback indicating that a user's stats have been unloaded.
 	 * Call RequestUserStats again before accessing stats for this user.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UserStats", meta = (DisplayName = "OnUserStatsUnloaded"))
-	FOnUserStatsUnloadedDelegate m_OnUserStatsUnloaded;
+	FOnUserStatsUnloadedDelegate OnUserStatsUnloadedDelegate;
 
 protected:
 private:

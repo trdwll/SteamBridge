@@ -22,15 +22,15 @@ USteamHTTP::~USteamHTTP()
 
 void USteamHTTP::OnHTTPRequestCompleted(HTTPRequestCompleted_t* pParam)
 {
-	m_OnHTTPRequestCompleted.Broadcast(pParam->m_hRequest, pParam->m_ulContextValue, pParam->m_bRequestSuccessful, (ESteamHTTPStatus::Type)pParam->m_eStatusCode, pParam->m_unBodySize);
+	OnHTTPRequestCompletedDelegate.Broadcast(pParam->m_hRequest, pParam->m_ulContextValue, pParam->m_bRequestSuccessful, (ESteamHTTPStatus::Type)pParam->m_eStatusCode, pParam->m_unBodySize);
 }
 
 void USteamHTTP::OnHTTPRequestDataReceived(HTTPRequestDataReceived_t* pParam)
 {
-	m_OnHTTPRequestDataReceived.Broadcast(pParam->m_hRequest, pParam->m_ulContextValue, pParam->m_cOffset, pParam->m_cBytesReceived);
+	OnHTTPRequestDataReceivedDelegate.Broadcast(pParam->m_hRequest, pParam->m_ulContextValue, pParam->m_cOffset, pParam->m_cBytesReceived);
 }
 
 void USteamHTTP::OnHTTPRequestHeadersReceived(HTTPRequestHeadersReceived_t* pParam)
 {
-	m_OnHTTPRequestHeadersReceived.Broadcast(pParam->m_hRequest, pParam->m_ulContextValue);
+	OnHTTPRequestHeadersReceivedDelegate.Broadcast(pParam->m_hRequest, pParam->m_ulContextValue);
 }

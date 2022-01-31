@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamFriends.generated.h"
 
@@ -793,47 +794,47 @@ public:
 
 	/** Called when a large avatar is loaded if you have tried requesting it when it was unavailable. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnAvatarImageLoaded"))
-	FOnAvatarImageLoadedDelegate m_OnAvatarImageLoaded;
+	FOnAvatarImageLoadedDelegate OnAvatarImageLoadedDelegate;
 
 	/** Marks the return of a request officer list call. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnClanOfficerListResponse"))
-	FOnClanOfficerListResponseDelegate m_OnClanOfficerListResponse;
+	FOnClanOfficerListResponseDelegate OnClanOfficerListResponseDelegate;
 
 	/** Called when a Steam group activity has received. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnDownloadClanActivityCountsResult"))
-	FOnDownloadClanActivityCountsResultDelegate m_OnDownloadClanActivityCountsResult;
+	FOnDownloadClanActivityCountsResultDelegate OnDownloadClanActivityCountsResultDelegate;
 
 	/** Called when Rich Presence data has been updated for a user, this can happen automatically when friends in the same game update their rich presence, or after a call to RequestFriendRichPresence. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnFriendRichPresenceUpdate"))
-	FOnFriendRichPresenceUpdateDelegate m_OnFriendRichPresenceUpdate;
+	FOnFriendRichPresenceUpdateDelegate OnFriendRichPresenceUpdateDelegate;
 
 	/** Returns the result of EnumerateFollowingList. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnFriendsEnumerateFollowingList"))
-	FOnFriendsEnumerateFollowingListDelegate m_OnFriendsEnumerateFollowingList;
+	FOnFriendsEnumerateFollowingListDelegate OnFriendsEnumerateFollowingListDelegate;
 
 	/** Returns the result of GetFollowerCount. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnFriendsGetFollowerCount"))
-	FOnFriendsGetFollowerCountDelegate m_OnFriendsGetFollowerCount;
+	FOnFriendsGetFollowerCountDelegate OnFriendsGetFollowerCountDelegate;
 
 	/** Returns the result of IsFollowing. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnFriendsIsFollowing"))
-	FOnFriendsIsFollowingDelegate m_OnFriendsIsFollowing;
+	FOnFriendsIsFollowingDelegate OnFriendsIsFollowingDelegate;
 
 	/** Called when a user has joined a Steam group chat that the we are in. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnGameConnectedChatJoin"))
-	FOnGameConnectedChatJoinDelegate m_OnGameConnectedChatJoin;
+	FOnGameConnectedChatJoinDelegate OnGameConnectedChatJoinDelegate;
 
 	/** Called when a user has left a Steam group chat that the we are in. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnGameConnectedChatLeave"))
-	FOnGameConnectedChatLeaveDelegate m_OnGameConnectedChatLeave;
+	FOnGameConnectedChatLeaveDelegate OnGameConnectedChatLeaveDelegate;
 
 	/** Called when a chat message has been received in a Steam group chat that we are in. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnGameConnectedClanChatMsg"))
-	FOnGameConnectedClanChatMsgDelegate m_OnGameConnectedClanChatMsg;
+	FOnGameConnectedClanChatMsgDelegate OnGameConnectedClanChatMsgDelegate;
 
 	/** Called when chat message has been received from a friend. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnGameConnectedFriendChatMsg"))
-	FOnGameConnectedFriendChatMsgDelegate m_OnGameConnectedFriendChatMsg;
+	FOnGameConnectedFriendChatMsgDelegate OnGameConnectedFriendChatMsgDelegate;
 
 	/**
 	 * Called when the user tries to join a lobby from their friends list or from an invite. The game client should attempt to connect to specified lobby when this is received.
@@ -841,34 +842,34 @@ public:
 	 * NOTE: This callback is made when joining a lobby. If the user is attempting to join a game but not a lobby, then the callback GameRichPresenceJoinRequested_t will be made.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnGameLobbyJoinRequested"))
-	FOnGameLobbyJoinRequestedDelegate m_OnGameLobbyJoinRequested;
+	FOnGameLobbyJoinRequestedDelegate OnGameLobbyJoinRequestedDelegate;
 
 	/** Posted when the Steam Overlay activates or deactivates. The game can use this to be pause or resume single player games. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnGameOverlayActivated"))
-	FOnGameOverlayActivatedDelegate m_OnGameOverlayActivated;
+	FOnGameOverlayActivatedDelegate OnGameOverlayActivatedDelegate;
 
 	/**
 	 * Called when the user tries to join a game from their friends list or after a user accepts an invite by a friend with InviteUserToGame.
 	 * NOTE: This callback is made when joining a game. If the user is attempting to join a lobby, then the callback GameLobbyJoinRequested_t will be made.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnGameRichPresenceJoinRequested"))
-	FOnGameRichPresenceJoinRequestedDelegate m_OnGameRichPresenceJoinRequested;
+	FOnGameRichPresenceJoinRequestedDelegate OnGameRichPresenceJoinRequestedDelegate;
 
 	/** Called when the user tries to join a different game server from their friends list. The game client should attempt to connect to specified server when this is received. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnGameServerChangeRequested"))
-	FOnGameServerChangeRequestedDelegate m_OnGameServerChangeRequested;
+	FOnGameServerChangeRequestedDelegate OnGameServerChangeRequestedDelegate;
 
 	/** Posted when the user has attempted to join a Steam group chat via JoinClanChatRoom */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnJoinClanChatRoomCompletionResult"))
-	FOnJoinClanChatRoomCompletionResultDelegate m_OnJoinClanChatRoomCompletionResult;
+	FOnJoinClanChatRoomCompletionResultDelegate OnJoinClanChatRoomCompletionResultDelegate;
 
 	/** Called whenever a friends' status changes. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnPersonaStateChange"))
-	FOnPersonaStateChangeDelegate m_OnPersonaStateChange;
+	FOnPersonaStateChangeDelegate OnPersonaStateChangeDelegate;
 
 	/** Reports the result of an attempt to change the current user's persona name. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnSetPersonaNameResponse"))
-	FOnSetPersonaNameResponseDelegate m_OnSetPersonaNameResponse;
+	FOnSetPersonaNameResponseDelegate OnSetPersonaNameResponseDelegate;
 
 private:
 	STEAM_CALLBACK_MANUAL(USteamFriends, OnAvatarImageLoaded, AvatarImageLoaded_t, OnAvatarImageLoadedCallback);

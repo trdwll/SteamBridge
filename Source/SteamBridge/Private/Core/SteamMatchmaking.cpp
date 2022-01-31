@@ -142,7 +142,7 @@ void USteamMatchmaking::SetLobbyGameServer(FSteamID SteamIDLobby, const FString&
 
 void USteamMatchmaking::OnFavoritesListAccountsUpdated(FavoritesListAccountsUpdated_t* pParam)
 {
-	m_OnFavoritesListAccountsUpdated.Broadcast((ESteamResult)pParam->m_eResult);
+	OnFavoritesListAccountsUpdatedDelegate.Broadcast((ESteamResult)pParam->m_eResult);
 }
 
 void USteamMatchmaking::OnFavoritesListChanged(FavoritesListChanged_t* pParam)
@@ -156,12 +156,12 @@ void USteamMatchmaking::OnFavoritesListChanged(FavoritesListChanged_t* pParam)
 			Flags.Add((ESteamFavoriteFlags)i);
 		}
 	}
-	m_OnFavoritesListChanged.Broadcast(USteamBridgeUtils::ConvertIPToString(pParam->m_nIP), pParam->m_nQueryPort, pParam->m_nConnPort, pParam->m_nAppID, Flags, pParam->m_bAdd, pParam->m_unAccountId);
+	OnFavoritesListChangedDelegate.Broadcast(USteamBridgeUtils::ConvertIPToString(pParam->m_nIP), pParam->m_nQueryPort, pParam->m_nConnPort, pParam->m_nAppID, Flags, pParam->m_bAdd, pParam->m_unAccountId);
 }
 
 void USteamMatchmaking::OnLobbyChatMsg(LobbyChatMsg_t* pParam)
 {
-	m_OnLobbyChatMsg.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_ulSteamIDUser, (ESteamChatEntryType)pParam->m_eChatEntryType, pParam->m_iChatID);
+	OnLobbyChatMsgDelegate.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_ulSteamIDUser, (ESteamChatEntryType)pParam->m_eChatEntryType, pParam->m_iChatID);
 }
 
 void USteamMatchmaking::OnLobbyChatUpdate(LobbyChatUpdate_t* pParam)
@@ -175,32 +175,32 @@ void USteamMatchmaking::OnLobbyChatUpdate(LobbyChatUpdate_t* pParam)
 			Flags.Add((ESteamChatMemberStateChange)i);
 		}
 	}
-	m_OnLobbyChatUpdate.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_ulSteamIDUserChanged, pParam->m_ulSteamIDMakingChange, Flags);
+	OnLobbyChatUpdateDelegate.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_ulSteamIDUserChanged, pParam->m_ulSteamIDMakingChange, Flags);
 }
 
 void USteamMatchmaking::OnLobbyCreated(LobbyCreated_t* pParam)
 {
-	m_OnLobbyCreated.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_ulSteamIDLobby);
+	OnLobbyCreatedDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_ulSteamIDLobby);
 }
 
 void USteamMatchmaking::OnLobbyDataUpdate(LobbyDataUpdate_t* pParam)
 {
-	m_OnLobbyDataUpdate.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_ulSteamIDMember, pParam->m_bSuccess == 1);
+	OnLobbyDataUpdateDelegate.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_ulSteamIDMember, pParam->m_bSuccess == 1);
 }
 
 void USteamMatchmaking::OnLobbyEnter(LobbyEnter_t* pParam)
 {
-	m_OnLobbyEnter.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_bLocked, (ESteamChatRoomEnterResponse)pParam->m_EChatRoomEnterResponse);
+	OnLobbyEnterDelegate.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_bLocked, (ESteamChatRoomEnterResponse)pParam->m_EChatRoomEnterResponse);
 }
 
 void USteamMatchmaking::OnLobbyGameCreated(LobbyGameCreated_t* pParam)
 {
-	m_OnLobbyGameCreated.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_ulSteamIDGameServer, USteamBridgeUtils::ConvertIPToString(pParam->m_unIP), pParam->m_usPort);
+	OnLobbyGameCreatedDelegate.Broadcast(pParam->m_ulSteamIDLobby, pParam->m_ulSteamIDGameServer, USteamBridgeUtils::ConvertIPToString(pParam->m_unIP), pParam->m_usPort);
 }
 
 void USteamMatchmaking::OnLobbyInvite(LobbyInvite_t* pParam)
 {
-	m_OnLobbyInvite.Broadcast(pParam->m_ulSteamIDUser, pParam->m_ulSteamIDLobby, pParam->m_ulGameID);
+	OnLobbyInviteDelegate.Broadcast(pParam->m_ulSteamIDUser, pParam->m_ulSteamIDLobby, pParam->m_ulGameID);
 }
 
 // This is currently unused
@@ -211,5 +211,5 @@ void USteamMatchmaking::OnLobbyInvite(LobbyInvite_t* pParam)
 
 void USteamMatchmaking::OnLobbyMatchList(LobbyMatchList_t* pParam)
 {
-	m_OnLobbyMatchList.Broadcast(pParam->m_nLobbiesMatching);
+	OnLobbyMatchListDelegate.Broadcast(pParam->m_nLobbiesMatching);
 }

@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamGameServerStats.generated.h"
 
@@ -199,18 +200,18 @@ public:
 
 	/** Result when getting the latests stats and achievements for a user from the server. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "OnGSStatsReceived"))
-	FOnGSStatsReceivedDelegate m_OnGSStatsReceived;
+	FOnGSStatsReceivedDelegate OnGSStatsReceivedDelegate;
 
 	/** Result of a request to store the user stats. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "OnGSStatsStored"))
-	FOnGSStatsStoredDelegate m_OnGSStatsStored;
+	FOnGSStatsStoredDelegate OnGSStatsStoredDelegate;
 
 	/**
 	 * Callback indicating that a user's stats have been unloaded.
 	 * Call RequestUserStats again to access stats for this user.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "OnGSStatsUnloaded"))
-	FOnGSStatsUnloadedDelegate m_OnGSStatsUnloaded;
+	FOnGSStatsUnloadedDelegate OnGSStatsUnloadedDelegate;
 
 protected:
 private:

@@ -2,18 +2,19 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "SteamBridgeSettings.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS(config = Engine)
 class STEAMBRIDGE_API USteamBridgeSettings final : public UObject
 {
 	GENERATED_BODY()
-	
+
 public:
 	UPROPERTY(EditAnywhere, config, Category = General)
 	bool bTest;

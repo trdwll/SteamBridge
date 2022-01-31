@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamHTTP.generated.h"
 
@@ -405,15 +406,15 @@ public:
 	 * If you're using GetHTTPStreamingResponseBodyData then you should be using the HTTPRequestHeadersReceived_t or HTTPRequestDataReceived_t.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP", meta = (DisplayName = "OnHTTPRequestCompleted"))
-	FOnHTTPRequestCompletedDelegate m_OnHTTPRequestCompleted;
+	FOnHTTPRequestCompletedDelegate OnHTTPRequestCompletedDelegate;
 
 	/** Triggered when a chunk of data is received from a streaming HTTP request. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP", meta = (DisplayName = "OnHTTPRequestDataReceived"))
-	FOnHTTPRequestDataReceivedDelegate m_OnHTTPRequestDataReceived;
+	FOnHTTPRequestDataReceivedDelegate OnHTTPRequestDataReceivedDelegate;
 
 	/** Triggered when HTTP headers are received from a streaming HTTP request. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP", meta = (DisplayName = "OnHTTPRequestHeadersReceived"))
-	FOnHTTPRequestHeadersReceivedDelegate m_OnHTTPRequestHeadersReceived;
+	FOnHTTPRequestHeadersReceivedDelegate OnHTTPRequestHeadersReceivedDelegate;
 
 protected:
 private:

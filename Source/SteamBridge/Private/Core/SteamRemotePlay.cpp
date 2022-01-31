@@ -26,10 +26,10 @@ bool USteamRemotePlay::BGetSessionClientResolution(int32 SessionID, FIntPoint& R
 
 void USteamRemotePlay::OnSteamRemotePlaySessionConnected(SteamRemotePlaySessionConnected_t* pParam)
 {
-	m_OnSteamRemotePlaySessionConnected.Broadcast(pParam->m_unSessionID);
+	OnSteamRemotePlaySessionConnectedDelegate.Broadcast(pParam->m_unSessionID);
 }
 
 void USteamRemotePlay::OnSteamRemotePlaySessionDisconnected(SteamRemotePlaySessionDisconnected_t* pParam)
 {
-	m_OnSteamRemotePlaySessionDisconnected.Broadcast(pParam->m_unSessionID);
+	OnSteamRemotePlaySessionDisconnectedDelegate.Broadcast(pParam->m_unSessionID);
 }

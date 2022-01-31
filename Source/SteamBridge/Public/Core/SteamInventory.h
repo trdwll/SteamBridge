@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamInventory.generated.h"
 
@@ -496,14 +497,14 @@ public:
 	 * (eg, from the dynamic addition of new item types while players are still in-game).
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Inventory", meta = (DisplayName = "OnSteamInventoryDefinitionUpdate"))
-	FOnSteamInventoryDefinitionUpdateDelegate m_OnSteamInventoryDefinitionUpdate;
+	FOnSteamInventoryDefinitionUpdateDelegate OnSteamInventoryDefinitionUpdateDelegate;
 
 	/**
 	 * Returned when you have requested the list of "eligible" promo items that can be manually granted to the given user.
 	 * These are promo items of type "manual" that won't be granted automatically. An example usage of this is an item that becomes available every week.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Inventory", meta = (DisplayName = "OnSteamInventoryEligiblePromoItemDefIDs"))
-	FOnSteamInventoryEligiblePromoItemDefIDsDelegate m_OnSteamInventoryEligiblePromoItemDefIDs;
+	FOnSteamInventoryEligiblePromoItemDefIDsDelegate OnSteamInventoryEligiblePromoItemDefIDsDelegate;
 
 	/**
 	 * Triggered when GetAllItems successfully returns a result which is newer / fresher than the last known result. (It will not trigger if the inventory hasn't changed, or if results from two overlapping calls are -
@@ -511,19 +512,19 @@ public:
 	 * The regular SteamInventoryResultReady_t callback will still be triggered immediately afterwards; this is an additional notification for your convenience.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Inventory", meta = (DisplayName = "OnSteamInventoryFullUpdate"))
-	FOnSteamInventoryFullUpdateDelegate m_OnSteamInventoryFullUpdate;
+	FOnSteamInventoryFullUpdateDelegate OnSteamInventoryFullUpdateDelegate;
 
 	/** This is fired whenever an inventory result transitions from k_EResultPending to any other completed state, see GetResultStatus for the complete list of states. There will always be exactly one callback per handle. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Inventory", meta = (DisplayName = "OnSteamInventoryResultReady"))
-	FOnSteamInventoryResultReadyDelegate m_OnSteamInventoryResultReady;
+	FOnSteamInventoryResultReadyDelegate OnSteamInventoryResultReadyDelegate;
 
 	/** Returned after StartPurchase is called. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Inventory", meta = (DisplayName = "OnSteamInventoryStartPurchaseResult"))
-	FOnSteamInventoryStartPurchaseResultDelegate m_OnSteamInventoryStartPurchaseResult;
+	FOnSteamInventoryStartPurchaseResultDelegate OnSteamInventoryStartPurchaseResultDelegate;
 
 	/** Returned after RequestPrices is called. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Inventory", meta = (DisplayName = "OnSteamInventoryRequestPricesResult"))
-	FOnSteamInventoryRequestPricesResultDelegate m_OnSteamInventoryRequestPricesResult;
+	FOnSteamInventoryRequestPricesResultDelegate OnSteamInventoryRequestPricesResultDelegate;
 
 protected:
 private:

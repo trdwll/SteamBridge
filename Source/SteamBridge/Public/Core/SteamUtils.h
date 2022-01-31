@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamUtils.generated.h"
 
@@ -313,23 +314,23 @@ public:
 
 	/** Called when the big picture gamepad text input has been closed. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnGamepadTextInputDismissed"))
-	FOnGamepadTextInputDismissedDelegate m_OnGamepadTextInputDismissed;
+	FOnGamepadTextInputDismissedDelegate OnGamepadTextInputDismissedDelegate;
 
 	/** Called when the country of the user changed. The country should be updated with GetIPCountry. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnIPCountry"))
-	FOnIPCountryDelegate m_OnIPCountry;
+	FOnIPCountryDelegate OnIPCountryDelegate;
 
 	/** Called when running on a laptop and less than 10 minutes of battery is left, and then fires then every minute afterwards. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnLowBatteryPower"))
-	FOnLowBatteryPowerDelegate m_OnLowBatteryPower;
+	FOnLowBatteryPowerDelegate OnLowBatteryPowerDelegate;
 
 	/** Called when a SteamAPICall_t has completed (or failed) */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnSteamAPICallCompleted"))
-	FOnSteamAPICallCompletedDelegate m_OnSteamAPICallCompleted;
+	FOnSteamAPICallCompletedDelegate OnSteamAPICallCompletedDelegate;
 
 	/** Called when Steam wants to shutdown. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnSteamShutdown"))
-	FOnSteamShutdownDelegate m_OnSteamShutdown;
+	FOnSteamShutdownDelegate OnSteamShutdownDelegate;
 
 protected:
 private:

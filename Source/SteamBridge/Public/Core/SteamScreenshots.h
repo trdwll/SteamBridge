@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamScreenshots.generated.h"
 
@@ -139,11 +140,11 @@ public:
 
 	/** A screenshot successfully written or otherwise added to the library and can now be tagged. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Screenshots", meta = (DisplayName = "OnScreenshotReady"))
-	FOnScreenshotReadyDelegate m_OnScreenshotReady;
+	FOnScreenshotReadyDelegate OnScreenshotReadyDelegate;
 
 	/** A screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if HookScreenshots has been enabled, in which case Steam will not take the screenshot itself. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Screenshots", meta = (DisplayName = "OnScreenshotRequested"))
-	FOnScreenshotRequestedDelegate m_OnScreenshotRequested;
+	FOnScreenshotRequestedDelegate OnScreenshotRequestedDelegate;
 
 protected:
 private:

@@ -1,9 +1,10 @@
 // Copyright 2020-2021 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 
+#include <Engine/Texture2D.h>
+
 #include "Core/SteamScreenshots.h"
 
 #include "SteamBridgeUtils.h"
-#include "Engine/Texture2D.h"
 
 USteamScreenshots::USteamScreenshots()
 {
@@ -36,10 +37,10 @@ FScreenshotHandle USteamScreenshots::WriteScreenshot(UTexture2D* Image) const
 
 void USteamScreenshots::OnScreenshotReady(ScreenshotReady_t* pParam)
 {
-	m_OnScreenshotReady.Broadcast(pParam->m_hLocal, (ESteamResult)pParam->m_eResult);
+	OnScreenshotReadyDelegate.Broadcast(pParam->m_hLocal, (ESteamResult)pParam->m_eResult);
 }
 
 void USteamScreenshots::OnScreenshotRequested(ScreenshotRequested_t* pParam)
 {
-	m_OnScreenshotRequested.Broadcast();
+	OnScreenshotRequestedDelegate.Broadcast();
 }

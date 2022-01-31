@@ -6,14 +6,6 @@
 
 #include "SteamBridgeUtils.h"
 
-USteamInput::USteamInput()
-{
-}
-
-USteamInput::~USteamInput()
-{
-}
-
 int32 USteamInput::GetActiveActionSetLayers(FInputHandle InputHandle, TArray<FInputHandle>& Handles)
 {
 	TArray<uint64> Tmp;

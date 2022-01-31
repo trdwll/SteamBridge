@@ -42,70 +42,70 @@ USteamMusicRemote::~USteamMusicRemote()
 
 void USteamMusicRemote::OnMusicPlayerRemoteToFront(MusicPlayerRemoteToFront_t* pParam)
 {
-	m_OnMusicPlayerRemoteToFront.Broadcast();
+	OnMusicPlayerRemoteToFrontDelegate.Broadcast();
 }
 
 void USteamMusicRemote::OnMusicPlayerRemoteWillActivate(MusicPlayerRemoteWillActivate_t* pParam)
 {
-	m_OnMusicPlayerRemoteWillActivate.Broadcast();
+	OnMusicPlayerRemoteWillActivateDelegate.Broadcast();
 }
 
 void USteamMusicRemote::OnMusicPlayerRemoteWillDeactivate(MusicPlayerRemoteWillDeactivate_t* pParam)
 {
-	m_OnMusicPlayerRemoteWillDeactivate.Broadcast();
+	OnMusicPlayerRemoteWillDeactivateDelegate.Broadcast();
 }
 
 void USteamMusicRemote::OnMusicPlayerSelectsPlaylistEntry(MusicPlayerSelectsPlaylistEntry_t* pParam)
 {
-	m_OnMusicPlayerSelectsPlaylistEntry.Broadcast(pParam->nID);
+	OnMusicPlayerSelectsPlaylistEntryDelegate.Broadcast(pParam->nID);
 }
 
 void USteamMusicRemote::OnMusicPlayerSelectsQueueEntry(MusicPlayerSelectsQueueEntry_t* pParam)
 {
-	m_OnMusicPlayerSelectsQueueEntry.Broadcast(pParam->nID);
+	OnMusicPlayerSelectsQueueEntryDelegate.Broadcast(pParam->nID);
 }
 
 void USteamMusicRemote::OnMusicPlayerWantsLooped(MusicPlayerWantsLooped_t* pParam)
 {
-	m_OnMusicPlayerWantsLooped.Broadcast(pParam->m_bLooped);
+	OnMusicPlayerWantsLoopedDelegate.Broadcast(pParam->m_bLooped);
 }
 
 void USteamMusicRemote::OnMusicPlayerWantsPause(MusicPlayerWantsPause_t* pParam)
 {
-	m_OnMusicPlayerWantsPause.Broadcast();
+	OnMusicPlayerWantsPauseDelegate.Broadcast();
 }
 
 void USteamMusicRemote::OnMusicPlayerWantsPlayingRepeatStatus(MusicPlayerWantsPlayingRepeatStatus_t* pParam)
 {
-	m_OnMusicPlayerWantsPlayingRepeatStatus.Broadcast(pParam->m_nPlayingRepeatStatus);
+	OnMusicPlayerWantsPlayingRepeatStatusDelegate.Broadcast(pParam->m_nPlayingRepeatStatus);
 }
 
 void USteamMusicRemote::OnMusicPlayerWantsPlayNext(MusicPlayerWantsPlayNext_t* pParam)
 {
-	m_OnMusicPlayerWantsPlayNext.Broadcast();
+	OnMusicPlayerWantsPlayNextDelegate.Broadcast();
 }
 
 void USteamMusicRemote::OnMusicPlayerWantsPlayPrevious(MusicPlayerWantsPlayPrevious_t* pParam)
 {
-	m_OnMusicPlayerWantsPlayPrevious.Broadcast();
+	OnMusicPlayerWantsPlayPreviousDelegate.Broadcast();
 }
 
 void USteamMusicRemote::OnMusicPlayerWantsPlay(MusicPlayerWantsPlay_t* pParam)
 {
-	m_OnMusicPlayerWantsPlay.Broadcast();
+	OnMusicPlayerWantsPlayDelegate.Broadcast();
 }
 
 void USteamMusicRemote::OnMusicPlayerWantsShuffled(MusicPlayerWantsShuffled_t* pParam)
 {
-	m_OnMusicPlayerWantsShuffled.Broadcast(pParam->m_bShuffled);
+	OnMusicPlayerWantsShuffledDelegate.Broadcast(pParam->m_bShuffled);
 }
 
 void USteamMusicRemote::OnMusicPlayerWantsVolume(MusicPlayerWantsVolume_t* pParam)
 {
-	m_OnMusicPlayerWantsVolume.Broadcast(pParam->m_flNewVolume);
+	OnMusicPlayerWantsVolumeDelegate.Broadcast(pParam->m_flNewVolume);
 }
 
 void USteamMusicRemote::OnMusicPlayerWillQuit(MusicPlayerWillQuit_t* pParam)
 {
-	m_OnMusicPlayerWillQuit.Broadcast();
+	OnMusicPlayerWillQuitDelegate.Broadcast();
 }

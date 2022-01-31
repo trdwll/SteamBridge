@@ -217,30 +217,30 @@ bool USteamInventory::SetPropertyString(FSteamInventoryUpdateHandle UpdateHandle
 
 void USteamInventory::OnSteamInventoryDefinitionUpdate(SteamInventoryDefinitionUpdate_t* pParam)
 {
-	m_OnSteamInventoryDefinitionUpdate.Broadcast();
+	OnSteamInventoryDefinitionUpdateDelegate.Broadcast();
 }
 
 void USteamInventory::OnSteamInventoryEligiblePromoItemDefIDs(SteamInventoryEligiblePromoItemDefIDs_t* pParam)
 {
-	m_OnSteamInventoryEligiblePromoItemDefIDs.Broadcast((ESteamResult)pParam->m_result, pParam->m_steamID.ConvertToUint64(), pParam->m_numEligiblePromoItemDefs, pParam->m_bCachedData);
+	OnSteamInventoryEligiblePromoItemDefIDsDelegate.Broadcast((ESteamResult)pParam->m_result, pParam->m_steamID.ConvertToUint64(), pParam->m_numEligiblePromoItemDefs, pParam->m_bCachedData);
 }
 
 void USteamInventory::OnSteamInventoryFullUpdate(SteamInventoryFullUpdate_t* pParam)
 {
-	m_OnSteamInventoryFullUpdate.Broadcast(pParam->m_handle);
+	OnSteamInventoryFullUpdateDelegate.Broadcast(pParam->m_handle);
 }
 
 void USteamInventory::OnSteamInventoryResultReady(SteamInventoryResultReady_t* pParam)
 {
-	m_OnSteamInventoryResultReady.Broadcast(pParam->m_handle, (ESteamResult)pParam->m_result);
+	OnSteamInventoryResultReadyDelegate.Broadcast(pParam->m_handle, (ESteamResult)pParam->m_result);
 }
 
 void USteamInventory::OnSteamInventoryStartPurchaseResult(SteamInventoryStartPurchaseResult_t* pParam)
 {
-	m_OnSteamInventoryStartPurchaseResult.Broadcast((ESteamResult)pParam->m_result, pParam->m_ulOrderID, pParam->m_ulTransID);
+	OnSteamInventoryStartPurchaseResultDelegate.Broadcast((ESteamResult)pParam->m_result, pParam->m_ulOrderID, pParam->m_ulTransID);
 }
 
 void USteamInventory::OnSteamInventoryRequestPricesResult(SteamInventoryRequestPricesResult_t* pParam)
 {
-	m_OnSteamInventoryRequestPricesResult.Broadcast((ESteamResult)pParam->m_result, UTF8_TO_TCHAR(pParam->m_rgchCurrency));
+	OnSteamInventoryRequestPricesResultDelegate.Broadcast((ESteamResult)pParam->m_result, UTF8_TO_TCHAR(pParam->m_rgchCurrency));
 }

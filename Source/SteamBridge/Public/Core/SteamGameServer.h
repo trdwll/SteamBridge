@@ -2,17 +2,17 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamGameServer.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAssociateWithClanResultDelegate, ESteamResult, Result);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnComputeNewPlayerCompatibilityResultDelegate, ESteamResult, Result, int32, PlayersThatDontLikeCandidate, int32, PlayersThatDoesntLikeCandidate,
-	int32, ClanPlayersThatDontLikeCandidate, FSteamID, SteamIDCandidate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnComputeNewPlayerCompatibilityResultDelegate, ESteamResult, Result, int32, PlayersThatDontLikeCandidate, int32, PlayersThatDoesntLikeCandidate, int32, ClanPlayersThatDontLikeCandidate, FSteamID, SteamIDCandidate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGSClientApproveDelegate, FSteamID, SteamID, FSteamID, OwnerSteamID);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnGSClientDenyDelegate, FSteamID, SteamID, ESteamDenyReason, DenyReason, FString, OptionalText);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnGSClientGroupStatusDelegate, FSteamID, SteamIDUser, FSteamID, SteamIDGroup, bool, bMember, bool, bOfficer);
@@ -384,31 +384,31 @@ public:
 
 	/** Sent when the game server attempted to be associated with a Steam Group. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnAssociateWithClanResult"))
-	FOnAssociateWithClanResultDelegate m_OnAssociateWithClanResult;
+	FOnAssociateWithClanResultDelegate OnAssociateWithClanResultDelegate;
 
 	/** Sent when the game server is checking if the new player is a good fit for the server based on the frenemy system. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnComputeNewPlayerCompatibilityResult"))
-	FOnComputeNewPlayerCompatibilityResultDelegate m_OnComputeNewPlayerCompatibilityResult;
+	FOnComputeNewPlayerCompatibilityResultDelegate OnComputeNewPlayerCompatibilityResultDelegate;
 
 	/** A client has been approved to connect to this game server. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientApprove"))
-	FOnGSClientApproveDelegate m_OnGSClientApprove;
+	FOnGSClientApproveDelegate OnGSClientApproveDelegate;
 
 	/** Called when a user has been denied to connection to this game server. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientDeny"))
-	FOnGSClientDenyDelegate m_OnGSClientDeny;
+	FOnGSClientDenyDelegate OnGSClientDenyDelegate;
 
 	/** Called when we have received the group status of a user. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientGroupStatus"))
-	FOnGSClientGroupStatusDelegate m_OnGSClientGroupStatus;
+	FOnGSClientGroupStatusDelegate OnGSClientGroupStatusDelegate;
 
 	/** Called when the game server should kick the user. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientKick"))
-	FOnGSClientKickDelegate m_OnGSClientKick;
+	FOnGSClientKickDelegate OnGSClientKickDelegate;
 
 	/** Received when the game server requests to be displayed as secure (VAC protected) */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSPolicyResponse"))
-	FOnGSPolicyResponseDelegate m_OnGSPolicyResponse;
+	FOnGSPolicyResponseDelegate OnGSPolicyResponseDelegate;
 
 protected:
 private:

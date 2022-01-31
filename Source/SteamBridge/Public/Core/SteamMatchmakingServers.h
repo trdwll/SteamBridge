@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamMatchmakingServers.generated.h"
 
@@ -20,8 +21,6 @@ class STEAMBRIDGE_API USteamMatchmakingServers final : public UObject
 	GENERATED_BODY()
 
 public:
-	USteamMatchmakingServers();
-	~USteamMatchmakingServers();
 
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore", meta = (DisplayName = "Steam Matchmaking Servers", CompactNodeTitle = "SteamMatchmakingServers"))
 	static USteamMatchmakingServers* GetSteamMatchmakingServers() { return USteamMatchmakingServers::StaticClass()->GetDefaultObject<USteamMatchmakingServers>(); }

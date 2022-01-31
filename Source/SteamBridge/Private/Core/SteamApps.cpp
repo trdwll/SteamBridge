@@ -65,15 +65,15 @@ int32 USteamApps::GetLaunchCommandLine(FString& CommandLine)
 
 void USteamApps::OnDlcInstalled(DlcInstalled_t* pParam)
 {
-	m_OnDlcInstalled.Broadcast((int32)pParam->m_nAppID);
+	OnDlcInstalledDelegate.Broadcast((int32)pParam->m_nAppID);
 }
 
 void USteamApps::OnFileDetailsResult(FileDetailsResult_t* pParam)
 {
-	m_OnFileDetailsResult.Broadcast((ESteamResult)pParam->m_eResult, (int64)pParam->m_ulFileSize, UTF8_TO_TCHAR(pParam->m_FileSHA), (int32)pParam->m_unFlags);
+	OnFileDetailsResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, (int64)pParam->m_ulFileSize, UTF8_TO_TCHAR(pParam->m_FileSHA), (int32)pParam->m_unFlags);
 }
 
 void USteamApps::OnNewUrlLaunchParameters(NewUrlLaunchParameters_t* pParam)
 {
-	m_OnNewUrlLaunchParameters.Broadcast();
+	OnNewUrlLaunchParametersDelegate.Broadcast();
 }

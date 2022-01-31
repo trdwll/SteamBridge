@@ -44,10 +44,10 @@ bool USteamVideo::GetOPFStringForApp(int32 VideoAppID, FString& OPFString) const
 
 void USteamVideo::OnGetOPFSettingsResult(GetOPFSettingsResult_t* pParam)
 {
-	m_OnGetOPFSettingsResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_unVideoAppID);
+	OnGetOPFSettingsResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_unVideoAppID);
 }
 
 void USteamVideo::OnGetVideoURLResult(GetVideoURLResult_t* pParam)
 {
-	m_OnGetVideoURLResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_unVideoAppID, UTF8_TO_TCHAR(pParam->m_rgchURL));
+	OnGetVideoURLResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_unVideoAppID, UTF8_TO_TCHAR(pParam->m_rgchURL));
 }

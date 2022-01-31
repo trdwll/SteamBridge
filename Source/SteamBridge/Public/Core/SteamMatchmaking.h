@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamMatchmaking.generated.h"
 
@@ -473,48 +474,48 @@ public:
 	/** Delegates */
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnFavoritesListAccountsUpdated"))
-	FOnFavoritesListAccountsUpdatedDelegate m_OnFavoritesListAccountsUpdated;
+	FOnFavoritesListAccountsUpdatedDelegate OnFavoritesListAccountsUpdatedDelegate;
 
 	/** A server was added/removed from the favorites list, you should refresh now. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnFavoritesListChanged"))
-	FOnFavoritesListChangedDelegate m_OnFavoritesListChanged;
+	FOnFavoritesListChangedDelegate OnFavoritesListChangedDelegate;
 
 	/** A chat (text or binary) message for this lobby has been received. After getting this you must use GetLobbyChatEntry to retrieve the contents of this message. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyChatMsg"))
-	FOnLobbyChatMsgDelegate m_OnLobbyChatMsg;
+	FOnLobbyChatMsgDelegate OnLobbyChatMsgDelegate;
 
 	/** A lobby chat room state has changed, this is usually sent when a user has joined or left the lobby. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyChatUpdate"))
-	FOnLobbyChatUpdateDelegate m_OnLobbyChatUpdate;
+	FOnLobbyChatUpdateDelegate OnLobbyChatUpdateDelegate;
 
 	/** Result of our request to create a Lobby. At this point, the lobby has been joined and is ready for use, a LobbyEnter_t callback will also be received (since the local user is joining their own lobby). */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyCreated"))
-	FOnLobbyCreatedDelegate m_OnLobbyCreated;
+	FOnLobbyCreatedDelegate OnLobbyCreatedDelegate;
 
 	/**
 	 * The lobby metadata has changed.
 	 * If m_ulSteamIDMember is a user in the lobby, then use GetLobbyMemberData to access per-user details; otherwise, if m_ulSteamIDMember == m_ulSteamIDLobby, use GetLobbyData to access the lobby metadata.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyDataUpdate"))
-	FOnLobbyDataUpdateDelegate m_OnLobbyDataUpdate;
+	FOnLobbyDataUpdateDelegate OnLobbyDataUpdateDelegate;
 
 	/** Recieved upon attempting to enter a lobby. Lobby metadata is available to use immediately after receiving this. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyEnter"))
-	FOnLobbyEnterDelegate m_OnLobbyEnter;
+	FOnLobbyEnterDelegate OnLobbyEnterDelegate;
 
 	/**
 	 * A game server has been set via SetLobbyGameServer for all of the members of the lobby to join.
 	 * It's up to the individual clients to take action on this; the typical game behavior is to leave the lobby and connect to the specified game server; but the lobby may stay open throughout the session if desired.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyGameCreated"))
-	FOnLobbyGameCreatedDelegate m_OnLobbyGameCreated;
+	FOnLobbyGameCreatedDelegate OnLobbyGameCreatedDelegate;
 
 	/**
 	 * Someone has invited you to join a Lobby. Normally you don't need to do anything with this, as the Steam UI will also display a '<user> has invited you to the lobby, join?' notification and message.
 	 * If the user outside a game chooses to join, your game will be launched with the parameter +connect_lobby <64-bit lobby id>, or with the callback GameLobbyJoinRequested_t if they're already in-game.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyInvite"))
-	FOnLobbyInviteDelegate m_OnLobbyInvite;
+	FOnLobbyInviteDelegate OnLobbyInviteDelegate;
 
 	// This is currently unused
 	/*UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyKicked"))
@@ -522,7 +523,7 @@ public:
 
 	/** Result when requesting the lobby list. You should iterate over the returned lobbies with GetLobbyByIndex, from 0 to m_nLobbiesMatching-1. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Matchmaking", meta = (DisplayName = "OnLobbyMatchList"))
-	FOnLobbyMatchListDelegate m_OnLobbyMatchList;
+	FOnLobbyMatchListDelegate OnLobbyMatchListDelegate;
 
 protected:
 private:

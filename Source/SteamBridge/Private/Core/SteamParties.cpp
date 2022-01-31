@@ -68,30 +68,30 @@ bool USteamParties::GetBeaconLocationData(FSteamPartyBeaconLocation BeaconLocati
 
 void USteamParties::OnJoinParty(JoinPartyCallback_t* pParam)
 {
-	m_OnJoinParty.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_ulBeaconID, pParam->m_SteamIDBeaconOwner.ConvertToUint64(), UTF8_TO_TCHAR(pParam->m_rgchConnectString));
+	OnJoinPartyDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_ulBeaconID, pParam->m_SteamIDBeaconOwner.ConvertToUint64(), UTF8_TO_TCHAR(pParam->m_rgchConnectString));
 }
 
 void USteamParties::OnCreateBeacon(CreateBeaconCallback_t* pParam)
 {
-	m_OnCreateBeacon.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_ulBeaconID);
+	OnCreateBeaconDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_ulBeaconID);
 }
 
 void USteamParties::OnReservationNotification(ReservationNotificationCallback_t* pParam)
 {
-	m_OnReservationNotification.Broadcast(pParam->m_ulBeaconID, pParam->m_steamIDJoiner.ConvertToUint64());
+	OnReservationNotificationDelegate.Broadcast(pParam->m_ulBeaconID, pParam->m_steamIDJoiner.ConvertToUint64());
 }
 
 void USteamParties::OnChangeNumOpenSlots(ChangeNumOpenSlotsCallback_t* pParam)
 {
-	m_OnChangeNumOpenSlots.Broadcast((ESteamResult)pParam->m_eResult);
+	OnChangeNumOpenSlotsDelegate.Broadcast((ESteamResult)pParam->m_eResult);
 }
 
 void USteamParties::OnAvailableBeaconLocationsUpdated(AvailableBeaconLocationsUpdated_t* pParam)
 {
-	m_OnAvailableBeaconLocationsUpdated.Broadcast();
+	OnAvailableBeaconLocationsUpdatedDelegate.Broadcast();
 }
 
 void USteamParties::OnActiveBeaconsUpdated(ActiveBeaconsUpdated_t* pParam)
 {
-	m_OnActiveBeaconsUpdated.Broadcast();
+	OnActiveBeaconsUpdatedDelegate.Broadcast();
 }

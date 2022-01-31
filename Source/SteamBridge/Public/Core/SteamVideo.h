@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamVideo.generated.h"
 
@@ -85,11 +86,11 @@ public:
 
 	/** Triggered when the OPF Details for 360 video playback are retrieved. After receiving this you can use GetOPFStringForApp to access the OPF details. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video", meta = (DisplayName = "OnGetOPFSettingsResult"))
-	FOnGetOPFSettingsResultDelegate m_OnGetOPFSettingsResult;
+	FOnGetOPFSettingsResultDelegate OnGetOPFSettingsResultDelegate;
 
 	/** Provides the result of a call to GetVideoURL. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video", meta = (DisplayName = "OnGetVideoURLResult"))
-	FOnGetVideoURLResultDelegate m_OnGetVideoURLResult;
+	FOnGetVideoURLResultDelegate OnGetVideoURLResultDelegate;
 
 protected:
 private:

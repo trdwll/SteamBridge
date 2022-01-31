@@ -1,11 +1,12 @@
 // Copyright 2020-2021 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 
 #pragma once
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamApps.generated.h"
 
@@ -275,18 +276,18 @@ public:
 
 	/** Triggered after the current user gains ownership of DLC and that DLC is installed. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Apps", meta = (DisplayName = "OnDlcInstalled"))
-	FOnDlcInstalledDelegate m_OnDlcInstalled;
+	FOnDlcInstalledDelegate OnDlcInstalledDelegate;
 
 	/** Called after requesting the details of a specific file. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Apps", meta = (DisplayName = "OnFileDetailsResult"))
-	FOnFileDetailsResultDelegate m_OnFileDetailsResult;
+	FOnFileDetailsResultDelegate OnFileDetailsResultDelegate;
 
 	/**
 	 * Posted after the user executes a steam url with command line or query parameters such as steam://run/<appid>//?param1=value1;param2=value2;param3=value3; while the game is already running.
 	 * The new params can be queried with GetLaunchCommandLine and GetLaunchQueryParam.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Apps", meta = (DisplayName = "OnNewUrlLaunchParameters"))
-	FOnNewUrlLaunchParametersDelegate m_OnNewUrlLaunchParameters;
+	FOnNewUrlLaunchParametersDelegate OnNewUrlLaunchParametersDelegate;
 
 protected:
 private:

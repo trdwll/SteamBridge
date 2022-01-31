@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamUser.generated.h"
 
@@ -308,29 +309,29 @@ public:
 	 * This can usually occur if the user doesn't have rights to play on the game server.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnClientGameServerDeny"))
-	FOnClientGameServerDenyDelegate m_OnClientGameServerDeny;
+	FOnClientGameServerDenyDelegate OnClientGameServerDenyDelegate;
 
 	/**
 	 * Sent for games with enabled anti indulgence / duration control, for enabled users. Lets the game know whether persistent rewards or XP should be granted at normal rate, half rate, or zero rate.
 	 * This callback is fired asynchronously in response to timers triggering. It is also fired in response to calls to GetDurationControl().
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnDurationControl"))
-	FOnDurationControlDelegate m_OnDurationControl;
+	FOnDurationControlDelegate OnDurationControlDelegate;
 
 	/** Called when an encrypted application ticket has been received. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnEncryptedAppTicketResponse"))
-	FOnEncryptedAppTicketResponseDelegate m_OnEncryptedAppTicketResponse;
+	FOnEncryptedAppTicketResponseDelegate OnEncryptedAppTicketResponseDelegate;
 
 	/**
 	 * Sent to your game in response to a steam://gamewebcallback/ command from a user clicking a link in the Steam overlay browser.
 	 * You can use this to add support for external site signups where you want to pop back into the browser after some web page signup sequence, and optionally get back some detail about that.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnGameWebCallback"))
-	FOnGameWebCallbackDelegate m_OnGameWeb;
+	FOnGameWebCallbackDelegate OnGameWebDelegate;
 
 	/** Result when creating an auth session ticket. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnGetAuthSessionTicketResponse"))
-	FOnGetAuthSessionTicketResponseDelegate m_OnGetAuthSessionTicketResponse;
+	FOnGetAuthSessionTicketResponseDelegate OnGetAuthSessionTicketResponseDelegate;
 
 	/**
 	 * Called when the callback system for this client is in an error state (and has flushed pending callbacks)
@@ -338,22 +339,22 @@ public:
 	 * This usually occurs in the rare event the Steam client has some kind of fatal error.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnIPCFailure"))
-	FOnIPCFailureDelegate m_IPCFailure;
+	FOnIPCFailureDelegate OnIPCFailureDelegate;
 
 	/** Called whenever the users licenses (owned packages) changes. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnLicensesUpdated"))
-	FOnLicensesUpdatedDelegate m_OnLicensesUpdated;
+	FOnLicensesUpdatedDelegate OnLicensesUpdatedDelegate;
 
 	/** Called when a user has responded to a microtransaction authorization request. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnMicroTxnAuthorizationResponse"))
-	FOnMicroTxnAuthorizationResponseDelegate m_OnMicroTxnAuthorizationResponse;
+	FOnMicroTxnAuthorizationResponseDelegate OnMicroTxnAuthorizationResponseDelegate;
 
 	/**
 	 * Called when a connection attempt has failed.
 	 * This will occur periodically if the Steam client is not connected, and has failed when retrying to establish a connection.
      */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnSteamServerConnectFailure"))
-	FOnSteamServerConnectFailureDelegate m_OnSteamServerConnectFailure;
+	FOnSteamServerConnectFailureDelegate OnSteamServerConnectFailureDelegate;
 
 	/**
 	 * Called when a connections to the Steam back-end has been established.
@@ -361,22 +362,22 @@ public:
 	 * Usually this will have occurred before the game has launched, and should only be seen if the user has dropped connection due to a networking issue or a Steam server update.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnSteamServersConnected"))
-	FOnSteamServersConnectedDelegate m_OnSteamServersConnected;
+	FOnSteamServersConnectedDelegate OnSteamServersConnectedDelegate;
 
 	/**
 	 * Called if the client has lost connection to the Steam servers.
 	 * Real-time services will be disabled until a matching SteamServersConnected_t has been posted.
 	 */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnSteamServersDisconnected"))
-	FOnSteamServersDisconnectedDelegate m_OnSteamServersDisconnected;
+	FOnSteamServersDisconnectedDelegate OnSteamServersDisconnectedDelegate;
 
 	/** Response when we have recieved the authentication URL after a call to RequestStoreAuthURL. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnStoreAuthURLResponse"))
-	FOnStoreAuthURLResponseDelegate m_OnStoreAuthURLResponse;
+	FOnStoreAuthURLResponseDelegate OnStoreAuthURLResponseDelegate;
 
 	/** Called when an auth ticket has been validated. */
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|User", meta = (DisplayName = "OnValidateAuthTicketResponse"))
-	FOnValidateAuthTicketResponseDelegate m_OnValidateAuthTicketResponse;
+	FOnValidateAuthTicketResponseDelegate OnValidateAuthTicketResponseDelegate;
 
 protected:
 private:

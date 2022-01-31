@@ -168,22 +168,22 @@ bool USteamUGC::SetItemTags(FUGCUpdateHandle UpdateHandle, const TArray<FString>
 
 void USteamUGC::OnAddAppDependencyResult(AddAppDependencyResult_t* pParam)
 {
-	m_OnAddAppDependencyResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_nAppID);
+	OnAddAppDependencyResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_nAppID);
 }
 
 void USteamUGC::OnAddUGCDependencyResult(AddUGCDependencyResult_t* pParam)
 {
-	m_OnAddUGCDependencyResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_nChildPublishedFileId);
+	OnAddUGCDependencyResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_nChildPublishedFileId);
 }
 
 void USteamUGC::OnCreateItemResult(CreateItemResult_t* pParam)
 {
-	m_OnCreateItemResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_bUserNeedsToAcceptWorkshopLegalAgreement);
+	OnCreateItemResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_bUserNeedsToAcceptWorkshopLegalAgreement);
 }
 
 void USteamUGC::OnDownloadItemResult(DownloadItemResult_t* pParam)
 {
-	m_OnDownloadItemResult.Broadcast(pParam->m_unAppID, pParam->m_nPublishedFileId, (ESteamResult)pParam->m_eResult);
+	OnDownloadItemResultDelegate.Broadcast(pParam->m_unAppID, pParam->m_nPublishedFileId, (ESteamResult)pParam->m_eResult);
 }
 
 void USteamUGC::OnGetAppDependenciesResult(GetAppDependenciesResult_t* pParam)
@@ -194,60 +194,60 @@ void USteamUGC::OnGetAppDependenciesResult(GetAppDependenciesResult_t* pParam)
 		AppIDs.Add(pParam->m_rgAppIDs[i]);
 	}
 
-	m_OnGetAppDependenciesResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, AppIDs, AppIDs.Num(), pParam->m_nTotalNumAppDependencies);
+	OnGetAppDependenciesResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, AppIDs, AppIDs.Num(), pParam->m_nTotalNumAppDependencies);
 }
 
 void USteamUGC::OnDeleteItemResult(DeleteItemResult_t* pParam)
 {
-	m_OnDeleteItemResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId);
+	OnDeleteItemResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId);
 }
 
 void USteamUGC::OnGetUserItemVoteResult(GetUserItemVoteResult_t* pParam)
 {
-	m_OnGetUserItemVoteResult.Broadcast(pParam->m_nPublishedFileId, (ESteamResult)pParam->m_eResult, pParam->m_bVotedUp, pParam->m_bVotedDown, pParam->m_bVoteSkipped);
+	OnGetUserItemVoteResultDelegate.Broadcast(pParam->m_nPublishedFileId, (ESteamResult)pParam->m_eResult, pParam->m_bVotedUp, pParam->m_bVotedDown, pParam->m_bVoteSkipped);
 }
 
 void USteamUGC::OnItemInstalled(ItemInstalled_t* pParam)
 {
-	m_OnItemInstalled.Broadcast(pParam->m_unAppID, pParam->m_nPublishedFileId);
+	OnItemInstalledDelegate.Broadcast(pParam->m_unAppID, pParam->m_nPublishedFileId);
 }
 
 void USteamUGC::OnRemoveAppDependencyResult(RemoveAppDependencyResult_t* pParam)
 {
-	m_OnRemoveAppDependencyResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_nAppID);
+	OnRemoveAppDependencyResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_nAppID);
 }
 
 void USteamUGC::OnRemoveUGCDependencyResult(RemoveUGCDependencyResult_t* pParam)
 {
-	m_OnRemoveUGCDependencyResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_nChildPublishedFileId);
+	OnRemoveUGCDependencyResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_nPublishedFileId, pParam->m_nChildPublishedFileId);
 }
 
 void USteamUGC::OnSetUserItemVoteResult(SetUserItemVoteResult_t* pParam)
 {
-	m_OnSetUserItemVoteResult.Broadcast(pParam->m_nPublishedFileId, (ESteamResult)pParam->m_eResult, pParam->m_bVoteUp);
+	OnSetUserItemVoteResultDelegate.Broadcast(pParam->m_nPublishedFileId, (ESteamResult)pParam->m_eResult, pParam->m_bVoteUp);
 }
 
 void USteamUGC::OnStartPlaytimeTrackingResult(StartPlaytimeTrackingResult_t* pParam)
 {
-	m_OnStartPlaytimeTrackingResult.Broadcast((ESteamResult)pParam->m_eResult);
+	OnStartPlaytimeTrackingResultDelegate.Broadcast((ESteamResult)pParam->m_eResult);
 }
 
 void USteamUGC::OnSteamUGCQueryCompleted(SteamUGCQueryCompleted_t* pParam)
 {
-	m_OnSteamUGCQueryCompleted.Broadcast(pParam->m_handle, (ESteamResult)pParam->m_eResult, pParam->m_unNumResultsReturned, pParam->m_unTotalMatchingResults, pParam->m_bCachedData);
+	OnSteamUGCQueryCompletedDelegate.Broadcast(pParam->m_handle, (ESteamResult)pParam->m_eResult, pParam->m_unNumResultsReturned, pParam->m_unTotalMatchingResults, pParam->m_bCachedData);
 }
 
 void USteamUGC::OnStopPlaytimeTrackingResult(StopPlaytimeTrackingResult_t* pParam)
 {
-	m_OnStopPlaytimeTrackingResult.Broadcast((ESteamResult)pParam->m_eResult);
+	OnStopPlaytimeTrackingResultDelegate.Broadcast((ESteamResult)pParam->m_eResult);
 }
 
 void USteamUGC::OnSubmitItemUpdateResult(SubmitItemUpdateResult_t* pParam)
 {
-	m_OnSubmitItemUpdateResult.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_bUserNeedsToAcceptWorkshopLegalAgreement);
+	OnSubmitItemUpdateResultDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_bUserNeedsToAcceptWorkshopLegalAgreement);
 }
 
 void USteamUGC::OnUserFavoriteItemsListChanged(UserFavoriteItemsListChanged_t* pParam)
 {
-	m_OnUserFavoriteItemsListChanged.Broadcast(pParam->m_nPublishedFileId, (ESteamResult)pParam->m_eResult, pParam->m_bWasAddRequest);
+	OnUserFavoriteItemsListChangedDelegate.Broadcast(pParam->m_nPublishedFileId, (ESteamResult)pParam->m_eResult, pParam->m_bWasAddRequest);
 }

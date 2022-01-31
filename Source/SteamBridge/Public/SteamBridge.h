@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Modules/ModuleManager.h"
-#include "Containers/Ticker.h"
+#include <CoreMinimal.h>
+#include <Containers/Ticker.h>
+#include <Modules/ModuleManager.h>
 
 class FSteamBridgeModule : public IModuleInterface, public FTickerObjectBase
 {
@@ -21,5 +21,5 @@ private:
 	void RegisterSettings();
 	void UnregisterSettings();
 
-	void* m_SteamLibSDKHandle;
+	void* SteamLibSDKHandle;
 };

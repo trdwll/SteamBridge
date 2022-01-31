@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamMusic.generated.h"
 
@@ -107,10 +108,10 @@ public:
 	/** Delegates */
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Music", meta = (DisplayName = "OnPlaybackStatusHasChanged"))
-	FOnPlaybackStatusHasChangedDelegate m_OnPlaybackStatusHasChanged;
+	FOnPlaybackStatusHasChangedDelegate OnPlaybackStatusHasChangedDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Music", meta = (DisplayName = "OnVolumeHasChanged"))
-	FOnVolumeHasChangedDelegate m_OnVolumeHasChanged;
+	FOnVolumeHasChangedDelegate OnVolumeHasChangedDelegate;
 
 protected:
 private:

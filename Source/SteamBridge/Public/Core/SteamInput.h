@@ -2,11 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include <CoreMinimal.h>
+#include <UObject/NoExportTypes.h>
+
 #include "Steam.h"
 #include "SteamEnums.h"
 #include "SteamStructs.h"
-#include "UObject/NoExportTypes.h"
 
 #include "SteamInput.generated.h"
 
@@ -20,9 +21,6 @@ class STEAMBRIDGE_API USteamInput final : public UObject
 	GENERATED_BODY()
 
 public:
-	USteamInput();
-	~USteamInput();
-
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore", meta = (DisplayName = "Steam Input", CompactNodeTitle = "SteamInput"))
 	static USteamInput* GetSteamInput() { return USteamInput::StaticClass()->GetDefaultObject<USteamInput>(); }
 

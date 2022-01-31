@@ -100,66 +100,66 @@ ESteamVoiceResult USteamUser::GetVoice(TArray<uint8>& VoiceData)
 void USteamUser::OnClientGameServerDeny(ClientGameServerDeny_t* pParam)
 {
 	FString IP = USteamBridgeUtils::ConvertIPToString(pParam->m_unGameServerIP);
-	m_OnClientGameServerDeny.Broadcast(pParam->m_uAppID, IP, pParam->m_usGameServerPort, pParam->m_bSecure == 1, (ESteamDenyReason)pParam->m_uReason);
+	OnClientGameServerDenyDelegate.Broadcast(pParam->m_uAppID, IP, pParam->m_usGameServerPort, pParam->m_bSecure == 1, (ESteamDenyReason)pParam->m_uReason);
 }
 
 void USteamUser::OnDurationControl(DurationControl_t* pParam)
 {
-	m_OnDurationControl.Broadcast((ESteamResult)pParam->m_eResult, (int32)pParam->m_appid, pParam->m_bApplicable, pParam->m_csecsLast5h, (ESteamDurationControlProgress)pParam->m_progress,
+	OnDurationControlDelegate.Broadcast((ESteamResult)pParam->m_eResult, (int32)pParam->m_appid, pParam->m_bApplicable, pParam->m_csecsLast5h, (ESteamDurationControlProgress)pParam->m_progress,
 		(ESteamDurationControlNotification)pParam->m_notification);
 }
 
 void USteamUser::OnEncryptedAppTicketResponse(EncryptedAppTicketResponse_t* pParam)
 {
-	m_OnEncryptedAppTicketResponse.Broadcast((ESteamResult)pParam->m_eResult);
+	OnEncryptedAppTicketResponseDelegate.Broadcast((ESteamResult)pParam->m_eResult);
 }
 
 void USteamUser::OnGameWeb(GameWebCallback_t* pParam)
 {
-	m_OnGameWeb.Broadcast(pParam->m_szURL);
+	OnGameWebDelegate.Broadcast(pParam->m_szURL);
 }
 
 void USteamUser::OnGetAuthSessionTicketResponse(GetAuthSessionTicketResponse_t* pParam)
 {
-	m_OnGetAuthSessionTicketResponse.Broadcast(pParam->m_hAuthTicket, (ESteamResult)pParam->m_eResult);
+	OnGetAuthSessionTicketResponseDelegate.Broadcast(pParam->m_hAuthTicket, (ESteamResult)pParam->m_eResult);
 }
 
 void USteamUser::OnIPCFailure(IPCFailure_t* pParam)
 {
-	m_IPCFailure.Broadcast((ESteamFailureType)pParam->m_eFailureType);
+	OnIPCFailureDelegate.Broadcast((ESteamFailureType)pParam->m_eFailureType);
 }
 
 void USteamUser::OnLicensesUpdated(LicensesUpdated_t* pParam)
 {
-	m_OnLicensesUpdated.Broadcast();
+	OnLicensesUpdatedDelegate.Broadcast();
 }
 
 void USteamUser::OnMicroTxnAuthorizationResponse(MicroTxnAuthorizationResponse_t* pParam)
 {
-	m_OnMicroTxnAuthorizationResponse.Broadcast(pParam->m_unAppID, FString::FromInt(pParam->m_ulOrderID), pParam->m_bAuthorized == 1);
+	OnMicroTxnAuthorizationResponseDelegate.Broadcast(pParam->m_unAppID, FString::FromInt(pParam->m_ulOrderID), pParam->m_bAuthorized == 1);
 }
 
 void USteamUser::OnSteamServerConnectFailure(SteamServerConnectFailure_t* pParam)
 {
-	m_OnSteamServerConnectFailure.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_bStillRetrying);
+	OnSteamServerConnectFailureDelegate.Broadcast((ESteamResult)pParam->m_eResult, pParam->m_bStillRetrying);
 }
 
 void USteamUser::OnSteamServersConnected(SteamServersConnected_t* pParam)
 {
-	m_OnSteamServersConnected.Broadcast();
+	OnSteamServersConnectedDelegate.Broadcast();
 }
 
 void USteamUser::OnSteamServersDisconnected(SteamServersDisconnected_t* pParam)
 {
-	m_OnSteamServersDisconnected.Broadcast((ESteamResult)pParam->m_eResult);
+	OnSteamServersDisconnectedDelegate.Broadcast((ESteamResult)pParam->m_eResult);
 }
 
 void USteamUser::OnStoreAuthURLResponse(StoreAuthURLResponse_t* pParam)
 {
-	m_OnStoreAuthURLResponse.Broadcast(pParam->m_szURL);
+	OnStoreAuthURLResponseDelegate.Broadcast(pParam->m_szURL);
 }
 
 void USteamUser::OnValidateAuthTicketResponse(ValidateAuthTicketResponse_t* pParam)
 {
-	m_OnValidateAuthTicketResponse.Broadcast(pParam->m_SteamID.ConvertToUint64(), (ESteamAuthSessionResponse)pParam->m_eAuthSessionResponse, pParam->m_OwnerSteamID.ConvertToUint64());
+	OnValidateAuthTicketResponseDelegate.Broadcast(pParam->m_SteamID.ConvertToUint64(), (ESteamAuthSessionResponse)pParam->m_eAuthSessionResponse, pParam->m_OwnerSteamID.ConvertToUint64());
 }

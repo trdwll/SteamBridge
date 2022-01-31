@@ -76,25 +76,25 @@ bool USteamUtils::ShowGamepadTextInput(ESteamGamepadTextInputMode InputMode, ESt
 
 void USteamUtils::OnGamepadTextInputDismissed(GamepadTextInputDismissed_t* pParam)
 {
-	m_OnGamepadTextInputDismissed.Broadcast(pParam->m_bSubmitted, pParam->m_unSubmittedText);
+	OnGamepadTextInputDismissedDelegate.Broadcast(pParam->m_bSubmitted, pParam->m_unSubmittedText);
 }
 
 void USteamUtils::OnIPCountry(IPCountry_t* pParam)
 {
-	m_OnIPCountry.Broadcast();
+	OnIPCountryDelegate.Broadcast();
 }
 
 void USteamUtils::OnLowBatteryPower(LowBatteryPower_t* pParam)
 {
-	m_OnLowBatteryPower.Broadcast(pParam->m_nMinutesBatteryLeft);
+	OnLowBatteryPowerDelegate.Broadcast(pParam->m_nMinutesBatteryLeft);
 }
 
 void USteamUtils::OnSteamAPICallCompleted(SteamAPICallCompleted_t* pParam)
 {
-	m_OnSteamAPICallCompleted.Broadcast((FSteamAPICall)pParam->m_hAsyncCall, pParam->m_iCallback, pParam->m_cubParam);
+	OnSteamAPICallCompletedDelegate.Broadcast((FSteamAPICall)pParam->m_hAsyncCall, pParam->m_iCallback, pParam->m_cubParam);
 }
 
 void USteamUtils::OnSteamShutdown(SteamShutdown_t* pParam)
 {
-	m_OnSteamShutdown.Broadcast();
+	OnSteamShutdownDelegate.Broadcast();
 }
