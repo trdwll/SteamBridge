@@ -1,7 +1,5 @@
 // Copyright 2020-2021 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 
-#pragma once
-
 #include "Core/SteamHTTP.h"
 
 #include "SteamBridgeUtils.h"

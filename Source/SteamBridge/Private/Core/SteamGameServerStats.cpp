@@ -1,7 +1,5 @@
 // Copyright 2020-2021 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 
-#pragma once
-
 #include "Core/SteamGameServerStats.h"
 
 #include "SteamBridgeUtils.h"
