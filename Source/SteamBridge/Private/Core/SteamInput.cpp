@@ -7,6 +7,7 @@
 int32 USteamInput::GetActiveActionSetLayers(FInputHandle InputHandle, TArray<FInputHandle>& Handles)
 {
 	TArray<uint64> Tmp;
+	Tmp.Reserve(SteamDefs::Buffer128);
 	int32 result = SteamInput()->GetActiveActionSetLayers(InputHandle, Tmp.GetData());
 
 	for (int32 i = 0; i < result; i++)

@@ -47,6 +47,7 @@ USteamUGC::~USteamUGC()
 bool USteamUGC::AddRequiredTagGroup(FUGCQueryHandle handle, const TArray<FString>& Tags) const
 {
 	TArray<char*> TmpTags;
+	TmpTags.Reserve(Tags.Num());
 	SteamParamStringArray_t TmpTagsArray;
 	for (int32 i = 0; i < Tags.Num(); i++)
 	{
@@ -155,6 +156,7 @@ int32 USteamUGC::GetSubscribedItems(TArray<FPublishedFileId>& PublishedFileIDs, 
 bool USteamUGC::SetItemTags(FUGCUpdateHandle UpdateHandle, const TArray<FString>& Tags) const
 {
 	TArray<char*> TmpTags;
+	TmpTags.Reserve(Tags.Num());
 	SteamParamStringArray_t TmpTagsArray;
 	for (const auto& Tag : Tags)
 	{
@@ -189,6 +191,7 @@ void USteamUGC::OnDownloadItemResult(DownloadItemResult_t* pParam)
 void USteamUGC::OnGetAppDependenciesResult(GetAppDependenciesResult_t* pParam)
 {
 	TArray<int32> AppIDs;
+	AppIDs.Reserve(32);
 	for (int32 i = 0; i < 32; i++)
 	{
 		AppIDs.Add(pParam->m_rgAppIDs[i]);

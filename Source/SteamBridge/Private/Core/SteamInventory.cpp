@@ -27,6 +27,7 @@ USteamInventory::~USteamInventory()
 bool USteamInventory::AddPromoItems(FSteamInventoryResult& ResultHandle, const TArray<FSteamItemDef>& ItemDefs) const
 {
 	TArray<int32> Tmp;
+	Tmp.Reserve(ItemDefs.Num());
 	for (const auto& Item : ItemDefs)
 	{
 		Tmp.Add(Item);
@@ -43,7 +44,7 @@ bool USteamInventory::ExchangeItems(FSteamInventoryResult& ResultHandle, const T
 	TArray<SteamItemDef_t> TmpItemsGenerated;
 	TArray<SteamItemInstanceID_t> TmpItemsDestroyed;
 	TArray<uint32> TmpItemsGeneratedQuantity;
-	TmpItemsGeneratedQuantity.Init(1, TmpItemsGenerated.Num());
+	TmpItemsGeneratedQuantity.Init(1, TmpItemsGenerated.Num()); // 1/30/22 - yeah I'm not sure about .Init lol - trdwll
 	TArray<uint32> TmpItemsDestroyedQuantity;
 	TmpItemsDestroyedQuantity.Init(1, TmpItemsDestroyed.Num());
 
@@ -63,6 +64,7 @@ bool USteamInventory::GenerateItems(FSteamInventoryResult& ResultHandle, const T
 	// NOTE: I converted this method to support a TMap instead of 2 arrays so I'm not entirely sure if it works lemme know - trdwll
 
 	TArray<SteamItemDef_t> TmpItems;
+	TmpItems.Reserve(Items.Num());
 
 	for (const auto& pair : Items)
 	{

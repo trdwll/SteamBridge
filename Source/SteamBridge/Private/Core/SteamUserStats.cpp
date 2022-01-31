@@ -66,6 +66,7 @@ bool USteamUserStats::GetDownloadedLeaderboardEntry(FSteamLeaderboardEntries Ste
 int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray<float>& Data, int32 Size) const
 {
 	TArray<double> TmpData;
+	TmpData.Reserve(Size);
 	int32 result = SteamUserStats()->GetGlobalStatHistory(TCHAR_TO_UTF8(*StatName), TmpData.GetData(), Size);
 	for (const auto& LData : TmpData)
 	{
@@ -77,7 +78,8 @@ int32 USteamUserStats::GetGlobalStatHistoryFloat(const FString& StatName, TArray
 int32 USteamUserStats::GetMostAchievedAchievementInfo(FString& Name, float& Percent, bool& bAchieved) const
 {
 	TArray<char> TmpName;
-	int32 result = SteamUserStats()->GetMostAchievedAchievementInfo(TmpName.GetData(), 1024, &Percent, &bAchieved);
+	TmpName.Reserve(SteamDefs::Buffer1024);
+	int32 result = SteamUserStats()->GetMostAchievedAchievementInfo(TmpName.GetData(), SteamDefs::Buffer1024, &Percent, &bAchieved);
 	Name = UTF8_TO_TCHAR(TmpName.GetData());
 	return  result;
 }
@@ -85,7 +87,8 @@ int32 USteamUserStats::GetMostAchievedAchievementInfo(FString& Name, float& Perc
 int32 USteamUserStats::GetNextMostAchievedAchievementInfo(int32 IteratorPrevious, FString& Name, float& Percent, bool& bAchieved) const
 {
 	TArray<char> TmpName;
-	int32 result = SteamUserStats()->GetNextMostAchievedAchievementInfo(IteratorPrevious, TmpName.GetData(), 1024, &Percent, &bAchieved);
+	TmpName.Reserve(SteamDefs::Buffer1024);
+	int32 result = SteamUserStats()->GetNextMostAchievedAchievementInfo(IteratorPrevious, TmpName.GetData(), SteamDefs::Buffer1024, &Percent, &bAchieved);
 	Name = UTF8_TO_TCHAR(TmpName.GetData());
 	return  result;
 }

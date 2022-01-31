@@ -36,7 +36,8 @@ USteamUtils::~USteamUtils()
 bool USteamUtils::GetEnteredGamepadTextInput(FString& Text) const
 {
 	TArray<char> TmpStr;
-	bool bResult = SteamUtils()->GetEnteredGamepadTextInput(TmpStr.GetData(), 8192);
+	TmpStr.Reserve(SteamDefs::Buffer8192);
+	bool bResult = SteamUtils()->GetEnteredGamepadTextInput(TmpStr.GetData(), SteamDefs::Buffer8192);
 	Text = UTF8_TO_TCHAR(TmpStr.GetData());
 	return bResult;
 }

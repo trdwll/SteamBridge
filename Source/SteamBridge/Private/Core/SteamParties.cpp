@@ -27,9 +27,11 @@ USteamParties::~USteamParties()
 bool USteamParties::GetAvailableBeaconLocations(TArray<FSteamPartyBeaconLocation>& LocationList) const
 {
 	TArray<SteamPartyBeaconLocation_t> TmpArray;
+	TmpArray.Reserve(SteamDefs::Buffer128);
 	int32 Num = 0;
 	bool bResult = SteamParties()->GetAvailableBeaconLocations(TmpArray.GetData(), Num);
-
+	TmpArray.SetNum(Num);
+	LocationList.Reserve(TmpArray.Num());
 	for (const auto& Beacon : TmpArray)
 	{
 		LocationList.Add(Beacon);
@@ -49,9 +51,10 @@ FSteamAPICall USteamParties::CreateBeacon(int32 OpenSlots, FSteamPartyBeaconLoca
 bool USteamParties::GetBeaconDetails(FPartyBeaconID BeaconID, FSteamID& SteamIDBeaconOwner, FSteamPartyBeaconLocation& BeaconLocation, FString& Metadata) const
 {
 	TArray<char> TmpMeta;
+	TmpMeta.Reserve(SteamDefs::Buffer8192);
 	CSteamID TmpSteamID;
 	SteamPartyBeaconLocation_t TmpBeaconLocation;
-	bool bResult = SteamParties()->GetBeaconDetails(BeaconID, &TmpSteamID, &TmpBeaconLocation, TmpMeta.GetData(), 8192);  // Might not be the smartest to hardcode
+	bool bResult = SteamParties()->GetBeaconDetails(BeaconID, &TmpSteamID, &TmpBeaconLocation, TmpMeta.GetData(), SteamDefs::Buffer8192);
 	Metadata = UTF8_TO_TCHAR(TmpMeta.GetData());
 	SteamIDBeaconOwner = TmpSteamID.ConvertToUint64();
 	BeaconLocation = TmpBeaconLocation;
@@ -61,7 +64,8 @@ bool USteamParties::GetBeaconDetails(FPartyBeaconID BeaconID, FSteamID& SteamIDB
 bool USteamParties::GetBeaconLocationData(FSteamPartyBeaconLocation BeaconLocation, ESteamPartyBeaconLocationData_ LocationData, FString& DataString) const
 {
 	TArray<char> TmpData;
-	bool bResult = SteamParties()->GetBeaconLocationData(BeaconLocation, (ESteamPartyBeaconLocationData)LocationData, TmpData.GetData(), 8192);  // Might not be the smartest to hardcode
+	TmpData.Reserve(SteamDefs::Buffer8192);
+	bool bResult = SteamParties()->GetBeaconLocationData(BeaconLocation, (ESteamPartyBeaconLocationData)LocationData, TmpData.GetData(), SteamDefs::Buffer8192);
 	DataString = UTF8_TO_TCHAR(TmpData.GetData());
 	return bResult;
 }

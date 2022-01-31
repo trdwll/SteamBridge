@@ -48,12 +48,13 @@ void USteamUser::AdvertiseGame(FSteamID SteamID, const FString& IP, int32 Port)
 ESteamVoiceResult USteamUser::DecompressVoice(const TArray<uint8>& CompressedBuffer, TArray<uint8>& UncompressedBuffer)
 {
 	ESteamVoiceResult result = ESteamVoiceResult::NotInitialized;
+	constexpr int32 SampleRate = 48000;
 	uint16 BufferSize = 1024;
-	for (int i = 0; i < 4; i++)
+	for (int32 i = 0; i < 4; i++)
 	{
 		uint32 BytesWritten = 0;
 		UncompressedBuffer.SetNum(BufferSize);
-		result = (ESteamVoiceResult)SteamUser()->DecompressVoice(CompressedBuffer.GetData(), CompressedBuffer.Num(), UncompressedBuffer.GetData(), UncompressedBuffer.Num(), &BytesWritten, 48000);
+		result = (ESteamVoiceResult)SteamUser()->DecompressVoice(CompressedBuffer.GetData(), CompressedBuffer.Num(), UncompressedBuffer.GetData(), UncompressedBuffer.Num(), &BytesWritten, SampleRate);
 		UncompressedBuffer.SetNum(BytesWritten);
 
 		if (result == ESteamVoiceResult::OK)
@@ -68,9 +69,9 @@ ESteamVoiceResult USteamUser::DecompressVoice(const TArray<uint8>& CompressedBuf
 
 FHAuthTicket USteamUser::GetAuthSessionTicket(TArray<uint8>& Ticket)
 {
-	Ticket.SetNum(8192);
+	Ticket.SetNum(SteamDefs::Buffer8192);
 	uint32 TempCounter = 0;
-	FHAuthTicket bResult = SteamUser()->GetAuthSessionTicket(Ticket.GetData(), 8192, &TempCounter);
+	FHAuthTicket bResult = SteamUser()->GetAuthSessionTicket(Ticket.GetData(), SteamDefs::Buffer8192, &TempCounter);
 	Ticket.SetNum(TempCounter);
 	return bResult;
 }
@@ -78,8 +79,8 @@ FHAuthTicket USteamUser::GetAuthSessionTicket(TArray<uint8>& Ticket)
 bool USteamUser::GetEncryptedAppTicket(TArray<uint8>& Ticket)
 {
 	uint32 TempCounter = 0;
-	Ticket.SetNum(8192);
-	bool bResult = SteamUser()->GetEncryptedAppTicket(Ticket.GetData(), 8192, &TempCounter);
+	Ticket.SetNum(SteamDefs::Buffer8192);
+	bool bResult = SteamUser()->GetEncryptedAppTicket(Ticket.GetData(), SteamDefs::Buffer8192, &TempCounter);
 	Ticket.SetNum(TempCounter);
 	return bResult;
 }

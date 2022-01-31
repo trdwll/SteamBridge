@@ -64,6 +64,7 @@ void USteamFriends::ActivateGameOverlayToUser(const ESteamGameUserOverlayTypes O
 FSteamAPICall USteamFriends::DownloadClanActivityCounts(TArray<FSteamID>& SteamClanIDs, int32 ClansToRequest) const
 {
 	TArray<CSteamID> TmpArray;
+	TmpArray.Reserve(ClansToRequest);
 	uint64 res = SteamFriends()->DownloadClanActivityCounts(TmpArray.GetData(), ClansToRequest);
 
 	for (int32 i = 0; i < ClansToRequest; i++)
@@ -114,9 +115,9 @@ int32 USteamFriends::GetClanChatMessage(FSteamID SteamIDClanChat, int32 MessageI
 {
 	EChatEntryType TmpEntryType;
 	TArray<char> TmpMessage;
-	TmpMessage.SetNum(2048);
+	TmpMessage.SetNum(SteamDefs::Buffer2048);
 	CSteamID TmpSteamID;
-	int32 res = SteamFriends()->GetClanChatMessage(SteamIDClanChat, MessageID, TmpMessage.GetData(), 2048, &TmpEntryType, &TmpSteamID);
+	int32 res = SteamFriends()->GetClanChatMessage(SteamIDClanChat, MessageID, TmpMessage.GetData(), SteamDefs::Buffer2048, &TmpEntryType, &TmpSteamID);
 	if (res < 0)
 	{
 		return -1;
@@ -175,8 +176,8 @@ int32 USteamFriends::GetFriendMessage(FSteamID SteamIDFriend, int32 MessageIndex
 {
 	EChatEntryType TmpEntryType;
 	TArray<char> TmpMessage;
-	TmpMessage.SetNum(2048);
-	int32 res = SteamFriends()->GetFriendMessage(SteamIDFriend, MessageIndex, TmpMessage.GetData(), 2048, &TmpEntryType);
+	TmpMessage.Reserve(SteamDefs::Buffer2048);
+	int32 res = SteamFriends()->GetFriendMessage(SteamIDFriend, MessageIndex, TmpMessage.GetData(), SteamDefs::Buffer2048, &TmpEntryType);
 	if (res < 0)
 	{
 		return 0;
@@ -196,6 +197,7 @@ void USteamFriends::GetFriendsGroupMembersList(FSteamFriendsGroupID FriendsGroup
 	}
 
 	TArray<CSteamID> TmpArray;
+	TmpArray.Reserve(SteamDefs::Buffer128);
 	SteamFriends()->GetFriendsGroupMembersList(FriendsGroupID, TmpArray.GetData(), count);
 	for (int32 i = 0; i < count; i++)
 	{
@@ -250,6 +252,7 @@ UTexture2D* USteamFriends::GetFriendAvatar(FSteamID SteamIDFriend, ESteamAvatarS
 TArray<ESteamUserRestrictions> USteamFriends::GetUserRestrictions() const
 {
 	TArray<ESteamUserRestrictions> TmpArray;
+	TmpArray.Reserve(8);
 	uint32 flags = SteamFriends()->GetUserRestrictions();
 	for (int32 i = 0; i < 32; i++)
 	{
@@ -300,7 +303,7 @@ void USteamFriends::OnFriendsEnumerateFollowingList(FriendsEnumerateFollowingLis
 {
 #if 0
 	TArray<FSteamID> TmpArray;
-
+	TmpArray.Reserve(SteamDefs::Buffer128);
 	for (int32 i = 0; i < pParam->m_nResultsReturned; i++)
 	{
 		TmpArray.Add(pParam->m_rgSteamID[i].ConvertToUint64());

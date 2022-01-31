@@ -50,7 +50,7 @@ int32 USteamMatchmaking::AddFavoriteGame(int32 AppID, const FString& IP, int32 C
 
 bool USteamMatchmaking::GetFavoriteGame(int32 GameIndex, int32& AppID, FString& IP, int32& ConnPort, int32& QueryPort, TArray<ESteamFavoriteFlags>& Flags, FDateTime& TimeLastPlayedOnServer) const
 {
-	uint32 TmpIP = 0, TmpFlags = 0, TmpTime;
+	uint32 TmpIP = 0, TmpFlags = 0, TmpTime = 0;
 
 	bool bResult = SteamMatchmaking()->GetFavoriteGame(GameIndex, (uint32*)&AppID, &TmpIP, (uint16*)&ConnPort, (uint16*)&QueryPort, &TmpFlags, &TmpTime);
 	IP = USteamBridgeUtils::ConvertIPToString(TmpIP);
@@ -72,9 +72,9 @@ int32 USteamMatchmaking::GetLobbyChatEntry(FSteamID SteamIDLobby, int32 ChatID, 
 	EChatEntryType TmpType;
 	CSteamID TmpUserSteamID = SteamIDUser;
 	TArray<uint8> MessageBuffer;
-	MessageBuffer.SetNum(8192);
+	MessageBuffer.SetNum(SteamDefs::Buffer8192);
 
-	int32 Result = SteamMatchmaking()->GetLobbyChatEntry(SteamIDLobby, ChatID, &TmpUserSteamID, MessageBuffer.GetData(), 8192, &TmpType);
+	int32 Result = SteamMatchmaking()->GetLobbyChatEntry(SteamIDLobby, ChatID, &TmpUserSteamID, MessageBuffer.GetData(), SteamDefs::Buffer8192, &TmpType);
 
 	SteamIDUser = TmpUserSteamID.ConvertToUint64();
 	ChatEntryType = (ESteamChatEntryType)TmpType;
@@ -89,10 +89,10 @@ int32 USteamMatchmaking::GetLobbyChatEntry(FSteamID SteamIDLobby, int32 ChatID, 
 bool USteamMatchmaking::GetLobbyDataByIndex(FSteamID SteamIDLobby, int32 LobbyData, FString& Key, FString& Value) const
 {
 	TArray<char> TmpKey, TmpValue;
-	TmpKey.SetNum(8192);
-	TmpValue.SetNum(8192);
+	TmpKey.SetNum(SteamDefs::Buffer8192);
+	TmpValue.SetNum(SteamDefs::Buffer8192);
 
-	bool bResult = SteamMatchmaking()->GetLobbyDataByIndex(SteamIDLobby, LobbyData, TmpKey.GetData(), 8192, TmpValue.GetData(), 8192);
+	bool bResult = SteamMatchmaking()->GetLobbyDataByIndex(SteamIDLobby, LobbyData, TmpKey.GetData(), SteamDefs::Buffer8192, TmpValue.GetData(), SteamDefs::Buffer8192);
 
 	Key = UTF8_TO_TCHAR(TmpKey.GetData());
 	Value = UTF8_TO_TCHAR(TmpValue.GetData());
@@ -125,6 +125,7 @@ bool USteamMatchmaking::RemoveFavoriteGame(int32 AppID, const FString& IP, int32
 bool USteamMatchmaking::SendLobbyChatMsg(FSteamID SteamIDLobby, FString Message) const
 {
 	TArray<uint8> MessageBuffer;
+	MessageBuffer.Reserve(Message.Len());
 	FMemoryWriter MemWriter(MessageBuffer, true);
 	MemWriter << Message;
 	MemWriter.Close();
