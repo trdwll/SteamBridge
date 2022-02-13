@@ -383,31 +383,31 @@ public:
 	/** Delegates */
 
 	/** Sent when the game server attempted to be associated with a Steam Group. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnAssociateWithClanResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer|Delegates", meta = (DisplayName = "OnAssociateWithClanResult"))
 	FOnAssociateWithClanResultDelegate OnAssociateWithClanResultDelegate;
 
 	/** Sent when the game server is checking if the new player is a good fit for the server based on the frenemy system. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnComputeNewPlayerCompatibilityResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer|Delegates", meta = (DisplayName = "OnComputeNewPlayerCompatibilityResult"))
 	FOnComputeNewPlayerCompatibilityResultDelegate OnComputeNewPlayerCompatibilityResultDelegate;
 
 	/** A client has been approved to connect to this game server. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientApprove"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer|Delegates", meta = (DisplayName = "OnGSClientApprove"))
 	FOnGSClientApproveDelegate OnGSClientApproveDelegate;
 
 	/** Called when a user has been denied to connection to this game server. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientDeny"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer|Delegates", meta = (DisplayName = "OnGSClientDeny"))
 	FOnGSClientDenyDelegate OnGSClientDenyDelegate;
 
 	/** Called when we have received the group status of a user. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientGroupStatus"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer|Delegates", meta = (DisplayName = "OnGSClientGroupStatus"))
 	FOnGSClientGroupStatusDelegate OnGSClientGroupStatusDelegate;
 
 	/** Called when the game server should kick the user. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSClientKick"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer|Delegates", meta = (DisplayName = "OnGSClientKick"))
 	FOnGSClientKickDelegate OnGSClientKickDelegate;
 
 	/** Received when the game server requests to be displayed as secure (VAC protected) */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer", meta = (DisplayName = "OnGSPolicyResponse"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServer|Delegates", meta = (DisplayName = "OnGSPolicyResponse"))
 	FOnGSPolicyResponseDelegate OnGSPolicyResponseDelegate;
 
 protected:

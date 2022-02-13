@@ -301,32 +301,32 @@ public:
 
 	/** Delegates */
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage", meta = (DisplayName = "OnRemoteStorageDownloadUGCResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage|Delegates", meta = (DisplayName = "OnRemoteStorageDownloadUGCResult"))
 	FOnRemoteStorageDownloadUGCResultDelegate OnRemoteStorageDownloadUGCResultDelegate;
 
 	/** Response when reading a file asyncrounously with FileReadAsync. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage", meta = (DisplayName = "OnRemoteStorageFileReadAsyncComplete"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage|Delegates", meta = (DisplayName = "OnRemoteStorageFileReadAsyncComplete"))
 	FOnRemoteStorageFileReadAsyncCompleteDelegate OnRemoteStorageFileReadAsyncCompleteDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage", meta = (DisplayName = "OnRemoteStorageFileShareResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage|Delegates", meta = (DisplayName = "OnRemoteStorageFileShareResult"))
 	FOnRemoteStorageFileShareResultDelegate OnRemoteStorageFileShareResultDelegate;
 
 	/** Response when writing a file asyncrounously with FileWriteAsync. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage", meta = (DisplayName = "OnRemoteStorageFileWriteAsyncComplete"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage|Delegates", meta = (DisplayName = "OnRemoteStorageFileWriteAsyncComplete"))
 	FOnRemoteStorageFileWriteAsyncCompleteDelegate OnRemoteStorageFileWriteAsyncCompleteDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage", meta = (DisplayName = "OnRemoteStoragePublishedFileSubscribed"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage|Delegates", meta = (DisplayName = "OnRemoteStoragePublishedFileSubscribed"))
 	FOnRemoteStoragePublishedFileSubscribedDelegate OnRemoteStoragePublishedFileSubscribedDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage", meta = (DisplayName = "OnRemoteStoragePublishedFileUnsubscribed"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage|Delegates", meta = (DisplayName = "OnRemoteStoragePublishedFileUnsubscribed"))
 	FOnRemoteStoragePublishedFileUnsubscribedDelegate OnRemoteStoragePublishedFileUnsubscribedDelegate;
 
 	/** Called when the user has subscribed to a piece of UGC. Result from ISteamUGC::SubscribeItem. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage", meta = (DisplayName = "OnRemoteStorageSubscribePublishedFileResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage|Delegates", meta = (DisplayName = "OnRemoteStorageSubscribePublishedFileResult"))
 	FOnRemoteStorageSubscribePublishedFileResultDelegate OnRemoteStorageSubscribePublishedFileResultDelegate;
 
 	/** Called when the user has unsubscribed from a piece of UGC. Result from ISteamUGC::UnsubscribeItem. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage", meta = (DisplayName = "OnRemoteStorageUnsubscribePublishedFileResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemoteStorage|Delegates", meta = (DisplayName = "OnRemoteStorageUnsubscribePublishedFileResult"))
 	FOnRemoteStorageUnsubscribePublishedFileResultDelegate OnRemoteStorageUnsubscribePublishedFileResultDelegate;
 
 protected:

@@ -428,94 +428,94 @@ public:
 	/** Delegates */
 
 	/** A new browser was created and is ready for use. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLBrowserReady"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLBrowserReady"))
 	FOnHTMLBrowserReadyDelegate OnHTMLBrowserReadyDelegate;
 
 	/** Called when page history status has changed the ability to go backwards and forward. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLCanGoBackAndForward"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLCanGoBackAndForward"))
 	FOnHTMLCanGoBackAndForwardDelegate OnHTMLCanGoBackAndForwardDelegate;
 
 	/** Called when the current page in a browser gets a new title. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLChangedTitle"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLChangedTitle"))
 	FOnHTMLChangedTitleDelegate OnHTMLChangedTitleDelegate;
 
 	/** Called when the browser has been requested to close due to user interaction; usually because of a javascript window.close() call. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLCloseBrowser"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLCloseBrowser"))
 	FOnHTMLCloseBrowserDelegate OnHTMLCloseBrowserDelegate;
 
 	/** Called when a browser surface has received a file open dialog from a <input type="file"> click or similar, you must call FileLoadDialogResponse with the file(s) the user selected. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLFileOpenDialog"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLFileOpenDialog"))
 	FOnHTMLFileOpenDialogDelegate OnHTMLFileOpenDialogDelegate;
 
 	/** Called when a browser has finished loading a page. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLFinishedRequest"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLFinishedRequest"))
 	FOnHTMLFinishedRequestDelegate OnHTMLFinishedRequestDelegate;
 
 	/** Called when a a browser wants to hide a tooltip. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLHideToolTip"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLHideToolTip"))
 	FOnHTMLHideToolTipDelegate OnHTMLHideToolTipDelegate;
 
 	/** Provides details on the visibility and size of the horizontal scrollbar. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLHorizontalScroll"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLHorizontalScroll"))
 	FOnHTMLHorizontalScrollDelegate OnHTMLHorizontalScrollDelegate;
 
 	/** Called when the browser wants to display a Javascript alert dialog, call JSDialogResponse when the user dismisses this dialog; or right away to ignore it. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLJSAlert"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLJSAlert"))
 	FOnHTMLJSAlertDelegate OnHTMLJSAlertDelegate;
 
 	/** Called when the browser wants to display a Javascript confirmation dialog, call JSDialogResponse when the user dismisses this dialog; or right away to ignore it. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLJSConfirm"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLJSConfirm"))
 	FOnHTMLJSConfirmDelegate OnHTMLJSConfirmDelegate;
 
 	/** Result of a call to GetLinkAtPosition */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLLinkAtPosition"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLLinkAtPosition"))
 	FOnHTMLLinkAtPositionDelegate OnHTMLLinkAtPositionDelegate;
 
 	/** Called when a browser surface has a pending paint. This is where you get the actual image data to render to the screen. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLNeedsPaint"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLNeedsPaint"))
 	FOnHTMLNeedsPaintDelegate OnHTMLNeedsPaintDelegate;
 
 	/** A browser has created a new HTML window. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLNewWindow"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLNewWindow"))
 	FOnHTMLNewWindowDelegate OnHTMLNewWindowDelegate;
 
 	/** The browser has requested to load a url in a new tab. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLOpenLinkInNewTab"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLOpenLinkInNewTab"))
 	FOnHTMLOpenLinkInNewTabDelegate OnHTMLOpenLinkInNewTabDelegate;
 
 	/** Results from a search. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLSearchResults"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLSearchResults"))
 	FOnHTMLSearchResultsDelegate OnHTMLSearchResultsDelegate;
 
 	/** Called when a browser wants to change the mouse cursor. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLSetCursor"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLSetCursor"))
 	FOnHTMLSetCursorDelegate OnHTMLSetCursorDelegate;
 
 	/** Called when a browser wants to display a tooltip. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLShowToolTip"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLShowToolTip"))
 	FOnHTMLShowToolTipDelegate OnHTMLShowToolTipDelegate;
 
 	/**
 	 * Called when a browser wants to navigate to a new page.
 	 * NOTE: You MUST call AllowStartRequest in response to this callback!
 	 */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLStartRequest"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLStartRequest"))
 	FOnHTMLStartRequestDelegate OnHTMLStartRequestDelegate;
 
 	/** Called when a browser wants you to display an informational message. This is most commonly used when you hover over links. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLStatusText"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLStatusText"))
 	FOnHTMLStatusTextDelegate OnHTMLStatusTextDelegate;
 
 	/** Called when the text of an existing tooltip has been updated. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLUpdateToolTip"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLUpdateToolTip"))
 	FOnHTMLUpdateToolTipDelegate OnHTMLUpdateToolTipDelegate;
 
 	/** Called when the browser is navigating to a new url */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLURLChanged"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLURLChanged"))
 	FOnHTMLURLChangedDelegate OnHTMLURLChangedDelegate;
 
 	/** Provides details on the visibility and size of the vertical scrollbar. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Friends", meta = (DisplayName = "OnHTMLVerticalScroll"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTMLSurface|Delegates", meta = (DisplayName = "OnHTMLVerticalScroll"))
 	FOnHTMLVerticalScrollDelegate OnHTMLVerticalScrollDelegate;
 
 protected:

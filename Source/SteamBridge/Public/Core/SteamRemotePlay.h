@@ -95,10 +95,10 @@ public:
 
 	/** Delegates */
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemotePlay", meta = (DisplayName = "OnSteamRemotePlaySessionConnected"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemotePlay|Delegates", meta = (DisplayName = "OnSteamRemotePlaySessionConnected"))
 	FOnSteamRemotePlaySessionConnectedDelegate OnSteamRemotePlaySessionConnectedDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemotePlay", meta = (DisplayName = "OnSteamRemotePlaySessionDisconnected"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|RemotePlay|Delegates", meta = (DisplayName = "OnSteamRemotePlaySessionDisconnected"))
 	FOnSteamRemotePlaySessionDisconnectedDelegate OnSteamRemotePlaySessionDisconnectedDelegate;
 
 protected:

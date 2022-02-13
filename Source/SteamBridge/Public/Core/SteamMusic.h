@@ -107,10 +107,10 @@ public:
 
 	/** Delegates */
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Music", meta = (DisplayName = "OnPlaybackStatusHasChanged"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Music|Delegates", meta = (DisplayName = "OnPlaybackStatusHasChanged"))
 	FOnPlaybackStatusHasChangedDelegate OnPlaybackStatusHasChangedDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Music", meta = (DisplayName = "OnVolumeHasChanged"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Music|Delegates", meta = (DisplayName = "OnVolumeHasChanged"))
 	FOnVolumeHasChangedDelegate OnVolumeHasChangedDelegate;
 
 protected:

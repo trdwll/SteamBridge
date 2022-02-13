@@ -199,18 +199,18 @@ public:
 	/** Delegates */
 
 	/** Result when getting the latests stats and achievements for a user from the server. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "OnGSStatsReceived"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats|Delegates", meta = (DisplayName = "OnGSStatsReceived"))
 	FOnGSStatsReceivedDelegate OnGSStatsReceivedDelegate;
 
 	/** Result of a request to store the user stats. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "OnGSStatsStored"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats|Delegates", meta = (DisplayName = "OnGSStatsStored"))
 	FOnGSStatsStoredDelegate OnGSStatsStoredDelegate;
 
 	/**
 	 * Callback indicating that a user's stats have been unloaded.
 	 * Call RequestUserStats again to access stats for this user.
 	 */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats", meta = (DisplayName = "OnGSStatsUnloaded"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|GameServerStats|Delegates", meta = (DisplayName = "OnGSStatsUnloaded"))
 	FOnGSStatsUnloadedDelegate OnGSStatsUnloadedDelegate;
 
 protected:

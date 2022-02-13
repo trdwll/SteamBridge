@@ -78,18 +78,18 @@ public:
 
 	/** Delegates */
 
-	/*UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video", meta = (DisplayName = "OnBroadcastUploadStart"))
+	/*UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video|Delegates", meta = (DisplayName = "OnBroadcastUploadStart"))
 	FOnBroadcastUploadStartDelegate m_OnBroadcastUploadStart;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video", meta = (DisplayName = "OnBroadcastUploadStop"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video|Delegates", meta = (DisplayName = "OnBroadcastUploadStop"))
 	FOnBroadcastUploadStopDelegate m_OnBroadcastUploadStop;*/
 
 	/** Triggered when the OPF Details for 360 video playback are retrieved. After receiving this you can use GetOPFStringForApp to access the OPF details. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video", meta = (DisplayName = "OnGetOPFSettingsResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video|Delegates", meta = (DisplayName = "OnGetOPFSettingsResult"))
 	FOnGetOPFSettingsResultDelegate OnGetOPFSettingsResultDelegate;
 
 	/** Provides the result of a call to GetVideoURL. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video", meta = (DisplayName = "OnGetVideoURLResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Video|Delegates", meta = (DisplayName = "OnGetVideoURLResult"))
 	FOnGetVideoURLResultDelegate OnGetVideoURLResultDelegate;
 
 protected:

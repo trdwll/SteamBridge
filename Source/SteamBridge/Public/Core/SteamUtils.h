@@ -313,23 +313,23 @@ public:
 	/** Delegates */
 
 	/** Called when the big picture gamepad text input has been closed. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnGamepadTextInputDismissed"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils|Delegates", meta = (DisplayName = "OnGamepadTextInputDismissed"))
 	FOnGamepadTextInputDismissedDelegate OnGamepadTextInputDismissedDelegate;
 
 	/** Called when the country of the user changed. The country should be updated with GetIPCountry. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnIPCountry"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils|Delegates", meta = (DisplayName = "OnIPCountry"))
 	FOnIPCountryDelegate OnIPCountryDelegate;
 
 	/** Called when running on a laptop and less than 10 minutes of battery is left, and then fires then every minute afterwards. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnLowBatteryPower"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils|Delegates", meta = (DisplayName = "OnLowBatteryPower"))
 	FOnLowBatteryPowerDelegate OnLowBatteryPowerDelegate;
 
 	/** Called when a SteamAPICall_t has completed (or failed) */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnSteamAPICallCompleted"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils|Delegates", meta = (DisplayName = "OnSteamAPICallCompleted"))
 	FOnSteamAPICallCompletedDelegate OnSteamAPICallCompletedDelegate;
 
 	/** Called when Steam wants to shutdown. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils", meta = (DisplayName = "OnSteamShutdown"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Utils|Delegates", meta = (DisplayName = "OnSteamShutdown"))
 	FOnSteamShutdownDelegate OnSteamShutdownDelegate;
 
 protected:

@@ -915,67 +915,67 @@ public:
 	/** Delegates */
 
 	/** The result of a call to AddAppDependency. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnAddAppDependencyResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnAddAppDependencyResult"))
 	FOnAddAppDependencyResultDelegate OnAddAppDependencyResultDelegate;
 
 	/** The result of a call to AddDependency. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnAddUGCDependencyResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnAddUGCDependencyResult"))
 	FOnAddUGCDependencyResultDelegate OnAddUGCDependencyResultDelegate;
 
 	/** Called when a new workshop item has been created. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnCreateItemResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnCreateItemResult"))
 	FOnCreateItemResultDelegate OnCreateItemResultDelegate;
 
 	/** Called when a workshop item has been downloaded. NOTE: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnDownloadItemResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnDownloadItemResult"))
 	FOnDownloadItemResultDelegate OnDownloadItemResultDelegate;
 
 	/** Called when getting the app dependencies for an item. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnGetAppDependenciesResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnGetAppDependenciesResult"))
 	FOnGetAppDependenciesResultDelegate OnGetAppDependenciesResultDelegate;
 
 	/** Called when an attempt at deleting an item completes. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnDeleteItemResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnDeleteItemResult"))
 	FOnDeleteItemResultDelegate OnDeleteItemResultDelegate;
 
 	/** Called when getting the users vote status on an item. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnGetUserItemVoteResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnGetUserItemVoteResult"))
 	FOnGetUserItemVoteResultDelegate OnGetUserItemVoteResultDelegate;
 
 	/** Called when a workshop item has been installed or updated. NOTE: This callback goes out to all running applications, ensure that the app ID associated with the item matches what you expect. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnItemInstalled"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnItemInstalled"))
 	FOnItemInstalledDelegate OnItemInstalledDelegate;
 
 	/** Purpose: The result of a call to RemoveAppDependency. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnRemoveAppDependencyResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnRemoveAppDependencyResult"))
 	FOnRemoveAppDependencyResultDelegate OnRemoveAppDependencyResultDelegate;
 
 	/** Purpose: The result of a call to RemoveDependency. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnRemoveUGCDependencyResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnRemoveUGCDependencyResult"))
 	FOnRemoveUGCDependencyResultDelegate OnRemoveUGCDependencyResultDelegate;
 
 	/** Called when the user has voted on an item. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnSetUserItemVoteResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnSetUserItemVoteResult"))
 	FOnSetUserItemVoteResultDelegate OnSetUserItemVoteResultDelegate;
 
 	/** Called when workshop item playtime tracking has started. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnStartPlaytimeTrackingResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnStartPlaytimeTrackingResult"))
 	FOnStartPlaytimeTrackingResultDelegate OnStartPlaytimeTrackingResultDelegate;
 
 	/** Called when a UGC query request completes. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnSteamUGCQueryCompleted"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnSteamUGCQueryCompleted"))
 	FOnSteamUGCQueryCompletedDelegate OnSteamUGCQueryCompletedDelegate;
 
 	/** Called when workshop item playtime tracking has stopped. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnStopPlaytimeTrackingResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnStopPlaytimeTrackingResult"))
 	FOnStopPlaytimeTrackingResultDelegate OnStopPlaytimeTrackingResultDelegate;
 
 	/** Called when an item update has completed. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnSubmitItemUpdateResult"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnSubmitItemUpdateResult"))
 	FOnSubmitItemUpdateResultDelegate OnSubmitItemUpdateResultDelegate;
 
 	/** Called when the user has added or removed an item to/from their favorites. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC", meta = (DisplayName = "OnUserFavoriteItemsListChanged"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|UGC|Delegates", meta = (DisplayName = "OnUserFavoriteItemsListChanged"))
 	FOnUserFavoriteItemsListChangedDelegate OnUserFavoriteItemsListChangedDelegate;
 
 protected:

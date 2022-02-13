@@ -405,15 +405,15 @@ public:
 	 * Result when an HTTP request completes.
 	 * If you're using GetHTTPStreamingResponseBodyData then you should be using the HTTPRequestHeadersReceived_t or HTTPRequestDataReceived_t.
 	 */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP", meta = (DisplayName = "OnHTTPRequestCompleted"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP|Delegates", meta = (DisplayName = "OnHTTPRequestCompleted"))
 	FOnHTTPRequestCompletedDelegate OnHTTPRequestCompletedDelegate;
 
 	/** Triggered when a chunk of data is received from a streaming HTTP request. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP", meta = (DisplayName = "OnHTTPRequestDataReceived"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP|Delegates", meta = (DisplayName = "OnHTTPRequestDataReceived"))
 	FOnHTTPRequestDataReceivedDelegate OnHTTPRequestDataReceivedDelegate;
 
 	/** Triggered when HTTP headers are received from a streaming HTTP request. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP", meta = (DisplayName = "OnHTTPRequestHeadersReceived"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|HTTP|Delegates", meta = (DisplayName = "OnHTTPRequestHeadersReceived"))
 	FOnHTTPRequestHeadersReceivedDelegate OnHTTPRequestHeadersReceivedDelegate;
 
 protected:

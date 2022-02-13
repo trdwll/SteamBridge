@@ -137,46 +137,46 @@ public:
 
 	/** Delegates */
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerRemoteToFront"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerRemoteToFront"))
 	FOnMusicPlayerRemoteToFrontDelegate OnMusicPlayerRemoteToFrontDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerRemoteWillActivate"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerRemoteWillActivate"))
 	FOnMusicPlayerRemoteWillActivateDelegate OnMusicPlayerRemoteWillActivateDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerRemoteWillDeactivate"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerRemoteWillDeactivate"))
 	FOnMusicPlayerRemoteWillDeactivateDelegate OnMusicPlayerRemoteWillDeactivateDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerSelectsPlaylistEntry"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerSelectsPlaylistEntry"))
 	FOnMusicPlayerSelectsPlaylistEntryDelegate OnMusicPlayerSelectsPlaylistEntryDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerSelectsQueueEntry"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerSelectsQueueEntry"))
 	FOnMusicPlayerSelectsQueueEntryDelegate OnMusicPlayerSelectsQueueEntryDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsLooped"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWantsLooped"))
 	FOnMusicPlayerWantsLoopedDelegate OnMusicPlayerWantsLoopedDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPause"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWantsPause"))
 	FOnMusicPlayerWantsPauseDelegate OnMusicPlayerWantsPauseDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPlayingRepeatStatus"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWantsPlayingRepeatStatus"))
 	FOnMusicPlayerWantsPlayingRepeatStatusDelegate OnMusicPlayerWantsPlayingRepeatStatusDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPlayNext"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWantsPlayNext"))
 	FOnMusicPlayerWantsPlayNextDelegate OnMusicPlayerWantsPlayNextDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPlayPrevious"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWantsPlayPrevious"))
 	FOnMusicPlayerWantsPlayPreviousDelegate OnMusicPlayerWantsPlayPreviousDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsPlay"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWantsPlay"))
 	FOnMusicPlayerWantsPlayDelegate OnMusicPlayerWantsPlayDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsShuffled"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWantsShuffled"))
 	FOnMusicPlayerWantsShuffledDelegate OnMusicPlayerWantsShuffledDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWantsVolume"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWantsVolume"))
 	FOnMusicPlayerWantsVolumeDelegate OnMusicPlayerWantsVolumeDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote", meta = (DisplayName = "OnMusicPlayerWillQuit"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|MusicRemote|Delegates", meta = (DisplayName = "OnMusicPlayerWillQuit"))
 	FOnMusicPlayerWillQuitDelegate OnMusicPlayerWillQuitDelegate;
 
 protected:

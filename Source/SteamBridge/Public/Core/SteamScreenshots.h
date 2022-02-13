@@ -139,11 +139,11 @@ public:
 	/** Delegates */
 
 	/** A screenshot successfully written or otherwise added to the library and can now be tagged. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Screenshots", meta = (DisplayName = "OnScreenshotReady"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Screenshots|Delegates", meta = (DisplayName = "OnScreenshotReady"))
 	FOnScreenshotReadyDelegate OnScreenshotReadyDelegate;
 
 	/** A screenshot has been requested by the user from the Steam screenshot hotkey. This will only be called if HookScreenshots has been enabled, in which case Steam will not take the screenshot itself. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Screenshots", meta = (DisplayName = "OnScreenshotRequested"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Screenshots|Delegates", meta = (DisplayName = "OnScreenshotRequested"))
 	FOnScreenshotRequestedDelegate OnScreenshotRequestedDelegate;
 
 protected:

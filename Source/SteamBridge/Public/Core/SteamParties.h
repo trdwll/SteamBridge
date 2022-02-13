@@ -165,30 +165,30 @@ public:
 	/** Delegates */
 
 	/** This callback is used as a call response for ISteamParties::JoinParty. On success, you will have reserved a slot in the beacon-owner's party, and should use m_rgchConnectString to connect to their game and complete the process. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties", meta = (DisplayName = "OnJoinParty"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties|Delegates", meta = (DisplayName = "OnJoinParty"))
 	FOnJoinPartyDelegate OnJoinPartyDelegate;
 
 	/**
 	 * This callback is used as a call response for ISteamParties::CreateBeacon. If successful, your beacon has been posted in the desired location and you may start receiving ISteamParties::ReservationNotificationCallback_t
 	 * callbacks for users following the beacon.
 	 */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties", meta = (DisplayName = "OnCreateBeacon"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties|Delegates", meta = (DisplayName = "OnCreateBeacon"))
 	FOnCreateBeaconDelegate OnCreateBeaconDelegate;
 
 	/** After creating a beacon, when a user "follows" that beacon Steam will send you this callback to know that you should be prepared for the user to join your game. When they do join, be sure to call ISteamParties::OnReservationCompleted to let Steam know. */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties", meta = (DisplayName = "OnReservationNotification"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties|Delegates", meta = (DisplayName = "OnReservationNotification"))
 	FOnReservationNotificationDelegate OnReservationNotificationDelegate;
 
 	/** Call result for ISteamParties::ChangeNumOpenSlots.  */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties", meta = (DisplayName = "OnChangeNumOpenSlots"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties|Delegates", meta = (DisplayName = "OnChangeNumOpenSlots"))
 	FOnChangeNumOpenSlotsDelegate OnChangeNumOpenSlotsDelegate;
 
 	/** Notification that the list of available locations for posting a beacon has been updated.  */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties", meta = (DisplayName = "OnAvailableBeaconLocationsUpdated"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties|Delegates", meta = (DisplayName = "OnAvailableBeaconLocationsUpdated"))
 	FOnAvailableBeaconLocationsUpdatedDelegate OnAvailableBeaconLocationsUpdatedDelegate;
 
 	/** Notification that the list of active beacons visible to the current user has changed.  */
-	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties", meta = (DisplayName = "OnActiveBeaconsUpdated"))
+	UPROPERTY(BlueprintAssignable, Category = "SteamBridgeCore|Parties|Delegates", meta = (DisplayName = "OnActiveBeaconsUpdated"))
 	FOnActiveBeaconsUpdatedDelegate OnActiveBeaconsUpdatedDelegate;
 
 protected:
