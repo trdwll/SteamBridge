@@ -6,7 +6,12 @@
 #include <Containers/Ticker.h>
 #include <Modules/ModuleManager.h>
 
-class FSteamBridgeModule : public IModuleInterface, public FTSTickerObjectBase
+class FSteamBridgeModule : public IModuleInterface,
+#if ENGINE_MAJOR_VERSION == 5
+		public FTSTickerObjectBase
+#else
+		public FTickerObjectBase
+#endif
 {
 public:
 

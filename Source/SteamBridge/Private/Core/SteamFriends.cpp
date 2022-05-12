@@ -235,10 +235,19 @@ UTexture2D* USteamFriends::GetFriendAvatar(const FSteamID SteamIDFriend, const E
 			AvatarRGBA[i + 0] = AvatarRGBA[i + 2];
 			AvatarRGBA[i + 2] = Temp;
 		}
+
+#if ENGINE_MAJOR_VERSION == 5
 		uint8* MipData = (uint8*)AvatarTexture->GetPlatformData()->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
 		FMemory::Memcpy(MipData, (void*)AvatarRGBA, Height * Width * 4);
 		AvatarTexture->GetPlatformData()->Mips[0].BulkData.Unlock();
 		AvatarTexture->GetPlatformData()->SetNumSlices(1);
+#else
+		uint8* MipData = (uint8*)AvatarTexture->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
+		FMemory::Memcpy(MipData, (void*)AvatarRGBA, Height * Width * 4);
+		AvatarTexture->PlatformData->Mips[0].BulkData.Unlock();
+		AvatarTexture->PlatformData->SetNumSlices(1);
+#endif
+
 		AvatarTexture->NeverStream = true;
 		AvatarTexture->UpdateResource();
 		delete[] AvatarRGBA;
