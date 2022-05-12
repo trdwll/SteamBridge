@@ -2,6 +2,7 @@
 
 #include "Core/SteamFriends.h"
 #include "Steam.h"
+#include "SteamBridgeUtils.h"
 
 #include <Engine/Texture2D.h>
 
