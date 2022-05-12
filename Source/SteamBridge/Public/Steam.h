@@ -8,10 +8,13 @@
 #pragma warning(disable:4265)
 #endif
 
-THIRD_PARTY_INCLUDES_START
-#include <steam/steam_api.h>
-#include <steam/steam_gameserver.h>
-THIRD_PARTY_INCLUDES_END
+#if ENGINE_MAJOR_VERSION == 5
+#include "ThirdParty/Steamworks/Steamv151/sdk/public/steam/steam_api.h"
+#include "ThirdParty/Steamworks/Steamv151/sdk/public/steam/steam_gameserver.h"
+#else
+#include "ThirdParty/Steamworks/Steamv147/sdk/public/steam/steam_api.h"
+#include "ThirdParty/Steamworks/Steamv147/sdk/public/steam/steam_gameserver.h"
+#endif
 
 #ifdef _MSC_VER
 #pragma warning(pop)

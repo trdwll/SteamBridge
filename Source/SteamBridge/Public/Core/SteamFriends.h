@@ -346,13 +346,13 @@ public:
 	 * @param FSteamID SteamIDFriend - The Steam ID of the other user.
 	 * @param FSteamID & GameID - The game ID that the friend is playing.
 	 * @param FString & GameIP - The IP of the server the friend is playing on.
-	 * @param int32 & GamePort - The port of the server the friend is playing on.
+	 * @param int32 & FriendGameport - The port of the server the friend is playing on.
 	 * @param int32 & QueryPort - The query port of the server the friend is playing on.
 	 * @param FSteamID & SteamIDLobby - The Steam ID of the lobby the friend is in
 	 * @return bool - true if the user is a friend and is in a game; otherwise, false.
 	 */
 	UFUNCTION(BlueprintPure, Category = "SteamBridgeCore|Friends")
-	bool GetFriendGamePlayed(const FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& GamePort, int32& QueryPort, FSteamID& SteamIDLobby);
+	bool GetFriendGamePlayed(const FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& FriendGameport, int32& QueryPort, FSteamID& SteamIDLobby);
 
 	/**
 	 * Gets the data from a Steam friends message.
