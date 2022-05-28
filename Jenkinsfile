@@ -19,7 +19,7 @@ pipeline {
         branch "main"
       }
       steps {
-        bat "C:\\JenkinsBuilder.exe SteamBridge Publish -w \"%WORKSPACE%\""
+        bat "C:\\JenkinsBuilder.exe -p SteamBridge -c Publish -w \"%WORKSPACE%\""
       }
     }
   }
