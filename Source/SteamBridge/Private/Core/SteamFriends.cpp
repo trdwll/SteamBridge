@@ -2,6 +2,7 @@
 
 #include "Core/SteamFriends.h"
 #include "Steam.h"
+#include "SteamBridgeUtils.h"
 
 #include <Engine/Texture2D.h>
 
@@ -160,13 +161,13 @@ int32 USteamFriends::GetFriendCount(const TArray<ESteamFriendFlags>& FriendFlags
 	return SteamFriends()->GetFriendCount(flags);
 }
 
-bool USteamFriends::GetFriendGamePlayed(const FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& GamePort, int32& QueryPort, FSteamID& SteamIDLobby)
+bool USteamFriends::GetFriendGamePlayed(const FSteamID SteamIDFriend, FSteamID& GameID, FString& GameIP, int32& FriendGameport, int32& QueryPort, FSteamID& SteamIDLobby)
 {
 	FriendGameInfo_t InGameInfoStruct;
 	bool bResult = SteamFriends()->GetFriendGamePlayed(SteamIDFriend, &InGameInfoStruct);
 	GameID = InGameInfoStruct.m_gameID.ToUint64();
 	GameIP = USteamBridgeUtils::ConvertIPToString(InGameInfoStruct.m_unGameIP);
-	GamePort = InGameInfoStruct.m_usGamePort;
+	FriendGameport = InGameInfoStruct.m_usGamePort;
 	QueryPort = InGameInfoStruct.m_usQueryPort;
 	SteamIDLobby = InGameInfoStruct.m_steamIDLobby.ConvertToUint64();
 	return bResult;
@@ -235,10 +236,19 @@ UTexture2D* USteamFriends::GetFriendAvatar(const FSteamID SteamIDFriend, const E
 			AvatarRGBA[i + 0] = AvatarRGBA[i + 2];
 			AvatarRGBA[i + 2] = Temp;
 		}
+
+#if ENGINE_MAJOR_VERSION == 5
+		uint8* MipData = (uint8*)AvatarTexture->GetPlatformData()->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
+		FMemory::Memcpy(MipData, (void*)AvatarRGBA, Height * Width * 4);
+		AvatarTexture->GetPlatformData()->Mips[0].BulkData.Unlock();
+		AvatarTexture->GetPlatformData()->SetNumSlices(1);
+#else
 		uint8* MipData = (uint8*)AvatarTexture->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
 		FMemory::Memcpy(MipData, (void*)AvatarRGBA, Height * Width * 4);
 		AvatarTexture->PlatformData->Mips[0].BulkData.Unlock();
 		AvatarTexture->PlatformData->SetNumSlices(1);
+#endif
+
 		AvatarTexture->NeverStream = true;
 		AvatarTexture->UpdateResource();
 		delete[] AvatarRGBA;
