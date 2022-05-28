@@ -1,6 +1,8 @@
 // Copyright 2020-2022 Russ 'trdwll' Treadwell <trdwll.com>. All Rights Reserved.
 #pragma once
 
+#include <Runtime/Launch/Resources/Version.h>
+
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable:4996)
