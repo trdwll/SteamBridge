@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat "C:\\JenkinsBuilder.exe SteamBridge Build \"%WORKSPACE%\""
+        bat "C:\\JenkinsBuilder.exe -p SteamBridge -c Build -w \"%WORKSPACE%\" -v 2022 -e \"C:\\\\UnrealEngine\\\\UE_5.0\\\\\""
       }
     }
 
@@ -19,7 +19,7 @@ pipeline {
         branch "main"
       }
       steps {
-        bat "C:\\JenkinsBuilder.exe SteamBridge Publish \"%WORKSPACE%\""
+        bat "C:\\JenkinsBuilder.exe SteamBridge Publish -w \"%WORKSPACE%\""
       }
     }
   }
