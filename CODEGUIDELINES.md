@@ -1,6 +1,6 @@
 Thanks for considering contributing to the project. Before you get to contributing please read over our code guidelines to avoid having us redo your work later. 
 
-These guidelines are a WIP so feel free to contribute to it if you want. I'm aware that these guidelines "go against" the UE4 guidelines, but this is the way I like my code. Feel free to clone and change it for your own project. ;)
+These guidelines are a WIP so feel free to contribute to it if you want. Feel free to clone and change it for your own project. ;)
 
 ## Formatting
 - Tabs with 4 spaces
@@ -26,22 +26,22 @@ class MyClass
 
 public:
     UFUNCTION(...)
-    int32 GetUniquePlayerID() const { return m_UniquePlayerID; }
+    int32 GetUniquePlayerID() const { return UniquePlayerID; }
 
     UFUNCTION(...)
-    const FString& GetOnlinePlayerUserName() const { return m_OnlinePlayerUserName; }
+    const FString& GetOnlinePlayerUserName() const { return OnlinePlayerUserName; }
 
     UFUNCTION(...)
     void SetOnlinePlayerUserName(const FString& NewName);
 
 protected:
 private:
-    int32 m_UniquePlayerID;
+    int32 UniquePlayerID;
 
-    FString m_OnlinePlayerUserName;
+    FString OnlinePlayerUserName;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (DisplayName = "bTest"))
-    bool m_bTest;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    bool bTest;
 };
 
 // CPP
@@ -52,7 +52,7 @@ void MyClass::SetOnlinePlayerUserName(const FString& NewName)
         return;
     }
 
-    m_OnlinePlayerUserName = NewName;
+    OnlinePlayerUserName = NewName;
 }
 ```
 
